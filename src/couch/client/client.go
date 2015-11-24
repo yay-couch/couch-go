@@ -15,14 +15,13 @@ import u "./../util"
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
 type Client struct {
-    Scheme     string
-    Host       string
-    Port       uint16
-    Username,
-    Password   string
-    Request    *_request.Request
-    Response   *_response.Response
-    Couch      map[string]interface{}
+    Scheme    string
+    Host      string
+    Port      uint16
+    Username, Password string
+    Request   *_request.Request
+    Response  *_response.Response
+    Couch     map[string]interface{}
 }
 
 func Shutup() {}
