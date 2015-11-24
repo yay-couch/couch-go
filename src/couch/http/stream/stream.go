@@ -1,1 +1,85 @@
 package stream
+
+import (
+    _str "strings"
+)
+
+import u "./../../util"
+// @tmp
+var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+
+type Stream struct {
+    Type        uint8
+    HttpVersion string
+    Headers     map[string]interface{}
+    Body        interface{}
+}
+
+const (
+    TYPE_REQUEST  = 1
+    TYPE_RESPONSE = 2
+)
+
+func Shutup() {}
+
+func New() *Stream {
+    return &Stream{
+        Headers: make(map[string]interface{}),
+    }
+}
+
+func (this *Stream) SetHeader(key string, value interface{}) {
+    _checkStreamHeaders(this)
+    switch u.Type(value) {
+        case "nil":
+            delete(this.Headers, key)
+        case "int",
+             "string":
+            this.Headers[key] = u.ToString(value);
+        default:
+            panic("Unsupported value type '"+ u.Type(value) +"' given!");
+    }
+}
+func (this *Stream) GetHeader(key string) interface{} {
+    _checkStreamHeaders(this)
+    if value, ok := this.Headers[key]; ok {
+        return value
+    }
+    return nil
+}
+func (this *Stream) GetHeaderAll(key string) map[string]interface{} {
+    _checkStreamHeaders(this)
+    return this.Headers
+}
+
+func (this *Stream) SetBody(body interface{}) {
+    // request | response ?
+    var bodyType = u.Type(body)
+    switch bodyType {
+        case "nil":
+            this.Body = nil
+        case "int",
+             "string":
+            body = (u.ToString(body))
+            // trim null bytes
+            body = _str.Trim(body.(string), "\x00")
+            this.Body = body
+        default:
+            panic("Unsupported body type '"+ bodyType +"' given!");
+    }
+}
+
+func (this *Stream) GetBody() string {
+    return this.Body.(string)
+}
+
+func (this *Stream) ToString() string {
+    // @todo
+    return ""
+}
+
+func _checkStreamHeaders(stream *Stream) {
+    if stream.Headers == nil {
+        stream.Headers = make(map[string]interface{})
+    }
+}
