@@ -67,8 +67,7 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
     }
     this.Request.SetBody(body)
 
-    var result = this.Request.Send()
-    if result != "" {
+    if result := this.Request.Send(); result != "" {
         tmp := make([]string, 2)
         tmp = _str.SplitN(result, "\r\n\r\n", 2)
         if len(tmp) != 2 {
