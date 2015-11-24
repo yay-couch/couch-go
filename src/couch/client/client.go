@@ -6,7 +6,7 @@ import (
     _rex "regexp"
 )
 
-import _stream "./../http/stream"
+// import _stream "./../http/stream"
 import _request "./../http/request"
 import _response "./../http/response"
 
@@ -74,11 +74,7 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
         if len(tmp) != 2 {
             panic("No valid response returned from server!")
         }
-        var headers = u.ParseHeaders(
-            _stream.TYPE_REQUEST,
-            _str.TrimSpace(tmp[0]),
-        );
-        if headers != nil {
+        if headers := u.ParseHeaders(_str.TrimSpace(tmp[0])); headers != nil {
             if status := headers["0"]; status != "" {
                 this.Response.SetStatus(headers["0"])
             }
