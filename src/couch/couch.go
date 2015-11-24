@@ -18,9 +18,11 @@ const (
     VERSION = "1.0.0"
 )
 
-const DEFAULT_SCHEME string = "http"
-const DEFAULT_HOST   string = "localhost"
-const DEFAULT_PORT   uint16 = 5984
+const (
+    DEFAULT_SCHEME string = "http"
+    DEFAULT_HOST   string = "localhost"
+    DEFAULT_PORT   uint16 = 5984
+)
 
 func New(config interface{}) *Couch {
     couch := &Couch{}
