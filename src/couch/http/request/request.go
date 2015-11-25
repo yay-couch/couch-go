@@ -42,10 +42,11 @@ func New(config map[string]interface{}) *Request {
         Config: config,
     }
 
-    // if config["Username"] != nil {
-    //     // this.Headers["Authorization"] = "Basic "+
-    //             // Util.Base64.encode(this.client.username +":"+ this.client.password);
-    // }
+    // @todo
+    if config["Username"] != "" && config["Password"] != "" {
+        // this.Headers["Authorization"] = "Basic "+
+                // Util.Base64.encode(this.client.username +":"+ this.client.password);
+    }
 
     // this.Headers =
     this.Headers["Host"] = _fmt.Sprintf("%s:%v", config["Host"], config["Port"])
@@ -80,18 +81,17 @@ func (this *Request) SetUri(uri string, uriParams interface{}) {
 }
 
 func (this *Request) Send() string {
-    link, err := _net.Dial("tcp", _fmt.Sprintf("%s:%v", this.Config["Host"], this.Config["Port"]))
+    // link, _ := _net.Dial("tcp", "localhost:5984")
+    link, err := _net.Dial("tcp",
+        _fmt.Sprintf("%s:%v", this.Config["Host"], this.Config["Port"]))
     if err != nil {
         panic(err)
     }
     defer link.Close()
 
     var request, response string
-    var url = u.ParseUrl(_fmt.Sprintf("%s://%s:%v",
-        this.Config["Scheme"], this.Config["Host"], this.Config["Port"]))
-
-    request += _fmt.Sprintf("%s %s HTTP/%s\r\n",
-        this.Method, url["Path"], this.HttpVersion)
+    var url = u.ParseUrl(_fmt.Sprintf("%s://%s", this.Config["Scheme"], this.Uri))
+    request += _fmt.Sprintf("%s %s HTTP/%s\r\n", this.Method, url["Path"], this.HttpVersion)
     for key, value := range this.Headers {
         if !u.IsEmpty(value) {
             request += _fmt.Sprintf("%s: %s\r\n", key, value)
@@ -99,10 +99,24 @@ func (this *Request) Send() string {
     }
     request += "\r\n"
     request += this.GetBody()
+    // _dump(request)
 
     _fmt.Fprint(link, request)
 
+    // _dump("\n\n")
+
     var reader = _bio.NewReader(link);
+
+    status, err := reader.ReadString('\n')
+    if status == "" {
+        _fmt.Print("HTTP error: no response returned from server!\n")
+        _fmt.Print("---------------------------------------------\n")
+        _fmt.Print(request, "\n")
+        _fmt.Print("---------------------------------------------\n\n")
+        panic(err)
+    }
+    response += status
+
     for {
         var buffer = make([]byte, 1024)
         if read, _ := reader.Read(buffer); read == 0 {
@@ -110,6 +124,7 @@ func (this *Request) Send() string {
         }
         response += string(buffer)
     }
+    // _dump(response)
 
     return response
 }
