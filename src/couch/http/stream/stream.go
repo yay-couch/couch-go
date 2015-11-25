@@ -60,9 +60,9 @@ func (this *Stream) SetBody(body interface{}) {
             this.Body = nil
         case "int",
              "string":
-            body = (u.ToString(body))
-            // trim null bytes
+            // trim null bytes & \r\n
             body = _str.Trim(body.(string), "\x00")
+            body = _str.TrimSpace(body.(string))
             this.Body = body
         default:
             panic("Unsupported body type '"+ bodyType +"' given!");
