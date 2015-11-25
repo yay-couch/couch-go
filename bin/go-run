@@ -1,7 +1,19 @@
 #!/bin/bash
 
+### first
+# ~$ chmod +x ~/go-run
+# ~$ cp ~/go-run /usr/local/bin
+
+### console
+# ~$ go-run main.go
+
+### sublime
+# echo '{"cmd": ["go-run", "main.go"]}' > \
+#    ~/.config/sublime-text-3/Packages/User/GO-RUN.sublime-build
+# ctrl+b GO-RUN or ctrl+shift+b > select GO-RUN first
+
 if [[ $1 == "" ]]; then
-    echo "Usage: <path>/go-run <file>.go # main.go"
+    echo "Usage: ~/go-run <file>.go # main.go"
     echo "Exiting..."
     exit
 fi
