@@ -1,32 +1,25 @@
 #!/bin/bash
 
-### first
-# ~$ chmod +x ~/go-run
-# ~$ ln -s ~/go-run /usr/local/bin/
+### sublime shortcut run command tool ###
 
-### console
-# ~$ go-run main.go
+### install
+# ~$ cd ~/
+# ~$ wget https://raw.githubusercontent.com/qeremy/couch-go/master/bin/go-run
+# ~$ chmod +x ~/go-run
+# ~$ cp ~/go-run /usr/local/bin
 
 ### sublime
-# echo '{"cmd": ["go-run", "main.go"]}' > \
-#    ~/.config/sublime-text-3/Packages/User/GO-RUN.sublime-build
+# echo '{"cmd": ["go-run", "main.go"]}' \
+#    > ~/.config/sublime-text-3/Packages/User/GO-RUN.sublime-build
 # ctrl+b GO-RUN or ctrl+shift+b > select GO-RUN first
 
-if [[ $1 == "" ]]; then
+file=$1
+
+if [[ $file == "" ]]; then
     echo "Usage: ~/go-run <file>.go # main.go"
     echo "Exiting..."
     exit
 fi
 
-echo "Executing $1..."
-
-file=$1
-outs=`go run $file`
-
-if [[ $outs == "" ]]; then
-    echo "No output returned from 'go run $file' command."
-    exit
-fi
-
-echo $outs
-echo ""
+echo "Executing $(pwd)/$file..."
+go run $file
