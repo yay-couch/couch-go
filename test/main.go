@@ -10,10 +10,10 @@ func main() {
     couch    := _couch.New(nil)
     client   := _couch.NewClient(couch, "", "", nil)
     response := client.DoRequest("GET /", nil, "nil...", nil)
-    // _dumpf("response >> %+v", response)
+    _dumpf("response >> %+v", response)
 
-    // var body = response.GetBody()
-    // _dumpf("response: len(%d) body(%+v)", len(body), body)
+    var body = response.GetBody()
+    _dumpf("response: len(%d) body(%+v)", len(body), body)
 
     // type Response struct {
     //     CouchDB string
