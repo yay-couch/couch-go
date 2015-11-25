@@ -70,6 +70,9 @@ func (this *Stream) SetBody(body interface{}) {
 }
 
 func (this *Stream) GetBody() string {
+    if this.Body == nil {
+        return ""
+    }
     return this.Body.(string)
 }
 
