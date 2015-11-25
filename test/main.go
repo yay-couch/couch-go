@@ -7,13 +7,17 @@ import u "./../src/couch/util"
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
 func main() {
+    // _dump("mö!")
     couch    := _couch.New(nil)
-    client   := _couch.NewClient(couch, "", "", nil)
-    response := client.DoRequest("GET /", nil, "nil...", nil)
-    _dumpf("response >> %+v", response)
+    client   := _couch.NewClient(couch, nil)
+    // client   := _couch.NewClient(couch, map[string]interface{}{
+    //     "Host": "127.0.0.1",
+    // })
+    response := client.DoRequest("GET /", nil, "", nil)
+    // _dumpf("response >> %+v", response)
 
-    var body = response.GetBody()
-    _dumpf("response: len(%d) body(%+v)", len(body), body)
+    var responseBody = response.GetBody()
+    _dumpf("response: len(%d) body(%+v)", len(responseBody), responseBody)
 
     // type Response struct {
     //     CouchDB string
@@ -21,12 +25,16 @@ func main() {
     //     Version string
     //     Vendor  map[string]string
     // }
-    // var bodyData = u.ParseBody(response.GetBody(), &Response{})
-    // _dumps(bodyData)
-    // _dumps(bodyData.(*Response).CouchDB)
-    // _dumps(bodyData.(*Response).Uuid)
-    // _dumps(bodyData.(*Response).Version)
-    // _dumps(bodyData.(*Response).Vendor)
-    // _dumps(bodyData.(*Response).Vendor["name"])
-    // _dumps(bodyData.(*Response).Vendor["version"])
+    // body, err := u.ParseBody(response.GetBody(), &Response{})
+    // if err != nil {
+    //     _dumps(err)
+    //     return
+    // }
+    // _dumps(body)
+    // _dumps(body.(*Response).CouchDB)
+    // _dumps(body.(*Response).Uuid)
+    // _dumps(body.(*Response).Version)
+    // _dumps(body.(*Response).Vendor)
+    // _dumps(body.(*Response).Vendor["name"])
+    // _dumps(body.(*Response).Vendor["version"])
 }
