@@ -1,8 +1,8 @@
 package main
 
-import _couch "./../../couch"
+import _couch "./../src/couch"
 
-import u "./../util"
+import u "./../src/couch/util"
 // @tmp
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
