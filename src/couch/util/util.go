@@ -103,11 +103,14 @@ func Quote(input string) {
 
 // parsers
 func ParseUrl(url string) map[string]string {
+    if url == "" {
+        panic("No URL given!")
+    }
     var result = make(map[string]string)
-    var pattern = "(?P<Scheme>https?)://(?P<Host>[^:/]+)"   +
-                  "(?:\\:(?P<Port>\\d+))?(?P<Path>/[^?]+)?" +
-                  "(?:\\?(?P<Query>[^#]+))?"                +
-                  "(?:\\#(?P<Fragment>.*))?"
+    var pattern = "(?:(?P<Scheme>https?)://(?P<Host>[^:/]+))?" +
+                  "(?:\\:(?P<Port>\\d+))?(?P<Path>/[^?#]*)?"   +
+                  "(?:\\?(?P<Query>[^#]+))?"                   +
+                  "(?:\\??#(?P<Fragment>.*))?"
     re, _ := _rex.Compile(pattern)
     if re == nil {
         return result
@@ -117,9 +120,6 @@ func ParseUrl(url string) map[string]string {
         if i != 0 {
             result[name] = match[i]
         }
-    }
-    if result["Path"] == "" {
-        result["Path"] = "/"
     }
     return result
 }
