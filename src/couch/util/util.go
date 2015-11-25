@@ -144,10 +144,14 @@ func ParseHeaders(headers string) map[string]string {
     return result
 }
 
-func ParseBody(in string, out interface{}) interface{} {
+func ParseBody(in string, out interface{}) (interface{}, error) {
+    // simply prevent useless unmarshal error
+    if in == "" {
+        in = `null`
+    }
     err := _json.Unmarshal([]byte(in), &out)
     if err != nil {
-        panic(err)
+        return nil, _fmt.Errorf("JSON error: %s!", err)
     }
-    return out
+    return out, nil
 }
