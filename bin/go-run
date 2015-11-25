@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ $1 == "" ]]; then
+    echo "Usage: <path>/go-run <file>.go # main.go"
+    echo "Exiting..."
+    exit
+fi
+
+echo "Executing $1..."
+
+file=$1
+outs=`go run $file`
+
+if [[ $outs == "" ]]; then
+    echo "No output returned from 'go run $file' command."
+    exit
+fi
+
+echo $outs
+echo ""
