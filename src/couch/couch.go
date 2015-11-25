@@ -18,10 +18,15 @@ const (
     VERSION = "1.0.0"
 )
 
-const (
-    DEFAULT_SCHEME string = "http"
-    DEFAULT_HOST   string = "localhost"
-    DEFAULT_PORT   uint16 = 5984
+var (
+    Username = ""
+    Password = ""
+)
+
+var (
+    DefaultScheme      = "http"
+    DefaultHost        = "localhost"
+    DefaultPort uint16 = 5984
 )
 
 func New(config interface{}) *Couch {
@@ -39,31 +44,25 @@ func (this *Couch) GetConfig() map[string]interface{} {
     return this.config
 }
 
-func NewClient(couch *Couch, scheme, host interface{}, port interface{}) *_client.Client {
-    scheme = u.IsEmptySet(scheme, DEFAULT_SCHEME)
-    host   = u.IsEmptySet(host, DEFAULT_HOST)
-    port   = u.IsEmptySet(port, DEFAULT_PORT)
-    client := &_client.Client{
-        Scheme: u.String(scheme),
-        Host: host.(string),
-        Port: port.(uint16),
-        Couch: map[string]interface{}{
-            "NAME": NAME,
-            "VERSION": VERSION,
-        },
+func NewClient(couch *Couch, config interface{}) *_client.Client {
+    var Config = make(map[string]interface{})
+    Config["Couch.NAME"] = NAME
+    Config["Couch.VERSION"] = VERSION
+    if config != nil {
+        for key, value := range config.(map[string]interface{}) {
+            Config[key] = value
+        }
     }
-    var config = couch.GetConfig()
-    if value, _ := config["Host"].(string); value != "" {
-        client.Host = value
-    }
-    if value, _ := config["Port"].(uint16); value != 0 {
-        client.Port = value
-    }
-    if value, _ := config["Username"].(string); value != "" {
-        client.Username = value
-    }
-    if value, _ := config["Password"].(string); value != "" {
-        client.Password = value
-    }
-    return client;
+    Config["Scheme"]   = u.IsEmptySet(Config["Scheme"],   DefaultScheme)
+    Config["Host"]     = u.IsEmptySet(Config["Host"],     DefaultHost)
+    Config["Port"]     = u.IsEmptySet(Config["Port"],     DefaultPort)
+    Config["Username"] = u.IsEmptySet(Config["Username"], Username)
+    Config["Password"] = u.IsEmptySet(Config["Password"], Password)
+
+    couch.SetConfig(Config)
+
+    return _client.New(Config,
+        Config["Username"].(string), Config["Username"].(string))
+    // or
+    // return _client.New("https://localhost:1234", "", "", Config???)
 }
