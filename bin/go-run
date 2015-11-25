@@ -2,7 +2,7 @@
 
 ### first
 # ~$ chmod +x ~/go-run
-# ~$ cp ~/go-run /usr/local/bin
+# ~$ ln -s ~/go-run /usr/local/bin/
 
 ### console
 # ~$ go-run main.go
