@@ -21,10 +21,46 @@ type Client struct {
     Username, Password string
     Request   *_request.Request
     Response  *_response.Response
-    Couch     map[string]interface{}
+    Config    map[string]interface{}
 }
 
 func Shutup() {}
+
+func New(config interface{}, username, password string) *Client {
+    var this = &Client{}
+    if username != "" {
+        this.Username = username
+    }
+    if password != "" {
+        this.Password = password
+    }
+
+    // config in config, just for import cycle..
+    if config != nil {
+        this.Config = make(map[string]interface{})
+        switch config.(type) {
+            case string:
+                var url = u.ParseUrl(config.(string));
+                var scheme, host, port =
+                    url["Scheme"], url["Host"], u.Number(url["Port"], "uint16").(uint16)
+                this.Scheme = scheme; this.Config["Scheme"] = scheme
+                this.Host   = host;   this.Config["Host"] = host
+                this.Port   = port;   this.Config["Port"] = port
+            case map[string]interface{}:
+                for key, value := range config.(map[string]interface{}) {
+                    this.Config[key] = value
+                }
+                this.Scheme = this.Config["Scheme"].(string)
+                this.Host   = this.Config["Host"].(string)
+                this.Port   = this.Config["Port"].(uint16)
+        }
+    }
+
+    this.Username = username
+    this.Password = password
+
+    return this
+}
 
 func (this *Client) GetRequest() *_request.Request {
     return this.Request
@@ -43,16 +79,8 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
     if len(match) < 3 {
         panic("Usage: <REQUEST METHOD> <REQUEST URI>!")
     }
-    var config = map[string]interface{}{
-        "Scheme": this.Scheme,
-        "Host": this.Host,
-        "Port": this.Port,
-        "Client": this,
-        "Couch.NAME": this.Couch["NAME"],
-        "Couch.VERSION": this.Couch["VERSION"],
-    }
 
-    this.Request = _request.New(config)
+    this.Request = _request.New(this.Config)
     this.Response = _response.New()
 
     uri = _fmt.Sprintf("%s:%v/%s", this.Host, this.Port, _str.Trim(match[2], "/ "))
@@ -85,3 +113,7 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
     }
     return this.Response
 }
+
+// func (this *Client) Head(uri string, uriParams interface{}, headers interface{}) *_response.Response {
+//     return this.DoRequest(uri, uriParams, headers, headers)
+// }
