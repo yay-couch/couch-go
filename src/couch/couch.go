@@ -39,13 +39,6 @@ func New(config interface{}) *Couch {
     return couch
 }
 
-func (this *Couch) SetConfig(config map[string]interface{}) {
-    this.config = config
-}
-func (this *Couch) GetConfig() map[string]interface{} {
-    return this.config
-}
-
 func NewClient(couch *Couch, config interface{}) *_client.Client {
     var Config = make(map[string]interface{})
     Config["Couch.NAME"] = NAME
@@ -67,4 +60,11 @@ func NewClient(couch *Couch, config interface{}) *_client.Client {
         Config["Username"].(string), Config["Username"].(string))
     // or
     // return _client.New("https://localhost:1234", "", "", Config???)
+}
+
+func (this *Couch) SetConfig(config map[string]interface{}) {
+    this.config = config
+}
+func (this *Couch) GetConfig() map[string]interface{} {
+    return this.config
 }
