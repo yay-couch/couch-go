@@ -64,11 +64,16 @@ func (this *Response) SetStatus(status string) {
         // update http version
         this.HttpVersion = match[1]
         responseCode, _ := _strc.Atoi(match[2])
-        if responseCode != 0 {
-            this.StatusCode = uint16(responseCode)
-        }
-        this.StatusText = _str.TrimSpace(match[3])
+        responseText    := _str.TrimSpace(match[3])
+        this.SetStatusCode(uint16(responseCode))
+        this.SetStatusText(string(responseText))
     }
+}
+func (this *Response) SetStatusCode(code uint16) {
+    this.StatusCode = code
+}
+func (this *Response) SetStatusText(text string) {
+    this.StatusText = text
 }
 
 func (this *Response) GetStatus() string {
