@@ -114,10 +114,10 @@ func TestClientResponseBodyParse() {
         return
     }
     _dumpf("Response Body Parsed >> type: %T value: %+v", body, body)
-    _dumpf("Repsonse Body Parsed >> couchdb: %s", body.(*Response).CouchDB)
-    _dumpf("Repsonse Body Parsed >> uuid: %s", body.(*Response).Uuid)
-    _dumpf("Repsonse Body Parsed >> version: %s", body.(*Response).Version)
-    _dumpf("Repsonse Body Parsed >> vendor: %s", body.(*Response).Vendor)
-    _dumpf("Repsonse Body Parsed >> vendor.name: %s", body.(*Response).Vendor["name"])
-    _dumpf("Repsonse Body Parsed >> vendor.version: %s", body.(*Response).Vendor["version"])
+    _dumpf("Response Body Parsed >> couchdb: %s", body.(*Response).CouchDB)
+    _dumpf("Response Body Parsed >> uuid: %s", body.(*Response).Uuid)
+    _dumpf("Response Body Parsed >> version: %s", body.(*Response).Version)
+    _dumpf("Response Body Parsed >> vendor: %s", body.(*Response).Vendor)
+    _dumpf("Response Body Parsed >> vendor.name: %s", body.(*Response).Vendor["name"])
+    _dumpf("Response Body Parsed >> vendor.version: %s", body.(*Response).Vendor["version"])
 }
