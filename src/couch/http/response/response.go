@@ -61,6 +61,7 @@ func (this *Response) SetStatus(status string) {
     this.Status = _str.TrimSpace(status)
     var match = re.FindStringSubmatch(status)
     if len(match) == 4 {
+        // update http version
         this.HttpVersion = match[1]
         responseCode, _ := _strc.Atoi(match[2])
         if responseCode != 0 {
