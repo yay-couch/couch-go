@@ -49,5 +49,9 @@ func (this *Response) SetStatus(status string) {
     }
 }
 
+func (this *Response) GetStatus() string {
+    return this.Status
+}
+
 // @overwrite?
 // func (this *Request) SetBody() {}
