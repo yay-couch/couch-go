@@ -50,12 +50,8 @@ func New(config interface{}, username, password string) *Client {
         }
     }
 
-    if username != "" {
-        this.Username = username
-    }
-    if password != "" {
-        this.Password = password
-    }
+    this.Username = username
+    this.Password = password
 
     return this
 }
