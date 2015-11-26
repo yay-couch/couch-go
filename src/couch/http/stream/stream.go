@@ -47,7 +47,7 @@ func (this *Stream) GetHeader(key string) interface{} {
     }
     return nil
 }
-func (this *Stream) GetHeaderAll(key string) map[string]interface{} {
+func (this *Stream) GetHeaderAll() map[string]interface{} {
     _checkStreamHeaders(this)
     return this.Headers
 }
