@@ -108,16 +108,16 @@ func TestClientResponseBodyParse() {
     }
 
     var response = _doRequest("GET /")
-    body, err := u.ParseBody(response.GetBody(), &Response{})
+    data, err := u.ParseBody(response.GetBody(), &Response{})
     if err != nil {
         _dumps(err)
         return
     }
-    _dumpf("Response Body Parsed >> type: %T value: %+v", body, body)
-    _dumpf("Response Body Parsed >> couchdb: %s", body.(*Response).CouchDB)
-    _dumpf("Response Body Parsed >> uuid: %s", body.(*Response).Uuid)
-    _dumpf("Response Body Parsed >> version: %s", body.(*Response).Version)
-    _dumpf("Response Body Parsed >> vendor: %s", body.(*Response).Vendor)
-    _dumpf("Response Body Parsed >> vendor.name: %s", body.(*Response).Vendor["name"])
-    _dumpf("Response Body Parsed >> vendor.version: %s", body.(*Response).Vendor["version"])
+    _dumpf("Response Body Parsed >> type: %T value: %+v", data, data)
+    _dumpf("Response Body Parsed >> couchdb: %s", data.(*Response).CouchDB)
+    _dumpf("Response Body Parsed >> uuid: %s", data.(*Response).Uuid)
+    _dumpf("Response Body Parsed >> version: %s", data.(*Response).Version)
+    _dumpf("Response Body Parsed >> vendor: %s", data.(*Response).Vendor)
+    _dumpf("Response Body Parsed >> vendor.name: %s", data.(*Response).Vendor["name"])
+    _dumpf("Response Body Parsed >> vendor.version: %s", data.(*Response).Vendor["version"])
 }
