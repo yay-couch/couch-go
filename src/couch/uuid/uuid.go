@@ -8,11 +8,12 @@ import (
 )
 
 const (
-    RFC       = -1
-    HEX_8     = 8
-    HEX_32    = 32
-    HEX_40    = 40
-    TIMESTAMP = 0
+    RFC            = -1
+    HEX_8          = 8
+    HEX_32         = 32
+    HEX_40         = 40
+    TIMESTAMP      = 0
+    TIMESTAMP_NANO = 1
 )
 
 type Uuid struct {
@@ -64,6 +65,9 @@ func (this *Uuid) ToString() string {
 func Generate(limit int) string {
     if limit == TIMESTAMP {
         return _fmt.Sprintf("%v", _time.Now().Unix())
+    }
+    if limit == TIMESTAMP_NANO {
+        return _fmt.Sprintf("%v", _time.Now().UnixNano())
     }
 
     var (
