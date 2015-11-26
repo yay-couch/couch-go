@@ -20,7 +20,7 @@ cy="\033[0;33m" # yellow
 
 file=$1
 
-if [[ $file != "" ]]; then
+if [[ $file == "" ]]; then
     echo -e "${cr}Usage: ~/go-run <path>/main.go${cn}"
     echo -e "${cy}Exiting...${cn}"
     echo
