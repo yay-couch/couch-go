@@ -102,3 +102,15 @@ func Generate(limit int) string {
             bytes[0:4], bytes[4:6], bytes[6:8], bytes[8:10], bytes[10:])
     }
 }
+
+func GenerateDefault() string {
+    return Generate(HEX_32)
+}
+
+func GenerateRfc()   string { return Generate(RFC) }
+func GenerateHex8()  string { return Generate(HEX_8) }
+func GenerateHex32() string { return Generate(HEX_32) }
+func GenerateHex40() string { return Generate(HEX_40) }
+
+func GenerateTimestamp()     string { return Generate(TIMESTAMP) }
+func GenerateTimestampNano() string { return Generate(TIMESTAMP_NANO) }
