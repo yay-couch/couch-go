@@ -19,6 +19,27 @@ type Response struct {
     StatusText   string
 }
 
+var (
+    STATUS = map[int]string{
+        200: "OK",
+        201: "Created",
+        202: "Accepted",
+        304: "Not Modified",
+        400: "Bad Request",
+        401: "Unauthorized",
+        403: "Forbidden",
+        404: "Not Found",
+        405: "Resource Not Allowed",
+        406: "Not Acceptable",
+        409: "Conflict",
+        412: "Precondition Failed",
+        415: "Bad Content Type",
+        416: "Requested Range Not Satisfiable",
+        417: "Expectation Failed",
+        500: "Internal Server Error",
+    }
+)
+
 func Shutup() {}
 
 func New() *Response {
