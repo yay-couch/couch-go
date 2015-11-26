@@ -20,4 +20,6 @@ func New(client *_client.Client) *Server {
     }
 }
 
-
+func (this *Server) Ping() bool {
+    return (200 == this.Client.Head("/", nil, nil).GetStatusCode())
+}
