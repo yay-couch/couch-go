@@ -29,6 +29,8 @@ var (
     DefaultPort uint16 = 5984
 )
 
+func Shutup() {}
+
 func New(config interface{}) *Couch {
     couch := &Couch{}
     if config, ok := config.(map[string]interface{}); ok {
