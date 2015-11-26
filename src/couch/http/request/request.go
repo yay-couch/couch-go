@@ -5,6 +5,7 @@ import (
     _net "net"
     _bio "bufio"
     _str "strings"
+    _b64 "encoding/base64"
 )
 
 import _stream "./../stream"
@@ -42,13 +43,12 @@ func New(config map[string]interface{}) *Request {
         Config: config,
     }
 
-    // @todo
     if config["Username"] != "" && config["Password"] != "" {
-        // this.Headers["Authorization"] = "Basic "+
-                // Util.Base64.encode(this.client.username +":"+ this.client.password);
+        this.Headers["Authorization"] = "Basic "+
+            _b64.StdEncoding.EncodeToString([]byte(
+                config["Username"].(string) +":"+ config["Username"].(string)))
     }
 
-    // this.Headers =
     this.Headers["Host"] = _fmt.Sprintf("%s:%v", config["Host"], config["Port"])
     this.Headers["Connection"] = "close"
     this.Headers["Accept"] = "application/json"
