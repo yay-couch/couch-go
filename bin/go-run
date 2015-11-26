@@ -23,11 +23,11 @@ file=$1
 if [[ $file == "" ]]; then
     echo -e "${color_red}Usage: ~/go-run <path>/main.go${color_none}"
     echo -e "${color_yellow}Exiting...${color_none}"
-    echo -e ""
+    echo
     exit
 fi
 
 echo -e "${color_green}Executing '$(pwd)/$file'...${color_none}"
-echo -e ""
+echo
 
 go run $file
