@@ -55,6 +55,9 @@ func (this *Response) GetStatus() string {
 func (this *Response) GetStatusCode() uint16 {
     return this.StatusCode
 }
+func (this *Response) GetStatusText() string {
+    return this.StatusText
+}
 
 // @overwrite?
 // func (this *Request) SetBody() {}
