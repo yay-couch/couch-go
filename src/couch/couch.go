@@ -1,6 +1,7 @@
 package couch
 
 import _client "./../couch/client"
+import _server "./../couch/server"
 // import _stream "./http/stream"
 // import _request "./http/request"
 // import _response "./http/response"
@@ -60,6 +61,10 @@ func NewClient(couch *Couch, config interface{}) *_client.Client {
         Config["Username"].(string), Config["Username"].(string))
     // or
     // return _client.New("https://localhost:1234", "", "", Config???)
+}
+
+func NewServer(client *_client.Client) *_server.Server {
+    return _server.New(client)
 }
 
 func (this *Couch) SetConfig(config map[string]interface{}) {
