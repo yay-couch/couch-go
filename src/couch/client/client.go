@@ -28,12 +28,6 @@ func Shutup() {}
 
 func New(config interface{}, username, password string) *Client {
     var this = &Client{}
-    if username != "" {
-        this.Username = username
-    }
-    if password != "" {
-        this.Password = password
-    }
 
     // config in config, just for import cycle..
     if config != nil {
@@ -56,8 +50,12 @@ func New(config interface{}, username, password string) *Client {
         }
     }
 
-    this.Username = username
-    this.Password = password
+    if username != "" {
+        this.Username = username
+    }
+    if password != "" {
+        this.Password = password
+    }
 
     return this
 }
