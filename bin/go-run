@@ -13,13 +13,21 @@
 #    > ~/.config/sublime-text-3/Packages/User/GO-RUN.sublime-build
 # ctrl+b GO-RUN or ctrl+shift+b > select GO-RUN first
 
+color_none="\033[0m" # no color
+color_red="\033[0;31m"
+color_green="\033[0;32m"
+color_yellow="\033[0;33m"
+
 file=$1
 
 if [[ $file == "" ]]; then
-    echo "Usage: ~/go-run <file>.go # main.go"
-    echo "Exiting..."
+    echo -e "${color_red}Usage: ~/go-run <path>/main.go${color_none}"
+    echo -e "${color_yellow}Exiting...${color_none}"
+    echo -e ""
     exit
 fi
 
-echo "Executing $(pwd)/$file..."
+echo -e "${color_green}Executing '$(pwd)/$file'...${color_none}"
+echo -e ""
+
 go run $file
