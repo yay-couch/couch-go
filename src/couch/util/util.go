@@ -164,14 +164,17 @@ func Extract(key string, object interface{}) interface{} {
         // if value, ok := object.(map[string]interface{})[key]; ok {
         //     return Extract(_str.Join(keys, "."), value)
         // }
+
+        // @overwrite
+        var keys = _str.Join(keys, ".")
         // @todo add more if needs
         switch object.(type) {
             case map[string]int:
-                return Extract(_str.Join(keys, ".") , object.(map[string]int)[key])
+                return Extract(keys, object.(map[string]int)[key])
             case map[string]string:
-                return Extract(_str.Join(keys, ".") , object.(map[string]string)[key])
+                return Extract(keys, object.(map[string]string)[key])
             case map[string]interface{}:
-                return Extract(_str.Join(keys, ".") , object.(map[string]interface{})[key])
+                return Extract(keys, object.(map[string]interface{})[key])
             default:
                 // panic?
         }
