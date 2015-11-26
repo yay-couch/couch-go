@@ -28,6 +28,30 @@ func _doRequest(uri string) *_response.Response {
 }
 
 /**
+ * TestAll
+ */
+func TestAll() {
+    // status
+    TestClientResponseStatus()
+    TestClientResponseStatusCode()
+    TestClientResponseStatusText()
+    _dump("")
+
+    // headers
+    TestClientResponseHeaders("")
+    TestClientResponseHeaders("0") // status line
+    TestClientResponseHeaders("Server")
+    _dump("")
+
+    // body
+    TestClientResponseBody()
+    _dump("")
+
+    // body parsed
+    TestClientResponseBodyParse()
+}
+
+/**
  * TestClientResponseStatus
  */
 func TestClientResponseStatus() {
