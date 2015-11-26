@@ -192,6 +192,7 @@ func Extract(key string, object interface{}) interface{} {
 }
 
 // @todo add more if needs
+// tip kontrolu yapabilirsin ArrayShift >> String seysnden kurtulmak icun..
 func ArrayShiftString(slice *[]string) string {
     var value = (*slice)[0]
     *slice = (*slice)[1 : len(*slice)]
