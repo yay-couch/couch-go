@@ -4,29 +4,31 @@ package main
 
 // import "encoding/hex"
 import (
-    "fmt"
-    "time"
-    "math/rand"
+    // "fmt"
+    // "time"
+    // "math"
+    // "math/rand"
+    // "crypto/rand"
+    // "strconv"
 )
+
+import _uuid "./../src/couch/uuid"
 
 import u "./../src/couch/util"
 // @tmp
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
 func main() {
-    rand.Seed( time.Now().UnixNano())
-    // var bytes int
+    u1 := _uuid.Generate(_uuid.HEX_8)
+    _dumpf("%s", u1)
+    _dumpf("%d", len(u1))
 
-    s := "mö!"
-    // for i:= 0 ; i < 8 ; i++{
-    //     bytes = rand.Intn(10)+1
-    //     _dumpf("%v", bytes)
-    //     s += u.String(bytes)
-    // }
-    fmt.Printf(">> %x\n", s)
+    // u2 := _uuid.New("123")
+    u2 := _uuid.New(123)
+    _dump(u2.Value)
+    _dump(u2.GetValue())
+    _dump(u2.ToString())
 
-    // _dumpf(">> %s", hex.EncodeToString([]byte(s)))
-    // _dumpf(">> %x", s)
     // couch    := _couch.New(nil)
     // client   := _couch.NewClient(couch, nil)
     // // client   := _couch.NewClient(couch, map[string]interface{}{
