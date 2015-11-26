@@ -69,7 +69,18 @@ func (this *Stream) SetBody(body interface{}) {
     }
 }
 
-func (this *Stream) GetBody() string {
+func (this *Stream) GetBody(to interface{}) (interface{}, error) {
+    if to == nil {
+        return this.Body.(string), nil
+    }
+    data, err := u.ParseBody(this.Body.(string), to)
+    if err != nil {
+        return nil, err
+    }
+    return data, nil
+}
+
+func (this *Stream) GetBodyString() string {
     if this.Body == nil {
         return ""
     }
