@@ -155,3 +155,45 @@ func ParseBody(in string, out interface{}) (interface{}, error) {
     }
     return out, nil
 }
+
+func Extract(key string, object interface{}) interface{} {
+    var keys = _str.Split(key, ".")
+    key  = ArrayShiftString(&keys)
+    if len(keys) != 0 {
+        // nö!
+        // if value, ok := object.(map[string]interface{})[key]; ok {
+        //     return Extract(_str.Join(keys, "."), value)
+        // }
+        // @todo add more if needs
+        switch object.(type) {
+            case map[string]int:
+                return Extract(_str.Join(keys, ".") , object.(map[string]int)[key])
+            case map[string]string:
+                return Extract(_str.Join(keys, ".") , object.(map[string]string)[key])
+            case map[string]interface{}:
+                return Extract(_str.Join(keys, ".") , object.(map[string]interface{})[key])
+            default:
+                // panic?
+        }
+    } else {
+        // @todo add more if needs
+        switch object.(type) {
+            case map[string]int:
+                return object.(map[string]int)[key]
+            case map[string]string:
+                return object.(map[string]string)[key]
+            case map[string]interface{}:
+                return object.(map[string]interface{})[key]
+            default:
+                // panic?
+        }
+    }
+    return nil
+}
+
+// @todo add more if needs
+func ArrayShiftString(slice *[]string) string {
+    var value = (*slice)[0]
+    *slice = (*slice)[1 : len(*slice)]
+    return value
+}
