@@ -24,6 +24,15 @@ func Shutup() {
     _ = _rand.Reader
 }
 
+func New(value interface{}) *Uuid {
+    if value == nil {
+        value = Generate(HEX_32)
+    }
+    var this = &Uuid{}
+    this.SetValue(value)
+    return this
+}
+
 func (this *Uuid) SetValue(value interface{}) {
     if value != nil {
         switch value.(type) {
@@ -47,15 +56,6 @@ func (this *Uuid) ToString() string {
         return ""
     }
     return this.Value.(string)
-}
-
-func New(value interface{}) *Uuid {
-    var this = &Uuid{}
-    if value == nil {
-        value = Generate(HEX_32)
-    }
-    this.SetValue(value)
-    return this
 }
 
 func Generate(limit int) string {
@@ -88,7 +88,7 @@ func Generate(limit int) string {
     if !isRfc {
         return _fmt.Sprintf("%x", bytes)
     } else {
-        // https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29
+        // UUID/v4 >> https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29
         bytes[6] = (bytes[6] | 0x40) & 0x4f
         bytes[8] = (bytes[8] | 0x80) & 0xbf
         return _fmt.Sprintf("%x-%x-%x-%x-%x",
