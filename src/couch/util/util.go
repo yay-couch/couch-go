@@ -156,13 +156,13 @@ func ParseBody(in string, out interface{}) (interface{}, error) {
     return out, nil
 }
 
-func Extract(key string, object interface{}) interface{} {
+func Dig(key string, object interface{}) interface{} {
     var keys = _str.Split(key, ".")
     key  = ArrayShiftString(&keys)
     if len(keys) != 0 {
         // nö!
         // if value, ok := object.(map[string]interface{})[key]; ok {
-        //     return Extract(_str.Join(keys, "."), value)
+        //     return Dig(_str.Join(keys, "."), value)
         // }
 
         // @overwrite
@@ -170,11 +170,11 @@ func Extract(key string, object interface{}) interface{} {
         // @todo add more if needs
         switch object.(type) {
             case map[string]int:
-                return Extract(keys, object.(map[string]int)[key])
+                return Dig(keys, object.(map[string]int)[key])
             case map[string]string:
-                return Extract(keys, object.(map[string]string)[key])
+                return Dig(keys, object.(map[string]string)[key])
             case map[string]interface{}:
-                return Extract(keys, object.(map[string]interface{})[key])
+                return Dig(keys, object.(map[string]interface{})[key])
             default:
                 // panic?
         }
