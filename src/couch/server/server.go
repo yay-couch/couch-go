@@ -40,18 +40,18 @@ func (this *Server) Info() map[string]interface{} {
     if err != nil {
         return nil
     }
-    var info = make(map[string]interface{});
-    info["couchdb"] = data.(*Data).CouchDB
-    info["uuid"]    = data.(*Data).Uuid
-    info["version"] = data.(*Data).Version
-    info["vendor"]  = map[string]string{
+    var _return = make(map[string]interface{});
+    _return["couchdb"] = data.(*Data).CouchDB
+    _return["uuid"]    = data.(*Data).Uuid
+    _return["version"] = data.(*Data).Version
+    _return["vendor"]  = map[string]string{
            "name": data.(*Data).Vendor["name"],
         "version": data.(*Data).Vendor["version"],
     }
-    return info
+    return _return
 }
 
 func (this *Server) Version() string {
-    var info = this.Info()
+    var _return = this.Info()
     return u.Dig("version", info).(string)
 }
