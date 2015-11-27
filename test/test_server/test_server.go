@@ -56,3 +56,13 @@ func TestVersion() {
     var version = _newServer().Version()
     _dumpf("Server Version >> %s", version)
 }
+
+/**
+ * TestGetActiveTasks
+ */
+func TestGetActiveTasks() {
+    var tasks = _newServer().GetActiveTasks()
+    _dumpf("Server Active Tasks >> %+v", tasks)
+    _dumpf("Server Active Tasks >> 0.pid %s", tasks[0]["pid"])
+    _dumpf("Server Active Tasks >> 0.database %s", tasks[0]["databases"])
+}
