@@ -56,7 +56,6 @@ func (this *Server) Version() string {
 }
 
 func (this *Server) GetActiveTasks() map[int]map[string]interface{} {
-// func (this *Server) GetActiveTasks() map[int]interface{} {
     type Data struct {
         ChangesDone  uint   `json:"changes_done"`
         Database     string
@@ -67,46 +66,22 @@ func (this *Server) GetActiveTasks() map[int]map[string]interface{} {
         StartedOn    uint   `json:"started_on"`
         UpdatedOn    uint   `json:"updated_on"`
     }
-    // data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&[]Data{})
-    // data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&[]Data{})
-    // if err != nil {
-        // return nil
-        // panic(err)
-    // }
-
-    var j = `[
-        {"changes_done": 64438,
-        "database": "mailbox",
-        "pid": "<0.12986.1>",
-        "progress": 84,
-        "started_on": 1376116576,
-        "total_changes": 76215,
-        "type": "database_compaction",
-        "updated_on": 1376116619}
-    ]`
-
-    data, _ := u.ParseBody(j, &[]Data{})
-    _dumps(data)
-
-    // var _return = make(map[int]interface{});
+    data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&[]Data{})
+    if err != nil {
+        panic(err)
+    }
     var _return = make(map[int]map[string]interface{});
-    if data != nil {
-        for i, data := range *data.(*[]Data) {
-            _return[i] = map[string]interface{}{
-                "changes_done": data.ChangesDone,
-                "database": data.Database,
-                "pid": data.Pid,
-                "progress": data.Progress,
-                "total_changes": data.TotalChanges,
-                "type": data.Type,
-                "started_on": data.StartedOn,
-                "updated_on": data.UpdatedOn,
-            }
+    for i, data := range *data.(*[]Data) {
+        _return[i] = map[string]interface{}{
+             "changes_done": data.ChangesDone,
+                 "database": data.Database,
+                      "pid": data.Pid,
+                 "progress": data.Progress,
+            "total_changes": data.TotalChanges,
+                     "type": data.Type,
+               "started_on": data.StartedOn,
+               "updated_on": data.UpdatedOn,
         }
     }
-    // _dumps(_return)
-    // _dumps(_return[0]["pid"])
-    // _dumps(_return[0].(Data).Pid)
-
     return _return
 }
