@@ -36,7 +36,7 @@ func (this *Server) Info() map[string]interface{} {
         Version string
         Vendor  map[string]string
     }
-    data, err := this.Client.Get("/", nil, nil).GetBody(&Info{})
+    data, err := this.Client.Get("/", nil, nil).GetData(&Info{})
     if err != nil {
         return nil
     }

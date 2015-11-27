@@ -69,7 +69,14 @@ func (this *Stream) SetBody(body interface{}) {
     }
 }
 
-func (this *Stream) GetBody(to interface{}) (interface{}, error) {
+func (this *Stream) GetBody() string {
+    if this.Body == nil {
+        return ""
+    }
+    return this.Body.(string)
+}
+
+func (this *Stream) GetData(to interface{}) (interface{}, error) {
     if to == nil {
         return this.Body.(string), nil
     }
@@ -78,13 +85,6 @@ func (this *Stream) GetBody(to interface{}) (interface{}, error) {
         return nil, err
     }
     return data, nil
-}
-
-func (this *Stream) GetBodyString() string {
-    if this.Body == nil {
-        return ""
-    }
-    return this.Body.(string)
 }
 
 func (this *Stream) ToString() string {

@@ -48,7 +48,7 @@ func TestAll() {
     _dump("")
 
     // body parsed
-    TestClientResponseBodyParse()
+    TestClientResponseData()
 }
 
 /**
@@ -97,9 +97,9 @@ func TestClientResponseBody() {
 }
 
 /**
- * TestClientResponseBodyParse.
+ * TestClientResponseData.
  */
-func TestClientResponseBodyParse() {
+func TestClientResponseData() {
     type Response struct {
         CouchDB string
         Uuid    string
@@ -108,7 +108,7 @@ func TestClientResponseBodyParse() {
     }
 
     var response = _doRequest("GET /")
-    data, err := u.ParseBody(response.GetBody(), &Response{})
+    data, err := u.ParseBody(response.GetData(), &Response{})
     if err != nil {
         _dumps(err)
         return

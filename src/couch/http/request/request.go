@@ -98,7 +98,7 @@ func (this *Request) Send() string {
         }
     }
     request += "\r\n"
-    request += this.GetBodyString()
+    request += this.GetBody()
     // _dump(request)
 
     _fmt.Fprint(link, request)
