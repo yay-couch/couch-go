@@ -30,23 +30,23 @@ func (this *Server) Ping() bool {
 }
 
 func (this *Server) Info() map[string]interface{} {
-    type Data struct {
+    type Info struct {
         CouchDB string
         Uuid    string
         Version string
         Vendor  map[string]string
     }
-    data, err := this.Client.Get("/", nil, nil).GetBody(&Data{})
+    data, err := this.Client.Get("/", nil, nil).GetBody(&Info{})
     if err != nil {
         return nil
     }
     var info = make(map[string]interface{});
-    info["couchdb"] = data.(*Data).CouchDB
-    info["uuid"]    = data.(*Data).Uuid
-    info["version"] = data.(*Data).Version
+    info["couchdb"] = data.(*Info).CouchDB
+    info["uuid"]    = data.(*Info).Uuid
+    info["version"] = data.(*Info).Version
     info["vendor"]  = map[string]string{
-           "name": data.(*Data).Vendor["name"],
-        "version": data.(*Data).Vendor["version"],
+           "name": data.(*Info).Vendor["name"],
+        "version": data.(*Info).Vendor["version"],
     }
     return info
 }
