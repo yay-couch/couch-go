@@ -77,9 +77,6 @@ func (this *Stream) GetBody() string {
 }
 
 func (this *Stream) GetData(to interface{}) (interface{}, error) {
-    if to == nil {
-        return this.Body.(string), nil
-    }
     data, err := u.ParseBody(this.Body.(string), to)
     if err != nil {
         return nil, err
