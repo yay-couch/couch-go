@@ -41,9 +41,18 @@ func TestInfo() {
     var info = _newServer().Info()
     _dumpf("Server Info >> %+v", info)
     _dumpf("Server Info >> couchdb: %s", info["couchdb"])
+    // or
     _dumpf("Server Info >> couchdb: %s", u.Dig("couchdb", info))
     _dumpf("Server Info >> uuid: %s", u.Dig("uuid", info))
-    _dumpf("Server Info >> version: %s", u.Dig("vendor.version", info))
+    _dumpf("Server Info >> version: %s", u.Dig("version", info))
     _dumpf("Server Info >> vendor.name: %s", u.Dig("vendor.name", info))
     _dumpf("Server Info >> vendor.version: %s", u.Dig("vendor.version", info))
+}
+
+/**
+ * TestVersion
+ */
+func TestVersion() {
+    var version = _newServer().Version()
+    _dumpf("Server Version >> %s", version)
 }
