@@ -38,31 +38,40 @@ func TestAll() {
  * TestInfo
  */
 func TestInfo() {
-    var info = _newServer().Info()
-    _dumpf("Server Info >> %+v", info)
-    _dumpf("Server Info >> couchdb: %s", info["couchdb"])
+    data, err := _newServer().Info()
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Info >> %+v", data)
+    _dumpf("Server Info >> couchdb: %s", data["couchdb"])
     // or
-    _dumpf("Server Info >> couchdb: %s", u.Dig("couchdb", info))
-    _dumpf("Server Info >> uuid: %s", u.Dig("uuid", info))
-    _dumpf("Server Info >> version: %s", u.Dig("version", info))
-    _dumpf("Server Info >> vendor.name: %s", u.Dig("vendor.name", info))
-    _dumpf("Server Info >> vendor.version: %s", u.Dig("vendor.version", info))
+    _dumpf("Server Info >> couchdb: %s", u.Dig("couchdb", data))
+    _dumpf("Server Info >> uuid: %s", u.Dig("uuid", data))
+    _dumpf("Server Info >> version: %s", u.Dig("version", data))
+    _dumpf("Server Info >> vendor.name: %s", u.Dig("vendor.name", data))
+    _dumpf("Server Info >> vendor.version: %s", u.Dig("vendor.version", data))
 }
 
 /**
  * TestVersion
  */
 func TestVersion() {
-    var version = _newServer().Version()
-    _dumpf("Server Version >> %s", version)
+    data, err := _newServer().Version()
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Version >> %s", data)
 }
 
 /**
  * TestGetActiveTasks
  */
 func TestGetActiveTasks() {
-    var tasks = _newServer().GetActiveTasks()
-    _dumpf("Server Active Tasks >> %+v", tasks)
-    _dumpf("Server Active Tasks >> 0.pid %s", tasks[0]["pid"])
-    _dumpf("Server Active Tasks >> 0.database %s", tasks[0]["databases"])
+    data, err := _newServer().GetActiveTasks()
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Active Tasks >> %+v", data)
+    _dumpf("Server Active Tasks >> 0.pid %s", data[0]["pid"])
+    _dumpf("Server Active Tasks >> 0.database %s", data[0]["databases"])
 }
