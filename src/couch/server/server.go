@@ -29,25 +29,24 @@ func (this *Server) Ping() bool {
     return (200 == this.Client.Head("/", nil, nil).GetStatusCode())
 }
 
-// func (this *Server) Info() string {
 func (this *Server) Info() map[string]interface{} {
-    type __ struct {
+    type Data struct {
         CouchDB string
         Uuid    string
         Version string
         Vendor  map[string]string
     }
-    data, err := this.Client.Get("/", nil, nil).GetBody(&__{})
+    data, err := this.Client.Get("/", nil, nil).GetBody(&Data{})
     if err != nil {
         return nil
     }
-    var result = make(map[string]interface{});
-    result["couchdb"] = data.(*__).CouchDB
-    result["uuid"]    = data.(*__).Uuid
-    result["version"] = data.(*__).Version
-    result["vendor"]  = map[string]string{
-           "name": data.(*__).Vendor["name"],
-        "version": data.(*__).Vendor["version"],
+    var info = make(map[string]interface{});
+    info["couchdb"] = data.(*Data).CouchDB
+    info["uuid"]    = data.(*Data).Uuid
+    info["version"] = data.(*Data).Version
+    info["vendor"]  = map[string]string{
+           "name": data.(*Data).Vendor["name"],
+        "version": data.(*Data).Vendor["version"],
     }
-    return result
+    return info
 }
