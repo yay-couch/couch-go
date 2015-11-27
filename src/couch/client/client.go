@@ -105,6 +105,12 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
         var body = _str.TrimSpace(tmp[1])
         this.Response.SetBody(body)
     }
+
+    // error?
+    if this.Response.GetStatusCode() >= 400 {
+        this.Response.Error = true
+    }
+
     return this.Response
 }
 

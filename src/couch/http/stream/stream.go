@@ -1,6 +1,7 @@
 package stream
 
 import (
+    _fmt "fmt"
     _str "strings"
 )
 
@@ -13,6 +14,12 @@ type Stream struct {
     HttpVersion string
     Headers     map[string]interface{}
     Body        interface{}
+    Error       bool
+}
+
+type StreamError struct {
+    ErrorKey    string `json:"error"`
+    ErrorValue  string `json:"reason"`
 }
 
 const (
@@ -77,6 +84,17 @@ func (this *Stream) GetBody() string {
 }
 
 func (this *Stream) GetData(to interface{}) (interface{}, error) {
+    if this.Error == true {
+        data, err := u.ParseBody(this.Body.(string), &StreamError{})
+        if err != nil {
+            return nil, err
+        }
+        return nil, _fmt.Errorf("Stream Error: %s, %s",
+            data.(*StreamError).ErrorKey,
+            data.(*StreamError).ErrorValue,
+        )
+    }
+
     data, err := u.ParseBody(this.Body.(string), to)
     if err != nil {
         return nil, err

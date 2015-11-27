@@ -29,7 +29,7 @@ func (this *Server) Ping() bool {
     return (200 == this.Client.Head("/", nil, nil).GetStatusCode())
 }
 
-func (this *Server) Info() map[string]interface{} {
+func (this *Server) Info() (map[string]interface{}, error) {
     type Data struct {
         CouchDB string
         Uuid    string
@@ -38,7 +38,7 @@ func (this *Server) Info() map[string]interface{} {
     }
     data, err := this.Client.Get("/", nil, nil).GetData(&Data{})
     if err != nil {
-        return nil
+        return nil, err
     }
     var _return = make(map[string]interface{});
     _return["couchdb"] = data.(*Data).CouchDB
@@ -48,14 +48,18 @@ func (this *Server) Info() map[string]interface{} {
            "name": data.(*Data).Vendor["name"],
         "version": data.(*Data).Vendor["version"],
     }
-    return _return
+    return _return, nil
 }
 
-func (this *Server) Version() string {
-    return u.Dig("version", this.Info()).(string)
+func (this *Server) Version() (string, error) {
+    data, err := this.Info()
+    if err != nil {
+        return "", err
+    }
+    return u.Dig("version", data).(string), nil
 }
 
-func (this *Server) GetActiveTasks() map[int]map[string]interface{} {
+func (this *Server) GetActiveTasks() (map[int]map[string]interface{}, error) {
     type Data struct {
         ChangesDone  uint   `json:"changes_done"`
         Database     string
@@ -68,7 +72,7 @@ func (this *Server) GetActiveTasks() map[int]map[string]interface{} {
     }
     data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&[]Data{})
     if err != nil {
-        panic(err)
+        return nil, err
     }
     var _return = make(map[int]map[string]interface{});
     for i, data := range *data.(*[]Data) {
@@ -83,5 +87,5 @@ func (this *Server) GetActiveTasks() map[int]map[string]interface{} {
                "updated_on": data.UpdatedOn,
         }
     }
-    return _return
+    return _return, nil
 }
