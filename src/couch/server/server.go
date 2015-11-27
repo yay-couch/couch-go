@@ -50,3 +50,8 @@ func (this *Server) Info() map[string]interface{} {
     }
     return info
 }
+
+func (this *Server) Version() string {
+    var info = this.Info()
+    return u.Dig("version", info).(string)
+}
