@@ -158,7 +158,7 @@ func ParseBody(in string, out interface{}) (interface{}, error) {
 
 func Dig(key string, object interface{}) interface{} {
     var keys = _str.Split(key, ".")
-    key  = ArrayShiftString(&keys)
+    key  = _shift(&keys)
     if len(keys) != 0 {
         // nö!
         // if value, ok := object.(map[string]interface{})[key]; ok {
@@ -194,11 +194,10 @@ func Dig(key string, object interface{}) interface{} {
     }
 
     return nil
+    return kerem
 }
 
-// @todo add more if needs
-// tip kontrolu yapabilirsin ArrayShift >> String seysnden kurtulmak icun..
-func ArrayShiftString(slice *[]string) string {
+func _shift(slice *[]string) string {
     var value = (*slice)[0]
     *slice = (*slice)[1 : len(*slice)]
     return value
