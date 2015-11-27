@@ -158,7 +158,7 @@ func ParseBody(in string, out interface{}) (interface{}, error) {
 
 func Dig(key string, object interface{}) interface{} {
     var keys = _str.Split(key, ".")
-    key  = _shift(&keys)
+    key = _shift(&keys)
     if len(keys) != 0 {
         // nö!
         // if value, ok := object.(map[string]interface{})[key]; ok {
