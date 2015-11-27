@@ -194,7 +194,6 @@ func Dig(key string, object interface{}) interface{} {
     }
 
     return nil
-    return kerem
 }
 
 func _shift(slice *[]string) string {
