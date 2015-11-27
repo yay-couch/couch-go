@@ -167,7 +167,8 @@ func Dig(key string, object interface{}) interface{} {
 
         // @overwrite
         var keys = _str.Join(keys, ".")
-        // @todo add more if needs
+
+        // add more if needs
         switch object.(type) {
             case map[string]int:
                 return Dig(keys, object.(map[string]int)[key])
@@ -179,7 +180,7 @@ func Dig(key string, object interface{}) interface{} {
                 // panic?
         }
     } else {
-        // @todo add more if needs
+        // add more if needs
         switch object.(type) {
             case map[string]int:
                 return object.(map[string]int)[key]
@@ -191,6 +192,7 @@ func Dig(key string, object interface{}) interface{} {
                 // panic?
         }
     }
+
     return nil
 }
 
