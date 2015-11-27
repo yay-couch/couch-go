@@ -63,8 +63,8 @@ func (this *Server) GetActiveTasks() map[int]map[string]interface{} {
         Progress     uint
         TotalChanges uint   `json:"total_changes"`
         Type         string
-        StartedOn    uint   `json:"started_on"`
-        UpdatedOn    uint   `json:"updated_on"`
+        StartedOn    uint32 `json:"started_on"`
+        UpdatedOn    uint32 `json:"updated_on"`
     }
     data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&[]Data{})
     if err != nil {
