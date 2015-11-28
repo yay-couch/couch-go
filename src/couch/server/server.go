@@ -89,3 +89,16 @@ func (this *Server) GetActiveTasks() (map[int]map[string]interface{}, error) {
     }
     return _return, nil
 }
+
+func (this *Server) GetAllDatabases() ([]string, error) {
+    type Data []string
+    data, err := this.Client.Get("/_all_dbs", nil, nil).GetData(&Data{})
+    if err != nil {
+        return nil, err
+    }
+    var _return = make([]string, len(*data.(*Data)))
+    for i, db := range *data.(*Data) {
+        _return[i] = db
+    }
+    return _return, nil
+}
