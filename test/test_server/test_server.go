@@ -75,3 +75,15 @@ func TestGetActiveTasks() {
     _dumpf("Server Active Tasks >> 0.pid %s", data[0]["pid"])
     _dumpf("Server Active Tasks >> 0.database %s", data[0]["databases"])
 }
+
+/**
+ * TestGetAllDatabases
+ */
+func TestGetAllDatabases() {
+    data, err := _newServer().GetAllDatabases()
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Databases >> %+v", data)
+    _dumpf("Server Databases >> first: %s", data[0])
+}
