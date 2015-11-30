@@ -128,7 +128,6 @@ func (this *Server) GetLogs(query interface{}) string {
 }
 
 func (this *Server) GetStats(path string) (map[string]map[string]map[string]interface{}, error) {
-    path = "/couchdb/request_time"
     type Data map[string]map[string]interface{}
     data, err := this.Client.Get("/_stats/"+ path, nil, nil).GetData(&Data{})
     if err != nil {
