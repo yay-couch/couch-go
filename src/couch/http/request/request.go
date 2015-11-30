@@ -99,11 +99,8 @@ func (this *Request) Send() string {
     }
     request += "\r\n"
     request += this.GetBody()
-    // _dump(request)
 
     _fmt.Fprint(link, request)
-
-    // _dump("\n\n")
 
     var reader = _bio.NewReader(link);
 
@@ -124,7 +121,9 @@ func (this *Request) Send() string {
         }
         response += string(buffer)
     }
-    // _dump(response)
+
+    _dump(request)
+    _dump(response)
 
     return response
 }
