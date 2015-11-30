@@ -104,20 +104,16 @@ func (this *Server) GetAllDatabases() ([]string, error) {
 }
 
 func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{}, error) {
-    type Data struct {
-        DBName string `json:"db_name"`
-        Type   string
-        OK     bool
-    }
+    type Data map[string]interface{}
     data, err := this.Client.Get("/_db_updates", query, nil).GetData(&Data{})
     if err != nil {
         return nil, err
     }
-    return map[string]interface{}{
-        "db_name": data.(*Data).DBName,
-           "type": data.(*Data).Type,
-             "ok": data.(*Data).OK,
-    }, nil
+    var _return = make(map[string]interface{})
+    for key, value := range *data.(*Data) {
+        _return[key] = value
+    }
+    return _return, nil
 }
 
 func (this *Server) GetLogs(query interface{}) string {
