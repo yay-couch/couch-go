@@ -130,3 +130,17 @@ func TestGetStats() {
     _dumpf("Server Stats >> couchdb.request_time.description: %f", data["couchdb"]["request_time"]["current"])
     _dumpf("Server Stats >> httpd_request_methods.GET.max: %v", data["httpd_request_methods"]["GET"]["max"])
 }
+
+/**
+ * TestGetUuids
+ */
+func TestGetUuids() {
+    data, err := _newServer().GetUuids(3)
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Uuid >> %+v", data)
+    for i, _ := range data {
+        _dumpf("Server Uuid >> %d: %s", i, data[i])
+    }
+}
