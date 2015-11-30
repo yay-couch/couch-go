@@ -159,15 +159,22 @@ func ParseBody(in string, out interface{}) (interface{}, error) {
 func Dig(key string, object interface{}) interface{} {
     var keys = _str.Split(key, ".")
     key = _shift(&keys)
-    if len(keys) != 0 {
-        // nö!
-        // if value, ok := object.(map[string]interface{})[key]; ok {
-        //     return Dig(_str.Join(keys, "."), value)
-        // }
-
+    if len(keys) == 0 {
+        // add more if needs
+        switch object.(type) {
+            case map[string]int:
+                return object.(map[string]int)[key]
+            case map[string]string:
+                Dump("2")
+                return object.(map[string]string)[key]
+            case map[string]interface{}:
+                return object.(map[string]interface{})[key]
+            default:
+                // panic?
+        }
+    } else {
         // @overwrite
         var keys = _str.Join(keys, ".")
-
         // add more if needs
         switch object.(type) {
             case map[string]int:
@@ -176,18 +183,6 @@ func Dig(key string, object interface{}) interface{} {
                 return Dig(keys, object.(map[string]string)[key])
             case map[string]interface{}:
                 return Dig(keys, object.(map[string]interface{})[key])
-            default:
-                // panic?
-        }
-    } else {
-        // add more if needs
-        switch object.(type) {
-            case map[string]int:
-                return object.(map[string]int)[key]
-            case map[string]string:
-                return object.(map[string]string)[key]
-            case map[string]interface{}:
-                return object.(map[string]interface{})[key]
             default:
                 // panic?
         }
