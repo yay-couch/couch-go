@@ -71,7 +71,6 @@ func (this *Server) GetActiveTasks() (map[int]map[string]interface{}, error) {
         for key, value := range data.(map[string]interface{}) {
             _return[i][key] = value
         }
-
     }
     return _return, nil
 }
