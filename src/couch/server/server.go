@@ -119,3 +119,11 @@ func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{
              "ok": data.(*Data).OK,
     }, nil
 }
+
+func (this *Server) GetLogs(query interface{}) string {
+    data := this.Client.Get("/_log", query, map[string]interface{}{
+        "Accept": "text/plain",
+    }).GetBody()
+    _dumps(data)
+    return ""
+}
