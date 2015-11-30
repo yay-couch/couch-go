@@ -92,7 +92,7 @@ func TestGetAllDatabases() {
  * TestGetDatabaseUpdates
  */
 func TestGetDatabaseUpdates() {
-    data, err := _newServer().GetDatabaseUpdates()
+    data, err := _newServer().GetDatabaseUpdates(nil)
     if err != nil {
         panic(err)
     }
