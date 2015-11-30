@@ -124,3 +124,20 @@ func (this *Server) GetStats(path string) (map[string]map[string]map[string]inte
     }
     return _return, nil
 }
+
+func (this *Server) GetUuids(count int) ([]string, error) {
+    type Data map[string][]string
+    data, err := this.Client.Get("/_uuids", map[string]interface{}{
+        "count": 3,
+    }, nil).GetData(&Data{})
+    if err != nil {
+        return nil, err
+    }
+    var _return = make([]string, count)
+    for _, uuid := range *data.(*Data) {
+        for i := 0; i < len(uuid); i++ {
+            _return[i] = uuid[i]
+        }
+    }
+    return _return, nil
+}
