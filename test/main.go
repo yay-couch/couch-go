@@ -21,5 +21,7 @@ func main() {
     // test_server.TestGetAllDatabases()
     // test_server.TestGetDatabaseUpdates()
     // test_server.TestGetLogs()
-    test_server.TestGetStats()
+    // test_server.TestGetStats()
+    // test_server.TestGetUuid()
+    // test_server.TestGetUuids()
 }
