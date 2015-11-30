@@ -106,7 +106,8 @@ func TestGetDatabaseUpdates() {
  * TestGetLogs
  */
 func TestGetLogs() {
-    _dumps(_newServer().GetLogs(nil))
+    var data = _newServer().GetLogs(nil)
+    _dumps(data)
 }
 
 func TestGetStats() {
