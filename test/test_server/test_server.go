@@ -115,6 +115,9 @@ func TestGetLogs() {
     _dumps(data)
 }
 
+/**
+ * TestGetStats
+ */
 func TestGetStats() {
     data, err := _newServer().GetStats("")
     if err != nil {
