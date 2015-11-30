@@ -117,10 +117,9 @@ func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{
 }
 
 func (this *Server) GetLogs(query interface{}) string {
-    data := this.Client.Get("/_log", query, map[string]interface{}{
+    return this.Client.Get("/_log", query, map[string]interface{}{
         "Accept": "text/plain",
     }).GetBody()
-    return data
 }
 
 func (this *Server) GetStats(path string) (map[string]map[string]map[string]interface{}, error) {
