@@ -127,3 +127,39 @@ func (this *Server) GetLogs(query interface{}) string {
     _dumps(data)
     return ""
 }
+
+func (this *Server) GetStats(path string) {
+    path = "/couchdb/request_time"
+    type Data map[string]map[string]interface{}
+    data, err := this.Client.Get("/_stats/"+ path, nil, nil).GetData(&Data{})
+    if err != nil {
+
+    }
+    // _dumps(data)
+    // _dumpf("%#v", data.(*Data))
+    var _return = make(map[string]map[string]interface{})
+    for i, data := range *data.(*Data) {
+        // _dumps(i)
+        _return[i] = make(map[string]interface{})
+        // _dumps(data)
+        for ii, ddata := range data {
+            // _dumps(ii)
+            // _dumps(ddata)
+            _return[i][ii] = make(map[string]interface{})
+            for key, value := range ddata.(map[string]interface{}) {
+                _=key
+                switch value.(type) {
+                    case string:
+                        _return[i][ii] = value.(string)
+                }
+            }
+            // _dumps(ddata.(map[string]interface{})["description"].(string))
+            // if value, ok := ddata.(map[string]interface{}); ok {
+                // _dumps(value)
+            // }
+            // _dumps(ddata.(map[string]interface{})["description"])
+        }
+    }
+    _dump(_return)
+    // _dump(_return["cocuhdb"]["request_time"].(map[string]interface{})["fooo"])
+}
