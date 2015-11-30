@@ -19,5 +19,6 @@ func main() {
     // test_server.TestVersion()
     // test_server.TestGetActiveTasks()
     // test_server.TestGetAllDatabases()
-    test_server.TestGetDatabaseUpdates()
+    // test_server.TestGetDatabaseUpdates()
+    test_server.TestGetLogs()
 }

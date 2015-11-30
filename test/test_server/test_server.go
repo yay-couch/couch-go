@@ -96,9 +96,15 @@ func TestGetDatabaseUpdates() {
     if err != nil {
         panic(err)
     }
-
     _dumpf("Server Updates >> %+v", data)
     _dumpf("Server Updates >> db_name: %s", data["db_name"])
     _dumpf("Server Updates >> type: %s", data["type"])
     _dumpf("Server Updates >> ok: %v", data["ok"])
+}
+
+/**
+ * TestGetLogs
+ */
+func TestGetLogs() {
+    _dumps(_newServer().GetLogs(nil))
 }
