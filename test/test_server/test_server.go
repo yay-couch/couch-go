@@ -132,6 +132,17 @@ func TestGetStats() {
 }
 
 /**
+ * TestGetUuid
+ */
+func TestGetUuid() {
+    data, err := _newServer().GetUuid()
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Uuid >> %s", data)
+}
+
+/**
  * TestGetUuids
  */
 func TestGetUuids() {
@@ -139,8 +150,8 @@ func TestGetUuids() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Server Uuid >> %+v", data)
+    _dumpf("Server Uuids >> %+v", data)
     for i, _ := range data {
-        _dumpf("Server Uuid >> %d: %s", i, data[i])
+        _dumpf("Server Uuids >> %d: %s", i, data[i])
     }
 }
