@@ -55,7 +55,7 @@ func (this *Server) Version() (string, error) {
     if err != nil {
         return "", err
     }
-    return u.Dig("version", data).(string), nil
+    return data["version"].(string), nil
 }
 
 func (this *Server) GetActiveTasks() ([]map[string]interface{}, error) {
