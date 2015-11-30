@@ -37,11 +37,11 @@ func New() *Stream {
 
 func (this *Stream) SetHeader(key string, value interface{}) {
     _checkStreamHeaders(this)
-    switch u.Type(value) {
-        case "nil":
+    switch value.(type) {
+        case nil:
             delete(this.Headers, key)
-        case "int",
-             "string":
+        case int,
+             string:
             this.Headers[key] = u.ToString(value);
         default:
             panic("Unsupported value type '"+ u.Type(value) +"' given!");
