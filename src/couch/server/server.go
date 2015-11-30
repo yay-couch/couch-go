@@ -30,23 +30,22 @@ func (this *Server) Ping() bool {
 }
 
 func (this *Server) Info() (map[string]interface{}, error) {
-    type Data struct {
-        CouchDB string
-        Uuid    string
-        Version string
-        Vendor  map[string]string
-    }
+    type Data map[string]interface{}
     data, err := this.Client.Get("/", nil, nil).GetData(&Data{})
     if err != nil {
         return nil, err
     }
     var _return = make(map[string]interface{});
-    _return["couchdb"] = data.(*Data).CouchDB
-    _return["uuid"]    = data.(*Data).Uuid
-    _return["version"] = data.(*Data).Version
-    _return["vendor"]  = map[string]string{
-           "name": data.(*Data).Vendor["name"],
-        "version": data.(*Data).Vendor["version"],
+    for key, value := range *data.(*Data) {
+        switch value := value.(type) {
+            case map[string]interface{}:
+                _return[key] = make(map[string]string)
+                for kkey, vvalue := range value {
+                    _return[key].(map[string]string)[kkey] = vvalue.(string)
+                }
+            default:
+                _return[key] = value
+        }
     }
     return _return, nil
 }

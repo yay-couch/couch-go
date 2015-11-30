@@ -48,8 +48,11 @@ func TestInfo() {
     _dumpf("Server Info >> couchdb: %s", u.Dig("couchdb", data))
     _dumpf("Server Info >> uuid: %s", u.Dig("uuid", data))
     _dumpf("Server Info >> version: %s", u.Dig("version", data))
+    // or
     _dumpf("Server Info >> vendor.name: %s", u.Dig("vendor.name", data))
     _dumpf("Server Info >> vendor.version: %s", u.Dig("vendor.version", data))
+    _dumpf("Server Info >> vendor.name: %s", data["vendor"].(map[string]string)["name"])
+    _dumpf("Server Info >> vendor.version: %s", data["vendor"].(map[string]string)["version"])
 }
 
 /**
