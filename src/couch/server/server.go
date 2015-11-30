@@ -128,7 +128,7 @@ func (this *Server) GetStats(path string) (map[string]map[string]map[string]inte
 func (this *Server) GetUuids(count int) ([]string, error) {
     type Data map[string][]string
     data, err := this.Client.Get("/_uuids", map[string]interface{}{
-        "count": 3,
+        "count": count,
     }, nil).GetData(&Data{})
     if err != nil {
         return nil, err
