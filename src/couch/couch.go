@@ -25,9 +25,9 @@ var (
 )
 
 var (
-    DefaultScheme      = "http"
-    DefaultHost        = "localhost"
-    DefaultPort uint16 = 5984
+    DefaultScheme        = "http"
+    DefaultHost          = "localhost"
+    DefaultPort   uint16 = 5984
 )
 
 func Shutup() {}
