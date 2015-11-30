@@ -128,38 +128,29 @@ func (this *Server) GetLogs(query interface{}) string {
     return ""
 }
 
-func (this *Server) GetStats(path string) {
+func (this *Server) GetStats(path string) (map[string]map[string]map[string]interface{}, error) {
     path = "/couchdb/request_time"
     type Data map[string]map[string]interface{}
     data, err := this.Client.Get("/_stats/"+ path, nil, nil).GetData(&Data{})
     if err != nil {
-
+        return nil, err
     }
-    // _dumps(data)
-    // _dumpf("%#v", data.(*Data))
-    var _return = make(map[string]map[string]interface{})
+    var _return = make(map[string]map[string]map[string]interface{})
     for i, data := range *data.(*Data) {
-        // _dumps(i)
-        _return[i] = make(map[string]interface{})
-        // _dumps(data)
+        _return[i] = make(map[string]map[string]interface{})
         for ii, ddata := range data {
-            // _dumps(ii)
-            // _dumps(ddata)
             _return[i][ii] = make(map[string]interface{})
             for key, value := range ddata.(map[string]interface{}) {
-                _=key
                 switch value.(type) {
+                    case nil:
+                        _return[i][ii][key] = nil
                     case string:
-                        _return[i][ii] = value.(string)
+                        _return[i][ii][key] = value.(string)
+                    case float64:
+                        _return[i][ii][key] = value.(float64)
                 }
             }
-            // _dumps(ddata.(map[string]interface{})["description"].(string))
-            // if value, ok := ddata.(map[string]interface{}); ok {
-                // _dumps(value)
-            // }
-            // _dumps(ddata.(map[string]interface{})["description"])
         }
     }
-    _dump(_return)
-    // _dump(_return["cocuhdb"]["request_time"].(map[string]interface{})["fooo"])
+    return _return, nil
 }
