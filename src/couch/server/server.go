@@ -59,16 +59,16 @@ func (this *Server) Version() (string, error) {
     return u.Dig("version", data).(string), nil
 }
 
-func (this *Server) GetActiveTasks() (map[int]map[string]interface{}, error) {
-    type Data interface{}
-    data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&[]Data{})
+func (this *Server) GetActiveTasks() ([]map[string]interface{}, error) {
+    type Data []map[string]interface{}
+    data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&Data{})
     if err != nil {
         return nil, err
     }
-    var _return = make(map[int]map[string]interface{});
-    for i, data := range *data.(*[]Data) {
+    var _return = make([]map[string]interface{}, len(*data.(*Data)));
+    for i, data := range *data.(*Data) {
         _return[i] = make(map[string]interface{})
-        for key, value := range data.(map[string]interface{}) {
+        for key, value := range data {
             _return[i][key] = value
         }
     }

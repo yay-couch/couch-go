@@ -72,8 +72,10 @@ func TestGetActiveTasks() {
         panic(err)
     }
     _dumpf("Server Active Tasks >> %+v", data)
-    _dumpf("Server Active Tasks >> 0.pid: %s", data[0]["pid"])
-    _dumpf("Server Active Tasks >> 0.database: %s", data[0]["database"])
+    for _, task := range data {
+        _dumpf("Server Active Tasks >> 0.pid: %s", task["pid"])
+        _dumpf("Server Active Tasks >> 0.database: %s", task["database"])
+    }
 }
 
 /**
