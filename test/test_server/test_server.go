@@ -120,4 +120,5 @@ func TestGetStats() {
     _dumpf("Server Stats >> couchdb.request_time: %+v", data["couchdb"]["request_time"])
     _dumpf("Server Stats >> couchdb.request_time.description: %s", data["couchdb"]["request_time"]["description"])
     _dumpf("Server Stats >> couchdb.request_time.description: %f", data["couchdb"]["request_time"]["current"])
+    _dumpf("Server Stats >> httpd_request_methods.GET.max: %v", data["httpd_request_methods"]["GET"]["max"])
 }
