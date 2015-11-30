@@ -110,5 +110,13 @@ func TestGetLogs() {
 }
 
 func TestGetStats() {
-    _newServer().GetStats("")
+    data, err := _newServer().GetStats("")
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Stats >> %+v", data)
+    _dumpf("Server Stats >> couchdb: %+v", data["couchdb"])
+    _dumpf("Server Stats >> couchdb.request_time: %+v", data["couchdb"]["request_time"])
+    _dumpf("Server Stats >> couchdb.request_time.description: %s", data["couchdb"]["request_time"]["description"])
+    _dumpf("Server Stats >> couchdb.request_time.description: %f", data["couchdb"]["request_time"]["current"])
 }
