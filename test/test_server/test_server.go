@@ -73,7 +73,7 @@ func TestGetActiveTasks() {
     }
     _dumpf("Server Active Tasks >> %+v", data)
     _dumpf("Server Active Tasks >> 0.pid: %s", data[0]["pid"])
-    _dumpf("Server Active Tasks >> 0.database: %s", data[0]["databases"])
+    _dumpf("Server Active Tasks >> 0.database: %s", data[0]["database"])
 }
 
 /**
