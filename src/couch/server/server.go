@@ -108,7 +108,7 @@ func (this *Server) GetLogs(query interface{}) string {
 }
 
 func (this *Server) GetStats(path string) (map[string]map[string]map[string]interface{}, error) {
-    type Data map[string]map[string]interface{}
+    type Data map[string]map[string]map[string]interface{}
     data, err := this.Client.Get("/_stats/"+ path, nil, nil).GetData(&Data{})
     if err != nil {
         return nil, err
@@ -118,7 +118,7 @@ func (this *Server) GetStats(path string) (map[string]map[string]map[string]inte
         _return[i] = make(map[string]map[string]interface{})
         for ii, ddata := range data {
             _return[i][ii] = make(map[string]interface{})
-            for key, value := range ddata.(map[string]interface{}) {
+            for key, value := range ddata {
                 _return[i][ii][key] = value
             }
         }
