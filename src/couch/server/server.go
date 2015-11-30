@@ -60,32 +60,18 @@ func (this *Server) Version() (string, error) {
 }
 
 func (this *Server) GetActiveTasks() (map[int]map[string]interface{}, error) {
-    type Data struct {
-        ChangesDone  uint   `json:"changes_done"`
-        Database     string
-        Pid          string
-        Progress     uint
-        TotalChanges uint   `json:"total_changes"`
-        Type         string
-        StartedOn    uint32 `json:"started_on"`
-        UpdatedOn    uint32 `json:"updated_on"`
-    }
+    type Data interface{}
     data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&[]Data{})
     if err != nil {
         return nil, err
     }
     var _return = make(map[int]map[string]interface{});
     for i, data := range *data.(*[]Data) {
-        _return[i] = map[string]interface{}{
-             "changes_done": data.ChangesDone,
-                 "database": data.Database,
-                      "pid": data.Pid,
-                 "progress": data.Progress,
-            "total_changes": data.TotalChanges,
-                     "type": data.Type,
-               "started_on": data.StartedOn,
-               "updated_on": data.UpdatedOn,
+        _return[i] = make(map[string]interface{})
+        for key, value := range data.(map[string]interface{}) {
+            _return[i][key] = value
         }
+
     }
     return _return, nil
 }
