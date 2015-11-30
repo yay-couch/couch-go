@@ -165,7 +165,6 @@ func Dig(key string, object interface{}) interface{} {
             case map[string]int:
                 return object.(map[string]int)[key]
             case map[string]string:
-                Dump("2")
                 return object.(map[string]string)[key]
             case map[string]interface{}:
                 return object.(map[string]interface{})[key]
