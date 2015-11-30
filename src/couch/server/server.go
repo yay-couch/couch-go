@@ -90,16 +90,16 @@ func (this *Server) GetAllDatabases() ([]string, error) {
 }
 
 func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{}, error) {
-    type Data map[string]interface{}
-    data, err := this.Client.Get("/_db_updates", query, nil).GetData(&Data{})
+    type Data interface{}
+    data, err := this.Client.Get("/_db_updates", query, nil).GetData(*new(Data))
     if err != nil {
         return nil, err
     }
-    var _return = make(map[string]interface{})
-    for key, value := range *data.(*Data) {
-        _return[key] = value
-    }
-    return _return, nil
+    return map[string]interface{}{
+        "db_name": data.(map[string]interface{})["db_name"],
+           "type": data.(map[string]interface{})["type"],
+             "ok": data.(map[string]interface{})["o"],
+    }, nil
 }
 
 func (this *Server) GetLogs(query interface{}) string {
