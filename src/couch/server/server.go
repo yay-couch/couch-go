@@ -125,6 +125,14 @@ func (this *Server) GetStats(path string) (map[string]map[string]map[string]inte
     return _return, nil
 }
 
+func (this *Server) GetUuid() (string, error) {
+    data, err := this.GetUuids(1)
+    if err != nil {
+        return "", err
+    }
+    return data[0], nil
+}
+
 func (this *Server) GetUuids(count int) ([]string, error) {
     type Data map[string][]string
     data, err := this.Client.Get("/_uuids", map[string]interface{}{
