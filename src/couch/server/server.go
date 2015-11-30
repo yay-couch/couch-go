@@ -134,14 +134,7 @@ func (this *Server) GetStats(path string) (map[string]map[string]map[string]inte
         for ii, ddata := range data {
             _return[i][ii] = make(map[string]interface{})
             for key, value := range ddata.(map[string]interface{}) {
-                switch value.(type) {
-                    case nil:
-                        _return[i][ii][key] = nil
-                    case string:
-                        _return[i][ii][key] = value.(string)
-                    case float64:
-                        _return[i][ii][key] = value.(float64)
-                }
+                _return[i][ii][key] = value
             }
         }
     }
