@@ -163,35 +163,22 @@ func (this *Server) Replicate(body interface{}) (map[string]interface{}, error) 
     if err != nil {
         return nil, err
     }
-    _dumps(*data.(*Data), "\n")
     var _return = make(map[string]interface{})
-
-    // for key, value := range *data.(*Data) {
-    //     if key == "history" {
-    //         var length = len(value.([]map[string]interface{}))
-    //         _dumps(length)
-    //         continue
-    //     }
-    //     _return[key] = value
-    // }
-    // var _return = make([]map[string]interface{}, len(*data.(*Data)))
-    // for i, data := range *data.(*Data) {
-    //     _return[i] = make(map[string]interface{})
-    //     for key, value := range data {
-    //         _return[i][key] = value
-    //     }
-    // }
-    // for key, value := range *data.(*Data) {
-    //     switch value := value.(type) {
-    //         case map[string]interface{}:
-    //             _return[key] = make(map[string]string)
-    //             for kkey, vvalue := range value {
-    //                 _return[key].(map[string]string)[kkey] = vvalue.(string)
-    //             }
-    //         default:
-    //             _return[key] = value
-    //     }
-    // }
-    _dumps(">>", _return)
-    return nil, nil
+    for key, value := range *data.(*Data) {
+        if key == "history" {
+            _return[key] = make(map[int]map[string]interface{})
+            for i, history := range value.([]interface{}) {
+                _return[key] = make([]map[string]interface{}, len(value.([]interface{})))
+                for kkey, vvalue := range history.(map[string]interface{}) {
+                    if _return[key].([]map[string]interface{})[i] == nil {
+                        _return[key].([]map[string]interface{})[i] = make(map[string]interface{})
+                    }
+                    _return[key].([]map[string]interface{})[i][kkey] = vvalue
+                }
+            }
+            continue
+        }
+        _return[key] = value
+    }
+    return _return, nil
 }
