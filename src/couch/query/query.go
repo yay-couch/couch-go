@@ -31,7 +31,7 @@ func (query *Query) ToString() string {
             value = _fmt.Sprintf("[\"%s\"]", _str.Join(value.([]string), "\",\""))
         }
         query.DataString += _fmt.Sprintf(
-            "%s=%s&", _url.QueryEscape(key), _url.QueryEscape(u.ToString(value)))
+            "%s=%s&", _url.QueryEscape(key), _url.QueryEscape(u.String(value)))
     }
 
     if query.DataString != "" {
