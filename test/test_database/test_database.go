@@ -1,7 +1,6 @@
 package test_database
 
 import _couch    "./../../src/couch"
-import _client   "./../../src/couch/client"
 import _database "./../../src/couch/database"
 
 import u "./../../src/couch/util"
@@ -13,9 +12,7 @@ var (
     DBNAME = "foo"
 )
 
-func Shutup() {
-    _client.Shutup()
-}
+func Shutup() {}
 
 func _newDatabase() *_database.Database {
     couch    := _couch.New(nil, DEBUG)
