@@ -1,12 +1,8 @@
 package test_server
 
-import _couch    "./../../src/couch"
-import _client   "./../../src/couch/client"
-import _stream   "./../../src/couch/http/stream"
-import _request  "./../../src/couch/http/request"
-import _response "./../../src/couch/http/response"
-
-import _server   "./../../src/couch/server"
+import _couch  "./../../src/couch"
+import _client "./../../src/couch/client"
+import _server "./../../src/couch/server"
 
 import u "./../../src/couch/util"
 // @tmp
@@ -18,10 +14,6 @@ var (
 
 func Shutup() {
     _client.Shutup()
-    _stream.Shutup()
-    _request.Shutup()
-    _response.Shutup()
-    _server.Shutup()
 }
 
 func _newServer() *_server.Server {
