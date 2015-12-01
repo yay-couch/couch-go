@@ -102,8 +102,7 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
                 this.Response.SetHeader(key, value)
             }
         }
-        var body = _str.TrimSpace(tmp[1])
-        this.Response.SetBody(body)
+        this.Response.SetBody(tmp[1])
     }
 
     // error?
