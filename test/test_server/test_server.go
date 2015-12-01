@@ -21,7 +21,9 @@ func Shutup() {
 }
 
 func _newServer() *_server.Server {
-    couch  := _couch.New(nil)
+    couch  := _couch.New(map[string]interface{}{
+        "debug": true,
+    })
     client := _couch.NewClient(couch, nil)
     server := _couch.NewServer(client)
     return server

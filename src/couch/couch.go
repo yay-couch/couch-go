@@ -33,8 +33,12 @@ var (
 
 func Shutup() {}
 
-func New(config interface{}) *Couch {
-    couch := &Couch{}
+func New(config interface{}, debug bool) *Couch {
+    couch := &Couch{
+        Config: map[string]interface{}{
+            "debug": debug,
+        },
+    }
     if config, ok := config.(map[string]interface{}); ok {
         couch.SetConfig(config)
     }
