@@ -46,6 +46,7 @@ func (this *Stream) SetHeader(key string, value interface{}) {
             delete(this.Headers, key)
         case int,
              string:
+            // @todo
             this.Headers[key] = u.ToString(value);
         default:
             panic("Unsupported value type '"+ u.Type(value) +"' given!");
