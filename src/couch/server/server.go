@@ -230,3 +230,15 @@ func (this *Server) SetConfig(section, key, value string) (string, error) {
     }
     return data.(string), nil
 }
+
+func (this *Server) RemoveConfig(section, key string) (string, error) {
+    if section == "" || key == "" {
+        panic("Both section & key required!")
+    }
+    var Data string
+    data, err := this.Client.Delete("/_config/"+ section +"/"+ key, nil, nil).GetBodyData(Data)
+    if err != nil {
+        return "", err
+    }
+    return data.(string), nil
+}
