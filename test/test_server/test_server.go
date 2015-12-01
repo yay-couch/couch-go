@@ -12,6 +12,10 @@ import u "./../../src/couch/util"
 // @tmp
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
+var (
+    DEBUG = true
+)
+
 func Shutup() {
     _client.Shutup()
     _stream.Shutup()
@@ -21,9 +25,7 @@ func Shutup() {
 }
 
 func _newServer() *_server.Server {
-    couch  := _couch.New(map[string]interface{}{
-        "debug": true,
-    })
+    couch  := _couch.New(nil, DEBUG)
     client := _couch.NewClient(couch, nil)
     server := _couch.NewServer(client)
     return server

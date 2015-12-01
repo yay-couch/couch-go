@@ -10,6 +10,10 @@ import u "./../../src/couch/util"
 // @tmp
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
+var (
+    DEBUG = true
+)
+
 func Shutup() {
     _client.Shutup()
     _stream.Shutup()
@@ -18,7 +22,7 @@ func Shutup() {
 }
 
 func _doRequest(uri string) *_response.Response {
-    couch  := _couch.New(nil)
+    couch  := _couch.New(nil, DEBUG)
     client := _couch.NewClient(couch, nil)
     // or
     // client := _couch.NewClient(couch, map[string]interface{}{
