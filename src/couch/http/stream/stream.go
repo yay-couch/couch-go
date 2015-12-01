@@ -2,7 +2,6 @@ package stream
 
 import (
     _fmt "fmt"
-    _str "strings"
 )
 
 import u "./../../util"
@@ -15,11 +14,16 @@ type Stream struct {
     Headers     map[string]interface{}
     Body        interface{}
     Error       bool
+    StreamBody
 }
 
 type StreamError struct {
     ErrorKey    string `json:"error"`
     ErrorValue  string `json:"reason"`
+}
+
+type StreamBody interface {
+    SetBody(body interface{})
 }
 
 const (
@@ -57,21 +61,6 @@ func (this *Stream) GetHeader(key string) interface{} {
 func (this *Stream) GetHeaderAll() map[string]interface{} {
     _checkStreamHeaders(this)
     return this.Headers
-}
-
-func (this *Stream) SetBody(body interface{}) {
-    // request | response ?
-    switch body.(type) {
-        case nil:
-            this.Body = nil
-        case int, string:
-            // trim null bytes & \r\n
-            body = _str.Trim(body.(string), "\x00")
-            body = _str.TrimSpace(body.(string))
-            this.Body = body
-        default:
-            panic("Unsupported body type '"+ u.Type(body) +"' given!");
-    }
 }
 
 func (this *Stream) GetBody() string {
