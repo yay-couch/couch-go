@@ -229,3 +229,14 @@ func TestSetConfig() {
     }
     _dumpf("Server Set Config >> %s", data)
 }
+
+/**
+ * TestRemoveConfig
+ */
+func TestRemoveConfig() {
+    data, err := _newServer().RemoveConfig("couch", "foo")
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Remove Config >> %s", data)
+}
