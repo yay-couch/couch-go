@@ -188,3 +188,29 @@ func TestReplicate() {
 func TestRestart() {
     _dumpf("Server Restart >> %v ", _newServer().Restart())
 }
+
+/**
+ * TestGetConfig
+ */
+func TestGetConfig() {
+    // data1, err := _newServer().GetConfig()
+    // if err != nil {
+    //     panic(err)
+    // }
+    // _dumpf("Server Get Config >> %+v", data1)
+    // _dumpf("Server Get Config >> couchdb: %v", data1["couchdb"])
+    // _dumpf("Server Get Config >> couchdb.uuid: %s", data1["couchdb"]["uuid"])
+    // // or
+    // data2, err := _newServer().GetConfigSection("couchdb")
+    // if err != nil {
+    //     panic(err)
+    // }
+    // _dumpf("Server Get Config Section >> couchdb: %v", data2)
+    // _dumpf("Server Get Config Section >> couchdb.uuid: %s", data2["uuid"])
+    // or
+    data3, err := _newServer().GetConfigSectionKey("couchdb", "uuid")
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Get Config Section Key >> couchdb.uuid: %s", data3)
+}
