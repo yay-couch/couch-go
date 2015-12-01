@@ -46,6 +46,7 @@ func (this *Stream) SetHeader(key string, value interface{}) {
         case nil:
             delete(this.Headers, key)
         case int,
+             bool,
              string:
             this.Headers[key] = u.String(value)
         default:
