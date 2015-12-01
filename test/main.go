@@ -4,7 +4,8 @@ package main
 
 // import test_uuid "./test_uuid"
 // import test_client "./test_client"
-import test_server "./test_server"
+// import test_server "./test_server"
+import test_database "./test_database"
 
 
 import u "./../src/couch/util"
@@ -12,22 +13,9 @@ import u "./../src/couch/util"
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
 func main() {
-    // test_uuid.TestAll()
-    // test_client.TestAll()
-
-    // test_server.TestPing()
-    // test_server.TestInfo()
-    // test_server.TestVersion()
-    // test_server.TestGetActiveTasks()
-    // test_server.TestGetAllDatabases()
-    // test_server.TestGetDatabaseUpdates()
-    // test_server.TestGetLogs()
-    // test_server.TestGetStats()
-    // test_server.TestGetUuid()
-    // test_server.TestGetUuids()
-    // test_server.TestReplicate()
-    // test_server.TestRestart()
-    // test_server.TestGetConfig()
-    // test_server.TestSetConfig()
-    // test_server.TestRemoveConfig()
+    // test_database.TestPing()
+    // test_database.TestInfo()
+    // test_database.TestCreate()
+    // test_database.TestRemove()
+    // test_database.TestReplicate()
 }
