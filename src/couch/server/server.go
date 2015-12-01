@@ -17,7 +17,9 @@ type Server struct {
     Client *_client.Client
 }
 
-func Shutup() {}
+func Shutup() {
+    u.Shutup()
+}
 
 func New(client *_client.Client) *Server {
     return &Server{
