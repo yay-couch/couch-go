@@ -187,14 +187,34 @@ func (this *Server) Restart() bool {
     return (202 == this.Client.Post("/_restart", nil, nil, nil).GetStatusCode())
 }
 
-func (this *Server) GetConfig(section interface{}, key interface{}) (map[string]map[string]interface{}, error) {
+func (this *Server) GetConfig() (map[string]map[string]interface{}, error) {
     type Data map[string]map[string]interface{}
-    data, err := this.Client.Get("/_config/"+ u.Join("/", section, key), nil, nil).GetBodyData(&Data{})
+    data, err := this.Client.Get("/_config", nil, nil).GetBodyData(&Data{})
     if err != nil {
         return nil, err
     }
     var _return = make(map[string]map[string]interface{})
-    _dumps(data)
-
+    for key, value := range *data.(*Data) {
+        if _return[key] == nil {
+            _return[key] = make(map[string]interface{})
+        }
+        for kkey, vvalue := range value {
+            _return[key][kkey] = vvalue
+        }
+    }
     return _return, nil
+}
+func (this *Server) GetConfigSection(section string) (map[string]interface{}, error) {
+    data, err := this.GetConfig()
+    if err != nil {
+        return nil, err
+    }
+    return data[section], nil
+}
+func (this *Server) GetConfigSectionKey(section string, key string) (string, error) {
+    data, err := this.GetConfig()
+    if err != nil {
+        return "", err
+    }
+    return data[section][key].(string), nil
 }
