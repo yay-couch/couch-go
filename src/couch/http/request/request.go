@@ -137,17 +137,21 @@ func (this *Request) SetBody(body interface{}) {
        this.Method != METHOD_HEAD &&
        this.Method != METHOD_GET {
         switch body.(type) {
-            case int,
-                 string:
+            case string:
                 // @overwrite
                 var body = _fmt.Sprintf("%s", body)
                 // trim null bytes & \r\n
                 body = _str.Trim(body, "\x00")
                 body = _str.TrimSpace(body)
+                if this.GetHeader("Content-Type") == "application/json" {
+                    // embrace with quotes for valid JSON body
+                    body = u.Quote(body)
+                }
                 this.Body = body
                 this.SetHeader("Content-Length", len(body))
             case map[string]interface{}:
                 if this.GetHeader("Content-Type") == "application/json" {
+                    // @overwrite
                     var body, err = u.UnparseBody(body)
                     if err != nil {
                         panic(err)
@@ -159,7 +163,15 @@ func (this *Request) SetBody(body interface{}) {
                     }
                 }
             default:
-                panic("Unsupported body type '"+ _fmt.Sprintf("%T", body) +"' given!");
+                var bodyType = _fmt.Sprintf("%T", body)
+                if u.StringSearch(bodyType, "u?int(\\d+)?|float(32|64)") {
+                    // @overwrite
+                    var body = _fmt.Sprintf("%s", body)
+                    this.Body = body
+                    this.SetHeader("Content-Length", len(body))
+                } else {
+                    panic("Unsupported body type '"+ bodyType +"' given!");
+                }
         }
     }
 }
