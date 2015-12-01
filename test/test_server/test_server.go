@@ -155,3 +155,15 @@ func TestGetUuids() {
         _dumpf("Server Uuids >> %d: %s", i, data[i])
     }
 }
+
+/**
+ * TestReplicate
+ */
+func TestReplicate() {
+    // _newServer().Replicate(nil) error!
+    _newServer().Replicate(map[string]interface{}{
+        "source": "foo",
+        "target": "foo_replicate",
+        "create_target": true,
+    })
+}

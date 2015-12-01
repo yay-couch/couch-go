@@ -24,4 +24,5 @@ func main() {
     // test_server.TestGetStats()
     // test_server.TestGetUuid()
     // test_server.TestGetUuids()
+    test_server.TestReplicate()
 }
