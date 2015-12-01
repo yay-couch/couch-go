@@ -12,9 +12,7 @@ var (
     DEBUG = true
 )
 
-func Shutup() {
-    _client.Shutup()
-}
+func Shutup() {}
 
 func _newServer() *_server.Server {
     couch  := _couch.New(nil, DEBUG)
