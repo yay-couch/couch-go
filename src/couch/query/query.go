@@ -18,7 +18,10 @@ type Query struct {
 func Shutup() {}
 
 func New(data map[string]interface{}) *Query {
-    return &Query{data, ""}
+    return &Query{
+        Data: data,
+        DataString: "",
+    }
 }
 
 func (query *Query) ToString() string {
