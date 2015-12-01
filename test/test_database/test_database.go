@@ -9,7 +9,7 @@ var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
 var (
     DEBUG  = true
-    DBNAME = "foo"
+    DBNAME = "foo_tmp"
 )
 
 func _newDatabase() *_database.Database {
@@ -28,7 +28,7 @@ func TestAll() {}
  * TestPing
  */
 func TestPing() {
-    _dumpf("Database Ping >> %v ", _newDatabase().Ping())
+    _dumpf("Database Ping >> %v", _newDatabase().Ping())
 }
 
 /**
@@ -44,4 +44,11 @@ func TestInfo() {
     for key, value := range data {
         _dumpf("Database Info >> %s: %v", key, value)
     }
+}
+
+/**
+ * TestCreate
+ */
+func TestCreate() {
+    _dumpf("Database Create >> %v", _newDatabase().Create())
 }
