@@ -61,18 +61,17 @@ func (this *Stream) GetHeaderAll() map[string]interface{} {
 
 func (this *Stream) SetBody(body interface{}) {
     // request | response ?
-    var bodyType = u.Type(body)
-    switch bodyType {
-        case "nil":
+    switch body.(type) {
+        case nil:
             this.Body = nil
-        case "int",
-             "string":
+        case int,
+             string:
             // trim null bytes & \r\n
             body = _str.Trim(body.(string), "\x00")
             body = _str.TrimSpace(body.(string))
             this.Body = body
         default:
-            panic("Unsupported body type '"+ bodyType +"' given!");
+            panic("Unsupported body type given!");
     }
 }
 
