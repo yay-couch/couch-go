@@ -181,3 +181,10 @@ func TestReplicate() {
     _dumpf("Server Database Replicate >> history.0: %v", u.Dig("0", data["history"]))
     _dumpf("Server Database Replicate >> history.0.start_time: %s", u.Dig("0.start_time", data["history"]))
 }
+
+/**
+ * TestRestart
+ */
+func TestRestart() {
+    _dumpf("Server Restart >> %v ", _newServer().Restart())
+}
