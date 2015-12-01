@@ -38,3 +38,7 @@ func (this *Database) Info() (map[string]interface{}, error) {
     }
     return _return, nil
 }
+
+func (this *Database) Create() bool {
+    return (201 == this.Client.Put(this.Name, nil, nil, nil).GetStatusCode())
+}
