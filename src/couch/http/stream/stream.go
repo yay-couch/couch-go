@@ -49,7 +49,7 @@ func (this *Stream) SetHeader(key string, value interface{}) {
             // @todo
             this.Headers[key] = u.ToString(value);
         default:
-            panic("Unsupported value type '"+ u.Type(value) +"' given!");
+            panic("Unsupported value type '"+ _fmt.Sprintf("%T", value) +"' given!");
     }
 }
 func (this *Stream) GetHeader(key string) interface{} {
