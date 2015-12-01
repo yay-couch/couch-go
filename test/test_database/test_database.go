@@ -40,14 +40,8 @@ func TestInfo() {
         panic(err)
     }
     _dumpf("Database Info >> %+v", data)
-    // _dumpf("Database Info >> couchdb: %s", data["couchdb"])
-    // // or
-    // _dumpf("Database Info >> couchdb: %s", u.Dig("couchdb", data))
-    // _dumpf("Database Info >> uuid: %s", u.Dig("uuid", data))
-    // _dumpf("Database Info >> version: %s", u.Dig("version", data))
-    // // or
-    // _dumpf("Database Info >> vendor.name: %s", u.Dig("vendor.name", data))
-    // _dumpf("Database Info >> vendor.version: %s", u.Dig("vendor.version", data))
-    // _dumpf("Database Info >> vendor.name: %s", data["vendor"].(map[string]string)["name"])
-    // _dumpf("Database Info >> vendor.version: %s", data["vendor"].(map[string]string)["version"])
+    _dumpf("Database Info >> db_name: %s", data["db_name"])
+    for key, value := range data {
+        _dumpf("Database Info >> %s: %v", key, value)
+    }
 }
