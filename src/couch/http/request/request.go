@@ -25,7 +25,7 @@ type Request struct {
 const (
     METHOD_HEAD   = "HEAD"
     METHOD_GET    = "GET"
-    METHOD_POST   = "POS"
+    METHOD_POST   = "POST"
     METHOD_PUT    = "PUT"
     METHOD_COPY   = "COPY"
     METHOD_DELETE = "DELETE"
