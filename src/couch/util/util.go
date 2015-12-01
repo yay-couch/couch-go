@@ -211,3 +211,18 @@ func Dig(key string, object interface{}) interface{} {
 
     return nil
 }
+
+func Join(sep string, args ...interface{}) string {
+    var result []string
+    for _, arg := range args {
+        switch arg.(type) {
+            case nil:
+                // pass
+            case string:
+                result = append(result, arg.(string))
+            default:
+                panic("Only string args accepted!")
+        }
+    }
+    return _str.Join(result, sep)
+}
