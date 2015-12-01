@@ -88,7 +88,7 @@ func (this *Response) GetStatusText() string {
 }
 
 // @overwrite
-func (this *Response) SetBody(body interface{}){
+func (this *Response) SetBody(body interface{}) {
     if body != nil {
         // @overwrite
         var body = _fmt.Sprintf("%s", body)
