@@ -17,9 +17,6 @@ func TypeReal(args ...interface{}) string {
     return _fmt.Sprintf("%T", args[0])
 }
 
-func ToString(args ...interface{}) string {
-    return _fmt.Sprintf("%v", args[0]);
-}
 func String(input interface{}) string {
     switch input.(type) {
         case int,
@@ -75,7 +72,7 @@ func IsEmptySet(input interface{}, inputDefault interface{}/*, inputType string*
         input = inputDefault
         // switch inputType {
         //     case "string":
-        //         input = ToString(inputDefault)
+        //         input = String(inputDefault)
         //     default:
         //         panic("Unimplemeted type '"+ inputType +"' given!")
         // }
