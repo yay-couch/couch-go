@@ -64,14 +64,13 @@ func (this *Stream) SetBody(body interface{}) {
     switch body.(type) {
         case nil:
             this.Body = nil
-        case int,
-             string:
+        case int, string:
             // trim null bytes & \r\n
             body = _str.Trim(body.(string), "\x00")
             body = _str.TrimSpace(body.(string))
             this.Body = body
         default:
-            panic("Unsupported body type given!");
+            panic("Unsupported body type '"+ u.Type(body) +"' given!");
     }
 }
 
