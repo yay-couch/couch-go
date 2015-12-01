@@ -156,7 +156,6 @@ func TestGetUuids() {
  * TestReplicate
  */
 func TestReplicate() {
-    // _newServer().Replicate(nil) error!
     data, err := _newServer().Replicate(map[string]interface{}{
         "source": "foo",
         "target": "foo_replicate",
