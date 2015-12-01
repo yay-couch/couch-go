@@ -8,11 +8,7 @@ import (
     _rex "regexp"
 )
 
-type Nil struct {}
-
-func Foo(a interface{}) {
-
-}
+func Shutup() {}
 
 func Type(args ...interface{}) string {
     return _str.Trim(TypeReal(args[0]), " *<>{}[]")
