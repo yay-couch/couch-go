@@ -127,5 +127,5 @@ func (this *Client) Post(uri string, uriParams interface{}, body interface{},
 }
 func (this *Client) Put(uri string, uriParams interface{}, body interface{},
     headers interface{}) *_response.Response {
-    return this.DoRequest(_request.METHOD_POST +" /"+ uri, uriParams, body, headers)
+    return this.DoRequest(_request.METHOD_PUT +" /"+ uri, uriParams, body, headers)
 }
