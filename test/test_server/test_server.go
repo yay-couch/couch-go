@@ -214,3 +214,14 @@ func TestGetConfig() {
     }
     _dumpf("Server Get Config Section Key >> couchdb.uuid: %s", data3)
 }
+
+/**
+ * TestSetConfig
+ */
+func TestSetConfig() {
+    data, err := _newServer().SetConfig("couch", "foo", "The foo!")
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Set Config >> %s", data)
+}
