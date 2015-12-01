@@ -108,7 +108,7 @@ func TestClientResponseData() {
     }
 
     var response = _doRequest("GET /")
-    data, err := u.ParseBody(response.GetData(), &Response{})
+    data, err := response.GetBodyData(&Response{})
     if err != nil {
         _dumps(err)
         return

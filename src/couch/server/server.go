@@ -31,7 +31,7 @@ func (this *Server) Ping() bool {
 
 func (this *Server) Info() (map[string]interface{}, error) {
     type Data map[string]interface{}
-    data, err := this.Client.Get("/", nil, nil).GetData(&Data{})
+    data, err := this.Client.Get("/", nil, nil).GetBodyData(&Data{})
     if err != nil {
         return nil, err
     }
@@ -60,7 +60,7 @@ func (this *Server) Version() (string, error) {
 
 func (this *Server) GetActiveTasks() ([]map[string]interface{}, error) {
     type Data []map[string]interface{}
-    data, err := this.Client.Get("/_active_tasks", nil, nil).GetData(&Data{})
+    data, err := this.Client.Get("/_active_tasks", nil, nil).GetBodyData(&Data{})
     if err != nil {
         return nil, err
     }
@@ -76,7 +76,7 @@ func (this *Server) GetActiveTasks() ([]map[string]interface{}, error) {
 
 func (this *Server) GetAllDatabases() ([]string, error) {
     type Data []string
-    data, err := this.Client.Get("/_all_dbs", nil, nil).GetData(&Data{})
+    data, err := this.Client.Get("/_all_dbs", nil, nil).GetBodyData(&Data{})
     if err != nil {
         return nil, err
     }
@@ -89,7 +89,7 @@ func (this *Server) GetAllDatabases() ([]string, error) {
 
 func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{}, error) {
     type Data interface{}
-    data, err := this.Client.Get("/_db_updates", query, nil).GetData(*new(Data))
+    data, err := this.Client.Get("/_db_updates", query, nil).GetBodyData(*new(Data))
     if err != nil {
         return nil, err
     }
@@ -108,7 +108,7 @@ func (this *Server) GetLogs(query interface{}) string {
 
 func (this *Server) GetStats(path string) (map[string]map[string]map[string]interface{}, error) {
     type Data map[string]map[string]map[string]interface{}
-    data, err := this.Client.Get("/_stats/"+ path, nil, nil).GetData(&Data{})
+    data, err := this.Client.Get("/_stats/"+ path, nil, nil).GetBodyData(&Data{})
     if err != nil {
         return nil, err
     }
@@ -137,7 +137,7 @@ func (this *Server) GetUuids(count int) ([]string, error) {
     type Data map[string][]string
     data, err := this.Client.Get("/_uuids", map[string]interface{}{
         "count": count,
-    }, nil).GetData(&Data{})
+    }, nil).GetBodyData(&Data{})
     if err != nil {
         return nil, err
     }
@@ -159,7 +159,7 @@ func (this *Server) Replicate(body interface{}) (map[string]interface{}, error) 
         panic("Both source & target required!")
     }
     type Data map[string]interface{}
-    data, err := this.Client.Post("/_replicate", nil, body, nil).GetData(&Data{})
+    data, err := this.Client.Post("/_replicate", nil, body, nil).GetBodyData(&Data{})
     if err != nil {
         return nil, err
     }

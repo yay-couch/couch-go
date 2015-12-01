@@ -70,7 +70,7 @@ func (this *Stream) GetBody() string {
     return this.Body.(string)
 }
 
-func (this *Stream) GetData(to interface{}) (interface{}, error) {
+func (this *Stream) GetBodyData(to interface{}) (interface{}, error) {
     if this.Error == true {
         data, err := u.ParseBody(this.Body.(string), &StreamError{})
         if err != nil {
