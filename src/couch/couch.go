@@ -11,12 +11,13 @@ import u "./util"
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
 type Couch struct {
-    config map[string]interface{}
+    Config map[string]interface{}
 }
 
 const (
     NAME    = "Couch"
     VERSION = "1.0.0"
+    DEBUG   = false
 )
 
 var (
@@ -42,8 +43,9 @@ func New(config interface{}) *Couch {
 
 func NewClient(couch *Couch, config interface{}) *_client.Client {
     var Config = make(map[string]interface{})
-    Config["Couch.NAME"] = NAME
+    Config["Couch.NAME"]    = NAME
     Config["Couch.VERSION"] = VERSION
+    Config["Couch.DEBUG"]   = DEBUG // set default
     if config != nil {
         for key, value := range config.(map[string]interface{}) {
             Config[key] = value
@@ -54,6 +56,10 @@ func NewClient(couch *Couch, config interface{}) *_client.Client {
     Config["Port"]     = u.IsEmptySet(Config["Port"],     DefaultPort)
     Config["Username"] = u.IsEmptySet(Config["Username"], Username)
     Config["Password"] = u.IsEmptySet(Config["Password"], Password)
+
+    if debug := u.Dig("debug", couch.Config); debug != nil {
+        Config["Couch.DEBUG"] = debug
+    }
 
     couch.SetConfig(Config)
 
@@ -68,8 +74,8 @@ func NewServer(client *_client.Client) *_server.Server {
 }
 
 func (this *Couch) SetConfig(config map[string]interface{}) {
-    this.config = config
+    this.Config = config
 }
 func (this *Couch) GetConfig() map[string]interface{} {
-    return this.config
+    return this.Config
 }
