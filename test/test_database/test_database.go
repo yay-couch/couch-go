@@ -59,6 +59,8 @@ func TestCreate() {
     _dumpf("Database Create >> %v", database.Create())
     // error?
     // if err := client.GetResponse().GetError(); err != "" {
+    //     _dumpf("Response Status: %s", client.GetResponse().GetStatus())
+    //     _dumpf("Response Body  : %s", client.GetResponse().GetBody())
     //     panic(err)
     // }
 }
@@ -70,6 +72,8 @@ func TestRemove() {
     _dumpf("Database Remove >> %v", database.Remove())
     // error?
     // if err := client.GetResponse().GetError(); err != "" {
+    //     _dumpf("Response Status: %s", client.GetResponse().GetStatus())
+    //     _dumpf("Response Body  : %s", client.GetResponse().GetBody())
     //     panic(err)
     // }
 }
