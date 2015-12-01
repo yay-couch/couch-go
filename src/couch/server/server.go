@@ -218,3 +218,15 @@ func (this *Server) GetConfigSectionKey(section string, key string) (string, err
     }
     return data[section][key].(string), nil
 }
+
+func (this *Server) SetConfig(section, key, value string) (string, error) {
+    if section == "" || key == "" {
+        panic("Both section & key required!")
+    }
+    var Data string
+    data, err := this.Client.Put("/_config/"+ section +"/"+ key, nil, value, nil).GetBodyData(Data)
+    if err != nil {
+        return "", err
+    }
+    return data.(string), nil
+}
