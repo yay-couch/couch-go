@@ -131,5 +131,36 @@ func (this *Request) Send() string {
     return response
 }
 
-// @overwrite?
-// func (this *Request) SetBody() {}
+// @overwrite
+func (this *Request) SetBody(body interface{}) {
+    if body != nil &&
+       this.Method != METHOD_HEAD &&
+       this.Method != METHOD_GET {
+        switch body.(type) {
+            case int,
+                 string:
+                // @overwrite
+                var body = _fmt.Sprintf("%s", body)
+                // trim null bytes & \r\n
+                body = _str.Trim(body, "\x00")
+                body = _str.TrimSpace(body)
+                this.Body = body
+                this.SetHeader("Content-Length", len(body))
+            case map[string]interface{}:
+                if this.GetHeader("Content-Type") == "application/json" {
+                    var body, err = u.UnparseBody(body)
+                    if err != nil {
+                        panic(err)
+                    }
+                    // pass empty body
+                    if body != "{}" && body != "[]" {
+                        this.Body = body
+                        this.SetHeader("Content-Length", len(body))
+                    }
+                }
+            default:
+                panic("Unsupported body type '"+ _fmt.Sprintf("%T", body) +"' given!");
+        }
+    }
+}
+
