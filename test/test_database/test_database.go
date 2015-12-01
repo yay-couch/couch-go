@@ -10,7 +10,7 @@ var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
 
 var (
     DEBUG  = true
-    DBNAME = "foo_tmp"
+    DBNAME = "foo"
 )
 
 var (
@@ -76,4 +76,18 @@ func TestRemove() {
     //     _dumpf("Response Body  : %s", client.GetResponse().GetBody())
     //     panic(err)
     // }
+}
+
+/**
+ * TestReplicate
+ */
+func TestReplicate() {
+    data, err := database.Replicate("foo_replicate", true)
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Database Replicate >> %+v", data)
+    _dumpf("Server Database Replicate >> ok: %v", data["ok"])
+    _dumpf("Server Database Replicate >> history.0: %v", u.Dig("0", data["history"]))
+    _dumpf("Server Database Replicate >> history.0.start_time: %s", u.Dig("0.start_time", data["history"]))
 }
