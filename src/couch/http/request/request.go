@@ -142,7 +142,7 @@ func (this *Request) SetBody(body interface{}) {
         switch body.(type) {
             case string:
                 // @overwrite
-                var body = _fmt.Sprintf("%s", body)
+                var body = u.String(body)
                 // trim null bytes & \r\n
                 body = _str.Trim(body, "\x00")
                 body = _str.TrimSpace(body)
@@ -169,7 +169,7 @@ func (this *Request) SetBody(body interface{}) {
                 var bodyType = _fmt.Sprintf("%T", body)
                 if u.StringSearch(bodyType, "u?int(\\d+)?|float(32|64)") {
                     // @overwrite
-                    var body = _fmt.Sprintf("%s", body)
+                    var body = u.String(body)
                     this.Body = body
                     this.SetHeader("Content-Length", len(body))
                 } else {
