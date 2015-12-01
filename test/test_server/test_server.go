@@ -1,7 +1,6 @@
 package test_server
 
 import _couch  "./../../src/couch"
-import _client "./../../src/couch/client"
 import _server "./../../src/couch/server"
 
 import u "./../../src/couch/util"
