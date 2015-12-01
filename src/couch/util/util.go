@@ -163,6 +163,11 @@ func UnparseBody(in interface{}) (string, error) {
     return string(out), nil
 }
 
+func _shift(slice *[]string) string {
+    var value = (*slice)[0]
+    *slice = (*slice)[1 : len(*slice)]
+    return value
+}
 func Dig(key string, object interface{}) interface{} {
     var keys = _str.Split(key, ".")
     key = _shift(&keys)
@@ -205,10 +210,4 @@ func Dig(key string, object interface{}) interface{} {
     }
 
     return nil
-}
-
-func _shift(slice *[]string) string {
-    var value = (*slice)[0]
-    *slice = (*slice)[1 : len(*slice)]
-    return value
 }
