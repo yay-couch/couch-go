@@ -41,6 +41,7 @@ func New(config interface{}, username, password string) *Client {
                 this.Host   = host;   this.Config["Host"] = host
                 this.Port   = port;   this.Config["Port"] = port
             case map[string]interface{}:
+                // copy
                 for key, value := range config.(map[string]interface{}) {
                     this.Config[key] = value
                 }
