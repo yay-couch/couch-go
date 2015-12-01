@@ -91,7 +91,10 @@ func (this *Request) Send() string {
 
     var request, response string
     var url = u.ParseUrl(_fmt.Sprintf("%s://%s", this.Config["Scheme"], this.Uri))
-    request += _fmt.Sprintf("%s %s?%s HTTP/%s\r\n", this.Method, url["Path"], url["Query"], this.HttpVersion)
+    if url["Query"] != "" {
+        url["Query"] += "?"+ url["Query"]
+    }
+    request += _fmt.Sprintf("%s %s%s HTTP/%s\r\n", this.Method, url["Path"], url["Query"], this.HttpVersion)
     for key, value := range this.Headers {
         if !u.IsEmpty(value) {
             request += _fmt.Sprintf("%s: %s\r\n", key, value)
