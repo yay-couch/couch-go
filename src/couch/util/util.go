@@ -155,6 +155,13 @@ func ParseBody(in string, out interface{}) (interface{}, error) {
     }
     return out, nil
 }
+func UnparseBody(in interface{}) (string, error) {
+    out, err := _json.Marshal(in)
+    if err != nil {
+        return "", _fmt.Errorf("JSON error: %s!", err)
+    }
+    return string(out), nil
+}
 
 func Dig(key string, object interface{}) interface{} {
     var keys = _str.Split(key, ".")
