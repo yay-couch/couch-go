@@ -229,3 +229,11 @@ func Join(sep string, args ...interface{}) string {
     }
     return _str.Join(result, sep)
 }
+
+func StringSearch(input, search string) bool {
+    re, _ := _rex.Compile(search)
+    if re == nil {
+        return false
+    }
+    return "" != re.FindString(input)
+}
