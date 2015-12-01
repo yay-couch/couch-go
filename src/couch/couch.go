@@ -1,7 +1,8 @@
 package couch
 
-import _client "./../couch/client"
-import _server "./../couch/server"
+import _client   "./../couch/client"
+import _server   "./../couch/server"
+import _database "./../couch/database"
 // import _stream "./http/stream"
 // import _request "./http/request"
 // import _response "./http/response"
@@ -75,6 +76,10 @@ func NewClient(couch *Couch, config interface{}) *_client.Client {
 
 func NewServer(client *_client.Client) *_server.Server {
     return _server.New(client)
+}
+
+func NewDatabase(client *_client.Client, name string) *_database.Database {
+    return _database.New(client, name)
 }
 
 func (this *Couch) SetConfig(config map[string]interface{}) {
