@@ -130,3 +130,7 @@ func (this *Client) Put(uri string, uriParams interface{}, body interface{},
     headers interface{}) *_response.Response {
     return this.DoRequest(_request.METHOD_PUT +" /"+ uri, uriParams, body, headers)
 }
+func (this *Client) Delete(uri string, uriParams interface{},
+    headers interface{}) *_response.Response {
+    return this.DoRequest(_request.METHOD_DELETE +" /"+ uri, uriParams, nil, headers)
+}
