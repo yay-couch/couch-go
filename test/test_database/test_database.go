@@ -1,6 +1,7 @@
 package test_database
 
 import _couch    "./../../src/couch"
+import _client   "./../../src/couch/client"
 import _database "./../../src/couch/database"
 
 import u "./../../src/couch/util"
@@ -12,11 +13,16 @@ var (
     DBNAME = "foo_tmp"
 )
 
-func _newDatabase() *_database.Database {
-    couch    := _couch.New(nil, DEBUG)
-    client   := _couch.NewClient(couch, nil)
-    database := _couch.NewDatabase(client, DBNAME);
-    return database
+var (
+    couch    *_couch.Couch
+    client   *_client.Client
+    database *_database.Database
+)
+
+func init() {
+    couch    = _couch.New(nil, DEBUG)
+    client   = _couch.NewClient(couch, nil)
+    database = _couch.NewDatabase(client, DBNAME);
 }
 
 /**
@@ -28,14 +34,14 @@ func TestAll() {}
  * TestPing
  */
 func TestPing() {
-    _dumpf("Database Ping >> %v", _newDatabase().Ping())
+    _dumpf("Database Ping >> %v", database.Ping())
 }
 
 /**
  * TestInfo
  */
 func TestInfo() {
-    data, err := _newDatabase().Info()
+    data, err := database.Info()
     if err != nil {
         panic(err)
     }
@@ -50,5 +56,20 @@ func TestInfo() {
  * TestCreate
  */
 func TestCreate() {
-    _dumpf("Database Create >> %v", _newDatabase().Create())
+    _dumpf("Database Create >> %v", database.Create())
+    // error?
+    // if err := client.GetResponse().GetError(); err != "" {
+    //     panic(err)
+    // }
+}
+
+/**
+ * TestRemove
+ */
+func TestRemove() {
+    _dumpf("Database Remove >> %v", database.Remove())
+    // error?
+    // if err := client.GetResponse().GetError(); err != "" {
+    //     panic(err)
+    // }
 }
