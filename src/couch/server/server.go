@@ -1,6 +1,6 @@
 package server
 
-import _client   "./../client"
+import _client "./../client"
 
 import u "./../util"
 // @tmp
