@@ -97,8 +97,8 @@ func Dumpf(format string, args ...interface{}) {
     _fmt.Printf("%s\n", _fmt.Sprintf(format, args...))
 }
 
-func Quote(input string) {
-    input = _str.Replace(input, "\"", "%22", -1)
+func Quote(input string) string {
+    return _str.Replace(input, "\"", "%22", -1)
 }
 
 // parsers
