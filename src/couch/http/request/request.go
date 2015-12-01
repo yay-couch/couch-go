@@ -125,8 +125,11 @@ func (this *Request) Send() string {
         response += string(buffer)
     }
 
-    _dump(request)
-    _dump(response)
+    // @debug
+    if this.Config["Couch.DEBUG"] == true {
+        _dump(request)
+        _dump(response)
+    }
 
     return response
 }
