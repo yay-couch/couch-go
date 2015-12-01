@@ -11,8 +11,6 @@ var (
     DEBUG = true
 )
 
-func Shutup() {}
-
 func _newServer() *_server.Server {
     couch  := _couch.New(nil, DEBUG)
     client := _couch.NewClient(couch, nil)

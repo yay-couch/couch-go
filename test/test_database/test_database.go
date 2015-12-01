@@ -12,8 +12,6 @@ var (
     DBNAME = "foo"
 )
 
-func Shutup() {}
-
 func _newDatabase() *_database.Database {
     couch    := _couch.New(nil, DEBUG)
     client   := _couch.NewClient(couch, nil)
