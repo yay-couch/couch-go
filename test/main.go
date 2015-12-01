@@ -15,6 +15,7 @@ func main() {
     // test_uuid.TestAll()
     // test_client.TestAll()
 
+    // test_server.TestPing()
     // test_server.TestInfo()
     // test_server.TestVersion()
     // test_server.TestGetActiveTasks()
@@ -24,5 +25,6 @@ func main() {
     // test_server.TestGetStats()
     // test_server.TestGetUuid()
     // test_server.TestGetUuids()
-    test_server.TestReplicate()
+    // test_server.TestReplicate()
+    // test_server.TestRestart()
 }
