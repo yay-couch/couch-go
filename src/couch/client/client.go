@@ -114,10 +114,12 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
     return this.Response
 }
 
-func (this *Client) Head(uri string, uriParams interface{}, headers interface{}) *_response.Response {
+func (this *Client) Head(uri string, uriParams interface{},
+    headers interface{}) *_response.Response {
     return this.DoRequest(_request.METHOD_HEAD +" /"+ uri, uriParams, nil, headers)
 }
-func (this *Client) Get(uri string, uriParams interface{}, headers interface{}) *_response.Response {
+func (this *Client) Get(uri string, uriParams interface{},
+    headers interface{}) *_response.Response {
     return this.DoRequest(_request.METHOD_GET +" /"+ uri, uriParams, nil, headers)
 }
 func (this *Client) Post(uri string, uriParams interface{}, body interface{},
