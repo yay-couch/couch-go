@@ -27,7 +27,6 @@ func _newServer() *_server.Server {
  * TestAll
  */
 func TestAll() {
-    TestInfo()
 }
 
 /**
