@@ -182,3 +182,7 @@ func (this *Server) Replicate(body interface{}) (map[string]interface{}, error) 
     }
     return _return, nil
 }
+
+func (this *Server) Restart() bool {
+    return (202 == this.Client.Post("/_restart", nil, nil, nil).GetStatusCode())
+}
