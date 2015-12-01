@@ -186,3 +186,15 @@ func (this *Server) Replicate(body interface{}) (map[string]interface{}, error) 
 func (this *Server) Restart() bool {
     return (202 == this.Client.Post("/_restart", nil, nil, nil).GetStatusCode())
 }
+
+func (this *Server) GetConfig(section interface{}, key interface{}) (map[string]map[string]interface{}, error) {
+    type Data map[string]map[string]interface{}
+    data, err := this.Client.Get("/_config/"+ u.Join("/", section, key), nil, nil).GetBodyData(&Data{})
+    if err != nil {
+        return nil, err
+    }
+    var _return = make(map[string]map[string]interface{})
+    _dumps(data)
+
+    return _return, nil
+}
