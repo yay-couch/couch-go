@@ -21,7 +21,18 @@ func ToString(args ...interface{}) string {
     return _fmt.Sprintf("%v", args[0]);
 }
 func String(input interface{}) string {
-    return _fmt.Sprintf("%v", input);
+    switch input.(type) {
+        case int,
+             bool,
+             string:
+            return _fmt.Sprintf("%v", input)
+        default:
+            var inputType = _fmt.Sprintf("%T", input)
+            if StringSearch(inputType, "u?int(\\d+)?|float(32|64)") {
+                return _fmt.Sprintf("%v", input)
+            }
+            panic("Unsupported input type '"+ inputType +"' given!");
+    }
 }
 func Int(input interface{}) int {
     result, err := _strc.Atoi(input.(string))
