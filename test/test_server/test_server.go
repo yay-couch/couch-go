@@ -38,7 +38,7 @@ func TestAll() {
  * TestPing
  */
 func TestPing() {
-    _dump(_newServer().Ping())
+    _dumpf("Server Ping >> %v ", _newServer().Ping())
 }
 
 /**
