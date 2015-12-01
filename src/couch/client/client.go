@@ -108,7 +108,8 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
 
     // error?
     if this.Response.GetStatusCode() >= 400 {
-        this.Response.Error = true
+        // "" means -use self body-
+        this.Response.SetError("")
     }
 
     return this.Response
