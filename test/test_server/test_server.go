@@ -161,9 +161,16 @@ func TestGetUuids() {
  */
 func TestReplicate() {
     // _newServer().Replicate(nil) error!
-    _newServer().Replicate(map[string]interface{}{
+    data, err := _newServer().Replicate(map[string]interface{}{
         "source": "foo",
         "target": "foo_replicate",
         "create_target": true,
     })
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Server Database Replicate >> %+v", data)
+    _dumpf("Server Database Replicate >> ok: %v", data["ok"])
+    _dumpf("Server Database Replicate >> history.0: %v", u.Dig("0", data["history"]))
+    _dumpf("Server Database Replicate >> history.0.start_time: %v", u.Dig("0.start_time", data["history"]))
 }
