@@ -35,23 +35,23 @@ func Int(input interface{}) int {
     return 0
 }
 func Number(input interface{}, inputType string) interface{} {
-    result, err := _strc.Atoi(input.(string))
+    number, err := _strc.Atoi(input.(string))
     if err != nil {
         return nil
     }
     switch inputType {
         // signed
-        case    "int": return int(result)
-        case   "int8": return int8(result)
-        case  "int16": return int16(result)
-        case  "int32": return int32(result)
-        case  "int64": return int64(result)
+        case    "int": return int(number)
+        case   "int8": return int8(number)
+        case  "int16": return int16(number)
+        case  "int32": return int32(number)
+        case  "int64": return int64(number)
         // unsigned
-        case   "uint": return uint(result)
-        case  "uint8": return uint8(result)
-        case "uint16": return uint16(result)
-        case "uint32": return uint32(result)
-        case "uint64": return uint64(result)
+        case   "uint": return uint(number)
+        case  "uint8": return uint8(number)
+        case "uint16": return uint16(number)
+        case "uint32": return uint32(number)
+        case "uint64": return uint64(number)
     }
     return 0
 }
