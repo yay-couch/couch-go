@@ -1,11 +1,5 @@
 package server
 
-/**
- * @tmp
- * - http://blog.golang.org/json-and-go
- * - http://golang.org/pkg/encoding/json/#example_Unmarshal
- */
-
 import _client   "./../client"
 // import _response "./../http/response"
 
