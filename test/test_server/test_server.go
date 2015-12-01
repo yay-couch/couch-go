@@ -21,8 +21,7 @@ func _newServer() *_server.Server {
 /**
  * TestAll
  */
-func TestAll() {
-}
+func TestAll() {}
 
 /**
  * TestPing

@@ -22,8 +22,7 @@ func _newDatabase() *_database.Database {
 /**
  * TestAll
  */
-func TestAll() {
-}
+func TestAll() {}
 
 /**
  * TestPing
