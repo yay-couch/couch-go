@@ -13,7 +13,8 @@ type Stream struct {
     HttpVersion string
     Headers     map[string]interface{}
     Body        interface{}
-    Error       bool
+    Error       string
+    ErrorData   map[string]string
     StreamBody
 }
 
@@ -72,7 +73,7 @@ func (this *Stream) GetBody() string {
 }
 
 func (this *Stream) GetBodyData(to interface{}) (interface{}, error) {
-    if this.Error == true {
+    if this.Error != "" {
         data, err := u.ParseBody(this.Body.(string), &StreamError{})
         if err != nil {
             return nil, err
@@ -88,6 +89,31 @@ func (this *Stream) GetBodyData(to interface{}) (interface{}, error) {
         return nil, err
     }
     return data, nil
+}
+
+func (this *Stream) SetError(body string) {
+    if body == "" {
+        body = this.Body.(string)
+    }
+    data, err := u.ParseBody(body, &StreamError{})
+    if err == nil {
+        var errorKey   = data.(*StreamError).ErrorKey
+        var errorValue = data.(*StreamError).ErrorValue
+        this.Error = _fmt.Sprintf("Stream Error >> error: \"%s\", reason: \"%s\"",
+            errorKey,
+            errorValue,
+        )
+        this.ErrorData = make(map[string]string)
+        this.ErrorData["error"]  = errorKey
+        this.ErrorData["reason"] = errorValue
+    }
+}
+
+func (this *Stream) GetError() string {
+    return this.Error
+}
+func (this *Stream) GetErrorValue(key string) string {
+    return this.ErrorData[key]
 }
 
 func (this *Stream) ToString() string {
