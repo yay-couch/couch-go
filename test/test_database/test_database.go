@@ -112,3 +112,23 @@ func TestGetDocument() {
         _dumpf("Database Document >> doc.%s: %v", key, value)
     }
 }
+
+/**
+ * TestGetDocumentAll
+ */
+func TestGetDocumentAll() {
+    // data, err := database.GetDocumentAll(nil, nil)
+    data, err := database.GetDocumentAll(nil, []string{"5db345a5f26484352ea5d813180031fb"})
+    if err != nil {
+        panic(err)
+    }
+    // _dumpf("Database Document All >> %+v", data)
+    _dumpf("Database Document All >> offset: %d", data["offset"])
+    _dumpf("Database Document All >> total_rows: %d", data["total_rows"])
+    // // _dumpf("Database Document All >> rows: %+v", data["rows"])
+    _dumpf("Database Document All >> rows.0: %+v", u.Dig("rows.0", data))
+    _dumpf("Database Document All >> rows.0.id: %s", u.Dig("rows.0.id", data))
+    _dumpf("Database Document All >> rows.0.key: %s", u.Dig("rows.0.key", data))
+    _dumpf("Database Document All >> rows.0.value.rev: %s", u.Dig("rows.0.value.rev", data))
+    _dumpf("Database Document All >> rows.0.doc.name: %s", u.Dig("rows.0.doc.name", data))
+}
