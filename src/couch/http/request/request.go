@@ -140,9 +140,6 @@ func (this *Request) SetBody(body interface{}) {
             case string:
                 // @overwrite
                 var body = u.String(body)
-                // trim null bytes & \r\n
-                body = _str.Trim(body, "\x00")
-                body = _str.TrimSpace(body)
                 if this.GetHeader("Content-Type") == "application/json" {
                     // embrace with quotes for valid JSON body
                     body = u.Quote(body)
