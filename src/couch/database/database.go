@@ -155,21 +155,24 @@ func (this *Database) CreateDocument(document map[string]interface{}) (map[strin
 }
 
 func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]string, error) {
-    var docs = map[string][]map[string]interface{}{
-        "docs": make([]map[string]interface{}, len(documents)),
-    }
+    var docs = make([]map[string]interface{}, len(documents))
     for i, doc := range documents {
-        if docs["docs"][i] == nil {
-            docs["docs"][i] = make(map[string]interface{})
+        if docs[i] == nil {
+            docs[i] = make(map[string]interface{})
         }
         for key, value := range doc.(map[string]interface{}) {
-            docs["docs"][i][key] = value
+            // this is create method, no update allowed
+            if key == "_id" || key == "_id" || key == "_deleted" {
+                continue
+            }
+            docs[i][key] = value
         }
     }
-    body, err := u.UnparseBody(docs)
+    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, map[string]interface{}{
+        "docs": docs,
+    }, nil).GetBodyData([]map[string]interface{}{})
     if err != nil {
         return nil, err
     }
-    _dumps(body)
-    return nil, nil
+    return data, nil
 }
