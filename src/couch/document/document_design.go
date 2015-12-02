@@ -1,3 +1,3 @@
 package document
 
-func Shutup() {}
+// @todo

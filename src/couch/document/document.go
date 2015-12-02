@@ -8,30 +8,33 @@ type Document struct {
     Id          string
     Rev         string
     Deleted     bool
-    // Attachments []*_attachments.DocumentAttachment
-    // Database    *_database.Database
+    Attachments []DocumentAttachment
     Data        map[string]interface{}
+    // Database    *_database.Database
 }
 
 func Shutup() {}
 
-func New() {
+func NewDocument() *Document {
+    return &Document{
+        //
+    }
 }
 
-func (this *Document) SetId(id interface{}) {
-    this.Id = u.String(id)
-}
-func (this *Document) SetRev(rev string) {
-    this.Rev = rev
-}
-func (this *Document) SetRev(deleted bool) {
-    this.Deleted = deleted
-}
-func (this *Document) SetData(data map[string]interface{}) {
-    if this.Data == nil {
-        this.Data = make(map[string]interface{})
-    }
-    for key, value := range data.(map[string]interface{}) {
-        this.Data[key] = value
-    }
-}
+// func (this *Document) SetId(id interface{}) {
+//     this.Id = u.String(id)
+// }
+// func (this *Document) SetRev(rev string) {
+//     this.Rev = rev
+// }
+// func (this *Document) SetRev(deleted bool) {
+//     this.Deleted = deleted
+// }
+// func (this *Document) SetData(data map[string]interface{}) {
+//     if this.Data == nil {
+//         this.Data = make(map[string]interface{})
+//     }
+//     for key, value := range data.(map[string]interface{}) {
+//         this.Data[key] = value
+//     }
+// }
