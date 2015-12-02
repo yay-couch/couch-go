@@ -131,6 +131,16 @@ func ParseUrl(url string) map[string]string {
     return result
 }
 
+func ParseQuery(query string) map[string]string {
+    var ret = make(map[string]string)
+    var tmp = _str.Split(query, "&")
+    for _, tmp := range tmp {
+        var tmp = _str.Split(tmp, "=")
+        ret[tmp[0]] = tmp[1]
+    }
+    return ret
+}
+
 func ParseHeaders(headers string) map[string]string {
     var result = make(map[string]string)
     if tmps := _str.Split(headers, "\r\n"); tmps != nil {
