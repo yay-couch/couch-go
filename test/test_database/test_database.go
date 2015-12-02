@@ -135,3 +135,17 @@ func TestGetDocumentAll() {
     _dumpf("Database Document All >> rows.0.value.rev: %s", u.Dig("rows.0.value.rev", data))
     _dumpf("Database Document All >> rows.0.doc.name: %s", u.Dig("rows.0.doc.name", data))
 }
+
+/**
+ * TestCreateDocumentAll
+ */
+func TestCreateDocumentAll() {
+    data, err := database.CreateDocumentAll([]interface{}{
+        0: map[string]interface{}{"_id": "01", "name": "kerem"},
+        1: map[string]interface{}{"_id": "02", "name": "murat"},
+    })
+    if err != nil {
+        panic(err)
+    }
+    _dumps(data)
+}

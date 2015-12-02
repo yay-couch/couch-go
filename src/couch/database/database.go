@@ -148,3 +148,23 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
                 "keys": keys}, nil).GetBodyData(&_Docs{}))
     }
 }
+
+func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]string, error) {
+    var docs = map[string][]map[string]interface{}{
+        "docs": make([]map[string]interface{}, len(documents)),
+    }
+    for i, doc := range documents {
+        if docs["docs"][i] == nil {
+            docs["docs"][i] = make(map[string]interface{})
+        }
+        for key, value := range doc.(map[string]interface{}) {
+            docs["docs"][i][key] = value
+        }
+    }
+    body, err := u.UnparseBody(docs)
+    if err != nil {
+        return nil, err
+    }
+    _dumps(body)
+    return nil, nil
+}
