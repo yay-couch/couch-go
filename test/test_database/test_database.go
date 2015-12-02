@@ -86,10 +86,10 @@ func TestReplicate() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Server Database Replicate >> %+v", data)
-    _dumpf("Server Database Replicate >> ok: %v", data["ok"])
-    _dumpf("Server Database Replicate >> history.0: %v", u.Dig("0", data["history"]))
-    _dumpf("Server Database Replicate >> history.0.start_time: %s", u.Dig("0.start_time", data["history"]))
+    _dumpf("Database Replicate >> %+v", data)
+    _dumpf("Database Replicate >> ok: %v", data["ok"])
+    _dumpf("Database Replicate >> history.0: %v", u.Dig("0", data["history"]))
+    _dumpf("Database Replicate >> history.0.start_time: %s", u.Dig("0.start_time", data["history"]))
 }
 
 /**
