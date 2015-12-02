@@ -77,3 +77,40 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
     }
     return _return, nil
 }
+
+/**
+ * Document stuff. @tmp?
+ */
+type Document struct {
+    Id        string
+    Key       string
+    Value     map[string]string
+    Doc       map[string]interface{}
+}
+type Documents struct {
+    Offset    uint
+    TotalRows uint `json:"total_rows"`
+    UpdateSeq uint `json:"update_seq"`
+    Rows      []Document
+}
+
+func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
+    data, err := this.Client.Get(this.Name +"/_all_docs", map[string]interface{}{
+        "include_docs": true,
+        "key"         : u.Quote(u.QuoteEscape(key)),
+    }, nil).GetBodyData(&Documents{})
+    if err != nil {
+        return nil, err
+    }
+    var _return = make(map[string]interface{})
+    for _, doc := range data.(*Documents).Rows {
+        _return["id"]    = doc.Id
+        _return["key"]   = doc.Key
+        _return["value"] = map[string]string{"rev": doc.Value["rev"]}
+        _return["doc"]   = map[string]interface{}{}
+        for key, value := range doc.Doc {
+            _return["doc"].(map[string]interface{})[key] = value
+        }
+    }
+    return _return, nil
+}
