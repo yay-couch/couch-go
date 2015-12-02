@@ -24,6 +24,10 @@ func New(data map[string]interface{}) *Query {
     }
 }
 
+func (this *Query) ToData() map[string]interface{} {
+    return this.Data
+}
+
 func (this *Query) ToString() string {
     if this.DataString != "" {
         return this.DataString
