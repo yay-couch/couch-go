@@ -149,6 +149,11 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
     }
 }
 
+func (this *Database) CreateDocument(document map[string]interface{}) (map[string]interface{}, error) {
+
+    return nil, nil
+}
+
 func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]string, error) {
     var docs = map[string][]map[string]interface{}{
         "docs": make([]map[string]interface{}, len(documents)),
