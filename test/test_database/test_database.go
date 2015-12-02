@@ -91,3 +91,24 @@ func TestReplicate() {
     _dumpf("Server Database Replicate >> history.0: %v", u.Dig("0", data["history"]))
     _dumpf("Server Database Replicate >> history.0.start_time: %s", u.Dig("0.start_time", data["history"]))
 }
+
+/**
+ * TestGetDocument
+ */
+func TestGetDocument() {
+    data, err := database.GetDocument("5db345a5f26484352ea5d813180031fb")
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Document >> %+v", data)
+    _dumpf("Database Document >> id: %s", data["id"])
+    _dumpf("Database Document >> key: %s", data["key"])
+    _dumpf("Database Document >> value.rev: %s", u.Dig("value.rev", data))
+    _dumpf("Database Document >> doc: %+v", data["doc"])
+    // _dumpf("Database Document >> doc._id: %s", u.Dig("doc._id", data))
+    // _dumpf("Database Document >> doc._rev: %s", u.Dig("doc._rev", data))
+    // or
+    for key, value := range data["doc"].(map[string]interface{}) {
+        _dumpf("Database Document >> doc.%s: %v", key, value)
+    }
+}
