@@ -114,3 +114,36 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     }
     return _return, nil
 }
+
+func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string) (map[string]interface{}, error) {
+    query = u.MakeParam(query)
+    if query["include_docs"] == nil {
+        query["include_docs"] = true
+    }
+    var _return = func(data interface{}, err error) (map[string]interface{}, error) {
+        if err != nil {
+            return nil, err
+        }
+        var _return = make(map[string]interface{})
+        _return["offset"]     = data.(*Documents).Offset
+        _return["total_rows"] = data.(*Documents).TotalRows
+        _return["rows"]       = make([]map[string]interface{}, len(data.(*Documents).Rows))
+        for i, row := range data.(*Documents).Rows {
+            _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
+                   "id": row.Id,
+                  "key": row.Key,
+                "value": map[string]string{"rev": row.Value["rev"]},
+                  "doc": row.Doc,
+            }
+        }
+        return _return, nil
+    }
+    if keys == nil {
+        return _return(
+            this.Client.Get(this.Name +"/_all_docs", query, nil).GetBodyData(&Documents{}))
+    } else {
+        return _return(
+            this.Client.Post(this.Name +"/_all_docs", query, map[string]interface{}{
+                "keys": keys}, nil).GetBodyData(&Documents{}))
+    }
+}
