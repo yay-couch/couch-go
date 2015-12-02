@@ -79,31 +79,30 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
 }
 
 /**
- * Document stuff. @tmp?
+ * Lcal documents stuff.
  */
-type Document struct {
-    Id        string
-    Key       string
-    Value     map[string]string
-    Doc       map[string]interface{}
-}
-type Documents struct {
-    Offset    uint
-    TotalRows uint `json:"total_rows"`
-    UpdateSeq uint `json:"update_seq"`
-    Rows      []Document
+type _Docs struct {
+    Offset     uint
+    TotalRows  uint `json:"total_rows"`
+    UpdateSeq  uint `json:"update_seq"`
+    Rows       []struct {
+        Id     string
+        Key    string
+        Value  map[string]string
+        Doc    map[string]interface{}
+    }
 }
 
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     data, err := this.Client.Get(this.Name +"/_all_docs", map[string]interface{}{
         "include_docs": true,
         "key"         : u.Quote(u.QuoteEscape(key)),
-    }, nil).GetBodyData(&Documents{})
+    }, nil).GetBodyData(&_Docs{})
     if err != nil {
         return nil, err
     }
     var _return = make(map[string]interface{})
-    for _, doc := range data.(*Documents).Rows {
+    for _, doc := range data.(*_Docs).Rows {
         _return["id"]    = doc.Id
         _return["key"]   = doc.Key
         _return["value"] = map[string]string{"rev": doc.Value["rev"]}
@@ -126,10 +125,10 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
             return nil, err
         }
         var _return = make(map[string]interface{})
-        _return["offset"]     = data.(*Documents).Offset
-        _return["total_rows"] = data.(*Documents).TotalRows
-        _return["rows"]       = make([]map[string]interface{}, len(data.(*Documents).Rows))
-        for i, row := range data.(*Documents).Rows {
+        _return["offset"]     = data.(*_Docs).Offset
+        _return["total_rows"] = data.(*_Docs).TotalRows
+        _return["rows"]       = make([]map[string]interface{}, len(data.(*_Docs).Rows))
+        for i, row := range data.(*_Docs).Rows {
             _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                    "id": row.Id,
                   "key": row.Key,
@@ -141,10 +140,10 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
     }
     if keys == nil {
         return _return(
-            this.Client.Get(this.Name +"/_all_docs", query, nil).GetBodyData(&Documents{}))
+            this.Client.Get(this.Name +"/_all_docs", query, nil).GetBodyData(&_Docs{}))
     } else {
         return _return(
             this.Client.Post(this.Name +"/_all_docs", query, map[string]interface{}{
-                "keys": keys}, nil).GetBodyData(&Documents{}))
+                "keys": keys}, nil).GetBodyData(&_Docs{}))
     }
 }
