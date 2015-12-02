@@ -108,6 +108,13 @@ func QuoteEscape(input string) string {
     return _str.Replace(input, "\"", "%22", -1)
 }
 
+func MakeParam(param map[string]interface{}) map[string]interface{} {
+    if param == nil {
+        param = make(map[string]interface{})
+    }
+    return param
+}
+
 // parsers
 func ParseUrl(url string) map[string]string {
     if url == "" {
