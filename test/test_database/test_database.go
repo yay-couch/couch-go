@@ -3,6 +3,7 @@ package test_database
 import _couch    "./../../src/couch"
 import _client   "./../../src/couch/client"
 import _database "./../../src/couch/database"
+import _document "./../../src/couch/document"
 
 import u "./../../src/couch/util"
 // @tmp
@@ -20,6 +21,8 @@ var (
 )
 
 func init() {
+    _document.Shutup()
+
     couch    = _couch.New(nil, DEBUG)
     client   = _couch.NewClient(couch, nil)
     database = _couch.NewDatabase(client, DBNAME);
