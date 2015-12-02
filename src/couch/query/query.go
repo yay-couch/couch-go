@@ -24,28 +24,28 @@ func New(data map[string]interface{}) *Query {
     }
 }
 
-func (query *Query) ToString() string {
-    if query.DataString != "" {
-        return query.DataString
+func (this *Query) ToString() string {
+    if this.DataString != "" {
+        return this.DataString
     }
 
-    for key, value := range query.Data {
+    for key, value := range this.Data {
         if u.TypeReal(value) == "[]string" {
             value = _fmt.Sprintf("[\"%s\"]", _str.Join(value.([]string), "\",\""))
         }
-        query.DataString += _fmt.Sprintf(
+        this.DataString += _fmt.Sprintf(
             "%s=%s&", _url.QueryEscape(key), _url.QueryEscape(u.String(value)))
     }
 
-    if query.DataString != "" {
+    if this.DataString != "" {
         // drop last "&"
-        query.DataString = query.DataString[0 : len(query.DataString) - 1]
-        query.DataString = _str.NewReplacer(
+        this.DataString = this.DataString[0 : len(this.DataString) - 1]
+        this.DataString = _str.NewReplacer(
             "%5B", "[",
             "%5D", "]",
             "%2C", ",",
-        ).Replace(query.DataString)
+        ).Replace(this.DataString)
     }
 
-    return query.DataString
+    return this.DataString
 }
