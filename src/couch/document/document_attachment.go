@@ -1,1 +1,3 @@
-package document_attachment
+package document
+
+func Shutup() {}

@@ -1,1 +1,3 @@
-package document_design
+package document
+
+func Shutup() {}

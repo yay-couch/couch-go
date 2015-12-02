@@ -13,6 +13,8 @@ type Document struct {
     Data        map[string]interface{}
 }
 
+func Shutup() {}
+
 func New() {
 }
 
@@ -33,5 +35,3 @@ func (this *Document) SetData(data map[string]interface{}) {
         this.Data[key] = value
     }
 }
-
-func Shutup() {}
