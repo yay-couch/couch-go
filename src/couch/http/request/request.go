@@ -106,10 +106,10 @@ func (this *Request) Send() string {
 
     status, err := reader.ReadString('\n')
     if status == "" {
-        _fmt.Print("HTTP error: no response returned from server!\n")
-        _fmt.Print("---------------------------------------------\n")
-        _fmt.Print(request, "\n")
-        _fmt.Print("---------------------------------------------\n\n")
+        print("HTTP error: no response returned from server!\n")
+        print("---------------------------------------------\n")
+        print(request)
+        print("---------------------------------------------\n")
         panic(err)
     }
     response += status
