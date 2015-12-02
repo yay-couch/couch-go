@@ -79,18 +79,19 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
 }
 
 /**
- * Lcal documents stuff.
+ * Local document stuff.
  */
+type _Doc struct {
+    Id     string
+    Key    string
+    Value  map[string]string
+    Doc    map[string]interface{}
+}
 type _Docs struct {
     Offset     uint
     TotalRows  uint `json:"total_rows"`
     UpdateSeq  uint `json:"update_seq"`
-    Rows       []struct {
-        Id     string
-        Key    string
-        Value  map[string]string
-        Doc    map[string]interface{}
-    }
+    Rows       []_Doc
 }
 
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
