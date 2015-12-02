@@ -120,6 +120,7 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
     if query["include_docs"] == nil {
         query["include_docs"] = true
     }
+    // reusable lambda
     var _return = func(data interface{}, err error) (map[string]interface{}, error) {
         if err != nil {
             return nil, err
