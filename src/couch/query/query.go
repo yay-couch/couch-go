@@ -44,6 +44,7 @@ func (this *Query) ToString() string {
     if this.DataString != "" {
         // drop last "&"
         this.DataString = this.DataString[0 : len(this.DataString) - 1]
+        // purify some encoded stuff
         this.DataString = _str.NewReplacer(
             "%5B", "[",
             "%5D", "]",
