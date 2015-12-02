@@ -119,7 +119,7 @@ func (this *Request) Send() string {
         if read, _ := reader.Read(buffer); read == 0 {
             break // eof
         }
-        response += string(buffer)
+        response = _str.Trim(string(buffer), "\x00")
     }
 
     // @debug
