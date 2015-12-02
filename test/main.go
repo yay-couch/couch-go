@@ -18,4 +18,5 @@ func main() {
     // test_database.TestCreate()
     // test_database.TestRemove()
     // test_database.TestReplicate()
+    test_database.TestGetDocument()
 }
