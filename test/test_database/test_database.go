@@ -171,6 +171,7 @@ func TestCreateDocumentAll() {
     _dumpf("Database Create Document All >> doc.0.ok: %v", u.Dig("0.ok", data))
     _dumpf("Database Create Document All >> doc.0.id: %s", u.Dig("0.id", data))
     _dumpf("Database Create Document All >> doc.0.rev: %s", u.Dig("0.rev", data))
+    // or
     for i, doc := range data {
         for key, value := range doc {
             _dumpf("Database Create Document All >> doc.%d.%s: %v", i, key, value)
