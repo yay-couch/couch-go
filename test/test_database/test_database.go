@@ -191,7 +191,7 @@ func TestUpdateDocument() {
     if err != nil {
         panic(err)
     }
-    // check server buggy response code on error
+    // check ok's
     if data["ok"] == nil {
         panic("Halt! error: "+ data["error"].(string) +", reason: "+ data["reason"].(string))
     }
@@ -241,7 +241,7 @@ func TestDeleteDocument() {
     if err != nil {
         panic(err)
     }
-    // check server buggy response code on error
+    // check ok's
     if data["ok"] == nil {
         panic("Halt! error: "+ data["error"].(string) +", reason: "+ data["reason"].(string))
     }
