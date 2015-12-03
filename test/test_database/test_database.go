@@ -231,6 +231,24 @@ func TestUpdateDocumentAll() {
 }
 
 /**
+ * TestDeleteDocument
+ */
+func TestDeleteDocument() {
+    data, err := database.DeleteDocument(map[string]interface{}{
+        "_id": "7ee9cdd673b109e030cec8c6f100322b",
+        "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d",
+    })
+    if err != nil {
+        panic(err)
+    }
+    // check server buggy response code on error
+    if data["ok"] == nil {
+        panic("Halt! error: "+ data["error"].(string) +", reason: "+ data["reason"].(string))
+    }
+    _dumpf("Database Delete Document >> %+v", data)
+}
+
+/**
  * TestDeleteDocumentAll
  */
 func TestDeleteDocumentAll() {
@@ -243,5 +261,5 @@ func TestDeleteDocumentAll() {
     if err != nil {
         panic(err)
     }
-    _dumps(data)
+    _dumpf("Database Delete Document All >> %+v", data)
 }
