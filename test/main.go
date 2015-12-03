@@ -22,6 +22,8 @@ func main() {
     // test_database.TestGetDocumentAll()
     // test_database.TestCreateDocument()
     // test_database.TestCreateDocumentAll()
-    test_database.TestUpdateDocument()
+    // test_database.TestUpdateDocument()
     // test_database.TestUpdateDocumentAll()
+    // test_database.TestDeleteDocument()
+    // test_database.TestDeleteDocumentAll()
 }
