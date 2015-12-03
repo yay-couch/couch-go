@@ -140,19 +140,20 @@ func TestGetDocumentAll() {
  * TestCreateDocument
  */
 func TestCreateDocument() {
-    data, err := database.CreateDocumentAll(map[string]interface{}{
+    data, err := database.CreateDocument(map[string]interface{}{
         "name": "kerem", "type": "tmp",
     })
     if err != nil {
         panic(err)
     }
     _dumpf("Database Create Document >> %+v", data)
-    // _dumpf("Database Create Document >> doc.ok: %v", data["ok"])
-    // _dumpf("Database Create Document >> doc.id: %s", data["id"])
-    // _dumpf("Database Create Document >> doc.rev: %s", data["rev"])
-    // for key, value := range doc {
-    //     _dumpf("Database Create Document >> doc.%s: %v", key, value)
-    // }
+    _dumpf("Database Create Document >> doc.ok: %v", data["ok"])
+    _dumpf("Database Create Document >> doc.id: %s", data["id"])
+    _dumpf("Database Create Document >> doc.rev: %s", data["rev"])
+    // or
+    for key, value := range data {
+        _dumpf("Database Create Document >> doc.%s: %v", key, value)
+    }
 }
 
 /**
