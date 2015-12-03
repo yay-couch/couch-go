@@ -178,3 +178,28 @@ func TestCreateDocumentAll() {
         }
     }
 }
+
+/**
+ * TestUpdateDocumentAll
+ */
+func TestUpdateDocumentAll() {
+    data, err := database.UpdateDocumentAll([]interface{}{
+        0: map[string]interface{}{"name": "kerem 2", "type": "tmp",
+            "_id": "7ee9cdd673b109e030cec8c6f10020f7", "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d"},
+        1: map[string]interface{}{"name": "murat 2", "type": "tmp",
+            "_id": "7ee9cdd673b109e030cec8c6f1002cc1", "_rev": "1-09e886345b525e53892815baff169f03"},
+    })
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Update Document All >> %+v", data)
+    _dumpf("Database Update Document All >> doc.0.ok: %v", u.Dig("0.ok", data))
+    _dumpf("Database Update Document All >> doc.0.id: %s", u.Dig("0.id", data))
+    _dumpf("Database Update Document All >> doc.0.rev: %s", u.Dig("0.rev", data))
+    // or
+    for i, doc := range data {
+        for key, value := range doc {
+            _dumpf("Database Update Document All >> doc.%d.%s: %v", i, key, value)
+        }
+    }
+}
