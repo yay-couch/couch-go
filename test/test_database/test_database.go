@@ -224,6 +224,10 @@ func TestUpdateDocumentAll() {
     _dumpf("Database Update Document All >> doc.0.rev: %s", u.Dig("0.rev", data))
     // or
     for i, doc := range data {
+        // check ok's
+        if doc["ok"] == nil {
+            _dumpf("Halt! error: doc.%d > %s reason: %s", i, doc["error"], doc["reason"])
+        }
         for key, value := range doc {
             _dumpf("Database Update Document All >> doc.%d.%s: %v", i, key, value)
         }
@@ -262,4 +266,14 @@ func TestDeleteDocumentAll() {
         panic(err)
     }
     _dumpf("Database Delete Document All >> %+v", data)
+    // or
+    for i, doc := range data {
+        // check ok's
+        if doc["ok"] == nil {
+            _dumpf("Halt! error: doc.%d > %s reason: %s", i, doc["error"], doc["reason"])
+        }
+        for key, value := range doc {
+            _dumpf("Database Update Document All >> doc.%d.%s: %v", i, key, value)
+        }
+    }
 }
