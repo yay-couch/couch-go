@@ -192,7 +192,6 @@ func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]i
     return _return, nil
 }
 
-// @buggy (see: https://issues.apache.org/jira/browse/COUCHDB-2910)
 func (this *Database) UpdateDocument(document interface{}) (map[string]interface{}, error) {
     data, err := this.UpdateDocumentAll([]interface{}{document})
     if err != nil {
@@ -204,7 +203,6 @@ func (this *Database) UpdateDocument(document interface{}) (map[string]interface
     return nil, nil
 }
 
-// @buggy (see: https://issues.apache.org/jira/browse/COUCHDB-2910)
 func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
     var docs = make([]map[string]interface{}, len(documents))
     for i, doc := range documents {
@@ -237,7 +235,6 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
     return _return, nil
 }
 
-// @buggy (see: https://issues.apache.org/jira/browse/COUCHDB-2910)
 func (this *Database) DeleteDocument(document interface{}) (map[string]interface{}, error) {
     data, err := this.DeleteDocumentAll([]interface{}{document})
     if err != nil {
@@ -249,7 +246,6 @@ func (this *Database) DeleteDocument(document interface{}) (map[string]interface
     return nil, nil
 }
 
-// @buggy (see: https://issues.apache.org/jira/browse/COUCHDB-2910)
 func (this *Database) DeleteDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
     for i, _ := range documents {
         // just add "_deleted" param into document
