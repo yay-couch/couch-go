@@ -221,6 +221,8 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
     }
     data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, map[string]interface{}{
         "docs": docs,
+        // "new_edits": true,
+        // "all_or_nothing": true,
     }, nil).GetBodyData([]interface{}{})
     if err != nil {
         return nil, err
