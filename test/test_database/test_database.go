@@ -229,3 +229,19 @@ func TestUpdateDocumentAll() {
         }
     }
 }
+
+/**
+ * TestDeleteDocumentAll
+ */
+func TestDeleteDocumentAll() {
+    data, err := database.DeleteDocumentAll([]interface{}{
+        0: map[string]interface{}{"_id": "7ee9cdd673b109e030cec8c6f10020f7",
+            "_rev": "3-1cb8867864cd6bb80361fed42c719897"},
+        1: map[string]interface{}{"_id": "7ee9cdd673b109e030cec8c6f1002cc1",
+            "_rev": "2-38a4374c91a4ae8d666d6c1fe13dd916"},
+    })
+    if err != nil {
+        panic(err)
+    }
+    _dumps(data)
+}
