@@ -180,6 +180,32 @@ func TestCreateDocumentAll() {
 }
 
 /**
+ * TestUpdateDocument
+ */
+func TestUpdateDocument() {
+    data, err := database.UpdateDocument(map[string]interface{}{
+        "name": "kerem 3", "type": "tmp",
+            "_id": "7ee9cdd673b109e030cec8c6f10020f7",
+            "_rev": "2-BÖ!", // give correct rev!
+    })
+    if err != nil {
+        panic(err)
+    }
+    // check server buggy response code on error
+    if data["ok"] == nil {
+        panic("Halt! error: "+ data["error"].(string) +", reason: "+ data["reason"].(string))
+    }
+    _dumpf("Database Update Document >> %+v", data)
+    _dumpf("Database Update Document >> doc.ok: %v", data["ok"])
+    _dumpf("Database Update Document >> doc.id: %s", data["id"])
+    _dumpf("Database Update Document >> doc.rev: %s", data["rev"])
+    // or
+    for key, value := range data {
+        _dumpf("Database Update Document >> doc.%s: %v", key, value)
+    }
+}
+
+/**
  * TestUpdateDocumentAll
  */
 func TestUpdateDocumentAll() {
