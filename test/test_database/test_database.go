@@ -141,11 +141,19 @@ func TestGetDocumentAll() {
  */
 func TestCreateDocumentAll() {
     data, err := database.CreateDocumentAll([]interface{}{
-        0: map[string]interface{}{"_id": "01", "name": "kerem"},
-        1: map[string]interface{}{"_id": "02", "name": "murat"},
+        0: map[string]interface{}{"name": "kerem", "type": "tmp"},
+        1: map[string]interface{}{"name": "murat", "type": "tmp"},
     })
     if err != nil {
         panic(err)
     }
-    _dumps(data)
+    _dumpf("Database Create Document All >> %+v", data)
+    _dumpf("Database Create Document All >> doc.0.ok: %v", u.Dig("0.ok", data))
+    _dumpf("Database Create Document All >> doc.0.id: %v", u.Dig("0.id", data))
+    _dumpf("Database Create Document All >> doc.0.rev: %v", u.Dig("0.rev", data))
+    for i, doc := range data {
+        for key, value := range doc {
+            _dumpf("Database Create Document All >> doc.%d.%s: %v", i, key, value)
+        }
+    }
 }
