@@ -236,3 +236,11 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
     }
     return _return, nil
 }
+
+func (this *Database) DeleteDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
+    for i, _ := range documents {
+        // just add "_deleted" param into document
+        documents[i].(map[string]interface{})["_deleted"] = true
+    }
+    return this.UpdateDocumentAll(documents)
+}
