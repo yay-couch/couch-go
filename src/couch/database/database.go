@@ -191,3 +191,35 @@ func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]i
     }
     return _return, nil
 }
+
+func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
+    var docs = make([]map[string]interface{}, len(documents))
+    for i, doc := range documents {
+        if docs[i] == nil {
+            docs[i] = make(map[string]interface{})
+        }
+        for key, value := range doc.(map[string]interface{}) {
+            docs[i][key] = value
+        }
+        // these are required params
+        if docs[i]["_id"] == nil || docs[i]["_rev"] == nil {
+            panic("Both _id & _rev fields are required!")
+        }
+    }
+    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, map[string]interface{}{
+        "docs": docs,
+    }, nil).GetBodyData([]interface{}{})
+    if err != nil {
+        return nil, err
+    }
+    var _return = make([]map[string]interface{}, len(data.([]interface{})))
+    for i, doc := range data.([]interface{}) {
+        if _return[i] == nil {
+            _return[i] = make(map[string]interface{})
+        }
+        for key, value := range doc.(map[string]interface{}) {
+            _return[i][key] = value
+        }
+    }
+    return _return, nil
+}
