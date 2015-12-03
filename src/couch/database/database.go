@@ -149,8 +149,15 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
     }
 }
 
-func (this *Database) CreateDocument(document map[string]interface{}) (map[string]interface{}, error) {
-
+func (this *Database) CreateDocument(document interface{}) (map[string]interface{}, error) {
+    data, err := this.CreateDocumentAll([]interface{}{document})
+    if err != nil {
+        return nil, err
+    }
+    _dumps(data)
+    // if data := data[0]; data != nil {
+    //     return data.(map[string]interface{}), nil
+    // }
     return nil, nil
 }
 

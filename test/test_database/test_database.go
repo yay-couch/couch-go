@@ -137,6 +137,25 @@ func TestGetDocumentAll() {
 }
 
 /**
+ * TestCreateDocument
+ */
+func TestCreateDocument() {
+    data, err := database.CreateDocumentAll(map[string]interface{}{
+        "name": "kerem", "type": "tmp",
+    })
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Create Document >> %+v", data)
+    // _dumpf("Database Create Document >> doc.ok: %v", data["ok"])
+    // _dumpf("Database Create Document >> doc.id: %s", data["id"])
+    // _dumpf("Database Create Document >> doc.rev: %s", data["rev"])
+    // for key, value := range doc {
+    //     _dumpf("Database Create Document >> doc.%s: %v", key, value)
+    // }
+}
+
+/**
  * TestCreateDocumentAll
  */
 func TestCreateDocumentAll() {
@@ -149,8 +168,8 @@ func TestCreateDocumentAll() {
     }
     _dumpf("Database Create Document All >> %+v", data)
     _dumpf("Database Create Document All >> doc.0.ok: %v", u.Dig("0.ok", data))
-    _dumpf("Database Create Document All >> doc.0.id: %v", u.Dig("0.id", data))
-    _dumpf("Database Create Document All >> doc.0.rev: %v", u.Dig("0.rev", data))
+    _dumpf("Database Create Document All >> doc.0.id: %s", u.Dig("0.id", data))
+    _dumpf("Database Create Document All >> doc.0.rev: %s", u.Dig("0.rev", data))
     for i, doc := range data {
         for key, value := range doc {
             _dumpf("Database Create Document All >> doc.%d.%s: %v", i, key, value)
