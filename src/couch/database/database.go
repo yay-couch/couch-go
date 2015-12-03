@@ -237,6 +237,19 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
     return _return, nil
 }
 
+// @buggy (see: https://issues.apache.org/jira/browse/COUCHDB-2910)
+func (this *Database) DeleteDocument(document interface{}) (map[string]interface{}, error) {
+    data, err := this.DeleteDocumentAll([]interface{}{document})
+    if err != nil {
+        return nil, err
+    }
+    if data := data[0]; data != nil {
+        return data, nil
+    }
+    return nil, nil
+}
+
+// @buggy (see: https://issues.apache.org/jira/browse/COUCHDB-2910)
 func (this *Database) DeleteDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
     for i, _ := range documents {
         // just add "_deleted" param into document
