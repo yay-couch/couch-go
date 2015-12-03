@@ -154,10 +154,9 @@ func (this *Database) CreateDocument(document interface{}) (map[string]interface
     if err != nil {
         return nil, err
     }
-    _dumps(data)
-    // if data := data[0]; data != nil {
-    //     return data.(map[string]interface{}), nil
-    // }
+    if data := data[0]; data != nil {
+        return data, nil
+    }
     return nil, nil
 }
 
