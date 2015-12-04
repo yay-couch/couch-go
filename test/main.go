@@ -29,4 +29,5 @@ func main() {
     // test_database.TestGetChanges()
     // test_database.TestCompact()
     // test_database.TestEnsureFullCommit()
+    // test_database.TestViewCleanup()
 }
