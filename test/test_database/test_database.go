@@ -111,7 +111,7 @@ func TestGetDocument() {
     // _dumpf("Database Document >> doc._id: %s", u.Dig("doc._id", data))
     // _dumpf("Database Document >> doc._rev: %s", u.Dig("doc._rev", data))
     // or
-    for key, value := range data["doc"].(map[string]interface{}) {
+    for key, value := range u.DigMap("doc", data) {
         _dumpf("Database Document >> doc.%s: %v", key, value)
     }
 }
