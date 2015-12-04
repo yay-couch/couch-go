@@ -102,7 +102,7 @@ func Dumpf(format string, args ...interface{}) {
 }
 
 func Quote(input string) string {
-    return _fmt.Sprintf("\"%s\"", input)
+    return _strc.Quote(input)
 }
 func QuoteEscape(input string) string {
     return _str.Replace(input, "\"", "%22", -1)
