@@ -292,3 +292,15 @@ func (this *Database) Compact(ddoc string) (map[string]interface{}, error) {
         "ok": u.DigBool("ok", data),
     }, nil
 }
+
+func (this *Database) EnsureFullCommit() (map[string]interface{}, error) {
+    data, err := this.Client.Post(this.Name +"/_ensure_full_commit", nil, nil, nil).
+        GetBodyData(map[string]interface{}{})
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+        "ok": u.DigBool("ok", data),
+        "instance_start_time": u.DigString("instance_start_time", data),
+    }, nil
+}
