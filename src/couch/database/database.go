@@ -259,7 +259,7 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
     if docIds != nil {
         query["filter"] = "_doc_ids"
     }
-    data, err := this.Client.Post(this.Name + "/_changes", query, map[string]interface{}{
+    data, err := this.Client.Post(this.Name +"/_changes", query, map[string]interface{}{
         "doc_ids": docIds,
     }, nil).GetBodyData(map[string]interface{}{})
     if err != nil {
@@ -280,4 +280,15 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
         }
     }
     return _return, nil
+}
+
+func (this *Database) Compact(ddoc string) (map[string]bool, error) {
+    data, err := this.Client.Post(this.Name +"/_compact/"+ ddoc, nil, nil, nil).
+        GetBodyData(map[string]bool{})
+    if err != nil {
+        return nil, err
+    }
+    return map[string]bool{
+        "ok": u.DigBool("ok", data),
+    }, nil
 }
