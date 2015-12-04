@@ -187,11 +187,7 @@ func UnparseBody(in interface{}) (string, error) {
     return string(out), nil
 }
 
-func _shift(slice *[]string) string {
-    var value = (*slice)[0]
-    *slice = (*slice)[1 : len(*slice)]
-    return value
-}
+// diggers
 func Dig(key string, object interface{}) interface{} {
     var keys = _str.Split(key, ".")
     key = _shift(&keys)
@@ -234,6 +230,36 @@ func Dig(key string, object interface{}) interface{} {
     }
 
     return nil
+}
+func DigInt(key string, object interface{}) int {
+    if value := Dig(key, object); value != nil {
+        return value.(int)
+    }
+    return 0
+}
+func DigFloat(key string, object interface{}) float64 {
+    if value := Dig(key, object); value != nil {
+        return value.(float64)
+    }
+    return 0.0
+}
+func DigString(key string, object interface{}) string {
+    if value := Dig(key, object); value != nil {
+        return value.(string)
+    }
+    return ""
+}
+func DigBool(key string, object interface{}) bool {
+    if value := Dig(key, object); value != nil {
+        return true
+    }
+    return false
+}
+
+func _shift(slice *[]string) string {
+    var value = (*slice)[0]
+    *slice = (*slice)[1 : len(*slice)]
+    return value
 }
 
 func Join(sep string, args ...interface{}) string {
