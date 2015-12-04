@@ -258,3 +258,11 @@ func StringSearch(input, search string) bool {
     }
     return "" != re.FindString(input)
 }
+
+// shortcut maps
+func Map() map[string]interface{} {
+    return make(map[string]interface{})
+}
+func MapList(length int) []map[string]interface{} {
+    return make([]map[string]interface{}, length)
+}
