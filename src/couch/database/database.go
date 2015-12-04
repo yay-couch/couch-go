@@ -284,7 +284,7 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
 
 func (this *Database) Compact(ddoc string) (map[string]bool, error) {
     data, err := this.Client.Post(this.Name +"/_compact/"+ ddoc, nil, nil, nil).
-        GetBodyData(map[string]bool{})
+        GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
     }
