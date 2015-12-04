@@ -277,3 +277,18 @@ func TestDeleteDocumentAll() {
         }
     }
 }
+
+/**
+ * TestGetChanges
+ */
+func TestGetChanges() {
+    data, err := database.GetChanges(nil, nil)
+    if err != nil {
+        panic(err)
+    }
+    // _dumpf("Database Changes >> %+v", data)
+    _dumpf("Database Changes >> last_seq: %v", data["last_seq"])
+    for i, result := range u.DigMapList("results", data) {
+        _dumps(i,result)
+    }
+}
