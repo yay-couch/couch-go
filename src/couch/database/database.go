@@ -304,3 +304,14 @@ func (this *Database) EnsureFullCommit() (map[string]interface{}, error) {
         "instance_start_time": u.DigString("instance_start_time", data),
     }, nil
 }
+
+func (this *Database) ViewCleanup() (map[string]interface{}, error) {
+    data, err := this.Client.Post(this.Name +"/_view_cleanup", nil, nil, nil).
+        GetBodyData(map[string]interface{}{})
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+        "ok": u.DigBool("ok", data),
+    }, nil
+}
