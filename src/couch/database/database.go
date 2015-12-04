@@ -315,3 +315,7 @@ func (this *Database) ViewCleanup() (map[string]interface{}, error) {
         "ok": u.DigBool("ok", data),
     }, nil
 }
+
+func (this *Database) ViewTemp(map, reduce string) (map[string]interface{}, error) {
+
+}
