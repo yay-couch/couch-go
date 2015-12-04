@@ -28,4 +28,5 @@ func main() {
     // test_database.TestDeleteDocumentAll()
     // test_database.TestGetChanges()
     // test_database.TestCompact()
+    // test_database.TestEnsureFullCommit()
 }
