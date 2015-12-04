@@ -316,6 +316,6 @@ func (this *Database) ViewCleanup() (map[string]interface{}, error) {
     }, nil
 }
 
-func (this *Database) ViewTemp(map, reduce string) (map[string]interface{}, error) {
+func (this *Database) ViewTemp(map_, reduce string) (map[string]interface{}, error) {
 
 }
