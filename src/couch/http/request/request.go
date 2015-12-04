@@ -142,7 +142,7 @@ func (this *Request) SetBody(body interface{}) {
                 var body = u.String(body)
                 if this.GetHeader("Content-Type") == "application/json" {
                     // embrace with quotes for valid JSON body
-                    body = u.Quote(body)
+                    body = u.Quote(body, false)
                 }
                 this.Body = body
                 this.SetHeader("Content-Length", len(body))
