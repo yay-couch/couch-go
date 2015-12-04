@@ -282,13 +282,13 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
     return _return, nil
 }
 
-func (this *Database) Compact(ddoc string) (map[string]bool, error) {
+func (this *Database) Compact(ddoc string) (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_compact/"+ ddoc, nil, nil, nil).
         GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
     }
-    return map[string]bool{
+    return map[string]interface{}{
         "ok": u.DigBool("ok", data),
     }, nil
 }
