@@ -303,3 +303,15 @@ func TestCompact() {
     }
     _dumpf("Database Compact >> ok: %v", data["ok"])
 }
+
+/**
+ * TestEnsureFullCommit
+ */
+func TestEnsureFullCommit() {
+    data, err := database.EnsureFullCommit()
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Ensure Full Commit >> ok: %v", data["ok"])
+    _dumpf("Database Ensure Full Commit >> instance_start_time: %s", data["instance_start_time"])
+}
