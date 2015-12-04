@@ -292,3 +292,14 @@ func TestGetChanges() {
         _dumps(i,result)
     }
 }
+
+/**
+ * TestCompact
+ */
+func TestCompact() {
+    data, err := database.Compact("")
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Compact >> ok: %v", data["ok"])
+}
