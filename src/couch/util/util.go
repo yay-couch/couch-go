@@ -104,7 +104,7 @@ func Dumpf(format string, args ...interface{}) {
 func Quote(input string, encode bool) string {
     input = _strc.Quote(input)
     if encode {
-        input = QuoteEscape(input)
+        input = QuoteEncode(input)
     }
     return input
 }
