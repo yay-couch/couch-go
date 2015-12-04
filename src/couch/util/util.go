@@ -260,10 +260,10 @@ func DigBool(key string, object interface{}) bool {
     return false
 }
 func DigMap(key string, object interface{}) map[string]interface{} {
-    Dig(key, data).(map[string]interface{})
+    Dig(key, object).(map[string]interface{})
 }
 func DigMapList(key string, object interface{}) []map[string]interface{} {
-    Dig(key, data).([]map[string]interface{})
+    Dig(key, object).([]map[string]interface{})
 }
 
 func _shift(slice *[]string) string {
