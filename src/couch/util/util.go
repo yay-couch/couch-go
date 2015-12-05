@@ -302,3 +302,6 @@ func Map() map[string]interface{} {
 func MapList(length int) []map[string]interface{} {
     return make([]map[string]interface{}, length)
 }
+func MapListInt() map[int]map[string]interface{} {
+    return make(map[int]map[string]interface{})
+}
