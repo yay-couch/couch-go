@@ -128,7 +128,7 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
         var _return = u.Map()
         _return["offset"]     = data.(*_Docs).Offset
         _return["total_rows"] = data.(*_Docs).TotalRows
-        _return["rows"]       = make([]map[string]interface{}, len(data.(*_Docs).Rows))
+        _return["rows"]       = u.MapList(len(data.(*_Docs).Rows))
         for i, row := range data.(*_Docs).Rows {
             _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                    "id": row.Id,
