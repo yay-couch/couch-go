@@ -346,3 +346,19 @@ func (this *Database) GetSecurity() (map[string]interface{}, error) {
     }
     return data.(map[string]interface{}), nil
 }
+
+func (this *Database) SetSecurity(admins, members map[string]interface{}) (map[string]interface{}, error) {
+    if admins["names"].([]string) == nil || admins["roles"].([]string)  == nil ||
+       members["names"].([]string) == nil || members["roles"].([]string) == nil {
+        panic("Specify admins and/or members with names=>roles fields!")
+    }
+    var body = u.ParamList("admins", admins, "members", members)
+    data, err := this.Client.Put(this.Name +"/_security", nil, body, nil).
+        GetBodyData(map[string]interface{}{})
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+        "ok": u.DigBool("ok", data),
+    }, nil
+}
