@@ -326,3 +326,26 @@ func TestViewCleanup() {
     }
     _dumpf("Database View Cleanup >> ok: %v", data["ok"])
 }
+
+/**
+ * TestViewTemp
+ */
+func TestViewTemp() {
+    var map_ = "function(doc){if(doc.type=='tmp') emit(null,doc)}"
+    data, err := database.ViewTemp(map_, "")
+    if err != nil {
+        panic(err)
+    }
+    // _dumpf("Database View Temp >> %+v", data)
+    _dumpf("Database View Temp >> offset: %d", data["offset"])
+    _dumpf("Database View Temp >> total_rows: %d", data["total_rows"])
+    // // _dumpf("Database View Temp >> rows: %+v", data["rows"])
+    _dumpf("Database View Temp >> rows.0: %+v", u.Dig("rows.0", data))
+    _dumpf("Database View Temp >> rows.0.id: %s", u.Dig("rows.0.id", data))
+    _dumpf("Database View Temp >> rows.0.key: %s", u.Dig("rows.0.key", data))
+    _dumpf("Database View Temp >> rows.0.value: %+v", u.Dig("rows.0.value", data))
+    _dumpf("Database View Temp >> rows.0.value._id: %s", u.Dig("rows.0.value._id", data))
+    _dumpf("Database View Temp >> rows.0.value._rev: %s", u.Dig("rows.0.value._rev", data))
+    _dumpf("Database View Temp >> rows.0.value.type: %s", u.Dig("rows.0.value.type", data))
+    _dumpf("Database View Temp >> rows.0.value.name: %s", u.Dig("rows.0.value.name", data))
+}
