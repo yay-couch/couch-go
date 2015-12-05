@@ -149,7 +149,7 @@ func (this *Request) SetBody(body interface{}) {
             // case map[string]interface{}:
             //     if this.GetHeader("Content-Type") == "application/json" {
             //         // @overwrite
-            //         var body, err = u.UnparseBody(body)
+            //         body, err := u.UnparseBody(body)
             //         if err != nil {
             //             panic(err)
             //         }
@@ -161,7 +161,7 @@ func (this *Request) SetBody(body interface{}) {
             //     }
             default:
                 var bodyType = _fmt.Sprintf("%T", body)
-                if u.StringSearch(bodyType, "u?int(\\d+)?|float(32|64)") {
+                if u.StringSearch(bodyType, "^u?int(\\d+)?|float(32|64)$") {
                     // @overwrite
                     var body = u.String(body)
                     this.Body = body
@@ -169,7 +169,7 @@ func (this *Request) SetBody(body interface{}) {
                 } else {
                     if this.GetHeader("Content-Type") == "application/json" {
                         // @overwrite
-                        var body, err = u.UnparseBody(body)
+                        body, err := u.UnparseBody(body)
                         if err != nil {
                             panic(err)
                         }
