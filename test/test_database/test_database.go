@@ -363,3 +363,22 @@ func TestGetSecurity() {
     _dumpf("Database Get Security >> admins.names %v", u.Dig("admins.names", data))
     _dumpf("Database Get Security >> admins.roles %v", u.Dig("admins.roles", data))
 }
+
+/**
+ * TestSetSecurity
+ */
+func TestSetSecurity() {
+    var admins = map[string]interface{}{
+        "names": []string{"superuser"},
+        "roles": []string{"admins"},
+    }
+    var members = map[string]interface{}{
+        "names": []string{"user1","user2"},
+        "roles": []string{"developers"},
+    }
+    data, err := database.SetSecurity(admins, members)
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Set Security >> ok: %v", data["ok"])
+}
