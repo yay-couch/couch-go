@@ -32,7 +32,7 @@ func (this *Database) Info() (map[string]interface{}, error) {
     if err != nil {
         return nil, err
     }
-    var _return = make(map[string]interface{})
+    var _return = u.Map()
     for key, value := range *data.(*Data) {
         _return[key] = value
     }
@@ -58,7 +58,7 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
     if err != nil {
         return nil, err
     }
-    var _return = make(map[string]interface{})
+    var _return = u.Map()
     for key, value := range *data.(*Data) {
         if key == "history" {
             _return[key] = make(map[int]map[string]interface{})
@@ -102,7 +102,7 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     if err != nil {
         return nil, err
     }
-    var _return = make(map[string]interface{})
+    var _return = u.Map()
     for _, doc := range data.(*_Docs).Rows {
         _return["id"]    = doc.Id
         _return["key"]   = doc.Key
@@ -125,7 +125,7 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
         if err != nil {
             return nil, err
         }
-        var _return = make(map[string]interface{})
+        var _return = u.Map()
         _return["offset"]     = data.(*_Docs).Offset
         _return["total_rows"] = data.(*_Docs).TotalRows
         _return["rows"]       = make([]map[string]interface{}, len(data.(*_Docs).Rows))
@@ -324,7 +324,7 @@ func (this *Database) ViewTemp(map_, reduce string) (map[string]interface{}, err
     if err != nil {
         return nil, err
     }
-    var _return = make(map[string]interface{})
+    var _return = u.Map()
     _return["offset"]     = data.(*_Docs).Offset
     _return["total_rows"] = data.(*_Docs).TotalRows
     _return["rows"]       = make([]map[string]interface{}, len(data.(*_Docs).Rows))
