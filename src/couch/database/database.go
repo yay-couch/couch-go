@@ -63,17 +63,16 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
         "target": target,
         "create_target": targetCreate,
     }
-    type Data map[string]interface{}
-    data, err := this.Client.Post("/_replicate", nil, body, nil).GetBodyData(&Data{})
+    data, err := this.Client.Post("/_replicate", nil, body, nil).
+        GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
     }
     var _return = u.Map()
-    for key, value := range *data.(*Data) {
+    for key, value := range data.(map[string]interface{}) {
         if key == "history" {
-            _return[key] = u.MapListInt()
+            _return[key] = u.MapList(value)
             for i, history := range value.([]interface{}) {
-                _return[key] = u.MapList(len(value.([]interface{})))
                 for kkey, vvalue := range history.(map[string]interface{}) {
                     if _return[key].([]map[string]interface{})[i] == nil {
                         _return[key].([]map[string]interface{})[i] = u.Map()
