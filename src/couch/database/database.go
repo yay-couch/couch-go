@@ -84,7 +84,7 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
 type _Doc struct {
     Id     string
     Key    string
-    Value  map[string]string
+    Value  map[string]interface{}
     Doc    map[string]interface{}
 }
 type _Docs struct {
@@ -106,7 +106,7 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     for _, doc := range data.(*_Docs).Rows {
         _return["id"]    = doc.Id
         _return["key"]   = doc.Key
-        _return["value"] = map[string]string{"rev": doc.Value["rev"]}
+        _return["value"] = map[string]string{"rev": doc.Value["rev"].(string)}
         _return["doc"]   = map[string]interface{}{}
         for key, value := range doc.Doc {
             _return["doc"].(map[string]interface{})[key] = value
@@ -133,7 +133,7 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
             _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                    "id": row.Id,
                   "key": row.Key,
-                "value": map[string]string{"rev": row.Value["rev"]},
+                "value": map[string]string{"rev": row.Value["rev"].(string)},
                   "doc": row.Doc,
             }
         }
@@ -317,5 +317,23 @@ func (this *Database) ViewCleanup() (map[string]interface{}, error) {
 }
 
 func (this *Database) ViewTemp(map_, reduce string) (map[string]interface{}, error) {
-
+    data, err := this.Client.Post(this.Name +"/_temp_view", nil, map[string]interface{}{
+        "map": map_,
+        "reduce": u.IsEmptySet(reduce, nil), // prevent "missing function" error
+    }, nil).GetBodyData(&_Docs{})
+    if err != nil {
+        return nil, err
+    }
+    var _return = make(map[string]interface{})
+    _return["offset"]     = data.(*_Docs).Offset
+    _return["total_rows"] = data.(*_Docs).TotalRows
+    _return["rows"]       = make([]map[string]interface{}, len(data.(*_Docs).Rows))
+    for i, row := range data.(*_Docs).Rows {
+        _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
+               "id": row.Id,
+              "key": row.Key,
+            "value": row.Value,
+        }
+    }
+    return _return, nil
 }
