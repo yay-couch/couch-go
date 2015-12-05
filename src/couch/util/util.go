@@ -108,13 +108,13 @@ func QuoteEncode(input string) string {
     return _str.Replace(input, "\"", "%22", -1)
 }
 
-func MakeParam(param map[string]interface{}) map[string]interface{} {
+func Param(param map[string]interface{}) map[string]interface{} {
     if param == nil {
         param = make(map[string]interface{})
     }
     return param
 }
-func MakeParamList(argv ...interface{}) map[string]interface{} {
+func ParamList(argv ...interface{}) map[string]interface{} {
     var argc = len(argv)
     if argc % 2 != 0 {
         panic("MakeParamList() accepts equal params like key=>value!")

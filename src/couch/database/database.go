@@ -58,7 +58,7 @@ func (this *Database) Remove() bool {
 }
 
 func (this *Database) Replicate(target string, targetCreate bool) (map[string]interface{}, error) {
-    var body = u.MakeParamList(
+    var body = u.ParamList(
         "source", this.Name,
         "target", target,
         "create_target", targetCreate,
@@ -88,7 +88,7 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
 }
 
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
-    var query = u.MakeParamList(
+    var query = u.ParamList(
         "include_docs", true,
         "key"         , u.Quote(key),
     )
