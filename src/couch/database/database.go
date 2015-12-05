@@ -312,11 +312,14 @@ func (this *Database) ViewCleanup() (map[string]interface{}, error) {
     }, nil
 }
 
-func (this *Database) ViewTemp(map_, reduce string) (map[string]interface{}, error) {
-    data, err := this.Client.Post(this.Name +"/_temp_view", nil, map[string]interface{}{
-        "map": map_,
-        "reduce": u.IsEmptySet(reduce, nil), // prevent "missing function" error
-    }, nil).GetBodyData(&DatabaseDocumentList{})
+func (this *Database) ViewTemp(map_ string, reduce interface{}) (map[string]interface{}, error) {
+    var body = u.ParamList(
+        "map", map_,
+        // prevent "missing function" error
+        "reduce", u.IsEmptySet(reduce, nil),
+    )
+    data, err := this.Client.Post(this.Name +"/_temp_view", nil, body, nil).
+        GetBodyData(&DatabaseDocumentList{})
     if err != nil {
         return nil, err
     }
