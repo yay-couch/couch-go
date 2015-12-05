@@ -101,12 +101,8 @@ func Dumpf(format string, args ...interface{}) {
     _fmt.Printf("%s\n", _fmt.Sprintf(format, args...))
 }
 
-func Quote(input string, encode bool) string {
-    input = _strc.Quote(input)
-    if encode {
-        input = QuoteEncode(input)
-    }
-    return input
+func Quote(input string) string {
+    return _strc.Quote(input)
 }
 func QuoteEncode(input string) string {
     return _str.Replace(input, "\"", "%22", -1)
