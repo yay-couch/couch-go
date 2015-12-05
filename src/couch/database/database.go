@@ -204,7 +204,7 @@ func (this *Database) UpdateDocument(document interface{}) (map[string]interface
 }
 
 func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
-    var docs = make([]map[string]interface{}, len(documents))
+    var docs = u.MapList(len(documents))
     for i, doc := range documents {
         if docs[i] == nil {
             docs[i] = make(map[string]interface{})
@@ -223,7 +223,7 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
     if err != nil {
         return nil, err
     }
-    var _return = make([]map[string]interface{}, len(data.([]interface{})))
+    var _return = u.MapList(len(data.([]interface{})))
     for i, doc := range data.([]interface{}) {
         if _return[i] == nil {
             _return[i] = make(map[string]interface{})
