@@ -174,7 +174,7 @@ func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]i
     if err != nil {
         return nil, err
     }
-    var _return = u.MapList(data.([]interface{}))
+    var _return = u.MapList(data)
     for i, doc := range data.([]interface{}) {
         if _return[i] == nil {
             _return[i] = u.Map()
@@ -217,7 +217,7 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
     if err != nil {
         return nil, err
     }
-    var _return = u.MapList(data.([]interface{}))
+    var _return = u.MapList(data)
     for i, doc := range data.([]interface{}) {
         if _return[i] == nil {
             _return[i] = u.Map()
