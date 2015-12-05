@@ -161,10 +161,10 @@ func (this *Database) CreateDocument(document interface{}) (map[string]interface
 }
 
 func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
-    var docs = make([]map[string]interface{}, len(documents))
+    var docs = u.MapList(len(documents))
     for i, doc := range documents {
         if docs[i] == nil {
-            docs[i] = make(map[string]interface{})
+            docs[i] = u.Map()
         }
         for key, value := range doc.(map[string]interface{}) {
             // this is create method, no update allowed
@@ -180,10 +180,10 @@ func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]i
     if err != nil {
         return nil, err
     }
-    var _return = make([]map[string]interface{}, len(data.([]interface{})))
+    var _return = u.MapList(len(data.([]interface{})))
     for i, doc := range data.([]interface{}) {
         if _return[i] == nil {
-            _return[i] = make(map[string]interface{})
+            _return[i] = u.Map()
         }
         for key, value := range doc.(map[string]interface{}) {
             _return[i][key] = value
