@@ -31,4 +31,6 @@ func main() {
     // test_database.TestEnsureFullCommit()
     // test_database.TestViewCleanup()
     // test_database.TestViewTemp()
+    // test_database.TestGetSecurity()
+    // test_database.TestSetSecurity()
 }
