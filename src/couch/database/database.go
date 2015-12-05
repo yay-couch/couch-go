@@ -324,10 +324,11 @@ func (this *Database) ViewTemp(map_ string, reduce interface{}) (map[string]inte
         return nil, err
     }
     var _return = u.Map()
+    var _returnRows = data.(*DatabaseDocumentList).Rows
     _return["offset"]     = data.(*DatabaseDocumentList).Offset
     _return["total_rows"] = data.(*DatabaseDocumentList).TotalRows
-    _return["rows"]       = u.MapList(len(data.(*DatabaseDocumentList).Rows))
-    for i, row := range data.(*DatabaseDocumentList).Rows {
+    _return["rows"]       = u.MapList(len(_returnRows))
+    for i, row := range _returnRows {
         _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                "id": row.Id,
               "key": row.Key,
