@@ -256,17 +256,16 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
     if docIds != nil {
         query["filter"] = "_doc_ids"
     }
-    data, err := this.Client.Post(this.Name +"/_changes", query, map[string]interface{}{
-        "doc_ids": docIds,
-    }, nil).GetBodyData(map[string]interface{}{})
+    data, err := this.Client.Post(this.Name +"/_changes", query, u.ParamList("doc_ids", docIds), nil).
+        GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
     }
     var _return = u.Map()
     _return["last_seq"] = u.Dig("last_seq", data)
-    _return["results"]  = u.MapList(0)
+    _return["results"]  = u.MapList(0) // set empty as default
     if results := data.(map[string]interface{})["results"].([]interface{}); results != nil {
-        _return["results"] = u.MapList(len(results))
+        _return["results"] = u.MapList(results) // @overwrite
         for i, result := range results {
             _return["results"].([]map[string]interface{})[i] = map[string]interface{}{
                      "id": u.Dig("id", result),
