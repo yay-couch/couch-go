@@ -97,7 +97,7 @@ type _Docs struct {
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     data, err := this.Client.Get(this.Name +"/_all_docs", map[string]interface{}{
         "include_docs": true,
-        "key"         : u.Quote(key, true),
+        "key"         : u.Quote(key),
     }, nil).GetBodyData(&_Docs{})
     if err != nil {
         return nil, err
