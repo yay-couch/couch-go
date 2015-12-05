@@ -262,7 +262,15 @@ func DigInt(key string, object interface{}) int {
 }
 func DigFloat(key string, object interface{}) float64 {
     if value := Dig(key, object); value != nil {
-        return value.(float64)
+        switch value := value.(type) {
+            case float64:
+                Dump("float64")
+                return value
+            case float32:
+                return float64(value)
+            case int:
+                return float64(value)
+        }
     }
     return 0.0
 }
