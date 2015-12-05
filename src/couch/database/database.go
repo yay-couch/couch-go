@@ -143,8 +143,8 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
                 GetBodyData(&DatabaseDocumentList{}))
     } else {
         return _return(
-            this.Client.Post(this.Name +"/_all_docs", query, map[string]interface{}{
-                "keys": keys}, nil).GetBodyData(&DatabaseDocumentList{}))
+            this.Client.Post(this.Name +"/_all_docs", query, u.ParamList("keys", keys), nil).
+                GetBodyData(&DatabaseDocumentList{}))
     }
 }
 
