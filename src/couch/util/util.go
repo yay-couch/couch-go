@@ -295,8 +295,14 @@ func StringSearch(input, search string) bool {
 func Map() map[string]interface{} {
     return make(map[string]interface{})
 }
-func MapList(length int) []map[string]interface{} {
-    return make([]map[string]interface{}, length)
+func MapList(length interface{}) []map[string]interface{} {
+    switch length.(type) {
+        case int:
+            return make([]map[string]interface{}, length.(int))
+        case []interface{}:
+            return make([]map[string]interface{}, len(length.([]interface{})))
+    }
+    return nil
 }
 func MapListInt() map[int]map[string]interface{} {
     return make(map[int]map[string]interface{})
