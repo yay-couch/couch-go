@@ -88,10 +88,11 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
 }
 
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
-    data, err := this.Client.Get(this.Name +"/_all_docs", map[string]interface{}{
-        "include_docs": true,
-        "key"         : u.Quote(key),
-    }, nil).GetBodyData(&DatabaseDocumentList{})
+    var query = u.MakeParamList(
+        "include_docs", true,
+        "key"         , u.Quote(key),
+    )
+    data, err := this.Client.Get(this.Name +"/_all_docs", query, nil).GetBodyData(&DatabaseDocumentList{})
     if err != nil {
         return nil, err
     }
