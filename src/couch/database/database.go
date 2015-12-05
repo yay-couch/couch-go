@@ -58,11 +58,11 @@ func (this *Database) Remove() bool {
 }
 
 func (this *Database) Replicate(target string, targetCreate bool) (map[string]interface{}, error) {
-    var body = map[string]interface{}{
-        "source": this.Name,
-        "target": target,
-        "create_target": targetCreate,
-    }
+    var body = u.MakeParamList(
+        "source", this.Name,
+        "target", target,
+        "create_target", targetCreate,
+    )
     data, err := this.Client.Post("/_replicate", nil, body, nil).
         GetBodyData(map[string]interface{}{})
     if err != nil {
