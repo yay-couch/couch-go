@@ -23,9 +23,7 @@ type DatabaseDocumentList struct {
     Rows       []DatabaseDocument
 }
 
-func Shutup() {
-    u.Shutup()
-}
+func Shutup() {}
 
 func New(client *_client.Client, name string) *Database {
     return &Database{
