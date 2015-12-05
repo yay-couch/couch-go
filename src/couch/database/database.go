@@ -66,7 +66,7 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
                 _return[key] = u.MapList(len(value.([]interface{})))
                 for kkey, vvalue := range history.(map[string]interface{}) {
                     if _return[key].([]map[string]interface{})[i] == nil {
-                        _return[key].([]map[string]interface{})[i] = make(map[string]interface{})
+                        _return[key].([]map[string]interface{})[i] = u.Map()
                     }
                     _return[key].([]map[string]interface{})[i][kkey] = vvalue
                 }
