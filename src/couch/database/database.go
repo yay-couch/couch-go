@@ -10,6 +10,18 @@ type Database struct {
     Client *_client.Client
     Name   string
 }
+type DatabaseDocument struct {
+    Id     string
+    Key    string
+    Value  map[string]interface{}
+    Doc    map[string]interface{}
+}
+type DatabaseDocumentList struct {
+    Offset     uint
+    TotalRows  uint `json:"total_rows"`
+    UpdateSeq  uint `json:"update_seq"`
+    Rows       []DatabaseDocument
+}
 
 func Shutup() {
     u.Shutup()
@@ -76,22 +88,6 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
         _return[key] = value
     }
     return _return, nil
-}
-
-/**
- * Local document stuff.
- */
-type _Doc struct {
-    Id     string
-    Key    string
-    Value  map[string]interface{}
-    Doc    map[string]interface{}
-}
-type _Docs struct {
-    Offset     uint
-    TotalRows  uint `json:"total_rows"`
-    UpdateSeq  uint `json:"update_seq"`
-    Rows       []_Doc
 }
 
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
