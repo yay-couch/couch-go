@@ -382,3 +382,18 @@ func TestSetSecurity() {
     }
     _dumpf("Database Set Security >> ok: %v", data["ok"])
 }
+
+/**
+ * TestPurge
+ */
+func TestPurge() {
+    data, err := database.Purge(map[string]interface{}{
+        "5db345a5f26484352ea5d813180031fb": []string{
+            "3-5c38b873ed3f59a71df8f2c569b467ac",
+        },
+    })
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Purge >> ok: %v", data["ok"])
+}
