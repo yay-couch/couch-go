@@ -146,19 +146,19 @@ func (this *Request) SetBody(body interface{}) {
                 }
                 this.Body = body
                 this.SetHeader("Content-Length", len(body))
-            case map[string]interface{}:
-                if this.GetHeader("Content-Type") == "application/json" {
-                    // @overwrite
-                    var body, err = u.UnparseBody(body)
-                    if err != nil {
-                        panic(err)
-                    }
-                    // pass empty body
-                    if body != "{}" && body != "[]" {
-                        this.Body = body
-                        this.SetHeader("Content-Length", len(body))
-                    }
-                }
+            // case map[string]interface{}:
+            //     if this.GetHeader("Content-Type") == "application/json" {
+            //         // @overwrite
+            //         var body, err = u.UnparseBody(body)
+            //         if err != nil {
+            //             panic(err)
+            //         }
+            //         // pass empty body
+            //         if body != "{}" && body != "[]" {
+            //             this.Body = body
+            //             this.SetHeader("Content-Length", len(body))
+            //         }
+            //     }
             default:
                 var bodyType = _fmt.Sprintf("%T", body)
                 if u.StringSearch(bodyType, "u?int(\\d+)?|float(32|64)") {
@@ -167,7 +167,16 @@ func (this *Request) SetBody(body interface{}) {
                     this.Body = body
                     this.SetHeader("Content-Length", len(body))
                 } else {
-                    panic("Unsupported body type '"+ bodyType +"' given!");
+                    if this.GetHeader("Content-Type") == "application/json" {
+                        // @overwrite
+                        var body, err = u.UnparseBody(body)
+                        if err != nil {
+                            panic(err)
+                        }
+                        this.Body = body
+                        this.SetHeader("Content-Length", len(body))
+                    }
+                    // panic("Unsupported body type '"+ bodyType +"' given!");
                 }
         }
     }
