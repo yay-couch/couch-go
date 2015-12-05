@@ -207,7 +207,7 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
     var docs = u.MapList(len(documents))
     for i, doc := range documents {
         if docs[i] == nil {
-            docs[i] = make(map[string]interface{})
+            docs[i] = u.Map()
         }
         for key, value := range doc.(map[string]interface{}) {
             docs[i][key] = value
@@ -226,7 +226,7 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
     var _return = u.MapList(len(data.([]interface{})))
     for i, doc := range data.([]interface{}) {
         if _return[i] == nil {
-            _return[i] = make(map[string]interface{})
+            _return[i] = u.Map()
         }
         for key, value := range doc.(map[string]interface{}) {
             _return[i][key] = value
