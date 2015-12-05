@@ -114,6 +114,22 @@ func MakeParam(param map[string]interface{}) map[string]interface{} {
     }
     return param
 }
+func MakeParamList(argv ...interface{}) map[string]interface{} {
+    var argc = len(argv)
+    if argc % 2 != 0 {
+        panic("MakeParamList() accepts equal params like key=>value!")
+    }
+    var paramList = make(map[string]interface{});
+    // tricky?
+    for i := 1; i < argc; i += 2 {
+        if key, ok := argv[i-1].(string); ok {
+            paramList[key] = argv[i]
+            continue
+        }
+        panic("Each param key must be string!");
+    }
+    return paramList
+}
 
 // parsers
 func ParseUrl(url string) map[string]string {
