@@ -120,8 +120,8 @@ func TestGetDocument() {
  * TestGetDocumentAll
  */
 func TestGetDocumentAll() {
-    // data, err := database.GetDocumentAll(nil, nil)
-    data, err := database.GetDocumentAll(nil, []string{"5db345a5f26484352ea5d813180031fb"})
+    data, err := database.GetDocumentAll(nil, nil)
+    // data, err := database.GetDocumentAll(nil, []string{"5db345a5f26484352ea5d813180031fb"})
     if err != nil {
         panic(err)
     }

@@ -123,10 +123,12 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
             return nil, err
         }
         var _return = u.Map()
+        var _returnRows = data.(*DatabaseDocumentList).Rows
+        var _returnRowsLength = len(data.(*DatabaseDocumentList).Rows)
         _return["offset"]     = data.(*DatabaseDocumentList).Offset
         _return["total_rows"] = data.(*DatabaseDocumentList).TotalRows
-        _return["rows"]       = u.MapList(len(data.(*DatabaseDocumentList).Rows))
-        for i, row := range data.(*DatabaseDocumentList).Rows {
+        _return["rows"]       = u.MapList(_returnRowsLength)
+        for i, row := range _returnRows {
             _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                    "id": row.Id,
                   "key": row.Key,
