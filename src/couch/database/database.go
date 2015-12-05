@@ -92,7 +92,8 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
         "include_docs", true,
         "key"         , u.Quote(key),
     )
-    data, err := this.Client.Get(this.Name +"/_all_docs", query, nil).GetBodyData(&DatabaseDocumentList{})
+    data, err := this.Client.Get(this.Name +"/_all_docs", query, nil).
+        GetBodyData(&DatabaseDocumentList{})
     if err != nil {
         return nil, err
     }
