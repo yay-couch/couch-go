@@ -110,7 +110,7 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
 }
 
 func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string) (map[string]interface{}, error) {
-    query = u.MakeParam(query)
+    query = u.Param(query)
     if query["include_docs"] == nil {
         query["include_docs"] = true
     }
@@ -249,7 +249,7 @@ func (this *Database) DeleteDocumentAll(documents []interface{}) ([]map[string]i
 }
 
 func (this *Database) GetChanges(query map[string]interface{}, docIds []string) (map[string]interface{}, error) {
-    query = u.MakeParam(query)
+    query = u.Param(query)
     if docIds != nil {
         query["filter"] = "_doc_ids"
     }
