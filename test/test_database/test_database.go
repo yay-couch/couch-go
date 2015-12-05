@@ -349,3 +349,17 @@ func TestViewTemp() {
     _dumpf("Database View Temp >> rows.0.value.type: %s", u.Dig("rows.0.value.type", data))
     _dumpf("Database View Temp >> rows.0.value.name: %s", u.Dig("rows.0.value.name", data))
 }
+
+/**
+ * TestGetSecurity
+ */
+func TestGetSecurity() {
+    data, err := database.GetSecurity()
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Get Security >> %+v", data)
+    _dumpf("Database Get Security >> admins %+v", data["admins"])
+    _dumpf("Database Get Security >> admins.names %v", u.Dig("admins.names", data))
+    _dumpf("Database Get Security >> admins.roles %v", u.Dig("admins.roles", data))
+}
