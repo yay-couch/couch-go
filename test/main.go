@@ -30,4 +30,5 @@ func main() {
     // test_database.TestCompact()
     // test_database.TestEnsureFullCommit()
     // test_database.TestViewCleanup()
+    // test_database.TestViewTemp()
 }
