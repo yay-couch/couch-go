@@ -37,13 +37,13 @@ func (this *Database) Ping() bool {
 }
 
 func (this *Database) Info() (map[string]interface{}, error) {
-    type Data map[string]interface{}
-    data, err := this.Client.Get(this.Name, nil, nil).GetBodyData(&Data{})
+    data, err := this.Client.Get(this.Name, nil, nil).
+        GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
     }
     var _return = u.Map()
-    for key, value := range *data.(*Data) {
+    for key, value := range data.(map[string]interface{}) {
         _return[key] = value
     }
     return _return, nil
