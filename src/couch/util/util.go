@@ -317,7 +317,7 @@ func MapList(length interface{}) []map[string]interface{} {
             return make([]map[string]interface{}, length.(int))
         case []interface{}:
             return make([]map[string]interface{}, len(length.([]interface{})))
-        // @todo add more if needs
+        // @todo add more types if needs
         // case ...:
     }
     return nil
