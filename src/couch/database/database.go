@@ -94,12 +94,12 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     data, err := this.Client.Get(this.Name +"/_all_docs", map[string]interface{}{
         "include_docs": true,
         "key"         : u.Quote(key),
-    }, nil).GetBodyData(&_Docs{})
+    }, nil).GetBodyData(&DatabaseDocumentList{})
     if err != nil {
         return nil, err
     }
     var _return = u.Map()
-    for _, doc := range data.(*_Docs).Rows {
+    for _, doc := range data.(*DatabaseDocumentList).Rows {
         _return["id"]    = doc.Id
         _return["key"]   = doc.Key
         _return["value"] = map[string]string{"rev": doc.Value["rev"].(string)}
@@ -122,10 +122,10 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
             return nil, err
         }
         var _return = u.Map()
-        _return["offset"]     = data.(*_Docs).Offset
-        _return["total_rows"] = data.(*_Docs).TotalRows
-        _return["rows"]       = u.MapList(len(data.(*_Docs).Rows))
-        for i, row := range data.(*_Docs).Rows {
+        _return["offset"]     = data.(*DatabaseDocumentList).Offset
+        _return["total_rows"] = data.(*DatabaseDocumentList).TotalRows
+        _return["rows"]       = u.MapList(len(data.(*DatabaseDocumentList).Rows))
+        for i, row := range data.(*DatabaseDocumentList).Rows {
             _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                    "id": row.Id,
                   "key": row.Key,
@@ -137,11 +137,11 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
     }
     if keys == nil {
         return _return(
-            this.Client.Get(this.Name +"/_all_docs", query, nil).GetBodyData(&_Docs{}))
+            this.Client.Get(this.Name +"/_all_docs", query, nil).GetBodyData(&DatabaseDocumentList{}))
     } else {
         return _return(
             this.Client.Post(this.Name +"/_all_docs", query, map[string]interface{}{
-                "keys": keys}, nil).GetBodyData(&_Docs{}))
+                "keys": keys}, nil).GetBodyData(&DatabaseDocumentList{}))
     }
 }
 
@@ -316,15 +316,15 @@ func (this *Database) ViewTemp(map_, reduce string) (map[string]interface{}, err
     data, err := this.Client.Post(this.Name +"/_temp_view", nil, map[string]interface{}{
         "map": map_,
         "reduce": u.IsEmptySet(reduce, nil), // prevent "missing function" error
-    }, nil).GetBodyData(&_Docs{})
+    }, nil).GetBodyData(&DatabaseDocumentList{})
     if err != nil {
         return nil, err
     }
     var _return = u.Map()
-    _return["offset"]     = data.(*_Docs).Offset
-    _return["total_rows"] = data.(*_Docs).TotalRows
-    _return["rows"]       = u.MapList(len(data.(*_Docs).Rows))
-    for i, row := range data.(*_Docs).Rows {
+    _return["offset"]     = data.(*DatabaseDocumentList).Offset
+    _return["total_rows"] = data.(*DatabaseDocumentList).TotalRows
+    _return["rows"]       = u.MapList(len(data.(*DatabaseDocumentList).Rows))
+    for i, row := range data.(*DatabaseDocumentList).Rows {
         _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                "id": row.Id,
               "key": row.Key,
