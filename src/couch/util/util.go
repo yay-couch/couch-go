@@ -205,6 +205,9 @@ func UnparseBody(in interface{}) (string, error) {
 
 // diggers
 func Dig(key string, object interface{}) interface{} {
+    if object == nil {
+        return nil
+    }
     var keys = _str.Split(key, ".")
     key = _shift(&keys)
     if len(keys) == 0 {
