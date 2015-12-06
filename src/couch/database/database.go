@@ -406,3 +406,13 @@ func (this *Database) GetMissingRevisionsDiff(object map[string]interface{}) (ma
     }
     return _return, nil
 }
+
+func (this *Database) GetRevisionLimit() (int, error) {
+    var limit int
+    data, err := this.Client.Get(this.Name +"/_revs_limit", nil, nil).
+        GetBodyData(limit)
+    if err != nil {
+        return -1, err
+    }
+    return int(data.(float64)), nil
+}
