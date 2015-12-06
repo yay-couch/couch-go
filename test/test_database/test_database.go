@@ -439,3 +439,14 @@ func TestGetMissingRevisionsDiff() {
     _dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9.missing.0: %s",
         u.Dig("667b0208441066a0954717b50c0008a9.missing.0", data))
 }
+
+/**
+ * TestGetRevisionLimit
+ */
+func TestGetRevisionLimit() {
+    data, err := database.GetRevisionLimit()
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Revision Limit >> %d", data)
+}
