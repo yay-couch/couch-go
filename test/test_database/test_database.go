@@ -432,5 +432,10 @@ func TestGetMissingRevisionsDiff() {
         panic(err)
     }
     _dumpf("Database Missing Revisions Diff >> %v", data)
-    _dumpf("Database Missing Revisions Diff >> ok: %v", data["missing_revs"])
+    _dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9: %v",
+        u.Dig("667b0208441066a0954717b50c0008a9", data))
+    _dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9.missing: %v",
+        u.Dig("667b0208441066a0954717b50c0008a9.missing", data))
+    _dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9.missing.0: %s",
+        u.Dig("667b0208441066a0954717b50c0008a9.missing.0", data))
 }
