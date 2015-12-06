@@ -415,3 +415,14 @@ func (this *Database) GetRevisionLimit() (int, error) {
     }
     return int(data.(float64)), nil
 }
+
+func (this *Database) SetRevisionLimit(limit int) (map[string]interface{}, error) {
+    data, err := this.Client.Put(this.Name +"/_revs_limit", nil, limit, nil).
+        GetBodyData(limit)
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+        "ok": u.DigBool("ok", data),
+    }, nil
+}
