@@ -364,12 +364,16 @@ func (this *Database) SetSecurity(admins, members map[string]interface{}) (map[s
 }
 
 func (this *Database) Purge(object map[string]interface{}) (map[string]interface{}, error) {
-    data, err := this.Client.Put(this.Name +"/_security", nil, object, nil).
+    data, err := this.Client.Post(this.Name +"/_purge", nil, object, nil).
         GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
     }
-    return map[string]interface{}{
-        "ok": u.DigBool("ok", data),
-    }, nil
+    var _return = u.Map()
+    _return["purge_seq"] = u.DigInt("purge_seq", data)
+    _return["purged"]  = u.Map()
+    for id, revs := range data.(map[string]interface{})["purged"].(map[string]interface{}) {
+        _return["purged"].(map[string]interface{})[id] = revs
+    }
+    return _return, nil
 }
