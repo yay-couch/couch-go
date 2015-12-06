@@ -398,3 +398,19 @@ func TestPurge() {
     _dumpf("Database Purge >> ok: %v", data)
     _dumpf("Database Purge >> ok: %d", data["purge_seq"])
 }
+
+/**
+ * TestGetMissingRevisions
+ */
+func TestGetMissingRevisions() {
+    data, err := database.GetMissingRevisions(map[string]interface{}{
+        "667b0208441066a0954717b50c0008a9": []string{
+            "5-dd1a3738fcbd759ed744f7971fe94332",
+        },
+    })
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Missing Revisions >> ok: %v", data)
+    _dumpf("Database Missing Revisions >> ok: %v", data["missing_revs"])
+}
