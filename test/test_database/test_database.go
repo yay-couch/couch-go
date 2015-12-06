@@ -388,12 +388,13 @@ func TestSetSecurity() {
  */
 func TestPurge() {
     data, err := database.Purge(map[string]interface{}{
-        "5db345a5f26484352ea5d813180031fb": []string{
-            "3-5c38b873ed3f59a71df8f2c569b467ac",
+        "667b0208441066a0954717b50c0008a9": []string{
+            "5-dd1a3738fcbd759ed744f7971fe94332",
         },
     })
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Purge >> ok: %v", data["ok"])
+    _dumpf("Database Purge >> ok: %v", data)
+    _dumpf("Database Purge >> ok: %d", data["purge_seq"])
 }
