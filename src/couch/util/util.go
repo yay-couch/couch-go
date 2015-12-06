@@ -264,7 +264,6 @@ func DigFloat(key string, object interface{}) float64 {
     if value := Dig(key, object); value != nil {
         switch value := value.(type) {
             case float64:
-                Dump("float64")
                 return value
             case float32:
                 return float64(value)
