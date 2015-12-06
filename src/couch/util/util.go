@@ -222,7 +222,8 @@ func Dig(key string, object interface{}) interface{} {
                     return object.([]map[string]interface{})[key]
                 }
             default:
-                // panic?
+                // @tmp @debug
+                panic("Unimplemented type: "+ TypeReal(object))
         }
     } else {
         // @overwrite
@@ -241,7 +242,8 @@ func Dig(key string, object interface{}) interface{} {
                     return Dig(keys, object.([]map[string]interface{})[key])
                 }
             default:
-                // panic?
+                // @tmp @debug
+                panic("Unimplemented type: "+ TypeReal(object))
         }
     }
 
