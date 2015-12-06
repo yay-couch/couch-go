@@ -377,3 +377,17 @@ func (this *Database) Purge(object map[string]interface{}) (map[string]interface
     }
     return _return, nil
 }
+
+func (this *Database) GetMissingRevisions(object map[string]interface{}) (map[string]interface{}, error) {
+    data, err := this.Client.Post(this.Name +"/_missing_revs", nil, object, nil).
+        GetBodyData(map[string]interface{}{})
+    if err != nil {
+        return nil, err
+    }
+    var _return = u.Map()
+    _return["missing_revs"] = u.Map()
+    for id, revs := range data.(map[string]interface{})["missing_revs"].(map[string]interface{}) {
+        _return["missing_revs"].(map[string]interface{})[id] = revs
+    }
+    return _return, nil
+}
