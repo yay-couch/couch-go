@@ -216,6 +216,11 @@ func Dig(key string, object interface{}) interface{} {
                 return object.(map[string]string)[key]
             case map[string]interface{}:
                 return object.(map[string]interface{})[key]
+            case []interface{}:
+                key, err := _strc.Atoi(key)
+                if err == nil {
+                    return object.([]interface{})[key]
+                }
             case []map[string]interface{}:
                 key, err := _strc.Atoi(key)
                 if err == nil {
@@ -236,6 +241,11 @@ func Dig(key string, object interface{}) interface{} {
                 return Dig(keys, object.(map[string]string)[key])
             case map[string]interface{}:
                 return Dig(keys, object.(map[string]interface{})[key])
+            case []interface{}:
+                key, err := _strc.Atoi(key)
+                if err == nil {
+                    return object.([]interface{})[key]
+                }
             case []map[string]interface{}:
                 key, err := _strc.Atoi(key)
                 if err == nil {
