@@ -36,5 +36,6 @@ func main() {
     // test_database.TestPurge()
     // test_database.TestGetMissingRevisions()
     // test_database.TestGetMissingRevisionsDiff()
-    test_database.TestGetRevisionLimit()
+    // test_database.TestGetRevisionLimit()
+    // test_database.TestSetRevisionLimit()
 }
