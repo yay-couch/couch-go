@@ -392,15 +392,6 @@ func (this *Database) GetMissingRevisions(object map[string]interface{}) (map[st
     return _return, nil
 }
 
-/*
-{
-  "190f721ca3411be7aa9477db5f948bbb": {
-    "missing": [
-      "3-bb72a7682290f94a985f7afac8b27137"
-    ]
-  }
-}
- */
 func (this *Database) GetMissingRevisionsDiff(object map[string]interface{}) (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_revs_diff", nil, object, nil).
         GetBodyData(map[string]interface{}{})
