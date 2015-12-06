@@ -411,6 +411,22 @@ func TestGetMissingRevisions() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Missing Revisions >> ok: %v", data)
-    _dumpf("Database Missing Revisions >> ok: %v", data["missing_revs"])
+    _dumpf("Database Missing Revisions >> %v", data)
+    _dumpf("Database Missing Revisions >> missing_revs: %v", data["missing_revs"])
+}
+
+/**
+ * TestGetMissingRevisionsDiff
+ */
+func TestGetMissingRevisionsDiff() {
+    data, err := database.GetMissingRevisionsDiff(map[string]interface{}{
+        "667b0208441066a0954717b50c0008a9": []string{
+            "5-dd1a3738fcbd759ed744f7971fe94332",
+        },
+    })
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Missing Revisions Diff >> %v", data)
+    _dumpf("Database Missing Revisions Diff >> ok: %v", data["missing_revs"])
 }
