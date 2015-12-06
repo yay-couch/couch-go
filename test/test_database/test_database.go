@@ -413,6 +413,10 @@ func TestGetMissingRevisions() {
     }
     _dumpf("Database Missing Revisions >> %v", data)
     _dumpf("Database Missing Revisions >> missing_revs: %v", data["missing_revs"])
+    _dumpf("Database Missing Revisions >> missing_revs.667b0208441066a0954717b50c0008a9: %s",
+        u.Dig("missing_revs.667b0208441066a0954717b50c0008a9", data))
+    _dumpf("Database Missing Revisions >> missing_revs.0: %s",
+        u.Dig("missing_revs.667b0208441066a0954717b50c0008a9.0", data))
 }
 
 /**
