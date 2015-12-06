@@ -33,5 +33,6 @@ func main() {
     // test_database.TestViewTemp()
     // test_database.TestGetSecurity()
     // test_database.TestSetSecurity()
-    test_database.TestPurge()
+    // test_database.TestPurge()
+    // test_database.TestGetMissingRevisions()
 }
