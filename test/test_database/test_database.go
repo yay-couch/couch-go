@@ -448,5 +448,16 @@ func TestGetRevisionLimit() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Revision Limit >> %d", data)
+    _dumpf("Database Get Revision Limit >> %d", data)
+}
+
+/**
+ * TestSetRevisionLimit
+ */
+func TestSetRevisionLimit() {
+    data, err := database.SetRevisionLimit(1000)
+    if err != nil {
+        panic(err)
+    }
+    _dumpf("Database Set Revision Limit >> ok: %v", data["ok"])
 }
