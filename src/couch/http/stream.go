@@ -4,7 +4,7 @@ import (
     _fmt "fmt"
 )
 
-import u "./../util"
+import util "./../util"
 
 type Stream struct {
     Type        uint8
@@ -46,7 +46,7 @@ func (this *Stream) SetHeader(key string, value interface{}) {
         case int,
              bool,
              string:
-            this.Headers[key] = u.String(value)
+            this.Headers[key] = util.String(value)
         default:
             panic("Unsupported value type '"+ _fmt.Sprintf("%T", value) +"' given!")
     }
@@ -72,7 +72,7 @@ func (this *Stream) GetBody() string {
 
 func (this *Stream) GetBodyData(to interface{}) (interface{}, error) {
     if this.Error != "" {
-        data, err := u.ParseBody(this.Body.(string), &StreamError{})
+        data, err := util.ParseBody(this.Body.(string), &StreamError{})
         if err != nil {
             return nil, err
         }
@@ -82,7 +82,7 @@ func (this *Stream) GetBodyData(to interface{}) (interface{}, error) {
         )
     }
 
-    data, err := u.ParseBody(this.Body.(string), to)
+    data, err := util.ParseBody(this.Body.(string), to)
     if err != nil {
         return nil, err
     }
@@ -93,7 +93,7 @@ func (this *Stream) SetError(body string) {
     if body == "" {
         body = this.Body.(string)
     }
-    data, err := u.ParseBody(body, &StreamError{})
+    data, err := util.ParseBody(body, &StreamError{})
     if err == nil {
         var errorKey   = data.(*StreamError).ErrorKey
         var errorValue = data.(*StreamError).ErrorValue
