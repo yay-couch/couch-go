@@ -2,9 +2,6 @@ package database
 
 import (
     "./../../src/couch"
-)
-
-import (
     "./../../src/couch/util"
 )
 
