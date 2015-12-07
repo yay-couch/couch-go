@@ -42,9 +42,11 @@ func NewResponse() *Response {
     stream := NewStream()
     stream.Type = TYPE_RESPONSE
     stream.HttpVersion = "1.1"
+
     var this = &Response{
         Stream: *stream,
     }
+
     return this
 }
 
