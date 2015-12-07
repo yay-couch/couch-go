@@ -2,9 +2,6 @@ package test_database
 
 import (
     "./../../src/couch"
-    "./../../src/couch/client"
-    "./../../src/couch/database"
-    "./../../src/couch/document"
 )
 
 import (
@@ -18,13 +15,11 @@ var (
 
 var (
     Couch    *couch.Couch
-    Client   *client.Client
-    Database *database.Database
+    Client   *couch.Client
+    Database *couch.Database
 )
 
 func init() {
-    document.Shutup()
-
     Couch    = couch.New(nil, DEBUG)
     Client   = couch.NewClient(Couch, nil)
     Database = couch.NewDatabase(Client, DBNAME);
