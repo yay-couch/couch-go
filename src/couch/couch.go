@@ -1,9 +1,5 @@
 package couch
 
-import (
-    "./util"
-)
-
 type Couch struct {
     Config map[string]interface{}
 }
@@ -37,34 +33,6 @@ func New(config interface{}, debug bool) *Couch {
         couch.SetConfig(config)
     }
     return couch
-}
-
-func NewClient(couch *Couch, config interface{}) *Client {
-    var Config = make(map[string]interface{})
-    Config["Couch.NAME"]    = NAME
-    Config["Couch.VERSION"] = VERSION
-    Config["Couch.DEBUG"]   = DEBUG // set default
-    if config != nil {
-        for key, value := range config.(map[string]interface{}) {
-            Config[key] = value
-        }
-    }
-    Config["Scheme"]   = util.IsEmptySet(Config["Scheme"],   DefaultScheme)
-    Config["Host"]     = util.IsEmptySet(Config["Host"],     DefaultHost)
-    Config["Port"]     = util.IsEmptySet(Config["Port"],     DefaultPort)
-    Config["Username"] = util.IsEmptySet(Config["Username"], Username)
-    Config["Password"] = util.IsEmptySet(Config["Password"], Password)
-
-    if debug := util.Dig("debug", couch.Config); debug != nil {
-        Config["Couch.DEBUG"] = debug
-    }
-
-    couch.SetConfig(Config)
-
-    return _client.New(Config,
-        Config["Username"].(string), Config["Username"].(string))
-    // or
-    // return _client.New("https://localhost:1234", "", "", Config???)
 }
 
 func (this *Couch) SetConfig(config map[string]interface{}) {
