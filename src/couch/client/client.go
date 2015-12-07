@@ -6,14 +6,8 @@ import (
     _rex "regexp"
 )
 
-// import _stream "./../http/stream"
-// import _request "./../http/request"
-// import _response "./../http/response"
 import http "./../http"
-
-import u "./../util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import util "./../util"
 
 type Client struct {
     Scheme    string
@@ -35,9 +29,9 @@ func New(config interface{}, username, password string) *Client {
         this.Config = make(map[string]interface{})
         switch config.(type) {
             case string:
-                var url = u.ParseUrl(config.(string));
+                var url = util.ParseUrl(config.(string));
                 var scheme, host, port =
-                    url["Scheme"], url["Host"], u.Number(url["Port"], "uint16").(uint16)
+                    url["Scheme"], url["Host"], util.Number(url["Port"], "uint16").(uint16)
                 this.Scheme = scheme; this.Config["Scheme"] = scheme
                 this.Host   = host;   this.Config["Host"] = host
                 this.Port   = port;   this.Config["Port"] = port
@@ -96,7 +90,7 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
         if len(tmp) != 2 {
             panic("No valid response returned from server!")
         }
-        if headers := u.ParseHeaders(_str.TrimSpace(tmp[0])); headers != nil {
+        if headers := util.ParseHeaders(_str.TrimSpace(tmp[0])); headers != nil {
             if status := headers["0"]; status != "" {
                 this.Response.SetStatus(headers["0"])
             }
