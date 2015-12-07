@@ -9,8 +9,8 @@ import (
 )
 
 import (
-    "./../query"
     "./../util"
+    "./../query"
 )
 
 type Request struct {
