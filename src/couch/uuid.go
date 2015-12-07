@@ -25,7 +25,7 @@ func init() {
     _ = _rand.Reader
 }
 
-func New(value interface{}) *Uuid {
+func NewUuid(value interface{}) *Uuid {
     if value == nil {
         value = Generate(HEX_32)
     }
