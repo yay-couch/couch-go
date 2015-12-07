@@ -6,7 +6,9 @@ import (
     _strc "strconv"
 )
 
-import u "./../util"
+import (
+    "./../util"
+)
 
 type Response struct {
     Stream // extends :)
