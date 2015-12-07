@@ -1,4 +1,4 @@
-package test_uuid
+package uuid
 
 import _uuid "./../../src/couch/uuid"
 

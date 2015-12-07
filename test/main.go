@@ -1,10 +1,10 @@
 package main
 
 import (
-    // "./test_uuid"
-    // "./test_client"
-    // "./test_server"
-    // "./test_database"
+    // test_uuid "./uuid"
+    // test_client "./client"
+    // test_server "./server"
+    // test_database "./database"
 )
 
 
@@ -17,6 +17,7 @@ func init() {
 }
 
 func main() {
+    /* database */
     // test_database.TestPing()
     // test_database.TestInfo()
     // test_database.TestCreate()

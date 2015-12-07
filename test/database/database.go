@@ -1,4 +1,4 @@
-package test_database
+package database
 
 import (
     "./../../src/couch"

@@ -1,4 +1,4 @@
-package test_server
+package server
 
 import _couch  "./../../src/couch"
 import _server "./../../src/couch/server"

@@ -1,4 +1,4 @@
-package test_client
+package client
 
 import _couch    "./../../src/couch"
 import _client   "./../../src/couch/client"
