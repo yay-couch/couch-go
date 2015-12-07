@@ -116,8 +116,8 @@ func (this *Stream) GetErrorValue(key string) string {
     return this.ErrorData[key]
 }
 
+// @todo
 func (this *Stream) ToString() string {
-    // @todo
     return ""
 }
 
