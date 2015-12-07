@@ -15,39 +15,68 @@ type Client struct {
     Scheme    string
     Host      string
     Port      uint16
-    Username, Password string
+    Username  string
+    Password  string
     Request   *http.Request
     Response  *http.Response
     Config    map[string]interface{}
 }
 
-func NewClient(config interface{}, username, password string) *Client {
-    var this = &Client{}
+var (
+    Scheme        = "http"
+    Host          = "localhost"
+    Port   uint16 = 5984
+    Username      = ""
+    Password      = ""
+)
 
-    // config in config, just for import cycle..
-    if config != nil {
-        this.Config = make(map[string]interface{})
-        switch config.(type) {
-            case string:
-                var url = util.ParseUrl(config.(string));
-                var scheme, host, port =
-                    url["Scheme"], url["Host"], util.Number(url["Port"], "uint16").(uint16)
-                this.Scheme = scheme; this.Config["Scheme"] = scheme
-                this.Host   = host;   this.Config["Host"] = host
-                this.Port   = port;   this.Config["Port"] = port
-            case map[string]interface{}:
-                // copy
-                for key, value := range config.(map[string]interface{}) {
-                    this.Config[key] = value
-                }
-                this.Scheme = this.Config["Scheme"].(string)
-                this.Host   = this.Config["Host"].(string)
-                this.Port   = this.Config["Port"].(uint16)
-        }
+func NewClient(couch *Couch) *Client {
+    var this = &Client{
+        Scheme: Scheme,
+          Host: Host,
+          Port: Port,
+      Username: Username,
+      Password: Password,
     }
 
-    this.Username = username
-    this.Password = password
+    var Config = make(map[string]interface{})
+    Config["Couch.NAME"]    = NAME
+    Config["Couch.VERSION"] = VERSION
+    Config["Couch.DEBUG"]   = DEBUG // set default
+
+    var config = couch.GetConfig()
+    if config != nil {
+        for key, value := range config {
+            Config[key] = value
+        }
+    }
+    if scheme := config["Scheme"]; scheme != nil {
+        this.Scheme = scheme.(string)
+    }
+    if host := config["Host"]; host != nil {
+        this.Host = host.(string)
+    }
+    if port := config["Port"]; port != nil {
+        this.Port = port.(uint16)
+    }
+    if username := config["Username"]; username != nil {
+        this.Username = username.(string)
+    }
+    if password := config["Password"]; password != nil {
+        this.Password = password.(string)
+    }
+
+    Config["Scheme"]   = this.Scheme
+    Config["Host"]     = this.Host
+    Config["Port"]     = this.Port
+    Config["Username"] = this.Username
+    Config["Password"] = this.Password
+
+    if debug := couch.Config["debug"]; debug != nil {
+        Config["Couch.DEBUG"] = debug
+    }
+
+    this.Config = Config
 
     return this
 }
