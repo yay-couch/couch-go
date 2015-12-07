@@ -6,9 +6,9 @@ import (
     _url "net/url"
 )
 
-import u "./../util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import (
+    "./../util"
+)
 
 type Query struct {
     Data        map[string]interface{}
@@ -34,11 +34,11 @@ func (this *Query) ToString() string {
     }
 
     for key, value := range this.Data {
-        if u.TypeReal(value) == "[]string" {
+        if util.TypeReal(value) == "[]string" {
             value = _fmt.Sprintf("[\"%s\"]", _str.Join(value.([]string), "\",\""))
         }
         this.DataString += _fmt.Sprintf(
-            "%s=%s&", _url.QueryEscape(key), _url.QueryEscape(u.String(value)))
+            "%s=%s&", _url.QueryEscape(key), _url.QueryEscape(util.String(value)))
     }
 
     if this.DataString != "" {
