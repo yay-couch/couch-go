@@ -4,13 +4,17 @@ import (
     // "./test_uuid"
     // "./test_client"
     // "./test_server"
-    "./test_database"
+    // "./test_database"
 )
 
 
 import (
     "./../src/couch/util"
 )
+
+func init() {
+    util.Shutup()
+}
 
 func main() {
     // test_database.TestPing()
