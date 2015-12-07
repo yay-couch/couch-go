@@ -9,7 +9,7 @@ import (
 )
 
 import u "./../util"
-import _query "./../query"
+import query "./../query"
 
 type Request struct {
     Stream // extends :)
@@ -68,7 +68,7 @@ func (this *Request) SetUri(uri string, uriParams interface{}) {
     if uriParams == nil {
         return
     }
-    var query = _query.New(uriParams.(map[string]interface{})).ToString()
+    var query = query.New(uriParams.(map[string]interface{})).ToString()
     if query != "" {
         this.Uri += "?"+ query
     }
