@@ -21,7 +21,7 @@ type Client struct {
     Config    map[string]interface{}
 }
 
-func New(config interface{}, username, password string) *Client {
+func NewClient(config interface{}, username, password string) *Client {
     var this = &Client{}
 
     // config in config, just for import cycle..

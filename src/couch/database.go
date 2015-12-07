@@ -23,7 +23,7 @@ type DatabaseDocumentList struct {
     Rows       []DatabaseDocument
 }
 
-func New(client *_client.Client, name string) *Database {
+func NewDatabase(client *_client.Client, name string) *Database {
     return &Database{
         Client: client,
           Name: name,

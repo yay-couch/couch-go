@@ -10,7 +10,7 @@ type Server struct {
     Client *_client.Client
 }
 
-func New(client *_client.Client) *Server {
+func NewServer(client *_client.Client) *Server {
     return &Server{
         Client: client,
     }
