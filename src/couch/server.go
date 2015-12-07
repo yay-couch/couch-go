@@ -1,10 +1,10 @@
 package couch
 
 type Server struct {
-    Client *_client.Client
+    Client *Client
 }
 
-func NewServer(client *_client.Client) *Server {
+func NewServer(client *Client) *Server {
     return &Server{
         Client: client,
     }
