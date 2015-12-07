@@ -8,9 +8,9 @@ import (
 )
 
 
-import u "./../src/couch/util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import (
+    "./../src/couch/util"
+)
 
 func main() {
     // test_database.TestPing()
