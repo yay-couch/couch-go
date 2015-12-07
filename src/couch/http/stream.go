@@ -4,7 +4,9 @@ import (
     _fmt "fmt"
 )
 
-import util "./../util"
+import (
+    "./../util"
+)
 
 type Stream struct {
     Type        uint8
