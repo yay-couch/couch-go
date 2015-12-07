@@ -96,7 +96,7 @@ func (this *Stream) SetError(body string) {
         body = this.Body.(string)
     }
     data, err := util.ParseBody(body, &StreamError{})
-    if err == nil {
+    if data != nil && err == nil {
         var errorKey   = data.(*StreamError).ErrorKey
         var errorValue = data.(*StreamError).ErrorValue
         this.Error = _fmt.Sprintf("Stream Error >> error: \"%s\", reason: \"%s\"",
