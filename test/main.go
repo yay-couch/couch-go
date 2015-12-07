@@ -1,11 +1,11 @@
 package main
 
-// import _couch  "./../src/couch"
-
-// import test_uuid "./test_uuid"
-// import test_client "./test_client"
-// import test_server "./test_server"
-import test_database "./test_database"
+import (
+    // "./test_uuid"
+    // "./test_client"
+    // "./test_server"
+    "./test_database"
+)
 
 
 import u "./../src/couch/util"
