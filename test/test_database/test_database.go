@@ -21,7 +21,7 @@ var (
 
 func init() {
     Couch    = couch.New(nil, DEBUG)
-    Client   = couch.NewClient(Couch, nil)
+    Client   = couch.NewClient(Couch)
     Database = couch.NewDatabase(Client, DBNAME);
 }
 
