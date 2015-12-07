@@ -1,34 +1,33 @@
 package client
 
-import _couch    "./../../src/couch"
-import _client   "./../../src/couch/client"
-import _stream   "./../../src/couch/http/stream"
-import _request  "./../../src/couch/http/request"
-import _response "./../../src/couch/http/response"
+// import _couch    "./../../src/couch"
+// import _client   "./../../src/couch/client"
+// import _stream   "./../../src/couch/http/stream"
+// import _request  "./../../src/couch/http/request"
+// import _response "./../../src/couch/http/response"
 
-import u "./../../src/couch/util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import (
+    "./../../src/couch"
+    "./../../src/couch/util"
+    "./../../src/couch/http"
+)
 
 var (
     DEBUG = true
 )
 
-func Shutup() {
-    _client.Shutup()
-    _stream.Shutup()
-    _request.Shutup()
-    _response.Shutup()
+var (
+    Couch  *couch.Couch
+    Client *couch.Client
+)
+
+func init() {
+    Couch  = couch.New(nil, DEBUG)
+    Client = couch.NewClient(Couch)
 }
 
-func _doRequest(uri string) *_response.Response {
-    couch  := _couch.New(nil, DEBUG)
-    client := _couch.NewClient(couch, nil)
-    // or
-    // client := _couch.NewClient(couch, map[string]interface{}{
-    //     "Host": "127.0.0.1",
-    // })
-    return client.DoRequest(uri, nil, "", nil)
+func _doRequest(uri string) *http.Response {
+    return Client.DoRequest(uri, nil, "", nil)
 }
 
 /**
@@ -39,17 +38,17 @@ func TestAll() {
     TestClientResponseStatus()
     TestClientResponseStatusCode()
     TestClientResponseStatusText()
-    _dump("")
+    util.Dump("")
 
     // headers
     TestClientResponseHeaders("")
     TestClientResponseHeaders("0") // status line
     TestClientResponseHeaders("Server")
-    _dump("")
+    util.Dump("")
 
     // body
     TestClientResponseBody()
-    _dump("")
+    util.Dump("")
 
     // body parsed
     TestClientResponseData()
@@ -60,7 +59,7 @@ func TestAll() {
  */
 func TestClientResponseStatus() {
     var response = _doRequest("GET /")
-    _dumpf("Response Status >> %s", response.GetStatus())
+    util.Dumpf("Response Status >> %s", response.GetStatus())
 }
 
 /**
@@ -68,7 +67,7 @@ func TestClientResponseStatus() {
  */
 func TestClientResponseStatusCode() {
     var response = _doRequest("GET /")
-    _dumpf("Response Status Code >> %d", response.GetStatusCode())
+    util.Dumpf("Response Status Code >> %d", response.GetStatusCode())
 }
 
 /**
@@ -76,7 +75,7 @@ func TestClientResponseStatusCode() {
  */
 func TestClientResponseStatusText() {
     var response = _doRequest("GET /")
-    _dumpf("Response Status Text >> %s", response.GetStatusText())
+    util.Dumpf("Response Status Text >> %s", response.GetStatusText())
 }
 
 /**
@@ -85,9 +84,9 @@ func TestClientResponseStatusText() {
 func TestClientResponseHeaders(key string) {
     var response = _doRequest("GET /")
     if key == "" {
-        _dumpf("Response Headers >> %+v", response.GetHeaderAll())
+        util.Dumpf("Response Headers >> %+v", response.GetHeaderAll())
     } else {
-        _dumpf("Response Headers >> %s: %+v", key, response.GetHeader(key))
+        util.Dumpf("Response Headers >> %s: %+v", key, response.GetHeader(key))
     }
 }
 
@@ -96,7 +95,7 @@ func TestClientResponseHeaders(key string) {
  */
 func TestClientResponseBody() {
     var response = _doRequest("GET /")
-    _dumpf("Response Body >> len: %d body: %+v",
+    util.Dumpf("Response Body >> len: %d body: %+v",
         len(response.GetBody()), response.GetBody())
 }
 
@@ -114,14 +113,14 @@ func TestClientResponseData() {
     var response = _doRequest("GET /")
     data, err := response.GetBodyData(&Response{})
     if err != nil {
-        _dumps(err)
+        util.Dumps(err)
         return
     }
-    _dumpf("Response Body Parsed >> type: %T value: %+v", data, data)
-    _dumpf("Response Body Parsed >> couchdb: %s", data.(*Response).CouchDB)
-    _dumpf("Response Body Parsed >> uuid: %s", data.(*Response).Uuid)
-    _dumpf("Response Body Parsed >> version: %s", data.(*Response).Version)
-    _dumpf("Response Body Parsed >> vendor: %s", data.(*Response).Vendor)
-    _dumpf("Response Body Parsed >> vendor.name: %s", data.(*Response).Vendor["name"])
-    _dumpf("Response Body Parsed >> vendor.version: %s", data.(*Response).Vendor["version"])
+    util.Dumpf("Response Body Parsed >> type: %T value: %+v", data, data)
+    util.Dumpf("Response Body Parsed >> couchdb: %s", data.(*Response).CouchDB)
+    util.Dumpf("Response Body Parsed >> uuid: %s", data.(*Response).Uuid)
+    util.Dumpf("Response Body Parsed >> version: %s", data.(*Response).Version)
+    util.Dumpf("Response Body Parsed >> vendor: %s", data.(*Response).Vendor)
+    util.Dumpf("Response Body Parsed >> vendor.name: %s", data.(*Response).Vendor["name"])
+    util.Dumpf("Response Body Parsed >> vendor.version: %s", data.(*Response).Vendor["version"])
 }
