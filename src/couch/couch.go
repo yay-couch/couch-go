@@ -71,14 +71,6 @@ func NewClient(couch *Couch, config interface{}) *Client {
     // return _client.New("https://localhost:1234", "", "", Config???)
 }
 
-func NewServer(client *Client) *_server.Server {
-    return _server.New(client)
-}
-
-func NewDatabase(client *Client, name string) *_database.Database {
-    return _database.New(client, name)
-}
-
 func (this *Couch) SetConfig(config map[string]interface{}) {
     this.Config = config
 }
