@@ -1,6 +1,8 @@
 package couch
 
-import util "./util"
+import (
+    "./util"
+)
 
 type Database struct {
     Client *Client
