@@ -6,8 +6,10 @@ import (
     _rex "regexp"
 )
 
-import http "./../http"
-import util "./../util"
+import (
+    "./../http"
+    "./../util"
+)
 
 type Client struct {
     Scheme    string
