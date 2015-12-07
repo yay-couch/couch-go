@@ -10,17 +10,6 @@ const (
     DEBUG   = false
 )
 
-var (
-    Username = ""
-    Password = ""
-)
-
-var (
-    DefaultScheme        = "http"
-    DefaultHost          = "localhost"
-    DefaultPort   uint16 = 5984
-)
-
 func Shutup() {}
 
 func New(config interface{}, debug bool) *Couch {
