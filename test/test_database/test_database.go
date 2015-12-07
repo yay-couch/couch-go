@@ -1,13 +1,15 @@
 package test_database
 
-import couch    "./../../src/couch"
-import client   "./../../src/couch/client"
-import database "./../../src/couch/database"
-import document "./../../src/couch/document"
+import (
+    "./../../src/couch"
+    "./../../src/couch/client"
+    "./../../src/couch/database"
+    "./../../src/couch/document"
+)
 
-import u "./../../src/couch/util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import (
+    "./../../src/couch/util"
+)
 
 var (
     DEBUG  = true
@@ -37,7 +39,7 @@ func TestAll() {}
  * TestPing
  */
 func TestPing() {
-    _dumpf("Database Ping >> %v", Database.Ping())
+    util.Dumpf("Database Ping >> %v", Database.Ping())
 }
 
 /**
@@ -48,10 +50,10 @@ func TestInfo() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Info >> %+v", data)
-    _dumpf("Database Info >> db_name: %s", data["db_name"])
+    util.Dumpf("Database Info >> %+v", data)
+    util.Dumpf("Database Info >> db_name: %s", data["db_name"])
     for key, value := range data {
-        _dumpf("Database Info >> %s: %v", key, value)
+        util.Dumpf("Database Info >> %s: %v", key, value)
     }
 }
 
@@ -59,11 +61,11 @@ func TestInfo() {
  * TestCreate
  */
 func TestCreate() {
-    _dumpf("Database Create >> %v", Database.Create())
+    util.Dumpf("Database Create >> %v", Database.Create())
     // error?
     // if err := client.GetResponse().GetError(); err != "" {
-    //     _dumpf("Response Status: %s", client.GetResponse().GetStatus())
-    //     _dumpf("Response Body  : %s", client.GetResponse().GetBody())
+    //     util.Dumpf("Response Status: %s", client.GetResponse().GetStatus())
+    //     util.Dumpf("Response Body  : %s", client.GetResponse().GetBody())
     //     panic(err)
     // }
 }
@@ -72,11 +74,11 @@ func TestCreate() {
  * TestRemove
  */
 func TestRemove() {
-    _dumpf("Database Remove >> %v", Database.Remove())
+    util.Dumpf("Database Remove >> %v", Database.Remove())
     // error?
     // if err := client.GetResponse().GetError(); err != "" {
-    //     _dumpf("Response Status: %s", client.GetResponse().GetStatus())
-    //     _dumpf("Response Body  : %s", client.GetResponse().GetBody())
+    //     util.Dumpf("Response Status: %s", client.GetResponse().GetStatus())
+    //     util.Dumpf("Response Body  : %s", client.GetResponse().GetBody())
     //     panic(err)
     // }
 }
@@ -89,10 +91,10 @@ func TestReplicate() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Replicate >> %+v", data)
-    _dumpf("Database Replicate >> ok: %v", data["ok"])
-    _dumpf("Database Replicate >> history.0: %v", u.Dig("0", data["history"]))
-    _dumpf("Database Replicate >> history.0.start_time: %s", u.Dig("0.start_time", data["history"]))
+    util.Dumpf("Database Replicate >> %+v", data)
+    util.Dumpf("Database Replicate >> ok: %v", data["ok"])
+    util.Dumpf("Database Replicate >> history.0: %v", util.Dig("0", data["history"]))
+    util.Dumpf("Database Replicate >> history.0.start_time: %s", util.Dig("0.start_time", data["history"]))
 }
 
 /**
@@ -103,16 +105,16 @@ func TestGetDocument() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Document >> %+v", data)
-    _dumpf("Database Document >> id: %s", data["id"])
-    _dumpf("Database Document >> key: %s", data["key"])
-    _dumpf("Database Document >> value.rev: %s", u.Dig("value.rev", data))
-    _dumpf("Database Document >> doc: %+v", data["doc"])
-    // _dumpf("Database Document >> doc._id: %s", u.Dig("doc._id", data))
-    // _dumpf("Database Document >> doc._rev: %s", u.Dig("doc._rev", data))
+    util.Dumpf("Database Document >> %+v", data)
+    util.Dumpf("Database Document >> id: %s", data["id"])
+    util.Dumpf("Database Document >> key: %s", data["key"])
+    util.Dumpf("Database Document >> value.rev: %s", util.Dig("value.rev", data))
+    util.Dumpf("Database Document >> doc: %+v", data["doc"])
+    // util.Dumpf("Database Document >> doc._id: %s", util.Dig("doc._id", data))
+    // util.Dumpf("Database Document >> doc._rev: %s", util.Dig("doc._rev", data))
     // or
-    for key, value := range u.DigMap("doc", data) {
-        _dumpf("Database Document >> doc.%s: %v", key, value)
+    for key, value := range util.DigMap("doc", data) {
+        util.Dumpf("Database Document >> doc.%s: %v", key, value)
     }
 }
 
@@ -125,15 +127,15 @@ func TestGetDocumentAll() {
     if err != nil {
         panic(err)
     }
-    // _dumpf("Database Document All >> %+v", data)
-    _dumpf("Database Document All >> offset: %d", data["offset"])
-    _dumpf("Database Document All >> total_rows: %d", data["total_rows"])
-    // // _dumpf("Database Document All >> rows: %+v", data["rows"])
-    _dumpf("Database Document All >> rows.0: %+v", u.Dig("rows.0", data))
-    _dumpf("Database Document All >> rows.0.id: %s", u.Dig("rows.0.id", data))
-    _dumpf("Database Document All >> rows.0.key: %s", u.Dig("rows.0.key", data))
-    _dumpf("Database Document All >> rows.0.value.rev: %s", u.Dig("rows.0.value.rev", data))
-    _dumpf("Database Document All >> rows.0.doc.name: %s", u.Dig("rows.0.doc.name", data))
+    // util.Dumpf("Database Document All >> %+v", data)
+    util.Dumpf("Database Document All >> offset: %d", data["offset"])
+    util.Dumpf("Database Document All >> total_rows: %d", data["total_rows"])
+    // // util.Dumpf("Database Document All >> rows: %+v", data["rows"])
+    util.Dumpf("Database Document All >> rows.0: %+v", util.Dig("rows.0", data))
+    util.Dumpf("Database Document All >> rows.0.id: %s", util.Dig("rows.0.id", data))
+    util.Dumpf("Database Document All >> rows.0.key: %s", util.Dig("rows.0.key", data))
+    util.Dumpf("Database Document All >> rows.0.value.rev: %s", util.Dig("rows.0.value.rev", data))
+    util.Dumpf("Database Document All >> rows.0.doc.name: %s", util.Dig("rows.0.doc.name", data))
 }
 
 /**
@@ -146,13 +148,13 @@ func TestCreateDocument() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Create Document >> %+v", data)
-    _dumpf("Database Create Document >> doc.ok: %v", data["ok"])
-    _dumpf("Database Create Document >> doc.id: %s", data["id"])
-    _dumpf("Database Create Document >> doc.rev: %s", data["rev"])
+    util.Dumpf("Database Create Document >> %+v", data)
+    util.Dumpf("Database Create Document >> doc.ok: %v", data["ok"])
+    util.Dumpf("Database Create Document >> doc.id: %s", data["id"])
+    util.Dumpf("Database Create Document >> doc.rev: %s", data["rev"])
     // or
     for key, value := range data {
-        _dumpf("Database Create Document >> doc.%s: %v", key, value)
+        util.Dumpf("Database Create Document >> doc.%s: %v", key, value)
     }
 }
 
@@ -167,14 +169,14 @@ func TestCreateDocumentAll() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Create Document All >> %+v", data)
-    _dumpf("Database Create Document All >> doc.0.ok: %v", u.Dig("0.ok", data))
-    _dumpf("Database Create Document All >> doc.0.id: %s", u.Dig("0.id", data))
-    _dumpf("Database Create Document All >> doc.0.rev: %s", u.Dig("0.rev", data))
+    util.Dumpf("Database Create Document All >> %+v", data)
+    util.Dumpf("Database Create Document All >> doc.0.ok: %v", util.Dig("0.ok", data))
+    util.Dumpf("Database Create Document All >> doc.0.id: %s", util.Dig("0.id", data))
+    util.Dumpf("Database Create Document All >> doc.0.rev: %s", util.Dig("0.rev", data))
     // or
     for i, doc := range data {
         for key, value := range doc {
-            _dumpf("Database Create Document All >> doc.%d.%s: %v", i, key, value)
+            util.Dumpf("Database Create Document All >> doc.%d.%s: %v", i, key, value)
         }
     }
 }
@@ -195,13 +197,13 @@ func TestUpdateDocument() {
     if data["ok"] == nil {
         panic("Halt! error: "+ data["error"].(string) +", reason: "+ data["reason"].(string))
     }
-    _dumpf("Database Update Document >> %+v", data)
-    _dumpf("Database Update Document >> doc.ok: %v", data["ok"])
-    _dumpf("Database Update Document >> doc.id: %s", data["id"])
-    _dumpf("Database Update Document >> doc.rev: %s", data["rev"])
+    util.Dumpf("Database Update Document >> %+v", data)
+    util.Dumpf("Database Update Document >> doc.ok: %v", data["ok"])
+    util.Dumpf("Database Update Document >> doc.id: %s", data["id"])
+    util.Dumpf("Database Update Document >> doc.rev: %s", data["rev"])
     // or
     for key, value := range data {
-        _dumpf("Database Update Document >> doc.%s: %v", key, value)
+        util.Dumpf("Database Update Document >> doc.%s: %v", key, value)
     }
 }
 
@@ -218,18 +220,18 @@ func TestUpdateDocumentAll() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Update Document All >> %+v", data)
-    _dumpf("Database Update Document All >> doc.0.ok: %v", u.Dig("0.ok", data))
-    _dumpf("Database Update Document All >> doc.0.id: %s", u.Dig("0.id", data))
-    _dumpf("Database Update Document All >> doc.0.rev: %s", u.Dig("0.rev", data))
+    util.Dumpf("Database Update Document All >> %+v", data)
+    util.Dumpf("Database Update Document All >> doc.0.ok: %v", util.Dig("0.ok", data))
+    util.Dumpf("Database Update Document All >> doc.0.id: %s", util.Dig("0.id", data))
+    util.Dumpf("Database Update Document All >> doc.0.rev: %s", util.Dig("0.rev", data))
     // or
     for i, doc := range data {
         // check ok's
         if doc["ok"] == nil {
-            _dumpf("Halt! error: doc.%d > %s reason: %s", i, doc["error"], doc["reason"])
+            util.Dumpf("Halt! error: doc.%d > %s reason: %s", i, doc["error"], doc["reason"])
         }
         for key, value := range doc {
-            _dumpf("Database Update Document All >> doc.%d.%s: %v", i, key, value)
+            util.Dumpf("Database Update Document All >> doc.%d.%s: %v", i, key, value)
         }
     }
 }
@@ -249,7 +251,7 @@ func TestDeleteDocument() {
     if data["ok"] == nil {
         panic("Halt! error: "+ data["error"].(string) +", reason: "+ data["reason"].(string))
     }
-    _dumpf("Database Delete Document >> %+v", data)
+    util.Dumpf("Database Delete Document >> %+v", data)
 }
 
 /**
@@ -265,15 +267,15 @@ func TestDeleteDocumentAll() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Delete Document All >> %+v", data)
+    util.Dumpf("Database Delete Document All >> %+v", data)
     // or
     for i, doc := range data {
         // check ok's
         if doc["ok"] == nil {
-            _dumpf("Halt! error: doc.%d > %s reason: %s", i, doc["error"], doc["reason"])
+            util.Dumpf("Halt! error: doc.%d > %s reason: %s", i, doc["error"], doc["reason"])
         }
         for key, value := range doc {
-            _dumpf("Database Update Document All >> doc.%d.%s: %v", i, key, value)
+            util.Dumpf("Database Update Document All >> doc.%d.%s: %v", i, key, value)
         }
     }
 }
@@ -286,10 +288,10 @@ func TestGetChanges() {
     if err != nil {
         panic(err)
     }
-    // _dumpf("Database Changes >> %+v", data)
-    _dumpf("Database Changes >> last_seq: %v", data["last_seq"])
-    for i, result := range u.DigMapList("results", data) {
-        _dumps(i,result)
+    // util.Dumpf("Database Changes >> %+v", data)
+    util.Dumpf("Database Changes >> last_seq: %v", data["last_seq"])
+    for i, result := range util.DigMapList("results", data) {
+        util.Dumps(i,result)
     }
 }
 
@@ -301,7 +303,7 @@ func TestCompact() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Compact >> ok: %v", data["ok"])
+    util.Dumpf("Database Compact >> ok: %v", data["ok"])
 }
 
 /**
@@ -312,8 +314,8 @@ func TestEnsureFullCommit() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Ensure Full Commit >> ok: %v", data["ok"])
-    _dumpf("Database Ensure Full Commit >> instance_start_time: %s", data["instance_start_time"])
+    util.Dumpf("Database Ensure Full Commit >> ok: %v", data["ok"])
+    util.Dumpf("Database Ensure Full Commit >> instance_start_time: %s", data["instance_start_time"])
 }
 
 /**
@@ -324,7 +326,7 @@ func TestViewCleanup() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database View Cleanup >> ok: %v", data["ok"])
+    util.Dumpf("Database View Cleanup >> ok: %v", data["ok"])
 }
 
 /**
@@ -336,18 +338,18 @@ func TestViewTemp() {
     if err != nil {
         panic(err)
     }
-    // _dumpf("Database View Temp >> %+v", data)
-    _dumpf("Database View Temp >> offset: %d", data["offset"])
-    _dumpf("Database View Temp >> total_rows: %d", data["total_rows"])
-    // // _dumpf("Database View Temp >> rows: %+v", data["rows"])
-    _dumpf("Database View Temp >> rows.0: %+v", u.Dig("rows.0", data))
-    _dumpf("Database View Temp >> rows.0.id: %s", u.Dig("rows.0.id", data))
-    _dumpf("Database View Temp >> rows.0.key: %s", u.Dig("rows.0.key", data))
-    _dumpf("Database View Temp >> rows.0.value: %+v", u.Dig("rows.0.value", data))
-    _dumpf("Database View Temp >> rows.0.value._id: %s", u.Dig("rows.0.value._id", data))
-    _dumpf("Database View Temp >> rows.0.value._rev: %s", u.Dig("rows.0.value._rev", data))
-    _dumpf("Database View Temp >> rows.0.value.type: %s", u.Dig("rows.0.value.type", data))
-    _dumpf("Database View Temp >> rows.0.value.name: %s", u.Dig("rows.0.value.name", data))
+    // util.Dumpf("Database View Temp >> %+v", data)
+    util.Dumpf("Database View Temp >> offset: %d", data["offset"])
+    util.Dumpf("Database View Temp >> total_rows: %d", data["total_rows"])
+    // // util.Dumpf("Database View Temp >> rows: %+v", data["rows"])
+    util.Dumpf("Database View Temp >> rows.0: %+v", util.Dig("rows.0", data))
+    util.Dumpf("Database View Temp >> rows.0.id: %s", util.Dig("rows.0.id", data))
+    util.Dumpf("Database View Temp >> rows.0.key: %s", util.Dig("rows.0.key", data))
+    util.Dumpf("Database View Temp >> rows.0.value: %+v", util.Dig("rows.0.value", data))
+    util.Dumpf("Database View Temp >> rows.0.value._id: %s", util.Dig("rows.0.value._id", data))
+    util.Dumpf("Database View Temp >> rows.0.value._rev: %s", util.Dig("rows.0.value._rev", data))
+    util.Dumpf("Database View Temp >> rows.0.value.type: %s", util.Dig("rows.0.value.type", data))
+    util.Dumpf("Database View Temp >> rows.0.value.name: %s", util.Dig("rows.0.value.name", data))
 }
 
 /**
@@ -358,10 +360,10 @@ func TestGetSecurity() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Get Security >> %+v", data)
-    _dumpf("Database Get Security >> admins %+v", data["admins"])
-    _dumpf("Database Get Security >> admins.names %v", u.Dig("admins.names", data))
-    _dumpf("Database Get Security >> admins.roles %v", u.Dig("admins.roles", data))
+    util.Dumpf("Database Get Security >> %+v", data)
+    util.Dumpf("Database Get Security >> admins %+v", data["admins"])
+    util.Dumpf("Database Get Security >> admins.names %v", util.Dig("admins.names", data))
+    util.Dumpf("Database Get Security >> admins.roles %v", util.Dig("admins.roles", data))
 }
 
 /**
@@ -380,7 +382,7 @@ func TestSetSecurity() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Set Security >> ok: %v", data["ok"])
+    util.Dumpf("Database Set Security >> ok: %v", data["ok"])
 }
 
 /**
@@ -395,8 +397,8 @@ func TestPurge() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Purge >> ok: %v", data)
-    _dumpf("Database Purge >> ok: %d", data["purge_seq"])
+    util.Dumpf("Database Purge >> ok: %v", data)
+    util.Dumpf("Database Purge >> ok: %d", data["purge_seq"])
 }
 
 /**
@@ -411,12 +413,12 @@ func TestGetMissingRevisions() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Missing Revisions >> %v", data)
-    _dumpf("Database Missing Revisions >> missing_revs: %v", data["missing_revs"])
-    _dumpf("Database Missing Revisions >> missing_revs.667b0208441066a0954717b50c0008a9: %s",
-        u.Dig("missing_revs.667b0208441066a0954717b50c0008a9", data))
-    _dumpf("Database Missing Revisions >> missing_revs.0: %s",
-        u.Dig("missing_revs.667b0208441066a0954717b50c0008a9.0", data))
+    util.Dumpf("Database Missing Revisions >> %v", data)
+    util.Dumpf("Database Missing Revisions >> missing_revs: %v", data["missing_revs"])
+    util.Dumpf("Database Missing Revisions >> missing_revs.667b0208441066a0954717b50c0008a9: %s",
+        util.Dig("missing_revs.667b0208441066a0954717b50c0008a9", data))
+    util.Dumpf("Database Missing Revisions >> missing_revs.0: %s",
+        util.Dig("missing_revs.667b0208441066a0954717b50c0008a9.0", data))
 }
 
 /**
@@ -431,13 +433,13 @@ func TestGetMissingRevisionsDiff() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Missing Revisions Diff >> %v", data)
-    _dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9: %v",
-        u.Dig("667b0208441066a0954717b50c0008a9", data))
-    _dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9.missing: %v",
-        u.Dig("667b0208441066a0954717b50c0008a9.missing", data))
-    _dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9.missing.0: %s",
-        u.Dig("667b0208441066a0954717b50c0008a9.missing.0", data))
+    util.Dumpf("Database Missing Revisions Diff >> %v", data)
+    util.Dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9: %v",
+        util.Dig("667b0208441066a0954717b50c0008a9", data))
+    util.Dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9.missing: %v",
+        util.Dig("667b0208441066a0954717b50c0008a9.missing", data))
+    util.Dumpf("Database Missing Revisions Diff >> 667b0208441066a0954717b50c0008a9.missing.0: %s",
+        util.Dig("667b0208441066a0954717b50c0008a9.missing.0", data))
 }
 
 /**
@@ -448,7 +450,7 @@ func TestGetRevisionLimit() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Get Revision Limit >> %d", data)
+    util.Dumpf("Database Get Revision Limit >> %d", data)
 }
 
 /**
@@ -459,5 +461,5 @@ func TestSetRevisionLimit() {
     if err != nil {
         panic(err)
     }
-    _dumpf("Database Set Revision Limit >> ok: %v", data["ok"])
+    util.Dumpf("Database Set Revision Limit >> ok: %v", data["ok"])
 }
