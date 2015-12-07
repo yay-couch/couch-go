@@ -1,4 +1,4 @@
-package client
+package couch
 
 import (
     _fmt "fmt"
@@ -7,8 +7,8 @@ import (
 )
 
 import (
-    "./../http"
-    "./../util"
+    "./http"
+    "./util"
 )
 
 type Client struct {
