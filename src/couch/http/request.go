@@ -8,8 +8,8 @@ import (
     _b64 "encoding/base64"
 )
 
-import u "./../util"
 import query "./../query"
+import util "./../util"
 
 type Request struct {
     Stream // extends :)
@@ -84,10 +84,10 @@ func (this *Request) Send() string {
     defer link.Close()
 
     var request, response string
-    var url = u.ParseUrl(_fmt.Sprintf("%s://%s", this.Config["Scheme"], this.Uri))
+    var url = util.ParseUrl(_fmt.Sprintf("%s://%s", this.Config["Scheme"], this.Uri))
     request += _fmt.Sprintf("%s %s?%s HTTP/%s\r\n", this.Method, url["Path"], url["Query"], this.HttpVersion)
     for key, value := range this.Headers {
-        if !u.IsEmpty(value) {
+        if !util.IsEmpty(value) {
             request += _fmt.Sprintf("%s: %s\r\n", key, value)
         }
     }
@@ -118,8 +118,8 @@ func (this *Request) Send() string {
 
     // @debug
     if this.Config["Couch.DEBUG"] == true {
-        u.Dump(request)
-        u.Dump(response)
+        util.Dump(request)
+        util.Dump(response)
     }
 
     return response
@@ -133,17 +133,17 @@ func (this *Request) SetBody(body interface{}) {
         switch body.(type) {
             case string:
                 // @overwrite
-                var body = u.String(body)
+                var body = util.String(body)
                 if this.GetHeader("Content-Type") == "application/json" {
                     // embrace with quotes for valid JSON body
-                    body = u.Quote(body)
+                    body = util.Quote(body)
                 }
                 this.Body = body
                 this.SetHeader("Content-Length", len(body))
             // case map[string]interface{}:
             //     if this.GetHeader("Content-Type") == "application/json" {
             //         // @overwrite
-            //         body, err := u.UnparseBody(body)
+            //         body, err := util.UnparseBody(body)
             //         if err != nil {
             //             panic(err)
             //         }
@@ -155,15 +155,15 @@ func (this *Request) SetBody(body interface{}) {
             //     }
             default:
                 var bodyType = _fmt.Sprintf("%T", body)
-                if u.StringSearch(bodyType, "^u?int(\\d+)?|float(32|64)$") {
+                if util.StringSearch(bodyType, "^u?int(\\d+)?|float(32|64)$") {
                     // @overwrite
-                    var body = u.String(body)
+                    var body = util.String(body)
                     this.Body = body
                     this.SetHeader("Content-Length", len(body))
                 } else {
                     if this.GetHeader("Content-Type") == "application/json" {
                         // @overwrite
-                        body, err := u.UnparseBody(body)
+                        body, err := util.UnparseBody(body)
                         if err != nil {
                             panic(err)
                         }
