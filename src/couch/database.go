@@ -1,10 +1,10 @@
-package database
+package couch
 
-import _client "./../client"
+// import _client "./../client"
 
-import u "./../util"
+import util "./util"
 // @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+var _dump, _dumps, _dumpf = util.Dump, util.Dumps, util.Dumpf
 
 type Database struct {
     Client *_client.Client
@@ -42,7 +42,7 @@ func (this *Database) Info() (map[string]interface{}, error) {
     if err != nil {
         return nil, err
     }
-    var _return = u.Map()
+    var _return = util.Map()
     for key, value := range data.(map[string]interface{}) {
         _return[key] = value
     }
@@ -60,7 +60,7 @@ func (this *Database) Remove() bool {
 }
 
 func (this *Database) Replicate(target string, targetCreate bool) (map[string]interface{}, error) {
-    var body = u.ParamList(
+    var body = util.ParamList(
         "source", this.Name,
         "target", target,
         "create_target", targetCreate,
@@ -70,14 +70,14 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
     if err != nil {
         return nil, err
     }
-    var _return = u.Map()
+    var _return = util.Map()
     for key, value := range data.(map[string]interface{}) {
         if key == "history" {
-            _return[key] = u.MapList(value)
+            _return[key] = util.MapList(value)
             for i, history := range value.([]interface{}) {
                 for kkey, vvalue := range history.(map[string]interface{}) {
                     if _return[key].([]map[string]interface{})[i] == nil {
-                        _return[key].([]map[string]interface{})[i] = u.Map()
+                        _return[key].([]map[string]interface{})[i] = util.Map()
                     }
                     _return[key].([]map[string]interface{})[i][kkey] = vvalue
                 }
@@ -90,16 +90,16 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
 }
 
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
-    var query = u.ParamList(
+    var query = util.ParamList(
         "include_docs", true,
-        "key"         , u.Quote(key),
+        "key"         , util.Quote(key),
     )
     data, err := this.Client.Get(this.Name +"/_all_docs", query, nil).
         GetBodyData(&DatabaseDocumentList{})
     if err != nil {
         return nil, err
     }
-    var _return = u.Map()
+    var _return = util.Map()
     for _, doc := range data.(*DatabaseDocumentList).Rows {
         _return["id"]    = doc.Id
         _return["key"]   = doc.Key
@@ -113,7 +113,7 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
 }
 
 func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string) (map[string]interface{}, error) {
-    query = u.Param(query)
+    query = util.Param(query)
     if query["include_docs"] == nil {
         query["include_docs"] = true
     }
@@ -122,11 +122,11 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
         if err != nil {
             return nil, err
         }
-        var _return = u.Map()
+        var _return = util.Map()
         var _returnRows = data.(*DatabaseDocumentList).Rows
         _return["offset"]     = data.(*DatabaseDocumentList).Offset
         _return["total_rows"] = data.(*DatabaseDocumentList).TotalRows
-        _return["rows"]       = u.MapList(len(_returnRows))
+        _return["rows"]       = util.MapList(len(_returnRows))
         for i, row := range _returnRows {
             _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                    "id": row.Id,
@@ -143,7 +143,7 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
                 GetBodyData(&DatabaseDocumentList{}))
     } else {
         return _return(
-            this.Client.Post(this.Name +"/_all_docs", query, u.ParamList("keys", keys), nil).
+            this.Client.Post(this.Name +"/_all_docs", query, util.ParamList("keys", keys), nil).
                 GetBodyData(&DatabaseDocumentList{}))
     }
 }
@@ -160,10 +160,10 @@ func (this *Database) CreateDocument(document interface{}) (map[string]interface
 }
 
 func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
-    var docs = u.MapList(documents)
+    var docs = util.MapList(documents)
     for i, doc := range documents {
         if docs[i] == nil {
-            docs[i] = u.Map()
+            docs[i] = util.Map()
         }
         for key, value := range doc.(map[string]interface{}) {
             // this is create method, no update allowed
@@ -173,15 +173,15 @@ func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]i
             docs[i][key] = value
         }
     }
-    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, u.ParamList("docs", docs), nil).
+    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, util.ParamList("docs", docs), nil).
         GetBodyData([]interface{}{})
     if err != nil {
         return nil, err
     }
-    var _return = u.MapList(data)
+    var _return = util.MapList(data)
     for i, doc := range data.([]interface{}) {
         if _return[i] == nil {
-            _return[i] = u.Map()
+            _return[i] = util.Map()
         }
         for key, value := range doc.(map[string]interface{}) {
             _return[i][key] = value
@@ -202,10 +202,10 @@ func (this *Database) UpdateDocument(document interface{}) (map[string]interface
 }
 
 func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
-    var docs = u.MapList(documents)
+    var docs = util.MapList(documents)
     for i, doc := range documents {
         if docs[i] == nil {
-            docs[i] = u.Map()
+            docs[i] = util.Map()
         }
         for key, value := range doc.(map[string]interface{}) {
             docs[i][key] = value
@@ -215,15 +215,15 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]i
             panic("Both _id & _rev fields are required!")
         }
     }
-    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, u.ParamList("docs", docs), nil).
+    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, util.ParamList("docs", docs), nil).
         GetBodyData([]interface{}{})
     if err != nil {
         return nil, err
     }
-    var _return = u.MapList(data)
+    var _return = util.MapList(data)
     for i, doc := range data.([]interface{}) {
         if _return[i] == nil {
-            _return[i] = u.Map()
+            _return[i] = util.Map()
         }
         for key, value := range doc.(map[string]interface{}) {
             _return[i][key] = value
@@ -252,26 +252,26 @@ func (this *Database) DeleteDocumentAll(documents []interface{}) ([]map[string]i
 }
 
 func (this *Database) GetChanges(query map[string]interface{}, docIds []string) (map[string]interface{}, error) {
-    query = u.Param(query)
+    query = util.Param(query)
     if docIds != nil {
         query["filter"] = "_doc_ids"
     }
-    data, err := this.Client.Post(this.Name +"/_changes", query, u.ParamList("doc_ids", docIds), nil).
+    data, err := this.Client.Post(this.Name +"/_changes", query, util.ParamList("doc_ids", docIds), nil).
         GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
     }
-    var _return = u.Map()
-    _return["last_seq"] = u.Dig("last_seq", data)
-    _return["results"]  = u.MapList(0) // set empty as default
+    var _return = util.Map()
+    _return["last_seq"] = util.Dig("last_seq", data)
+    _return["results"]  = util.MapList(0) // set empty as default
     if results := data.(map[string]interface{})["results"].([]interface{}); results != nil {
-        _return["results"] = u.MapList(results) // @overwrite
+        _return["results"] = util.MapList(results) // @overwrite
         for i, result := range results {
             _return["results"].([]map[string]interface{})[i] = map[string]interface{}{
-                     "id": u.Dig("id", result),
-                    "seq": u.Dig("seq", result),
-                "deleted": u.Dig("deleted", result),
-                "changes": u.Dig("changes", result),
+                     "id": util.Dig("id", result),
+                    "seq": util.Dig("seq", result),
+                "deleted": util.Dig("deleted", result),
+                "changes": util.Dig("changes", result),
             }
         }
     }
@@ -285,7 +285,7 @@ func (this *Database) Compact(ddoc string) (map[string]interface{}, error) {
         return nil, err
     }
     return map[string]interface{}{
-        "ok": u.DigBool("ok", data),
+        "ok": util.DigBool("ok", data),
     }, nil
 }
 
@@ -296,8 +296,8 @@ func (this *Database) EnsureFullCommit() (map[string]interface{}, error) {
         return nil, err
     }
     return map[string]interface{}{
-        "ok": u.DigBool("ok", data),
-        "instance_start_time": u.DigString("instance_start_time", data),
+        "ok": util.DigBool("ok", data),
+        "instance_start_time": util.DigString("instance_start_time", data),
     }, nil
 }
 
@@ -308,26 +308,26 @@ func (this *Database) ViewCleanup() (map[string]interface{}, error) {
         return nil, err
     }
     return map[string]interface{}{
-        "ok": u.DigBool("ok", data),
+        "ok": util.DigBool("ok", data),
     }, nil
 }
 
 func (this *Database) ViewTemp(map_ string, reduce interface{}) (map[string]interface{}, error) {
-    var body = u.ParamList(
+    var body = util.ParamList(
         "map", map_,
         // prevent "missing function" error
-        "reduce", u.IsEmptySet(reduce, nil),
+        "reduce", util.IsEmptySet(reduce, nil),
     )
     data, err := this.Client.Post(this.Name +"/_temp_view", nil, body, nil).
         GetBodyData(&DatabaseDocumentList{})
     if err != nil {
         return nil, err
     }
-    var _return = u.Map()
+    var _return = util.Map()
     var _returnRows = data.(*DatabaseDocumentList).Rows
     _return["offset"]     = data.(*DatabaseDocumentList).Offset
     _return["total_rows"] = data.(*DatabaseDocumentList).TotalRows
-    _return["rows"]       = u.MapList(len(_returnRows))
+    _return["rows"]       = util.MapList(len(_returnRows))
     for i, row := range _returnRows {
         _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                "id": row.Id,
@@ -352,14 +352,14 @@ func (this *Database) SetSecurity(admins, members map[string]interface{}) (map[s
        members["names"].([]string) == nil || members["roles"].([]string) == nil {
         panic("Specify admins and/or members with names=>roles fields!")
     }
-    var body = u.ParamList("admins", admins, "members", members)
+    var body = util.ParamList("admins", admins, "members", members)
     data, err := this.Client.Put(this.Name +"/_security", nil, body, nil).
         GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
     }
     return map[string]interface{}{
-        "ok": u.DigBool("ok", data),
+        "ok": util.DigBool("ok", data),
     }, nil
 }
 
@@ -369,9 +369,9 @@ func (this *Database) Purge(object map[string]interface{}) (map[string]interface
     if err != nil {
         return nil, err
     }
-    var _return = u.Map()
-    _return["purge_seq"] = u.DigInt("purge_seq", data)
-    _return["purged"]  = u.Map()
+    var _return = util.Map()
+    _return["purge_seq"] = util.DigInt("purge_seq", data)
+    _return["purged"]  = util.Map()
     for id, revs := range data.(map[string]interface{})["purged"].(map[string]interface{}) {
         _return["purged"].(map[string]interface{})[id] = revs
     }
@@ -384,8 +384,8 @@ func (this *Database) GetMissingRevisions(object map[string]interface{}) (map[st
     if err != nil {
         return nil, err
     }
-    var _return = u.Map()
-    _return["missing_revs"] = u.Map()
+    var _return = util.Map()
+    _return["missing_revs"] = util.Map()
     for id, revs := range data.(map[string]interface{})["missing_revs"].(map[string]interface{}) {
         _return["missing_revs"].(map[string]interface{})[id] = revs
     }
@@ -398,10 +398,10 @@ func (this *Database) GetMissingRevisionsDiff(object map[string]interface{}) (ma
     if err != nil {
         return nil, err
     }
-    var _return = u.Map()
+    var _return = util.Map()
     for id, _ := range data.(map[string]interface{}) {
         _return[id] = map[string]interface{}{
-            "missing": u.Dig(id +".missing", data),
+            "missing": util.Dig(id +".missing", data),
         }
     }
     return _return, nil
@@ -423,6 +423,6 @@ func (this *Database) SetRevisionLimit(limit int) (map[string]interface{}, error
         return nil, err
     }
     return map[string]interface{}{
-        "ok": u.DigBool("ok", data),
+        "ok": util.DigBool("ok", data),
     }, nil
 }

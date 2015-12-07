@@ -1,8 +1,8 @@
 package couch
 
-import _client   "./../couch/client"
-import _server   "./../couch/server"
-import _database "./../couch/database"
+// import _client   "./../couch/client"
+// import _server   "./../couch/server"
+// import _database "./../couch/database"
 
 import u "./util"
 // @tmp
@@ -43,7 +43,7 @@ func New(config interface{}, debug bool) *Couch {
     return couch
 }
 
-func NewClient(couch *Couch, config interface{}) *_client.Client {
+func NewClient(couch *Couch, config interface{}) *Client {
     var Config = make(map[string]interface{})
     Config["Couch.NAME"]    = NAME
     Config["Couch.VERSION"] = VERSION
@@ -71,11 +71,11 @@ func NewClient(couch *Couch, config interface{}) *_client.Client {
     // return _client.New("https://localhost:1234", "", "", Config???)
 }
 
-func NewServer(client *_client.Client) *_server.Server {
+func NewServer(client *Client) *_server.Server {
     return _server.New(client)
 }
 
-func NewDatabase(client *_client.Client, name string) *_database.Database {
+func NewDatabase(client *Client, name string) *_database.Database {
     return _database.New(client, name)
 }
 

@@ -1,17 +1,17 @@
-package server
+package couch
 
-import _client "./../client"
+// import _client "./../client"
 
-import u "./../util"
+import u "./util"
 // @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+var _dump, _dumps, _dumpf = util.Dump, util.Dumps, util.Dumpf
 
 type Server struct {
     Client *_client.Client
 }
 
 func Shutup() {
-    u.Shutup()
+    util.Shutup()
 }
 
 func New(client *_client.Client) *Server {
