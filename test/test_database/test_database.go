@@ -1,9 +1,9 @@
 package test_database
 
-import _couch    "./../../src/couch"
-import _client   "./../../src/couch/client"
-import _database "./../../src/couch/database"
-import _document "./../../src/couch/document"
+import couch    "./../../src/couch"
+import client   "./../../src/couch/client"
+import database "./../../src/couch/database"
+import document "./../../src/couch/document"
 
 import u "./../../src/couch/util"
 // @tmp
@@ -15,17 +15,17 @@ var (
 )
 
 var (
-    couch    *_couch.Couch
-    client   *_client.Client
-    database *_database.Database
+    Couch    *couch.Couch
+    Client   *client.Client
+    Database *database.Database
 )
 
 func init() {
-    _document.Shutup()
+    document.Shutup()
 
-    couch    = _couch.New(nil, DEBUG)
-    client   = _couch.NewClient(couch, nil)
-    database = _couch.NewDatabase(client, DBNAME);
+    Couch    = couch.New(nil, DEBUG)
+    Client   = couch.NewClient(Couch, nil)
+    Database = couch.NewDatabase(Client, DBNAME);
 }
 
 /**
@@ -37,14 +37,14 @@ func TestAll() {}
  * TestPing
  */
 func TestPing() {
-    _dumpf("Database Ping >> %v", database.Ping())
+    _dumpf("Database Ping >> %v", Database.Ping())
 }
 
 /**
  * TestInfo
  */
 func TestInfo() {
-    data, err := database.Info()
+    data, err := Database.Info()
     if err != nil {
         panic(err)
     }
@@ -59,7 +59,7 @@ func TestInfo() {
  * TestCreate
  */
 func TestCreate() {
-    _dumpf("Database Create >> %v", database.Create())
+    _dumpf("Database Create >> %v", Database.Create())
     // error?
     // if err := client.GetResponse().GetError(); err != "" {
     //     _dumpf("Response Status: %s", client.GetResponse().GetStatus())
@@ -72,7 +72,7 @@ func TestCreate() {
  * TestRemove
  */
 func TestRemove() {
-    _dumpf("Database Remove >> %v", database.Remove())
+    _dumpf("Database Remove >> %v", Database.Remove())
     // error?
     // if err := client.GetResponse().GetError(); err != "" {
     //     _dumpf("Response Status: %s", client.GetResponse().GetStatus())
@@ -85,7 +85,7 @@ func TestRemove() {
  * TestReplicate
  */
 func TestReplicate() {
-    data, err := database.Replicate("foo_replicate", true)
+    data, err := Database.Replicate("foo_replicate", true)
     if err != nil {
         panic(err)
     }
@@ -99,7 +99,7 @@ func TestReplicate() {
  * TestGetDocument
  */
 func TestGetDocument() {
-    data, err := database.GetDocument("5db345a5f26484352ea5d813180031fb")
+    data, err := Database.GetDocument("5db345a5f26484352ea5d813180031fb")
     if err != nil {
         panic(err)
     }
@@ -120,8 +120,8 @@ func TestGetDocument() {
  * TestGetDocumentAll
  */
 func TestGetDocumentAll() {
-    data, err := database.GetDocumentAll(nil, nil)
-    // data, err := database.GetDocumentAll(nil, []string{"5db345a5f26484352ea5d813180031fb"})
+    data, err := Database.GetDocumentAll(nil, nil)
+    // data, err := Database.GetDocumentAll(nil, []string{"5db345a5f26484352ea5d813180031fb"})
     if err != nil {
         panic(err)
     }
@@ -140,7 +140,7 @@ func TestGetDocumentAll() {
  * TestCreateDocument
  */
 func TestCreateDocument() {
-    data, err := database.CreateDocument(map[string]interface{}{
+    data, err := Database.CreateDocument(map[string]interface{}{
         "name": "kerem", "type": "tmp",
     })
     if err != nil {
@@ -160,7 +160,7 @@ func TestCreateDocument() {
  * TestCreateDocumentAll
  */
 func TestCreateDocumentAll() {
-    data, err := database.CreateDocumentAll([]interface{}{
+    data, err := Database.CreateDocumentAll([]interface{}{
         0: map[string]interface{}{"name": "kerem", "type": "tmp"},
         1: map[string]interface{}{"name": "murat", "type": "tmp"},
     })
@@ -183,7 +183,7 @@ func TestCreateDocumentAll() {
  * TestUpdateDocument
  */
 func TestUpdateDocument() {
-    data, err := database.UpdateDocument(map[string]interface{}{
+    data, err := Database.UpdateDocument(map[string]interface{}{
         "name": "kerem 3", "type": "tmp",
             "_id": "7ee9cdd673b109e030cec8c6f10020f7",
             "_rev": "2-BÖ!", // give correct rev!
@@ -209,7 +209,7 @@ func TestUpdateDocument() {
  * TestUpdateDocumentAll
  */
 func TestUpdateDocumentAll() {
-    data, err := database.UpdateDocumentAll([]interface{}{
+    data, err := Database.UpdateDocumentAll([]interface{}{
         0: map[string]interface{}{"name": "kerem 2", "type": "tmp",
             "_id": "7ee9cdd673b109e030cec8c6f10020f7", "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d"},
         1: map[string]interface{}{"name": "murat 2", "type": "tmp",
@@ -238,7 +238,7 @@ func TestUpdateDocumentAll() {
  * TestDeleteDocument
  */
 func TestDeleteDocument() {
-    data, err := database.DeleteDocument(map[string]interface{}{
+    data, err := Database.DeleteDocument(map[string]interface{}{
         "_id": "7ee9cdd673b109e030cec8c6f100322b",
         "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d",
     })
@@ -256,7 +256,7 @@ func TestDeleteDocument() {
  * TestDeleteDocumentAll
  */
 func TestDeleteDocumentAll() {
-    data, err := database.DeleteDocumentAll([]interface{}{
+    data, err := Database.DeleteDocumentAll([]interface{}{
         0: map[string]interface{}{"_id": "7ee9cdd673b109e030cec8c6f10020f7",
             "_rev": "3-1cb8867864cd6bb80361fed42c719897"},
         1: map[string]interface{}{"_id": "7ee9cdd673b109e030cec8c6f1002cc1",
@@ -282,7 +282,7 @@ func TestDeleteDocumentAll() {
  * TestGetChanges
  */
 func TestGetChanges() {
-    data, err := database.GetChanges(nil, nil)
+    data, err := Database.GetChanges(nil, nil)
     if err != nil {
         panic(err)
     }
@@ -297,7 +297,7 @@ func TestGetChanges() {
  * TestCompact
  */
 func TestCompact() {
-    data, err := database.Compact("")
+    data, err := Database.Compact("")
     if err != nil {
         panic(err)
     }
@@ -308,7 +308,7 @@ func TestCompact() {
  * TestEnsureFullCommit
  */
 func TestEnsureFullCommit() {
-    data, err := database.EnsureFullCommit()
+    data, err := Database.EnsureFullCommit()
     if err != nil {
         panic(err)
     }
@@ -320,7 +320,7 @@ func TestEnsureFullCommit() {
  * TestViewCleanup
  */
 func TestViewCleanup() {
-    data, err := database.ViewCleanup()
+    data, err := Database.ViewCleanup()
     if err != nil {
         panic(err)
     }
@@ -332,7 +332,7 @@ func TestViewCleanup() {
  */
 func TestViewTemp() {
     var map_ = "function(doc){if(doc.type=='tmp') emit(null,doc)}"
-    data, err := database.ViewTemp(map_, "")
+    data, err := Database.ViewTemp(map_, "")
     if err != nil {
         panic(err)
     }
@@ -354,7 +354,7 @@ func TestViewTemp() {
  * TestGetSecurity
  */
 func TestGetSecurity() {
-    data, err := database.GetSecurity()
+    data, err := Database.GetSecurity()
     if err != nil {
         panic(err)
     }
@@ -376,7 +376,7 @@ func TestSetSecurity() {
         "names": []string{"user1","user2"},
         "roles": []string{"developers"},
     }
-    data, err := database.SetSecurity(admins, members)
+    data, err := Database.SetSecurity(admins, members)
     if err != nil {
         panic(err)
     }
@@ -387,7 +387,7 @@ func TestSetSecurity() {
  * TestPurge
  */
 func TestPurge() {
-    data, err := database.Purge(map[string]interface{}{
+    data, err := Database.Purge(map[string]interface{}{
         "667b0208441066a0954717b50c0008a9": []string{
             "5-dd1a3738fcbd759ed744f7971fe94332",
         },
@@ -403,7 +403,7 @@ func TestPurge() {
  * TestGetMissingRevisions
  */
 func TestGetMissingRevisions() {
-    data, err := database.GetMissingRevisions(map[string]interface{}{
+    data, err := Database.GetMissingRevisions(map[string]interface{}{
         "667b0208441066a0954717b50c0008a9": []string{
             "5-dd1a3738fcbd759ed744f7971fe94332",
         },
@@ -423,7 +423,7 @@ func TestGetMissingRevisions() {
  * TestGetMissingRevisionsDiff
  */
 func TestGetMissingRevisionsDiff() {
-    data, err := database.GetMissingRevisionsDiff(map[string]interface{}{
+    data, err := Database.GetMissingRevisionsDiff(map[string]interface{}{
         "667b0208441066a0954717b50c0008a9": []string{
             "5-dd1a3738fcbd759ed744f7971fe94332",
         },
@@ -444,7 +444,7 @@ func TestGetMissingRevisionsDiff() {
  * TestGetRevisionLimit
  */
 func TestGetRevisionLimit() {
-    data, err := database.GetRevisionLimit()
+    data, err := Database.GetRevisionLimit()
     if err != nil {
         panic(err)
     }
@@ -455,7 +455,7 @@ func TestGetRevisionLimit() {
  * TestSetRevisionLimit
  */
 func TestSetRevisionLimit() {
-    data, err := database.SetRevisionLimit(1000)
+    data, err := Database.SetRevisionLimit(1000)
     if err != nil {
         panic(err)
     }
