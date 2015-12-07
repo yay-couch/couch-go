@@ -20,7 +20,7 @@ type Uuid struct {
     Value interface{}
 }
 
-func Shutup() {
+func init() {
     _ = _time.ANSIC
     _ = _rand.Reader
 }
