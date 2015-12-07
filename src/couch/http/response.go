@@ -85,6 +85,6 @@ func (this *Response) GetStatusText() string {
 // @overwrite
 func (this *Response) SetBody(body interface{}) {
     if body != nil {
-        this.Body = u.String(body)
+        this.Body = util.String(body)
     }
 }
