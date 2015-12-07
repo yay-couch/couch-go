@@ -1,9 +1,5 @@
 package couch
 
-// import _client   "./../couch/client"
-// import _server   "./../couch/server"
-// import _database "./../couch/database"
-
 import u "./util"
 // @tmp
 var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
