@@ -1,7 +1,5 @@
 package couch
 
-import u "./util"
-
 type Server struct {
     Client *_client.Client
 }
