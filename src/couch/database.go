@@ -1,10 +1,6 @@
 package couch
 
-// import _client "./../client"
-
 import util "./util"
-// @tmp
-var _dump, _dumps, _dumpf = util.Dump, util.Dumps, util.Dumpf
 
 type Database struct {
     Client *Client
