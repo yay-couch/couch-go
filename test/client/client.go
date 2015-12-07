@@ -1,11 +1,5 @@
 package client
 
-// import _couch    "./../../src/couch"
-// import _client   "./../../src/couch/client"
-// import _stream   "./../../src/couch/http/stream"
-// import _request  "./../../src/couch/http/request"
-// import _response "./../../src/couch/http/response"
-
 import (
     "./../../src/couch"
     "./../../src/couch/util"
