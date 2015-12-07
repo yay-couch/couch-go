@@ -23,8 +23,6 @@ type DatabaseDocumentList struct {
     Rows       []DatabaseDocument
 }
 
-func Shutup() {}
-
 func New(client *_client.Client, name string) *Database {
     return &Database{
         Client: client,
