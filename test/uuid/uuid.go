@@ -1,12 +1,11 @@
 package uuid
 
+import (
+    "./../../src/couch/util"
+    "./../../src/couch/uuid"
+)
+
 import _uuid "./../../src/couch/uuid"
-
-import u "./../../src/couch/util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
-
-func Shutup() {}
 
 /**
  * TestAll
@@ -25,47 +24,47 @@ func TestAll() {
  * TestDefault
  */
 func TestDefault() {
-    _dumpf("Uuid Default       >> %s", _uuid.GenerateDefault())
+    util.Dumpf("Uuid Default       >> %s", _uuid.GenerateDefault())
 }
 
 /**
  * TestRfc
  */
 func TestRfc() {
-    _dumpf("Uuid RFC           >> %s", _uuid.GenerateRfc())
+    util.Dumpf("Uuid RFC           >> %s", _uuid.GenerateRfc())
 }
 
 /**
  * TestHex8
  */
 func TestHex8() {
-    _dumpf("Uuid Hex 8         >> %s", _uuid.GenerateHex8())
+    util.Dumpf("Uuid Hex 8         >> %s", _uuid.GenerateHex8())
 }
 
 /**
  * TestHex32
  */
 func TestHex32() {
-    _dumpf("Uuid Hex 32        >> %s", _uuid.GenerateHex32())
+    util.Dumpf("Uuid Hex 32        >> %s", _uuid.GenerateHex32())
 }
 
 /**
  * TestHex40
  */
 func TestHex40() {
-    _dumpf("Uuid Hex 40        >> %s", _uuid.GenerateHex40())
+    util.Dumpf("Uuid Hex 40        >> %s", _uuid.GenerateHex40())
 }
 
 /**
  * TestTimestamp
  */
 func TestTimestamp() {
-    _dumpf("Uuid Timestamp     >> %s", _uuid.GenerateTimestamp())
+    util.Dumpf("Uuid Timestamp     >> %s", _uuid.GenerateTimestamp())
 }
 
 /**
  * TestTimestampNano
  */
 func TestTimestampNano() {
-    _dumpf("Uuid TimestampNano >> %s", _uuid.GenerateTimestampNano())
+    util.Dumpf("Uuid TimestampNano >> %s", _uuid.GenerateTimestampNano())
 }
