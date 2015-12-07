@@ -20,12 +20,12 @@ type Uuid struct {
     Value interface{}
 }
 
-func Shutup() {
+func init() {
     _ = _time.ANSIC
     _ = _rand.Reader
 }
 
-func New(value interface{}) *Uuid {
+func NewUuid(value interface{}) *Uuid {
     if value == nil {
         value = Generate(HEX_32)
     }
