@@ -1,8 +1,8 @@
 package couch
 
-import u "./util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import (
+    "./util"
+)
 
 type Couch struct {
     Config map[string]interface{}
@@ -49,13 +49,13 @@ func NewClient(couch *Couch, config interface{}) *Client {
             Config[key] = value
         }
     }
-    Config["Scheme"]   = u.IsEmptySet(Config["Scheme"],   DefaultScheme)
-    Config["Host"]     = u.IsEmptySet(Config["Host"],     DefaultHost)
-    Config["Port"]     = u.IsEmptySet(Config["Port"],     DefaultPort)
-    Config["Username"] = u.IsEmptySet(Config["Username"], Username)
-    Config["Password"] = u.IsEmptySet(Config["Password"], Password)
+    Config["Scheme"]   = util.IsEmptySet(Config["Scheme"],   DefaultScheme)
+    Config["Host"]     = util.IsEmptySet(Config["Host"],     DefaultHost)
+    Config["Port"]     = util.IsEmptySet(Config["Port"],     DefaultPort)
+    Config["Username"] = util.IsEmptySet(Config["Username"], Username)
+    Config["Password"] = util.IsEmptySet(Config["Password"], Password)
 
-    if debug := u.Dig("debug", couch.Config); debug != nil {
+    if debug := util.Dig("debug", couch.Config); debug != nil {
         Config["Couch.DEBUG"] = debug
     }
 
