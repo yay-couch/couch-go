@@ -1,7 +1,7 @@
 package main
 
 import (
-    test_uuid "./uuid"
+    // test_uuid "./uuid"
     // test_client "./client"
     // test_server "./server"
     // test_database "./database"
@@ -21,5 +21,5 @@ func main() {
     // ...
 
     /* uuid */
-    test_uuid.TestAll()
+    // test_uuid.TestAll()
 }
