@@ -7,7 +7,7 @@ import util "./util"
 var _dump, _dumps, _dumpf = util.Dump, util.Dumps, util.Dumpf
 
 type Database struct {
-    Client *_client.Client
+    Client *Client
     Name   string
 }
 type DatabaseDocument struct {
@@ -23,7 +23,7 @@ type DatabaseDocumentList struct {
     Rows       []DatabaseDocument
 }
 
-func NewDatabase(client *_client.Client, name string) *Database {
+func NewDatabase(client *Client, name string) *Database {
     return &Database{
         Client: client,
           Name: name,
