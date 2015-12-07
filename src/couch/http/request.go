@@ -8,8 +8,8 @@ import (
     _b64 "encoding/base64"
 )
 
-import _query "./../query"
 import u "./../util"
+import _query "./../query"
 
 type Request struct {
     Stream // extends :)
