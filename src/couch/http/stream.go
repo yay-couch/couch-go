@@ -1,12 +1,10 @@
-package stream
+package http
 
 import (
     _fmt "fmt"
 )
 
-import u "./../../util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import u "./../util"
 
 type Stream struct {
     Type        uint8
@@ -34,7 +32,7 @@ const (
 
 func Shutup() {}
 
-func New() *Stream {
+func NewStream() *Stream {
     return &Stream{
         Headers: make(map[string]interface{}),
     }

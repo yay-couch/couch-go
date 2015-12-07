@@ -7,8 +7,9 @@ import (
 )
 
 // import _stream "./../http/stream"
-import _request "./../http/request"
-import _response "./../http/response"
+// import _request "./../http/request"
+// import _response "./../http/response"
+import _http "./../http"
 
 import u "./../util"
 // @tmp
@@ -19,8 +20,8 @@ type Client struct {
     Host      string
     Port      uint16
     Username, Password string
-    Request   *_request.Request
-    Response  *_response.Response
+    Request   *_http.Request
+    Response  *_http.Response
     Config    map[string]interface{}
 }
 
@@ -57,15 +58,15 @@ func New(config interface{}, username, password string) *Client {
     return this
 }
 
-func (this *Client) GetRequest() *_request.Request {
+func (this *Client) GetRequest() *_http.Request {
     return this.Request
 }
-func (this *Client) GetResponse() *_response.Response {
+func (this *Client) GetResponse() *_http.Response {
     return this.Response
 }
 
 func (this *Client) DoRequest(uri string, uriParams interface{},
-        body interface{}, headers interface{}) *_response.Response {
+        body interface{}, headers interface{}) *_http.Response {
     re, _ := _rex.Compile("^([A-Z]+)\\s+(/.*)")
     if re == nil {
         panic("Usage: <REQUEST METHOD> <REQUEST URI>!")
@@ -75,8 +76,8 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
         panic("Usage: <REQUEST METHOD> <REQUEST URI>!")
     }
 
-    this.Request = _request.New(this.Config)
-    this.Response = _response.New()
+    this.Request = _http.NewRequest(this.Config)
+    this.Response = _http.NewResponse()
 
     uri = _fmt.Sprintf("%s:%v/%s", this.Host, this.Port, _str.Trim(match[2], "/ "))
 
@@ -116,22 +117,22 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
 }
 
 func (this *Client) Head(uri string, uriParams interface{},
-    headers interface{}) *_response.Response {
-    return this.DoRequest(_request.METHOD_HEAD +" /"+ uri, uriParams, nil, headers)
+    headers interface{}) *_http.Response {
+    return this.DoRequest(_http.METHOD_HEAD +" /"+ uri, uriParams, nil, headers)
 }
 func (this *Client) Get(uri string, uriParams interface{},
-    headers interface{}) *_response.Response {
-    return this.DoRequest(_request.METHOD_GET +" /"+ uri, uriParams, nil, headers)
+    headers interface{}) *_http.Response {
+    return this.DoRequest(_http.METHOD_GET +" /"+ uri, uriParams, nil, headers)
 }
 func (this *Client) Post(uri string, uriParams interface{}, body interface{},
-    headers interface{}) *_response.Response {
-    return this.DoRequest(_request.METHOD_POST +" /"+ uri, uriParams, body, headers)
+    headers interface{}) *_http.Response {
+    return this.DoRequest(_http.METHOD_POST +" /"+ uri, uriParams, body, headers)
 }
 func (this *Client) Put(uri string, uriParams interface{}, body interface{},
-    headers interface{}) *_response.Response {
-    return this.DoRequest(_request.METHOD_PUT +" /"+ uri, uriParams, body, headers)
+    headers interface{}) *_http.Response {
+    return this.DoRequest(_http.METHOD_PUT +" /"+ uri, uriParams, body, headers)
 }
 func (this *Client) Delete(uri string, uriParams interface{},
-    headers interface{}) *_response.Response {
-    return this.DoRequest(_request.METHOD_DELETE +" /"+ uri, uriParams, nil, headers)
+    headers interface{}) *_http.Response {
+    return this.DoRequest(_http.METHOD_DELETE +" /"+ uri, uriParams, nil, headers)
 }

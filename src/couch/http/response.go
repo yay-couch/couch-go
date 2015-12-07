@@ -1,20 +1,15 @@
 package http
 
 import (
-    // _fmt "fmt"
     _rex "regexp"
     _str "strings"
     _strc "strconv"
 )
 
-import _stream "./../stream"
-
-import u "./../../util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import u "./../util"
 
 type Response struct {
-    _stream.Stream // extends :)
+    Stream // extends :)
     Status       string
     StatusCode   uint16
     StatusText   string
@@ -41,11 +36,9 @@ var (
     }
 )
 
-func Shutup() {}
-
-func New() *Response {
-    stream := _stream.New()
-    stream.Type = _stream.TYPE_RESPONSE
+func NewResponse() *Response {
+    stream := NewStream()
+    stream.Type = TYPE_RESPONSE
     stream.HttpVersion = "1.1"
     var this = &Response{
         Stream: *stream,

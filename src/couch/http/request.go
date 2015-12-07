@@ -8,15 +8,11 @@ import (
     _b64 "encoding/base64"
 )
 
-import _stream "./../stream"
-import _query "./../../query"
-
-import u "./../../util"
-// @tmp
-var _dump, _dumps, _dumpf = u.Dump, u.Dumps, u.Dumpf
+import _query "./../query"
+import u "./../util"
 
 type Request struct {
-    _stream.Stream // extends :)
+    Stream // extends :)
     Method         string
     Uri            string
     Config         map[string]interface{}
@@ -31,11 +27,9 @@ const (
     METHOD_DELETE = "DELETE"
 )
 
-func Shutup() {}
-
-func New(config map[string]interface{}) *Request {
-    stream := _stream.New()
-    stream.Type = _stream.TYPE_REQUEST
+func NewRequest(config map[string]interface{}) *Request {
+    stream := NewStream()
+    stream.Type = TYPE_REQUEST
     stream.HttpVersion = "1.0"
 
     var this = &Request{
@@ -124,8 +118,8 @@ func (this *Request) Send() string {
 
     // @debug
     if this.Config["Couch.DEBUG"] == true {
-        _dump(request)
-        _dump(response)
+        u.Dump(request)
+        u.Dump(response)
     }
 
     return response
