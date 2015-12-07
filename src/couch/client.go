@@ -21,8 +21,6 @@ type Client struct {
     Config    map[string]interface{}
 }
 
-func Shutup() {}
-
 func New(config interface{}, username, password string) *Client {
     var this = &Client{}
 
