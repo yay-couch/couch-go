@@ -3,9 +3,6 @@ package couch
 import _client   "./../couch/client"
 import _server   "./../couch/server"
 import _database "./../couch/database"
-// import _stream "./http/stream"
-// import _request "./http/request"
-// import _response "./http/response"
 
 import u "./util"
 // @tmp
