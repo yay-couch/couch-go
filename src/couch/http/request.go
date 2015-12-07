@@ -42,7 +42,7 @@ func NewRequest(config map[string]interface{}) *Request {
     if config["Username"] != "" && config["Password"] != "" {
         this.Headers["Authorization"] = "Basic "+
             _b64.StdEncoding.EncodeToString([]byte(
-                config["Username"].(string) +":"+ config["Username"].(string)))
+                _fmt.Sprintf("%s:%s", config["Username"], config["Username"])))
     }
 
     this.Headers["Host"] = _fmt.Sprintf("%s:%v", config["Host"], config["Port"])
