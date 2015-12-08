@@ -374,3 +374,14 @@ func MapIntSlice(length interface{}) []int {
     }
     return nil
 }
+func MapStringSlice(length interface{}) []string {
+    switch length.(type) {
+        case int:
+            return make([]string, length.(int))
+        case []interface{}:
+            return make([]string, len(length.([]interface{})))
+        // @todo add more types if needs
+        // case ...:
+    }
+    return nil
+}
