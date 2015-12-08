@@ -27,7 +27,7 @@ func (this *Server) Info() (map[string]interface{}, error) {
     for key, value := range data.(map[string]interface{}) {
         switch value := value.(type) {
             case map[string]interface{}:
-                _return[key] = make(map[string]string)
+                _return[key] = util.MapString()
                 for kkey, vvalue := range value {
                     _return[key].(map[string]string)[kkey] = vvalue.(string)
                 }
