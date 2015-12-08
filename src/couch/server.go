@@ -15,13 +15,12 @@ func (this *Server) Ping() bool {
 }
 
 func (this *Server) Info() (map[string]interface{}, error) {
-    type Data map[string]interface{}
-    data, err := this.Client.Get("/", nil, nil).GetBodyData(&Data{})
+    data, err := this.Client.Get("/", nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
     var _return = make(map[string]interface{})
-    for key, value := range *data.(*Data) {
+    for key, value := range data.(map[string]interface{}) {
         switch value := value.(type) {
             case map[string]interface{}:
                 _return[key] = make(map[string]string)
