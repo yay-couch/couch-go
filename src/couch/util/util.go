@@ -340,6 +340,9 @@ func StringSearch(input, search string) bool {
 func Map() map[string]interface{} {
     return make(map[string]interface{})
 }
+func MapInt() map[int]string {
+    return make(map[int]string)
+}
 func MapString() map[string]string {
     return make(map[string]string)
 }
