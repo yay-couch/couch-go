@@ -47,15 +47,14 @@ func (this *Server) Version() (string, error) {
 }
 
 func (this *Server) GetActiveTasks() ([]map[string]interface{}, error) {
-    type Data []map[string]interface{}
-    data, err := this.Client.Get("/_active_tasks", nil, nil).GetBodyData(&Data{})
+    data, err := this.Client.Get("/_active_tasks", nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
-    var _return = make([]map[string]interface{}, len(*data.(*Data)))
-    for i, data := range *data.(*Data) {
-        _return[i] = make(map[string]interface{})
-        for key, value := range data {
+    var _return = util.MapList(data)
+    for i, data := range data.([]interface{}) {
+        _return[i] = util.Map()
+        for key, value := range data.(map[string]interface{}) {
             _return[i][key] = value
         }
     }
