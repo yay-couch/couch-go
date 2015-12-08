@@ -62,14 +62,13 @@ func (this *Server) GetActiveTasks() ([]map[string]interface{}, error) {
 }
 
 func (this *Server) GetAllDatabases() ([]string, error) {
-    type Data []string
-    data, err := this.Client.Get("/_all_dbs", nil, nil).GetBodyData(&Data{})
+    data, err := this.Client.Get("/_all_dbs", nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
-    var _return = make([]string, len(*data.(*Data)))
-    for i, db := range *data.(*Data) {
-        _return[i] = db
+    var _return = util.MapStringSlice(data)
+    for i, db := range data.([]interface{}) {
+        _return[i] = db.(string)
     }
     return _return, nil
 }
