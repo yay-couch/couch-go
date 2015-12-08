@@ -23,7 +23,7 @@ func (this *Server) Info() (map[string]interface{}, error) {
     if err != nil {
         return nil, err
     }
-    var _return = make(map[string]interface{})
+    var _return = util.Map()
     for key, value := range data.(map[string]interface{}) {
         switch value := value.(type) {
             case map[string]interface{}:
