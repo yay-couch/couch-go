@@ -74,8 +74,7 @@ func (this *Server) GetAllDatabases() ([]string, error) {
 }
 
 func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{}, error) {
-    type Data interface{}
-    data, err := this.Client.Get("/_db_updates", query, nil).GetBodyData(*new(Data))
+    data, err := this.Client.Get("/_db_updates", query, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
