@@ -102,7 +102,8 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     return _return, nil
 }
 
-func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string) (map[string]interface{}, error) {
+func (this *Database) GetDocumentAll(query map[string]interface{},
+        keys []string) (map[string]interface{}, error) {
     query = util.Param(query)
     if query["include_docs"] == nil {
         query["include_docs"] = true
