@@ -61,8 +61,7 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
         "target", target,
         "create_target", targetCreate,
     )
-    data, err := this.Client.Post("/_replicate", nil, body, nil).
-        GetBodyData(map[string]interface{}{})
+    data, err := this.Client.Post("/_replicate", nil, body, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
