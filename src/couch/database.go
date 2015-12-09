@@ -275,7 +275,8 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
 }
 
 func (this *Database) Compact(ddoc string) (map[string]interface{}, error) {
-    data, err := this.Client.Post(this.Name +"/_compact/"+ ddoc, nil, nil, nil).GetBodyData(nil)
+    data, err := this.Client.Post(this.Name +"/_compact/"+ ddoc, nil, nil, nil).
+        GetBodyData(nil)
     if err != nil {
         return nil, err
     }
@@ -286,7 +287,7 @@ func (this *Database) Compact(ddoc string) (map[string]interface{}, error) {
 
 func (this *Database) EnsureFullCommit() (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_ensure_full_commit", nil, nil, nil).
-        GetBodyData(map[string]interface{}{})
+        GetBodyData(nil)
     if err != nil {
         return nil, err
     }
