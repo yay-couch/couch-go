@@ -389,8 +389,8 @@ func TestPurge() {
     if err != nil {
         panic(err)
     }
-    util.Dumpf("Database Purge >> ok: %v", data)
-    util.Dumpf("Database Purge >> ok: %d", data["purge_seq"])
+    util.Dumpf("Database Purge >> %v", data)
+    util.Dumpf("Database Purge >> purge_seq: %d", data["purge_seq"])
 }
 
 /**
