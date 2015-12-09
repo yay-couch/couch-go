@@ -150,7 +150,8 @@ func (this *Database) CreateDocument(document interface{}) (map[string]interface
     return nil, nil
 }
 
-func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
+func (this *Database) CreateDocumentAll(documents []interface{}) (
+        []map[string]interface{}, error) {
     var docs = util.MapList(documents)
     for i, doc := range documents {
         if docs[i] == nil {
@@ -193,7 +194,8 @@ func (this *Database) UpdateDocument(document interface{}) (map[string]interface
     return nil, nil
 }
 
-func (this *Database) UpdateDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
+func (this *Database) UpdateDocumentAll(documents []interface{}) (
+        []map[string]interface{}, error) {
     var docs = util.MapList(documents)
     for i, doc := range documents {
         if docs[i] == nil {
@@ -235,7 +237,8 @@ func (this *Database) DeleteDocument(document interface{}) (map[string]interface
     return nil, nil
 }
 
-func (this *Database) DeleteDocumentAll(documents []interface{}) ([]map[string]interface{}, error) {
+func (this *Database) DeleteDocumentAll(documents []interface{}) (
+        []map[string]interface{}, error) {
     for i, _ := range documents {
         // just add "_deleted" param into document
         documents[i].(map[string]interface{})["_deleted"] = true
@@ -243,7 +246,8 @@ func (this *Database) DeleteDocumentAll(documents []interface{}) ([]map[string]i
     return this.UpdateDocumentAll(documents)
 }
 
-func (this *Database) GetChanges(query map[string]interface{}, docIds []string) (map[string]interface{}, error) {
+func (this *Database) GetChanges(query map[string]interface{}, docIds []string) (
+        map[string]interface{}, error) {
     query = util.Param(query)
     if docIds != nil {
         query["filter"] = "_doc_ids"
