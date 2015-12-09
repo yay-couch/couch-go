@@ -376,8 +376,7 @@ func (this *Database) Purge(object map[string]interface{}) (map[string]interface
 
 func (this *Database) GetMissingRevisions(object map[string]interface{}) (
         map[string]interface{}, error) {
-    data, err := this.Client.Post(this.Name +"/_missing_revs", nil, object, nil).
-        GetBodyData(map[string]interface{}{})
+    data, err := this.Client.Post(this.Name +"/_missing_revs", nil, object, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
