@@ -135,13 +135,12 @@ func (this *Server) Replicate(body map[string]interface{}) (map[string]interface
     if body["source"] == nil || body["target"] == nil {
         panic("Both source & target required!")
     }
-    type Data map[string]interface{}
-    data, err := this.Client.Post("/_replicate", nil, body, nil).GetBodyData(&Data{})
+    data, err := this.Client.Post("/_replicate", nil, body, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
     var _return = util.Map()
-    for key, value := range *data.(*Data) {
+    for key, value := range data.(map[string]interface{}) {
         if key == "history" {
             _return["history"] = util.MapList(value)
             for i, history := range value.([]interface{}) {
