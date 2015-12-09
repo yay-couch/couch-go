@@ -336,8 +336,7 @@ func (this *Database) ViewTemp(map_ string, reduce interface{}) (
 }
 
 func (this *Database) GetSecurity() (map[string]interface{}, error) {
-    data, err := this.Client.Get(this.Name +"/_security", nil, nil).
-        GetBodyData(map[string]map[string][]string{})
+    data, err := this.Client.Get(this.Name +"/_security", nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
