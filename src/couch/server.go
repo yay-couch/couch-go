@@ -165,10 +165,10 @@ func (this *Server) GetConfig() (map[string]map[string]interface{}, error) {
     if err != nil {
         return nil, err
     }
-    var _return = make(map[string]map[string]interface{})
+    var _return = util.MapListString()
     for key, value := range data.(map[string]interface{}) {
         if _return[key] == nil {
-            _return[key] = make(map[string]interface{})
+            _return[key] = util.Map()
         }
         for kkey, vvalue := range value.(map[string]interface{}) {
             _return[key][kkey] = vvalue
