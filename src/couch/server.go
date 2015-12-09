@@ -130,12 +130,9 @@ func (this *Server) GetUuids(count int) ([]string, error) {
     return _return, nil
 }
 
-func (this *Server) Replicate(body interface{}) (map[string]interface{}, error) {
-    if body == nil {
-        body = make(map[string]interface{})
-    }
-    if body.(map[string]interface{})["source"] == nil ||
-       body.(map[string]interface{})["target"] == nil {
+func (this *Server) Replicate(body map[string]interface{}) (map[string]interface{}, error) {
+    body = util.Param(body)
+    if body["source"] == nil || body["target"] == nil {
         panic("Both source & target required!")
     }
     type Data map[string]interface{}
