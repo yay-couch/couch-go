@@ -193,9 +193,8 @@ func (this *Server) SetConfig(section, key, value string) (string, error) {
     if section == "" || key == "" {
         panic("Both section & key required!")
     }
-    var Data string
     data, err := this.Client.Put("/_config/"+ section +"/"+ key, nil, value, nil).
-        GetBodyData(Data)
+        GetBodyData(nil)
     if err != nil {
         return "", err
     }
