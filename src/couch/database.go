@@ -52,7 +52,8 @@ func (this *Database) Remove() bool {
     return (200 == this.Client.Delete(this.Name, nil, nil).GetStatusCode())
 }
 
-func (this *Database) Replicate(target string, targetCreate bool) (map[string]interface{}, error) {
+func (this *Database) Replicate(target string, targetCreate bool) (
+        map[string]interface{}, error) {
     var body = util.ParamList(
         "source", this.Name,
         "target", target,
