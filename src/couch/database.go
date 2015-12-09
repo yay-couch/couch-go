@@ -299,7 +299,7 @@ func (this *Database) EnsureFullCommit() (map[string]interface{}, error) {
 
 func (this *Database) ViewCleanup() (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_view_cleanup", nil, nil, nil).
-        GetBodyData(map[string]interface{}{})
+        GetBodyData(nil)
     if err != nil {
         return nil, err
     }
