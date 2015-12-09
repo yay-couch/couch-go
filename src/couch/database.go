@@ -164,7 +164,8 @@ func (this *Database) CreateDocumentAll(documents []interface{}) ([]map[string]i
             docs[i][key] = value
         }
     }
-    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, util.ParamList("docs", docs), nil).
+    var body = util.ParamList("docs", docs)
+    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, body, nil).
         GetBodyData([]interface{}{})
     if err != nil {
         return nil, err
