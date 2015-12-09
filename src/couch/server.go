@@ -145,9 +145,7 @@ func (this *Server) Replicate(body map[string]interface{}) (map[string]interface
         if key == "history" {
             _return["history"] = util.MapList(value)
             for i, history := range value.([]interface{}) {
-                if _return["history"].([]map[string]interface{})[i] == nil {
-                    _return["history"].([]map[string]interface{})[i] = util.Map()
-                }
+                _return["history"].([]map[string]interface{})[i] = util.Map()
                 for kkey, vvalue := range history.(map[string]interface{}) {
                     _return["history"].([]map[string]interface{})[i][kkey] = vvalue
                 }
