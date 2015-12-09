@@ -194,7 +194,8 @@ func (this *Server) SetConfig(section, key, value string) (string, error) {
         panic("Both section & key required!")
     }
     var Data string
-    data, err := this.Client.Put("/_config/"+ section +"/"+ key, nil, value, nil).GetBodyData(Data)
+    data, err := this.Client.Put("/_config/"+ section +"/"+ key, nil, value, nil).
+        GetBodyData(Data)
     if err != nil {
         return "", err
     }
@@ -206,7 +207,8 @@ func (this *Server) RemoveConfig(section, key string) (string, error) {
         panic("Both section & key required!")
     }
     var Data string
-    data, err := this.Client.Delete("/_config/"+ section +"/"+ key, nil, nil).GetBodyData(Data)
+    data, err := this.Client.Delete("/_config/"+ section +"/"+ key, nil, nil).
+        GetBodyData(Data)
     if err != nil {
         return "", err
     }
