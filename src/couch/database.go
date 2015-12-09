@@ -139,7 +139,8 @@ func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string
     }
 }
 
-func (this *Database) CreateDocument(document interface{}) (map[string]interface{}, error) {
+func (this *Database) CreateDocument(document interface{}) (
+        map[string]interface{}, error) {
     data, err := this.CreateDocumentAll([]interface{}{document})
     if err != nil {
         return nil, err
@@ -183,7 +184,8 @@ func (this *Database) CreateDocumentAll(documents []interface{}) (
     return _return, nil
 }
 
-func (this *Database) UpdateDocument(document interface{}) (map[string]interface{}, error) {
+func (this *Database) UpdateDocument(document interface{}) (
+        map[string]interface{}, error) {
     data, err := this.UpdateDocumentAll([]interface{}{document})
     if err != nil {
         return nil, err
@@ -210,7 +212,8 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) (
         }
     }
     var body = util.ParamList("docs", docs)
-    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, body, nil).GetBodyData(nil)
+    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, body, nil).
+        GetBodyData(nil)
     if err != nil {
         return nil, err
     }
@@ -226,7 +229,8 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) (
     return _return, nil
 }
 
-func (this *Database) DeleteDocument(document interface{}) (map[string]interface{}, error) {
+func (this *Database) DeleteDocument(document interface{}) (
+        map[string]interface{}, error) {
     data, err := this.DeleteDocumentAll([]interface{}{document})
     if err != nil {
         return nil, err
@@ -253,14 +257,16 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
         query["filter"] = "_doc_ids"
     }
     var body = util.ParamList("doc_ids", docIds)
-    data, err := this.Client.Post(this.Name +"/_changes", query, body, nil).GetBodyData(nil)
+    data, err := this.Client.Post(this.Name +"/_changes", query, body, nil).
+        GetBodyData(nil)
     if err != nil {
         return nil, err
     }
     var _return = util.Map()
     _return["last_seq"] = util.Dig("last_seq", data)
     _return["results"]  = util.MapList(0) // set empty as default
-    if results := data.(map[string]interface{})["results"].([]interface{}); results != nil {
+    if results := data.(map[string]interface{})["results"].([]interface{});
+       results != nil {
         _return["results"] = util.MapList(results) // @overwrite
         for i, result := range results {
             _return["results"].([]map[string]interface{})[i] = map[string]interface{}{
