@@ -146,10 +146,10 @@ func (this *Server) Replicate(body map[string]interface{}) (map[string]interface
             _return[key] = util.MapListInt()
             for i, history := range value.([]interface{}) {
                 _return[key] = util.MapList(value)
+                if _return[key].([]map[string]interface{})[i] == nil {
+                    _return[key].([]map[string]interface{})[i] = util.Map()
+                }
                 for kkey, vvalue := range history.(map[string]interface{}) {
-                    if _return[key].([]map[string]interface{})[i] == nil {
-                        _return[key].([]map[string]interface{})[i] = util.Map()
-                    }
                     _return[key].([]map[string]interface{})[i][kkey] = vvalue
                 }
             }
