@@ -116,9 +116,10 @@ func (this *Server) GetUuid() (string, error) {
 }
 
 func (this *Server) GetUuids(count int) ([]string, error) {
-    data, err := this.Client.Get("/_uuids", map[string]interface{}{
-        "count": count,
-    }, nil).GetBodyData(nil)
+    var query = util.ParamList(
+        "count", count,
+    )
+    data, err := this.Client.Get("/_uuids", query, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
