@@ -161,17 +161,16 @@ func (this *Server) Restart() bool {
 }
 
 func (this *Server) GetConfig() (map[string]map[string]interface{}, error) {
-    type Data map[string]map[string]interface{}
-    data, err := this.Client.Get("/_config", nil, nil).GetBodyData(&Data{})
+    data, err := this.Client.Get("/_config", nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
     var _return = make(map[string]map[string]interface{})
-    for key, value := range *data.(*Data) {
+    for key, value := range data.(map[string]interface{}) {
         if _return[key] == nil {
             _return[key] = make(map[string]interface{})
         }
-        for kkey, vvalue := range value {
+        for kkey, vvalue := range value.(map[string]interface{}) {
             _return[key][kkey] = vvalue
         }
     }
