@@ -210,8 +210,7 @@ func (this *Database) UpdateDocumentAll(documents []interface{}) (
         }
     }
     var body = util.ParamList("docs", docs)
-    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, body, nil).
-        GetBodyData([]interface{}{})
+    data, err := this.Client.Post(this.Name +"/_bulk_docs", nil, body, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
@@ -253,7 +252,8 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
     if docIds != nil {
         query["filter"] = "_doc_ids"
     }
-    data, err := this.Client.Post(this.Name +"/_changes", query, util.ParamList("doc_ids", docIds), nil).
+    var body = util.ParamList("doc_ids", docIds)
+    data, err := this.Client.Post(this.Name +"/_changes", query, body, nil).
         GetBodyData(map[string]interface{}{})
     if err != nil {
         return nil, err
