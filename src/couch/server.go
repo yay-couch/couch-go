@@ -81,7 +81,7 @@ func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{
     return map[string]interface{}{
         "db_name": data.(map[string]interface{})["db_name"],
            "type": data.(map[string]interface{})["type"],
-             "ok": data.(map[string]interface{})["o"],
+             "ok": data.(map[string]interface{})["ok"],
     }, nil
 }
 
