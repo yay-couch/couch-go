@@ -308,7 +308,8 @@ func (this *Database) ViewCleanup() (map[string]interface{}, error) {
     }, nil
 }
 
-func (this *Database) ViewTemp(map_ string, reduce interface{}) (map[string]interface{}, error) {
+func (this *Database) ViewTemp(map_ string, reduce interface{}) (
+        map[string]interface{}, error) {
     var body = util.ParamList(
         "map", map_,
         // prevent "missing function" error
