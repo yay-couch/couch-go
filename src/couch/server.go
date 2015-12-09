@@ -90,17 +90,16 @@ func (this *Server) GetLogs(query interface{}) string {
 }
 
 func (this *Server) GetStats(path string) (map[string]map[string]map[string]interface{}, error) {
-    type Data map[string]map[string]map[string]interface{}
-    data, err := this.Client.Get("/_stats/"+ path, nil, nil).GetBodyData(&Data{})
+    data, err := this.Client.Get("/_stats/"+ path, nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
     var _return = make(map[string]map[string]map[string]interface{})
-    for i, data := range *data.(*Data) {
+    for i, data := range data.(map[string]interface{}) {
         _return[i] = make(map[string]map[string]interface{})
-        for ii, ddata := range data {
+        for ii, ddata := range data.(map[string]interface{}) {
             _return[i][ii] = make(map[string]interface{})
-            for key, value := range ddata {
+            for key, value := range ddata.(map[string]interface{}) {
                 _return[i][ii][key] = value
             }
         }
