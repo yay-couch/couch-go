@@ -70,10 +70,8 @@ func (this *Database) Replicate(target string, targetCreate bool) (map[string]in
         if key == "history" {
             _return[key] = util.MapList(value)
             for i, history := range value.([]interface{}) {
+                _return[key].([]map[string]interface{})[i] = util.Map()
                 for kkey, vvalue := range history.(map[string]interface{}) {
-                    if _return[key].([]map[string]interface{})[i] == nil {
-                        _return[key].([]map[string]interface{})[i] = util.Map()
-                    }
                     _return[key].([]map[string]interface{})[i][kkey] = vvalue
                 }
             }
