@@ -354,8 +354,8 @@ func TestGetSecurity() {
     }
     util.Dumpf("Database Get Security >> %+v", data)
     util.Dumpf("Database Get Security >> admins %+v", data["admins"])
-    util.Dumpf("Database Get Security >> admins.names %v", util.Dig("admins.names", data))
-    util.Dumpf("Database Get Security >> admins.roles %v", util.Dig("admins.roles", data))
+    util.Dumpf("Database Get Security >> admins.names.0 %s", util.Dig("admins.names.0", data))
+    util.Dumpf("Database Get Security >> admins.roles.0 %s", util.Dig("admins.roles.0", data))
 }
 
 /**
