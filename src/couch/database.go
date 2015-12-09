@@ -350,8 +350,7 @@ func (this *Database) SetSecurity(admins, members map[string]interface{}) (
         panic("Specify admins and/or members with names=>roles fields!")
     }
     var body = util.ParamList("admins", admins, "members", members)
-    data, err := this.Client.Put(this.Name +"/_security", nil, body, nil).
-        GetBodyData(map[string]interface{}{})
+    data, err := this.Client.Put(this.Name +"/_security", nil, body, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
