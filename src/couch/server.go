@@ -205,9 +205,8 @@ func (this *Server) RemoveConfig(section, key string) (string, error) {
     if section == "" || key == "" {
         panic("Both section & key required!")
     }
-    var Data string
     data, err := this.Client.Delete("/_config/"+ section +"/"+ key, nil, nil).
-        GetBodyData(Data)
+        GetBodyData(nil)
     if err != nil {
         return "", err
     }
