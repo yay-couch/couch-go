@@ -33,8 +33,7 @@ func (this *Database) Ping() bool {
 }
 
 func (this *Database) Info() (map[string]interface{}, error) {
-    data, err := this.Client.Get(this.Name, nil, nil).
-        GetBodyData(map[string]interface{}{})
+    data, err := this.Client.Get(this.Name, nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
