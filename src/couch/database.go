@@ -360,21 +360,22 @@ func (this *Database) SetSecurity(admins, members map[string]interface{}) (
 }
 
 func (this *Database) Purge(object map[string]interface{}) (map[string]interface{}, error) {
-    data, err := this.Client.Post(this.Name +"/_purge", nil, object, nil).
-        GetBodyData(map[string]interface{}{})
+    data, err := this.Client.Post(this.Name +"/_purge", nil, object, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
     var _return = util.Map()
     _return["purge_seq"] = util.DigInt("purge_seq", data)
     _return["purged"]  = util.Map()
-    for id, revs := range data.(map[string]interface{})["purged"].(map[string]interface{}) {
+    for id, revs := range data.(map[string]interface{})["purged"].
+        (map[string]interface{}) {
         _return["purged"].(map[string]interface{})[id] = revs
     }
     return _return, nil
 }
 
-func (this *Database) GetMissingRevisions(object map[string]interface{}) (map[string]interface{}, error) {
+func (this *Database) GetMissingRevisions(object map[string]interface{}) (
+        map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_missing_revs", nil, object, nil).
         GetBodyData(map[string]interface{}{})
     if err != nil {
@@ -382,13 +383,15 @@ func (this *Database) GetMissingRevisions(object map[string]interface{}) (map[st
     }
     var _return = util.Map()
     _return["missing_revs"] = util.Map()
-    for id, revs := range data.(map[string]interface{})["missing_revs"].(map[string]interface{}) {
+    for id, revs := range data.(map[string]interface{})["missing_revs"].
+        (map[string]interface{}) {
         _return["missing_revs"].(map[string]interface{})[id] = revs
     }
     return _return, nil
 }
 
-func (this *Database) GetMissingRevisionsDiff(object map[string]interface{}) (map[string]interface{}, error) {
+func (this *Database) GetMissingRevisionsDiff(object map[string]interface{}) (
+        map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_revs_diff", nil, object, nil).
         GetBodyData(map[string]interface{}{})
     if err != nil {
