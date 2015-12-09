@@ -253,8 +253,7 @@ func (this *Database) GetChanges(query map[string]interface{}, docIds []string) 
         query["filter"] = "_doc_ids"
     }
     var body = util.ParamList("doc_ids", docIds)
-    data, err := this.Client.Post(this.Name +"/_changes", query, body, nil).
-        GetBodyData(map[string]interface{}{})
+    data, err := this.Client.Post(this.Name +"/_changes", query, body, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
