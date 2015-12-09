@@ -140,15 +140,15 @@ func (this *Server) Replicate(body map[string]interface{}) (map[string]interface
     if err != nil {
         return nil, err
     }
-    var _return = make(map[string]interface{})
+    var _return = util.Map()
     for key, value := range *data.(*Data) {
         if key == "history" {
-            _return[key] = make(map[int]map[string]interface{})
+            _return[key] = util.MapListInt()
             for i, history := range value.([]interface{}) {
-                _return[key] = make([]map[string]interface{}, len(value.([]interface{})))
+                _return[key] = util.MapList(value)
                 for kkey, vvalue := range history.(map[string]interface{}) {
                     if _return[key].([]map[string]interface{})[i] == nil {
-                        _return[key].([]map[string]interface{})[i] = make(map[string]interface{})
+                        _return[key].([]map[string]interface{})[i] = util.Map()
                     }
                     _return[key].([]map[string]interface{})[i][kkey] = vvalue
                 }
