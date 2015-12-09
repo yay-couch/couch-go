@@ -391,8 +391,7 @@ func (this *Database) GetMissingRevisions(object map[string]interface{}) (
 
 func (this *Database) GetMissingRevisionsDiff(object map[string]interface{}) (
         map[string]interface{}, error) {
-    data, err := this.Client.Post(this.Name +"/_revs_diff", nil, object, nil).
-        GetBodyData(map[string]interface{}{})
+    data, err := this.Client.Post(this.Name +"/_revs_diff", nil, object, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
