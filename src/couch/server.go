@@ -116,18 +116,15 @@ func (this *Server) GetUuid() (string, error) {
 }
 
 func (this *Server) GetUuids(count int) ([]string, error) {
-    type Data map[string][]string
     data, err := this.Client.Get("/_uuids", map[string]interface{}{
         "count": count,
-    }, nil).GetBodyData(&Data{})
+    }, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
-    var _return = make([]string, count)
-    for _, uuid := range *data.(*Data) {
-        for i := 0; i < len(uuid); i++ {
-            _return[i] = uuid[i]
-        }
+    var _return = util.MapStringSlice(count)
+    for i, uuid := range data.(map[string]interface{})["uuids"].([]interface{}) {
+        _return[i] = uuid.(string)
     }
     return _return, nil
 }
