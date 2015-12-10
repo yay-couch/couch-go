@@ -143,19 +143,6 @@ func (this *Request) SetBody(body interface{}) {
                 }
                 this.Body = body
                 this.SetHeader("Content-Length", len(body))
-            // case map[string]interface{}:
-            //     if this.GetHeader("Content-Type") == "application/json" {
-            //         // @overwrite
-            //         body, err := util.UnparseBody(body)
-            //         if err != nil {
-            //             panic(err)
-            //         }
-            //         // pass empty body
-            //         if body != "{}" && body != "[]" {
-            //             this.Body = body
-            //             this.SetHeader("Content-Length", len(body))
-            //         }
-            //     }
             default:
                 var bodyType = _fmt.Sprintf("%T", body)
                 if util.StringSearch(bodyType, "^u?int(\\d+)?|float(32|64)$") {
