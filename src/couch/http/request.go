@@ -142,14 +142,12 @@ func (this *Request) SetBody(body interface{}) {
                     body = util.Quote(body)
                 }
                 this.Body = body
-                this.SetHeader("Content-Length", len(body))
             default:
                 var bodyType = _fmt.Sprintf("%T", body)
                 if util.StringSearch(bodyType, "^u?int(\\d+)?|float(32|64)$") {
                     // @overwrite
                     var body = util.String(body)
                     this.Body = body
-                    this.SetHeader("Content-Length", len(body))
                 } else {
                     if this.GetHeader("Content-Type") == "application/json" {
                         // @overwrite
@@ -158,11 +156,11 @@ func (this *Request) SetBody(body interface{}) {
                             panic(err)
                         }
                         this.Body = body
-                        this.SetHeader("Content-Length", len(body))
                     }
                     // panic("Unsupported body type '"+ bodyType +"' given!");
                 }
         }
+        this.SetHeader("Content-Length", len(this.Body.(string)))
     }
 }
 
