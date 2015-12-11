@@ -1,4 +1,4 @@
-package document
+package couch
 
 type DocumentAttachment struct {
     Document    *Document
