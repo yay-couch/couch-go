@@ -1,4 +1,4 @@
-package document
+package couch
 
 // @todo
 func NewDocumentDesign() {}
