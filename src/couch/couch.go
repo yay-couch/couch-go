@@ -13,7 +13,7 @@ const (
 func Shutup() {}
 
 func New(config interface{}, debug bool) *Couch {
-    couch := &Couch{
+    var couch = &Couch{
         Config: map[string]interface{}{
             "debug": debug,
         },
