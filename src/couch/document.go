@@ -32,3 +32,14 @@ func (this *Document) SetRev(rev string) {
 func (this *Document) SetDeleted(deleted bool) {
     this.Deleted = deleted
 }
+func (this *Document) SetData(data map[string]interface{}) {
+    if this.Data == nil {
+        this.Data = util.Map()
+    }
+    for key, value := range data {
+        if key == "_id"      { this.SetId(value) }
+        if key == "_rev"     { this.SetRev(value.(string)) }
+        if key == "_deleted" { this.SetDeleted(value.(bool)) }
+        this.Data[key] = value
+    }
+}
