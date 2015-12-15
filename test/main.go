@@ -5,6 +5,7 @@ import (
     // test_client "./client"
     // test_server "./server"
     // test_database "./database"
+    test_document "./document"
 )
 
 func main() {
@@ -19,6 +20,9 @@ func main() {
     /* database */
     // test_database.TestPing()
     // ...
+
+    /* document */
+    test_document.TestPing()
 
     /* uuid */
     // test_uuid.TestAll()
