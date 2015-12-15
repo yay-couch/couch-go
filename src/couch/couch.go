@@ -13,15 +13,15 @@ const (
 func Shutup() {}
 
 func New(config interface{}, debug bool) *Couch {
-    var couch = &Couch{
+    var this = &Couch{
         Config: map[string]interface{}{
             "debug": debug,
         },
     }
     if config, ok := config.(map[string]interface{}); ok {
-        couch.SetConfig(config)
+        this.SetConfig(config)
     }
-    return couch
+    return this
 }
 
 func (this *Couch) SetConfig(config map[string]interface{}) {
