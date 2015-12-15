@@ -140,22 +140,22 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
 }
 
 func (this *Client) Head(uri string, uriParams interface{},
-    headers interface{}) *http.Response {
+        headers interface{}) *http.Response {
     return this.DoRequest(http.METHOD_HEAD +" /"+ uri, uriParams, nil, headers)
 }
 func (this *Client) Get(uri string, uriParams interface{},
-    headers interface{}) *http.Response {
+        headers interface{}) *http.Response {
     return this.DoRequest(http.METHOD_GET +" /"+ uri, uriParams, nil, headers)
 }
 func (this *Client) Post(uri string, uriParams interface{}, body interface{},
-    headers interface{}) *http.Response {
+        headers interface{}) *http.Response {
     return this.DoRequest(http.METHOD_POST +" /"+ uri, uriParams, body, headers)
 }
 func (this *Client) Put(uri string, uriParams interface{}, body interface{},
-    headers interface{}) *http.Response {
+        headers interface{}) *http.Response {
     return this.DoRequest(http.METHOD_PUT +" /"+ uri, uriParams, body, headers)
 }
 func (this *Client) Delete(uri string, uriParams interface{},
-    headers interface{}) *http.Response {
+        headers interface{}) *http.Response {
     return this.DoRequest(http.METHOD_DELETE +" /"+ uri, uriParams, nil, headers)
 }
