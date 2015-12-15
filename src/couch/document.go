@@ -26,3 +26,6 @@ func NewDocument(database *Database, data map[string]interface{}) *Document {
 func (this *Document) SetId(id interface{}) {
     this.Id = id.(string)
 }
+func (this *Document) SetRev(rev string) {
+    this.Rev = rev
+}
