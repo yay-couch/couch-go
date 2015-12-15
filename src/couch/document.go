@@ -29,3 +29,6 @@ func (this *Document) SetId(id interface{}) {
 func (this *Document) SetRev(rev string) {
     this.Rev = rev
 }
+func (this *Document) SetDeleted(deleted bool) {
+    this.Deleted = deleted
+}
