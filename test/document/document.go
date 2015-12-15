@@ -31,4 +31,18 @@ func _document(data map[string]interface{}) *couch.Document {
  */
 func TestAll() {}
 
-
+/**
+ * TestPing
+ */
+func TestPing() {
+    var doc1 = _document(map[string]interface{}{
+        "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
+    })
+    var doc2 = _document(map[string]interface{}{
+        "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
+        "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d",
+    })
+    util.Dumpf("Document Ping >> %v ", doc1.Ping(200))
+    util.Dumps("\n---\n")
+    util.Dumpf("Document Ping >> %v ", doc2.Ping(304))
+}
