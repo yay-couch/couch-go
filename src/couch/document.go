@@ -43,3 +43,15 @@ func (this *Document) SetData(data map[string]interface{}) {
         this.Data[key] = value
     }
 }
+
+func (this *Document) Ping(statusCode uint16) bool {
+    if this.Id == "" {
+        panic("_id field is could not be empty!")
+    }
+    var headers = util.Map()
+    if (this.Rev != "") {
+        headers["If-None-Match"] = util.Quote(this.Rev);
+    }
+    return (statusCode == this.Database.Client.
+        Head(this.Database.Name +"/"+ this.Id, nil, headers).GetStatusCode())
+}
