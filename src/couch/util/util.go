@@ -211,7 +211,7 @@ func Dig(key string, object interface{}) interface{} {
     var keys = _str.Split(key, ".")
     key = _shiftSliceString(&keys)
     if len(keys) == 0 {
-        // add more if needs
+        // @todo add more if needs
         switch object.(type) {
             case map[string]int:
                 return object.(map[string]int)[key]
@@ -220,28 +220,31 @@ func Dig(key string, object interface{}) interface{} {
             case map[string]interface{}:
                 return object.(map[string]interface{})[key]
             case []string:
+                // check numeric key
                 key, err := _strc.Atoi(key)
                 if err == nil {
                     return object.([]string)[key]
                 }
             case []interface{}:
+                // check numeric key
                 key, err := _strc.Atoi(key)
                 if err == nil {
                     return object.([]interface{})[key]
                 }
             case []map[string]interface{}:
+                // check numeric key
                 key, err := _strc.Atoi(key)
                 if err == nil {
                     return object.([]map[string]interface{})[key]
                 }
             default:
-                // @tmp @debug
+                // @tmp for debugging
                 panic("Unimplemented type: "+ TypeReal(object))
         }
     } else {
         // @overwrite
         var keys = _str.Join(keys, ".")
-        // add more if needs
+        // @todo add more if needs
         switch object.(type) {
             case map[string]int:
                 return Dig(keys, object.(map[string]int)[key])
@@ -250,22 +253,25 @@ func Dig(key string, object interface{}) interface{} {
             case map[string]interface{}:
                 return Dig(keys, object.(map[string]interface{})[key])
             case []string:
+                // check numeric key
                 key, err := _strc.Atoi(key)
                 if err == nil {
                     return object.([]string)[key]
                 }
             case []interface{}:
+                // check numeric key
                 key, err := _strc.Atoi(key)
                 if err == nil {
                     return object.([]interface{})[key]
                 }
             case []map[string]interface{}:
+                // check numeric key
                 key, err := _strc.Atoi(key)
                 if err == nil {
                     return Dig(keys, object.([]map[string]interface{})[key])
                 }
             default:
-                // @tmp @debug
+                // @tmp for debugging
                 panic("Unimplemented type: "+ TypeReal(object))
         }
     }
