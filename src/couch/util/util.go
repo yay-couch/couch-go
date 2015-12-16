@@ -373,7 +373,8 @@ func _length(length interface{}) int {
             return len(length.([]string))
         case []interface{}:
             return len(length.([]interface{}))
-        // case: @todo add more cases if needs
+        // case:
+            // @todo add more cases if needs
     }
     return -1
 }
