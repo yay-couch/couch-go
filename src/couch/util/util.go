@@ -317,12 +317,6 @@ func DigMapList(key string, object interface{}) []map[string]interface{} {
     return Dig(key, object).([]map[string]interface{})
 }
 
-func _shift(slice *[]string) string {
-    var value = (*slice)[0]
-    *slice = (*slice)[1 : len(*slice)]
-    return value
-}
-
 func Join(sep string, args ...interface{}) string {
     var result []string
     for _, arg := range args {
@@ -363,22 +357,6 @@ func MapMapString() map[string]map[string]interface{} {
     return make(map[string]map[string]interface{})
 }
 
-func _length(length interface{}) int {
-    switch length.(type) {
-        case int:
-            return length.(int)
-        case []int:
-            return len(length.([]int))
-        case []string:
-            return len(length.([]string))
-        case []interface{}:
-            return len(length.([]interface{}))
-        // case:
-            // @todo add more cases if needs
-    }
-    return -1
-}
-
 func MapList(length interface{}) []map[string]interface{} {
     len := _length(length)
     if len != -1 {
@@ -413,4 +391,27 @@ func MapSliceString(length interface{}) []string {
         return make([]string, len)
     }
     return []string{}
+}
+
+// local stuff
+func _shift(slice *[]string) string {
+    var value = (*slice)[0]
+    *slice = (*slice)[1 : len(*slice)]
+    return value
+}
+
+func _length(length interface{}) int {
+    switch length.(type) {
+        case int:
+            return length.(int)
+        case []int:
+            return len(length.([]int))
+        case []string:
+            return len(length.([]string))
+        case []interface{}:
+            return len(length.([]interface{}))
+        // case:
+            // @todo add more cases if needs
+    }
+    return -1
 }
