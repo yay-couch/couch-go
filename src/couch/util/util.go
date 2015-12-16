@@ -209,7 +209,7 @@ func Dig(key string, object interface{}) interface{} {
         return nil
     }
     var keys = _str.Split(key, ".")
-    key = _shift(&keys)
+    key = _shiftString(&keys)
     if len(keys) == 0 {
         // add more if needs
         switch object.(type) {
@@ -394,7 +394,7 @@ func MapSliceString(length interface{}) []string {
 }
 
 // local stuff
-func _shift(slice *[]string) string {
+func _shiftString(slice *[]string) string {
     var value = (*slice)[0]
     *slice = (*slice)[1 : len(*slice)]
     return value
