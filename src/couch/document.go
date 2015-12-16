@@ -78,3 +78,15 @@ func (this *Document) Ping(statusCode uint16) bool {
     return (statusCode == this.Database.Client.
         Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode())
 }
+func (this *Document) IsExists() bool {
+    if this.Id == nil {
+        panic("_id field is could not be empty!")
+    }
+    var headers = util.Map()
+    if (this.Rev != "") {
+        headers["If-None-Match"] = util.Quote(this.Rev);
+    }
+    var statusCode = this.Database.Client.
+        Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode()
+    return (statusCode == 200 || statusCode == 304)
+}
