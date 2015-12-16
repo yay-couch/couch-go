@@ -7,7 +7,7 @@ import (
 
 var (
     DEBUG  = true
-    DBNAME = "foo"
+    DBNAME = "foo2"
 )
 
 var (
@@ -115,4 +115,20 @@ func TestFindRevisionsExtended() {
     util.Dumpf("Document Find Revisions Extended >> 0: %v", data[0])
     util.Dumpf("Document Find Revisions Extended >> 0.rev: %s", data[0]["rev"])
     util.Dumpf("Document Find Revisions Extended >> 0.status: %s", data[0]["status"])
+}
+
+/**
+ * TestFindAttachments
+ */
+func TestFindAttachments() {
+    var doc = _document(map[string]interface{}{
+        "_id": "attc_test",
+    })
+    data, err := doc.FindAttachments(false, nil)
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Find Attachments >> %v", data)
+    util.Dumpf("Document Find Attachments >> 0: %v", data[0])
+    util.Dumpf("Document Find Attachments >> 0.content_type: %v", data[0]["content_type"])
 }
