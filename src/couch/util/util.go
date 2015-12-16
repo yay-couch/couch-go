@@ -379,50 +379,37 @@ func _length(length interface{}) int {
 }
 
 func MapList(length interface{}) []map[string]interface{} {
-    switch length.(type) {
-        case int:
-            return make([]map[string]interface{}, length.(int))
-        case []interface{}:
-            return make([]map[string]interface{}, len(length.([]interface{})))
-        // case: @todo add more cases if needs
-        default: return []map[string]interface{}{}
+    len := _length(length)
+    if len != -1 {
+        return make([]map[string]interface{}, len)
     }
+    return []map[string]interface{}{}
 }
 func MapListInt(length interface{}) []map[int]string {
-    switch length.(type) {
-        case int:
-            return make([]map[int]string, length.(int))
-        case []interface{}:
-            return make([]map[int]string, len(length.([]interface{})))
-        // case: @todo add more cases if needs
-        default: return []map[int]string{}
+    len := _length(length)
+    if len != -1 {
+        return make([]map[int]string, len)
     }
+    return []map[int]string{}
 }
 func MapListString(length interface{}) []map[string]string {
-    length = _length(length)
-    Dump(length)
-    if length != -1 {
-        return make([]map[string]string, length.(int))
+    len := _length(length)
+    if len != -1 {
+        return make([]map[string]string, len)
     }
     return []map[string]string{}
 }
 func MapSliceInt(length interface{}) []int {
-    switch length.(type) {
-        case int:
-            return make([]int, length.(int))
-        case []interface{}:
-            return make([]int, len(length.([]interface{})))
-        // case: @todo add more cases if needs
-        default: return []int{}
+    len := _length(length)
+    if len != -1 {
+        return make([]int, len)
     }
+    return []int{}
 }
 func MapSliceString(length interface{}) []string {
-    switch length.(type) {
-        case int:
-            return make([]string, length.(int))
-        case []interface{}:
-            return make([]string, len(length.([]interface{})))
-        // case: @todo add more cases if needs
-        default: return []string{}
+    len := _length(length)
+    if len != -1 {
+        return make([]string, len)
     }
+    return []string{}
 }
