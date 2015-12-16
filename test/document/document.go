@@ -42,9 +42,9 @@ func TestPing() {
         "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
         "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d",
     })
-    util.Dumpf("Document Ping >> %v ", doc1.Ping(200))
+    util.Dumpf("Document Ping >> %v", doc1.Ping(200))
     util.Dumps("\n---\n")
-    util.Dumpf("Document Ping >> %v ", doc2.Ping(304))
+    util.Dumpf("Document Ping >> %v", doc2.Ping(304))
 }
 
 /**
@@ -54,7 +54,7 @@ func TestIsExists() {
     var doc = _document(map[string]interface{}{
         "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
     })
-    util.Dumpf("Document Is Exists >> %v ", doc.IsExists())
+    util.Dumpf("Document Is Exists >> %v", doc.IsExists())
 }
 
 /**
@@ -65,5 +65,20 @@ func TestIsNotModified() {
         "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
         "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d",
     })
-    util.Dumpf("Document Is Not Modified >> %v ", doc.IsNotModified())
+    util.Dumpf("Document Is Not Modified >> %v", doc.IsNotModified())
+}
+
+/**
+ * TestFind
+ */
+func TestFind() {
+    var doc = _document(map[string]interface{}{
+        "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
+    })
+    data, err := doc.Find(nil)
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Find >> %v", data)
+    util.Dumpf("Document Find >> _id: %s", data["_id"])
 }
