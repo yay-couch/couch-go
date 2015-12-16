@@ -356,6 +356,9 @@ func MapInt() map[int]string {
 func MapString() map[string]string {
     return make(map[string]string)
 }
+func MapStringArray() []map[string]string {
+    return make([]map[string]string)
+}
 func MapList(length interface{}) []map[string]interface{} {
     switch length.(type) {
         case int:
