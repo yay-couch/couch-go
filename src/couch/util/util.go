@@ -353,6 +353,9 @@ func Map() map[string]interface{} {
 func MapInt() map[int]string {
     return make(map[int]string)
 }
+func MapIntArray() []map[int]string {
+    return make([]map[int]string)
+}
 func MapString() map[string]string {
     return make(map[string]string)
 }
