@@ -27,7 +27,8 @@ func main() {
     // test_document.TestIsNotModified()
     // test_document.TestFind()
     // test_document.TestFindRevisions()
-    test_document.TestFindRevisionsExtended()
+    // test_document.TestFindRevisionsExtended()
+    test_document.TestFindAttachments()
 
     /* uuid */
     // test_uuid.TestAll()
