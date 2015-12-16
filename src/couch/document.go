@@ -138,10 +138,10 @@ func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
     if err != nil {
         return nil, err
     }
-    var _return = util.MapStringArray(nil)
+    var _return = util.MapListString(nil)
     if data["_revs_info"] != nil {
         // @overwrite
-        _return = util.MapStringArray(data["_revs_info"])
+        _return = util.MapListString(data["_revs_info"])
         for i, info := range data["_revs_info"].([]interface{}) {
             _return[i] = map[string]string{
                 "rev": util.DigString("rev", info),
