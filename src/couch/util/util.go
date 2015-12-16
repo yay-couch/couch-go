@@ -302,7 +302,7 @@ func DigFloat(key string, object interface{}) float64 {
                 return float64(value)
         }
     }
-    return 0.0
+    return 0.00
 }
 func DigString(key string, object interface{}) string {
     if value := Dig(key, object); value != nil {
