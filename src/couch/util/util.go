@@ -353,6 +353,9 @@ func Map() map[string]interface{} {
 func MapInt() map[int]string {
     return make(map[int]string)
 }
+func MapString() map[string]string {
+    return make(map[string]string)
+}
 func MapIntArray(length interface{}) []map[int]string {
     switch length.(type) {
         case int:
@@ -365,9 +368,6 @@ func MapIntArray(length interface{}) []map[int]string {
             return []map[int]string{}
     }
     return nil
-}
-func MapString() map[string]string {
-    return make(map[string]string)
 }
 func MapStringArray(length interface{}) []map[string]string {
     switch length.(type) {
