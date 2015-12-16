@@ -22,7 +22,8 @@ func main() {
     // ...
 
     /* document */
-    test_document.TestPing()
+    // test_document.TestPing()
+    test_document.TestIsExists()
 
     /* uuid */
     // test_uuid.TestAll()
