@@ -362,6 +362,17 @@ func MapMapInt() map[int]map[string]interface{} {
 func MapMapString() map[string]map[string]interface{} {
     return make(map[string]map[string]interface{})
 }
+func MapList(length interface{}) []map[string]interface{} {
+    switch length.(type) {
+        case int:
+            return make([]map[string]interface{}, length.(int))
+        case []interface{}:
+            return make([]map[string]interface{}, len(length.([]interface{})))
+        // @todo add more types if needs
+        // case ...:
+    }
+    return nil
+}
 func MapListInt(length interface{}) []map[int]string {
     switch length.(type) {
         case int:
@@ -385,17 +396,6 @@ func MapListString(length interface{}) []map[string]string {
         // case ...:
         default:
             return []map[string]string{}
-    }
-    return nil
-}
-func MapList(length interface{}) []map[string]interface{} {
-    switch length.(type) {
-        case int:
-            return make([]map[string]interface{}, length.(int))
-        case []interface{}:
-            return make([]map[string]interface{}, len(length.([]interface{})))
-        // @todo add more types if needs
-        // case ...:
     }
     return nil
 }
