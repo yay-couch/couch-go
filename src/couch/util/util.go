@@ -370,8 +370,7 @@ func MapList(length interface{}) []map[string]interface{} {
             return make([]map[string]interface{}, len(length.([]interface{})))
         // @todo add more types if needs
         // case ...:
-        default:
-            return []map[string]interface{}{}
+        default: return []map[string]interface{}{}
     }
 }
 func MapListInt(length interface{}) []map[int]string {
@@ -382,8 +381,7 @@ func MapListInt(length interface{}) []map[int]string {
             return make([]map[int]string, len(length.([]interface{})))
         // @todo add more types if needs
         // case ...:
-        default:
-            return []map[int]string{}
+        default: return []map[int]string{}
     }
     return nil
 }
@@ -395,8 +393,7 @@ func MapListString(length interface{}) []map[string]string {
             return make([]map[string]string, len(length.([]interface{})))
         // @todo add more types if needs
         // case ...:
-        default:
-            return []map[string]string{}
+        default: return []map[string]string{}
     }
     return nil
 }
@@ -408,8 +405,7 @@ func MapSliceInt(length interface{}) []int {
             return make([]int, len(length.([]interface{})))
         // @todo add more types if needs
         // case ...:
-        default:
-            return []int{}
+        default: return []int{}
     }
 }
 func MapSliceString(length interface{}) []string {
@@ -420,7 +416,6 @@ func MapSliceString(length interface{}) []string {
             return make([]string, len(length.([]interface{})))
         // @todo add more types if needs
         // case ...:
-        default:
-            return []string{}
+        default: return []string{}
     }
 }
