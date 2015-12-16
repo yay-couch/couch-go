@@ -381,7 +381,6 @@ func MapListInt(length interface{}) []map[int]string {
         // case: @todo add more cases if needs
         default: return []map[int]string{}
     }
-    return nil
 }
 func MapListString(length interface{}) []map[string]string {
     switch length.(type) {
@@ -392,7 +391,6 @@ func MapListString(length interface{}) []map[string]string {
         // case: @todo add more cases if needs
         default: return []map[string]string{}
     }
-    return nil
 }
 func MapSliceInt(length interface{}) []int {
     switch length.(type) {
