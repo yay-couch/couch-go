@@ -125,7 +125,7 @@ func (this *Document) FindRevisions() (map[string]interface{}, error) {
     }
     var _return = util.Map()
     if data["_revisions"] != nil {
-        _return["ids"] = util.MapSliceString(nil)
+        _return["ids"] = util.MapSliceString(0)
         for _, id := range data["_revisions"].(map[string]interface{})["ids"].([]interface{}) {
             _return["ids"] = append(_return["ids"].([]string), id.(string))
         }
@@ -138,7 +138,7 @@ func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
     if err != nil {
         return nil, err
     }
-    var _return = util.MapListString(nil)
+    var _return = util.MapListString(0)
     if data["_revs_info"] != nil {
         // @overwrite
         _return = util.MapListString(data["_revs_info"])
