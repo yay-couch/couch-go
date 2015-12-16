@@ -66,7 +66,7 @@ func (this *Server) GetAllDatabases() ([]string, error) {
     if err != nil {
         return nil, err
     }
-    var _return = util.MapStringSlice(data)
+    var _return = util.MapSliceString(data)
     for i, db := range data.([]interface{}) {
         _return[i] = db.(string)
     }
@@ -123,7 +123,7 @@ func (this *Server) GetUuids(count int) ([]string, error) {
     if err != nil {
         return nil, err
     }
-    var _return = util.MapStringSlice(count)
+    var _return = util.MapSliceString(count)
     for i, uuid := range data.(map[string]interface{})["uuids"].([]interface{}) {
         _return[i] = uuid.(string)
     }

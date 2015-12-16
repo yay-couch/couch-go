@@ -399,7 +399,7 @@ func MapMapInt() map[int]map[string]interface{} {
 func MapMapString() map[string]map[string]interface{} {
     return make(map[string]map[string]interface{})
 }
-func MapIntSlice(length interface{}) []int {
+func MapSliceInt(length interface{}) []int {
     switch length.(type) {
         case int:
             return make([]int, length.(int))
@@ -411,7 +411,7 @@ func MapIntSlice(length interface{}) []int {
             return []int{}
     }
 }
-func MapStringSlice(length interface{}) []string {
+func MapSliceString(length interface{}) []string {
     switch length.(type) {
         case int:
             return make([]string, length.(int))

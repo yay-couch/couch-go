@@ -125,7 +125,7 @@ func (this *Document) FindRevisions() (map[string]interface{}, error) {
     }
     var _return = util.Map()
     if data["_revisions"] != nil {
-        _return["ids"] = util.MapStringSlice(nil)
+        _return["ids"] = util.MapSliceString(nil)
         for _, id := range data["_revisions"].(map[string]interface{})["ids"].([]interface{}) {
             _return["ids"] = append(_return["ids"].([]string), id.(string))
         }
