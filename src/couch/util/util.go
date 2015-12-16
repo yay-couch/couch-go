@@ -393,10 +393,10 @@ func MapList(length interface{}) []map[string]interface{} {
     }
     return nil
 }
-func MapListInt() map[int]map[string]interface{} {
+func MapMapInt() map[int]map[string]interface{} {
     return make(map[int]map[string]interface{})
 }
-func MapListString() map[string]map[string]interface{} {
+func MapMapString() map[string]map[string]interface{} {
     return make(map[string]map[string]interface{})
 }
 func MapIntSlice(length interface{}) []int {
