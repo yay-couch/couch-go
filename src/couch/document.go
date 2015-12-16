@@ -2,10 +2,11 @@ package couch
 
 import (
     "./util"
+    "./uuid"
 )
 
 type Document struct {
-    Id          string
+    Id          *uuid.Uuid
     Rev         string
     Deleted     bool
     Attachments []DocumentAttachment
@@ -24,7 +25,10 @@ func NewDocument(database *Database, data map[string]interface{}) *Document {
 }
 
 func (this *Document) SetId(id interface{}) {
-    this.Id = id.(string)
+    if _, ok := id.(*uuid.Uuid); !ok {
+        id = uuid.New(id)
+    }
+    this.Id = id.(*uuid.Uuid)
 }
 func (this *Document) SetRev(rev string) {
     this.Rev = rev
@@ -48,7 +52,7 @@ func (this *Document) SetData(data map[string]interface{}) {
 }
 
 func (this *Document) GetId() string {
-    return this.Id
+    return this.Id.ToString()
 }
 func (this *Document) GetRev() string {
     return this.Rev
@@ -64,7 +68,7 @@ func (this *Document) GetData(key interface{}) interface{} {
 }
 
 func (this *Document) Ping(statusCode uint16) bool {
-    if this.Id == "" {
+    if this.Id == nil {
         panic("_id field is could not be empty!")
     }
     var headers = util.Map()
@@ -72,5 +76,5 @@ func (this *Document) Ping(statusCode uint16) bool {
         headers["If-None-Match"] = util.Quote(this.Rev);
     }
     return (statusCode == this.Database.Client.
-        Head(this.Database.Name +"/"+ this.Id, nil, headers).GetStatusCode())
+        Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode())
 }
