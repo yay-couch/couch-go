@@ -99,3 +99,20 @@ func TestFindRevisions() {
     util.Dumpf("Document Find Revisions >> ids: %v", data["ids"])
     util.Dumpf("Document Find Revisions >> ids.0: %v", util.Dig("ids.0", data))
 }
+
+/**
+ * TestFindRevisionsExtended
+ */
+func TestFindRevisionsExtended() {
+    var doc = _document(map[string]interface{}{
+        "_id": "83b5e0a0b3bd41d9a21cee7ae8000615",
+    })
+    data, err := doc.FindRevisionsExtended()
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Find Revisions Extended >> %v", data)
+    util.Dumpf("Document Find Revisions Extended >> 0: %v", data[0])
+    util.Dumpf("Document Find Revisions Extended >> 0.rev: %s", data[0]["rev"])
+    util.Dumpf("Document Find Revisions Extended >> 0.status: %s", data[0]["status"])
+}
