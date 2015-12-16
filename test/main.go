@@ -26,7 +26,8 @@ func main() {
     // test_document.TestIsExists()
     // test_document.TestIsNotModified()
     // test_document.TestFind()
-    test_document.TestFindRevisions()
+    // test_document.TestFindRevisions()
+    test_document.TestFindRevisionsExtended()
 
     /* uuid */
     // test_uuid.TestAll()
