@@ -107,14 +107,29 @@ func (this *Document) Find(query map[string]interface{}) (map[string]interface{}
     if query["rev"] == "" && this.Rev != "" {
         query["rev"] = this.Rev
     }
-    data, err := this.Database.Client.Get(this.Database.Name +"/"+ this.Id.ToString(), nil, nil).
-        GetBodyData(nil)
+    data, err := this.Database.Client.Get(
+        this.Database.Name +"/"+ this.Id.ToString(), query, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
     var _return = util.Map()
     for key, value := range data.(map[string]interface{}) {
         _return[key] = value
+    }
+    return _return, nil
+}
+func (this *Document) FindRevisions() (map[string]interface{}, error) {
+    data, err := this.Find(util.ParamList("revs", true))
+    if err != nil {
+        return nil, err
+    }
+    var _return = util.Map()
+    if data["_revisions"] != nil {
+        _return["ids"] = util.MapStringSlice(nil)
+        for _, id := range data["_revisions"].(map[string]interface{})["ids"].([]interface{}) {
+            _return["ids"] = append(_return["ids"].([]string), id.(string))
+        }
+        _return["start"] = uint(data["_revisions"].(map[string]interface{})["start"].(float64))
     }
     return _return, nil
 }
