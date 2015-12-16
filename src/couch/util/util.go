@@ -220,7 +220,10 @@ func Dig(key string, object interface{}) interface{} {
             case map[string]interface{}:
                 return object.(map[string]interface{})[key]
             case []string:
-                return object.([]string)[Int(key)]
+                key, err := _strc.Atoi(key)
+                if err == nil {
+                    return object.([]string)[key]
+                }
             case []interface{}:
                 key, err := _strc.Atoi(key)
                 if err == nil {
@@ -247,7 +250,10 @@ func Dig(key string, object interface{}) interface{} {
             case map[string]interface{}:
                 return Dig(keys, object.(map[string]interface{})[key])
             case []string:
-                return object.([]string)[Int(key)]
+                key, err := _strc.Atoi(key)
+                if err == nil {
+                    return object.([]string)[key]
+                }
             case []interface{}:
                 key, err := _strc.Atoi(key)
                 if err == nil {
