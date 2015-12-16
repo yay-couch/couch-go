@@ -151,3 +151,26 @@ func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
     }
     return _return, nil
 }
+
+func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]map[string]interface{}, error) {
+    var query = util.Param(nil)
+    query["attachments"] = true
+    query["att_encoding_info"] = attEncInfo
+    if attsSince != nil {
+        var attsSinceArray = util.MapSliceString(attsSince)
+        for _, attsSinceValue := range attsSince {
+            attsSinceArray = append(attsSinceArray, util.QuoteEncode(attsSinceValue))
+        }
+    }
+    data, err := this.Find(query)
+    if err != nil {
+        return nil, err
+    }
+    var _return = util.MapList(nil)
+    if data["_attachments"] != nil {
+        for _, attc := range data["_attachments"].(map[string]interface{}) {
+            _return = append(_return, attc.(map[string]interface{}))
+        }
+    }
+    return _return, nil
+}
