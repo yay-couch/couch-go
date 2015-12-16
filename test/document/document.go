@@ -54,8 +54,9 @@ func TestIsExists() {
     var doc = _document(map[string]interface{}{
         "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
     })
-    util.Dumpf("Document Ping >> %v ", doc.IsExists())
+    util.Dumpf("Document Is Exists >> %v ", doc.IsExists())
 }
+
 /**
  * TestIsNotModified
  */
@@ -64,5 +65,5 @@ func TestIsNotModified() {
         "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
         "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d",
     })
-    util.Dumpf("Document Ping >> %v ", doc.IsNotModified())
+    util.Dumpf("Document Is Not Modified >> %v ", doc.IsNotModified())
 }
