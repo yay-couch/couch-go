@@ -133,3 +133,21 @@ func (this *Document) FindRevisions() (map[string]interface{}, error) {
     }
     return _return, nil
 }
+func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
+    data, err := this.Find(util.ParamList("revs_info", true))
+    if err != nil {
+        return nil, err
+    }
+    var _return = util.MapStringArray(nil)
+    if data["_revs_info"] != nil {
+        // @overwrite
+        _return = util.MapStringArray(data["_revs_info"])
+        for i, info := range data["_revs_info"].([]interface{}) {
+            _return[i] = map[string]string{
+                "rev": util.DigString("rev", info),
+                "status": util.DigString("status", info),
+            }
+        }
+    }
+    return _return, nil
+}
