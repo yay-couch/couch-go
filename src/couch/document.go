@@ -90,3 +90,12 @@ func (this *Document) IsExists() bool {
         Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode()
     return (statusCode == 200 || statusCode == 304)
 }
+func (this *Document) IsNotModified() bool {
+    if this.Id == nil || this.Rev == "" {
+        panic("_id & _rev fields are could not be empty!")
+    }
+    var headers = util.Map()
+    headers["If-None-Match"] = util.Quote(this.Rev);
+    return (304 == this.Database.Client.
+        Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode())
+}
