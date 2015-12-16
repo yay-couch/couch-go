@@ -99,3 +99,22 @@ func (this *Document) IsNotModified() bool {
     return (304 == this.Database.Client.
         Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode())
 }
+func (this *Document) Find(query map[string]interface{}) (map[string]interface{}, error) {
+    if this.Id == nil {
+        panic("_id field is could not be empty!")
+    }
+    query = util.Param(query)
+    if query["rev"] == "" && this.Rev != "" {
+        query["rev"] = this.Rev
+    }
+    data, err := this.Database.Client.Get(this.Database.Name +"/"+ this.Id.ToString(), nil, nil).
+        GetBodyData(nil)
+    if err != nil {
+        return nil, err
+    }
+    var _return = util.Map()
+    for key, value := range data.(map[string]interface{}) {
+        _return[key] = value
+    }
+    return _return, nil
+}
