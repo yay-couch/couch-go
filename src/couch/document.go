@@ -44,6 +44,22 @@ func (this *Document) SetData(data map[string]interface{}) {
     }
 }
 
+func (this *Document) GetId() string {
+    return this.Id
+}
+func (this *Document) GetRev() string {
+    return this.Rev
+}
+func (this *Document) GetDeleted() bool {
+    return this.Deleted
+}
+func (this *Document) GetData(key interface{}) interface{} {
+    if key != nil {
+        return util.Dig(key.(string), this.Data)
+    }
+    return this.Data
+}
+
 func (this *Document) Ping(statusCode uint16) bool {
     if this.Id == "" {
         panic("_id field is could not be empty!")
