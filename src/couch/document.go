@@ -40,6 +40,9 @@ func (this *Document) SetData(data map[string]interface{}) {
         if key == "_id"      { this.SetId(value) }
         if key == "_rev"     { this.SetRev(value.(string)) }
         if key == "_deleted" { this.SetDeleted(value.(bool)) }
+        if key == "_attachments" {
+            // @todo
+        }
         this.Data[key] = value
     }
 }
