@@ -370,8 +370,9 @@ func MapList(length interface{}) []map[string]interface{} {
             return make([]map[string]interface{}, len(length.([]interface{})))
         // @todo add more types if needs
         // case ...:
+        default:
+            return []map[string]interface{}{}
     }
-    return nil
 }
 func MapListInt(length interface{}) []map[int]string {
     switch length.(type) {
