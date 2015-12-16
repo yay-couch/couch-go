@@ -394,6 +394,11 @@ func MapSliceString(length interface{}) []string {
 }
 
 // local stuff
+func _shiftInt(slice *[]int) int {
+    var value = (*slice)[0]
+    *slice = (*slice)[1 : len(*slice)]
+    return value
+}
 func _shiftString(slice *[]string) string {
     var value = (*slice)[0]
     *slice = (*slice)[1 : len(*slice)]
