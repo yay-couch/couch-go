@@ -5,7 +5,8 @@ import (
     // test_client "./client"
     // test_server "./server"
     // test_database "./database"
-    test_document "./document"
+    // test_document "./document"
+    test_document_attachment "./document_attachment"
 )
 
 func main() {
@@ -28,7 +29,10 @@ func main() {
     // test_document.TestFind()
     // test_document.TestFindRevisions()
     // test_document.TestFindRevisionsExtended()
-    test_document.TestFindAttachments()
+    // test_document.TestFindAttachments()
+
+    /* document attachment */
+    test_document_attachment.TestPing()
 
     /* uuid */
     // test_uuid.TestAll()
