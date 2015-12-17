@@ -149,7 +149,8 @@ func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
     return _return, nil
 }
 
-func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]map[string]interface{}, error) {
+func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) (
+        []map[string]interface{}, error) {
     var query = util.Param(nil)
     query["attachments"] = true
     query["att_encoding_info"] = attEncInfo
