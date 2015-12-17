@@ -24,6 +24,10 @@ func NewDocument(database *Database, data map[string]interface{}) *Document {
     return this
 }
 
+func (this *Document) SetDatabase(database *Database) {
+    this.Database = database
+}
+
 func (this *Document) SetId(id interface{}) {
     if _, ok := id.(*uuid.Uuid); !ok {
         id = uuid.New(id)
