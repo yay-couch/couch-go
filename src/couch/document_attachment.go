@@ -15,9 +15,8 @@ type DocumentAttachment struct {
 }
 
 func NewDocumentAttachment(document *Document, file, fileName string) *DocumentAttachment {
-    var this = &DocumentAttachment{}
-    if document != nil {
-        this.Document = document
+    var this = &DocumentAttachment{
+        Document: document,
     }
     if file != "" {
         this.File = file
