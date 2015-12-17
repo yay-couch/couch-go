@@ -52,7 +52,10 @@ func (this *Document) SetData(data map[string]interface{}) {
 }
 
 func (this *Document) GetId() string {
-    return this.Id.ToString()
+    if this.Id != nil {
+        return this.Id.ToString()
+    }
+    return ""
 }
 func (this *Document) GetRev() string {
     return this.Rev
