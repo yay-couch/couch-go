@@ -27,6 +27,9 @@ func NewDocument(database *Database, data map[string]interface{}) *Document {
 func (this *Document) SetDatabase(database *Database) {
     this.Database = database
 }
+func (this *Document) GetDatabase() database *Database {
+    return this.Database
+}
 
 func (this *Document) SetId(id interface{}) {
     if _, ok := id.(*uuid.Uuid); !ok {
