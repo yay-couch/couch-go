@@ -31,6 +31,9 @@ func NewDocumentAttachment(document *Document, file, fileName string) *DocumentA
 func (this *DocumentAttachment) SetDocument(document *Document) {
     this.Document = document
 }
+func (this *DocumentAttachment) GetDocument() *Document {
+    return this.Document
+}
 func (this *DocumentAttachment) ToArray(encode bool) *DocumentAttachment {
     return this
 }
