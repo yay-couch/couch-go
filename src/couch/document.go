@@ -27,7 +27,7 @@ func NewDocument(database *Database, data map[string]interface{}) *Document {
 func (this *Document) SetDatabase(database *Database) {
     this.Database = database
 }
-func (this *Document) GetDatabase() database *Database {
+func (this *Document) GetDatabase() *Database {
     return this.Database
 }
 
