@@ -203,7 +203,30 @@ func UnparseBody(in interface{}) (string, error) {
     return string(out), nil
 }
 
-// diggers
+func Join(sep string, args ...interface{}) string {
+    var result []string
+    for _, arg := range args {
+        switch arg.(type) {
+            case nil:
+                // pass
+            case string:
+                result = append(result, arg.(string))
+            default:
+                panic("Only string args accepted!")
+        }
+    }
+    return _str.Join(result, sep)
+}
+
+func StringSearch(input, search string) bool {
+    re, _ := _rex.Compile(search)
+    if re == nil {
+        return false
+    }
+    return "" != re.FindString(input)
+}
+
+// dig stuff
 func Dig(key string, object interface{}) interface{} {
     if object == nil {
         return nil
@@ -337,30 +360,7 @@ func DigSliceString(key string, object interface{}) []string {
     return slice
 }
 
-func Join(sep string, args ...interface{}) string {
-    var result []string
-    for _, arg := range args {
-        switch arg.(type) {
-            case nil:
-                // pass
-            case string:
-                result = append(result, arg.(string))
-            default:
-                panic("Only string args accepted!")
-        }
-    }
-    return _str.Join(result, sep)
-}
-
-func StringSearch(input, search string) bool {
-    re, _ := _rex.Compile(search)
-    if re == nil {
-        return false
-    }
-    return "" != re.FindString(input)
-}
-
-// shortcut maps
+// map stuff
 func Map() map[string]interface{} {
     return make(map[string]interface{})
 }
