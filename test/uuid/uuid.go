@@ -1,4 +1,4 @@
-package uuid
+package test
 
 import (
     "./../../src/couch/util"
