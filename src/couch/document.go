@@ -125,11 +125,8 @@ func (this *Document) FindRevisions() (map[string]interface{}, error) {
     }
     var _return = util.Map()
     if data["_revisions"] != nil {
-        _return["ids"] = util.MapSliceString(nil)
-        for _, id := range data["_revisions"].(map[string]interface{})["ids"].([]interface{}) {
-            _return["ids"] = append(_return["ids"].([]string), id.(string))
-        }
-        _return["start"] = uint(data["_revisions"].(map[string]interface{})["start"].(float64))
+        _return["start"] = util.DigInt("_revisions.start", data)
+        _return["ids"]   = util.DigSliceString("_revisions.ids", data)
     }
     return _return, nil
 }
