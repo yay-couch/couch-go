@@ -1,7 +1,7 @@
 package couch
 
 import (
-    _path "path"
+    "./util"
 )
 
 type DocumentAttachment struct {
@@ -23,7 +23,7 @@ func NewDocumentAttachment(document *Document, file, fileName string) *DocumentA
         if fileName != "" {
             this.FileName = fileName
         } else {
-            this.FileName = _path.Base(file)
+            this.FileName = util.Basename(file)
         }
     }
     return this
