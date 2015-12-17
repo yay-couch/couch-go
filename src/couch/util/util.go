@@ -219,6 +219,10 @@ func Join(sep string, args ...interface{}) string {
     return _str.Join(result, sep)
 }
 
+func StringFormat(format string, args ...interface{}) string {
+    return _fmt.Sprintf(format, args...)
+}
+
 func StringSearch(input, search string) bool {
     re, _ := _rex.Compile(search)
     if re == nil {
