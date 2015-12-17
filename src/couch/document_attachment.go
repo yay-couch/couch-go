@@ -32,3 +32,6 @@ func NewDocumentAttachment(document *Document, file, fileName string) *DocumentA
 func (this *DocumentAttachment) ToArray(encode bool) *DocumentAttachment {
     return this
 }
+func (this *DocumentAttachment) ToJson() *DocumentAttachment {
+    return this
+}
