@@ -204,21 +204,6 @@ func UnparseBody(in interface{}) (string, error) {
     return string(out), nil
 }
 
-func Join(sep string, args ...interface{}) string {
-    var result []string
-    for _, arg := range args {
-        switch arg.(type) {
-            case nil:
-                // pass
-            case string:
-                result = append(result, arg.(string))
-            default:
-                panic("Only string args accepted!")
-        }
-    }
-    return _str.Join(result, sep)
-}
-
 func StringFormat(format string, args ...interface{}) string {
     return _fmt.Sprintf(format, args...)
 }
@@ -229,10 +214,6 @@ func StringSearch(input, search string) bool {
         return false
     }
     return "" != re.FindString(input)
-}
-
-func Basename(path string) string {
-    return _path.Base(path)
 }
 
 // dig stuff
@@ -437,6 +418,25 @@ func _length(length interface{}) int {
             // @todo add more cases if needs
     }
     return -1
+}
+
+func Join(sep string, args ...interface{}) string {
+    var result []string
+    for _, arg := range args {
+        switch arg.(type) {
+            case nil:
+                // pass
+            case string:
+                result = append(result, arg.(string))
+            default:
+                panic("Only string args accepted!")
+        }
+    }
+    return _str.Join(result, sep)
+}
+
+func Basename(path string) string {
+    return _path.Base(path)
 }
 
 func _shiftSliceInt(slice *[]int) int {
