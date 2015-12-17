@@ -322,6 +322,13 @@ func DigMap(key string, object interface{}) map[string]interface{} {
 func DigMapList(key string, object interface{}) []map[string]interface{} {
     return Dig(key, object).([]map[string]interface{})
 }
+func DigSliceInt(key string, object interface{}) []int {
+    var slice = MapSliceInt(nil)
+    for _, value := range Dig(key, object).([]interface{}) {
+        slice = append(slice, value.(int))
+    }
+    return slice
+}
 func DigSliceString(key string, object interface{}) []string {
     var slice = MapSliceString(nil)
     for _, value := range Dig(key, object).([]interface{}) {
