@@ -6,6 +6,7 @@ import (
     _strc "strconv"
     _json "encoding/json"
     _rex "regexp"
+    _path "path"
 )
 
 func Shutup() {}
@@ -224,6 +225,10 @@ func StringSearch(input, search string) bool {
         return false
     }
     return "" != re.FindString(input)
+}
+
+func Basename(path string) string {
+    return _path.Base(path)
 }
 
 // dig stuff
