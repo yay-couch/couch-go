@@ -9,7 +9,7 @@ type DocumentAttachment struct {
     File        string
     FileName    string
     Data        string
-    DataLength  uint
+    DataLength  int64
     ContentType string
     Digest      string
 }
@@ -112,4 +112,24 @@ func (this *DocumentAttachment) Find() map[string]interface{} {
         _return["digest"] = "md5-"+ util.Trim(md5.(string), "\"")
     }
     return _return
+}
+
+func (this *DocumentAttachment) ReadFile(encode bool) {
+    if this.File == "" {
+        panic("Attachment file is empty!")
+    }
+    info, err := util.FileInfo(this.File)
+    if err != nil {
+        panic(err)
+    }
+    this.ContentType = util.String(info["mime"])
+    data, err := util.FileGetContents(this.File, info["size"])
+    if err != nil {
+        panic(err)
+    }
+    this.Data = data
+    if encode {
+        this.Data = util.Base64Encode(data)
+    }
+    this.DataLength = info["size"].(int64)
 }
