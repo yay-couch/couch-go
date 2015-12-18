@@ -34,11 +34,7 @@ func String(input interface{}) string {
     }
 }
 func Int(input interface{}) int {
-    result, err := _strc.Atoi(input.(string))
-    if err != nil {
-        return int(result)
-    }
-    return 0
+    return Number(input, "int").(int)
 }
 func Number(input interface{}, inputType string) interface{} {
     number, err := _strc.Atoi(input.(string))
