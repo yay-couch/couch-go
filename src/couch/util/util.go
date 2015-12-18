@@ -50,6 +50,9 @@ func Number(input interface{}, inputType string) interface{} {
                 case "uint16": return uint16(number)
                 case "uint32": return uint32(number)
                 case "uint64": return uint64(number)
+                // float
+                case "float32": return float32(number)
+                case "float64": return float64(number)
             }
         }
     }
