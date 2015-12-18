@@ -10,6 +10,7 @@ import (
     _rex "regexp"
     _pathf "path/filepath"
     _url "net/url"
+    _b64 "encoding/base64"
 )
 
 func Shutup() {}
@@ -242,6 +243,7 @@ func StringSearch(input, search string) bool {
 func Trim(input, chars string) string {
     return _str.Trim(input, chars)
 }
+
 func Dirname(path string) string {
     dirname, err := _pathf.Abs(path)
     if err != nil {
@@ -308,6 +310,10 @@ func FileGetContents(file string, byteSize interface{}) (string, error) {
         return "", _fmt.Errorf("FILE error! %s", err)
     }
     return string(data), nil
+}
+
+func Base64Encode(data string) string {
+    return _b64.StdEncoding.EncodeToString([]byte(data))
 }
 
 // dig stuff
