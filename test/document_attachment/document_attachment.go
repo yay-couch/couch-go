@@ -53,3 +53,10 @@ func TestFind() {
     util.Dumpf("Document Find >> content_length: %d", docAttc["content_length"])
     util.Dumpf("Document Find >> digest: %s", docAttc["digest"])
 }
+
+/**
+ * TestReadFile
+ */
+func TestReadFile() {
+    _documentAttachment("./attc.txt", "").ReadFile(true)
+}
