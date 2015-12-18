@@ -7,6 +7,7 @@ import (
     _json "encoding/json"
     _rex "regexp"
     _path "path"
+    _url "net/url"
 )
 
 func Shutup() {}
@@ -202,6 +203,10 @@ func UnparseBody(in interface{}) (string, error) {
         return "", _fmt.Errorf("JSON error: %s!", err)
     }
     return string(out), nil
+}
+
+func UrlEncode(input string) string {
+    return _url.QueryEscape(input)
 }
 
 func StringFormat(format string, args ...interface{}) string {
