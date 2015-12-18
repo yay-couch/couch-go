@@ -19,20 +19,6 @@ func TypeReal(args ...interface{}) string {
     return _fmt.Sprintf("%T", args[0])
 }
 
-func String(input interface{}) string {
-    switch input.(type) {
-        case int,
-             bool,
-             string:
-            return _fmt.Sprintf("%v", input)
-        default:
-            var inputType = _fmt.Sprintf("%T", input)
-            if StringSearch(inputType, "u?int(\\d+)?|float(32|64)") {
-                return _fmt.Sprintf("%v", input)
-            }
-            panic("Unsupported input type '"+ inputType +"' given!");
-    }
-}
 func Int(input interface{}) int {
     return Number(input, "int").(int)
 }
@@ -215,10 +201,23 @@ func UrlDecode(input string) string {
     return input
 }
 
+func String(input interface{}) string {
+    switch input.(type) {
+        case int,
+             bool,
+             string:
+            return _fmt.Sprintf("%v", input)
+        default:
+            var inputType = _fmt.Sprintf("%T", input)
+            if StringSearch(inputType, "u?int(\\d+)?|float(32|64)") {
+                return _fmt.Sprintf("%v", input)
+            }
+            panic("Unsupported input type '"+ inputType +"' given!");
+    }
+}
 func StringFormat(format string, args ...interface{}) string {
     return _fmt.Sprintf(format, args...)
 }
-
 func StringSearch(input, search string) bool {
     re, _ := _rex.Compile(search)
     if re == nil {
