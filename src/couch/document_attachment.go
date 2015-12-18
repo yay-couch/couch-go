@@ -72,6 +72,7 @@ func (this *DocumentAttachment) Ping(statusCodes ...uint16) bool {
     return false
 }
 
+// @todo return DocumentAttachment?
 func (this *DocumentAttachment) Find() map[string]interface{} {
     if this.Document == nil {
         panic("Attachment document is not defined!")
