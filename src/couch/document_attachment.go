@@ -34,8 +34,12 @@ func (this *DocumentAttachment) SetDocument(document *Document) {
 func (this *DocumentAttachment) GetDocument() *Document {
     return this.Document
 }
-func (this *DocumentAttachment) ToArray(encode bool) *DocumentAttachment {
-    return this
+func (this *DocumentAttachment) ToArray(encode bool) map[string]string {
+    this.ReadFile(encode)
+    var array = util.MapString()
+    array["data"] = this.Data
+    array["content_type"] = this.ContentType
+    return array
 }
 func (this *DocumentAttachment) ToJson() *DocumentAttachment {
     return this
