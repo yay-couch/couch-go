@@ -312,8 +312,15 @@ func FileGetContents(file string, byteSize interface{}) (string, error) {
     return string(data), nil
 }
 
-func Base64Encode(data string) string {
-    return _b64.StdEncoding.EncodeToString([]byte(data))
+func Base64Encode(input string) string {
+    return _b64.StdEncoding.EncodeToString([]byte(input))
+}
+func Base64Decode(input string) (string, bool) {
+    data, err := _b64.StdEncoding.DecodeString(input)
+    if err != nil {
+        return "", true
+    }
+    return string(data), false
 }
 
 // dig stuff
