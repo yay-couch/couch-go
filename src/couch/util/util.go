@@ -259,6 +259,12 @@ func FileExists(file string) bool {
     }
     return false
 }
+func FileSize(file string) int64 {
+    if stat, err := _os.Stat(file); err == nil {
+        return stat.Size()
+    }
+    return -1
+}
 func FileInfo(file string) (map[string]interface{}, error) {
     if !FileExists(file) {
         return nil, _fmt.Errorf("Given file does not exist! file: '%s'", file)
@@ -268,6 +274,7 @@ func FileInfo(file string) (map[string]interface{}, error) {
         "charset": nil,
         "name": nil,
         "extension": nil,
+        "size": nil,
     }
     info["name"] = Basename(file)
     info["extension"] = _str.TrimLeft(_pathf.Ext(file), ".")
@@ -284,6 +291,7 @@ func FileInfo(file string) (map[string]interface{}, error) {
         info["mime"] = mime
         info["charset"] = _str.Split(_str.TrimSpace(tmp[2]), "=")[1]
     }
+    info["size"] = FileSize(file)
     return info, nil
 }
 
