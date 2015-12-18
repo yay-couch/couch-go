@@ -22,7 +22,10 @@ func TypeReal(args ...interface{}) string {
 }
 
 func Int(input interface{}) int {
-    return Number(input, "int").(int)
+    if number := Number(input, "int"); number != nil {
+        return number.(int)
+    }
+    return 0
 }
 func UInt(input interface{}) uint {
     return Number(input, "uint").(uint)
