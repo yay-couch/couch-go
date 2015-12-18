@@ -8,7 +8,7 @@ import (
     _strc "strconv"
     _json "encoding/json"
     _rex "regexp"
-    _path "path/filepath"
+    _pathf "path/filepath"
     _url "net/url"
 )
 
@@ -233,14 +233,14 @@ func Trim(input, chars string) string {
     return _str.Trim(input, chars)
 }
 func Dirname(path string) string {
-    dirname, err := _path.Abs(path)
+    dirname, err := _pathf.Abs(path)
     if err != nil {
         return ""
     }
-    return _path.Dir(dirname)
+    return _pathf.Dir(dirname)
 }
 func Basename(path string) string {
-    return _path.Base(path)
+    return _pathf.Base(path)
 }
 
 func FileExists(file string) bool {
@@ -260,7 +260,7 @@ func FileInfo(file string) (map[string]interface{}, error) {
         "extension": nil,
     }
     info["name"] = Basename(file)
-    info["extension"] = _str.TrimLeft(_path.Ext(file), ".")
+    info["extension"] = _str.TrimLeft(_pathf.Ext(file), ".")
     out, err := _ose.Command("file", "-i", String(info["name"])).Output()
     if err != nil {
         panic(err)
