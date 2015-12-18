@@ -39,7 +39,7 @@ func TestAll() {}
  */
 func TestPing() {
     var docAttc = _documentAttachment("./attc.txt", "")
-    util.Dumpf("Document Ping >> %v", docAttc.Ping(200))
+    util.Dumpf("Document Attachment Ping >> %v", docAttc.Ping(200))
 }
 
 /**
@@ -47,11 +47,11 @@ func TestPing() {
  */
 func TestFind() {
     var docAttc = _documentAttachment("./attc.txt", "").Find()
-    util.Dumpf("Document Find >> %v", docAttc)
-    util.Dumpf("Document Find >> content: %s", docAttc["content"])
-    util.Dumpf("Document Find >> content_type: %s", docAttc["content_type"])
-    util.Dumpf("Document Find >> content_length: %d", docAttc["content_length"])
-    util.Dumpf("Document Find >> digest: %s", docAttc["digest"])
+    util.Dumpf("Document Attachment Find >> %v", docAttc)
+    util.Dumpf("Document Attachment Find >> content: %s", docAttc["content"])
+    util.Dumpf("Document Attachment Find >> content_type: %s", docAttc["content_type"])
+    util.Dumpf("Document Attachment Find >> content_length: %d", docAttc["content_length"])
+    util.Dumpf("Document Attachment Find >> digest: %s", docAttc["digest"])
 }
 
 /**
