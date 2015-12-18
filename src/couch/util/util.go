@@ -35,8 +35,8 @@ func UInt(input interface{}) uint {
 }
 func Number(input interface{}, inputType string) interface{} {
     if input != nil {
-        number, err := _strc.Atoi(input.(string))
-        if err != nil {
+        number, err := _strc.Atoi(String(input))
+        if err == nil {
             switch inputType {
                 // signed
                 case    "int": return int(number)
