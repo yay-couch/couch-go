@@ -430,21 +430,6 @@ func _length(length interface{}) int {
     return -1
 }
 
-func Join(sep string, args ...interface{}) string {
-    var result []string
-    for _, arg := range args {
-        switch arg.(type) {
-            case nil:
-                // pass
-            case string:
-                result = append(result, arg.(string))
-            default:
-                panic("Only string args accepted!")
-        }
-    }
-    return _str.Join(result, sep)
-}
-
 func Basename(path string) string {
     return _path.Base(path)
 }
