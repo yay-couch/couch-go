@@ -2,6 +2,7 @@ package util
 
 import (
     _os "os"
+    _ose "os/exec"
     _fmt "fmt"
     _str "strings"
     _strc "strconv"
@@ -247,6 +248,33 @@ func FileExists(file string) bool {
         return true
     }
     return false
+}
+func FileInfo(file string) (map[string]interface{}, error) {
+    if FileExists(file) == false {
+        return nil, _fmt.Errorf("Given file does not exist! file: '%s'", file)
+    }
+    var info = map[string]interface{}{
+        "mime": nil,
+        "charset": nil,
+        "name": nil,
+        "extension": nil,
+    }
+    info["name"] = Basename(file)
+    info["extension"] = _str.TrimLeft(_path.Ext(file), ".")
+    out, err := _ose.Command("file", "-i", String(info["name"])).Output()
+    if err != nil {
+        panic(err)
+    }
+    var tmp = _str.Split(_str.TrimSpace(string(out)), " ")
+    if len(tmp) == 3 {
+        var mime = _str.TrimSpace(tmp[1])
+        if i := _str.LastIndex(mime, ";"); i > -1 {
+            mime = mime[:i]
+        }
+        info["mime"] = mime
+        info["charset"] = _str.Split(_str.TrimSpace(tmp[2]), "=")[1]
+    }
+    return info, nil
 }
 
 // dig stuff
