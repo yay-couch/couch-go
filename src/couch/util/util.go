@@ -230,6 +230,9 @@ func StringSearch(input, search string) bool {
 func Trim(input, chars string) string {
     return _str.Trim(input, chars)
 }
+func Dirname(path string) string {
+    return _path.Dir(path)
+}
 func Basename(path string) string {
     return _path.Base(path)
 }
