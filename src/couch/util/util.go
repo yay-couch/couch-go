@@ -226,6 +226,11 @@ func StringSearch(input, search string) bool {
     return "" != re.FindString(input)
 }
 
+// misc
+func Basename(path string) string {
+    return _path.Base(path)
+}
+
 // dig stuff
 func Dig(key string, object interface{}) interface{} {
     if object == nil {
@@ -428,10 +433,6 @@ func _length(length interface{}) int {
             // @todo add more cases if needs
     }
     return -1
-}
-
-func Basename(path string) string {
-    return _path.Base(path)
 }
 
 func _shiftSliceInt(slice *[]int) int {
