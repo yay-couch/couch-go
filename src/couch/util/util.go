@@ -250,7 +250,7 @@ func FileExists(file string) bool {
     return false
 }
 func FileInfo(file string) (map[string]interface{}, error) {
-    if FileExists(file) == false {
+    if !FileExists(file) {
         return nil, _fmt.Errorf("Given file does not exist! file: '%s'", file)
     }
     var info = map[string]interface{}{
