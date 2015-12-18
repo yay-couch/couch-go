@@ -40,3 +40,34 @@ func (this *DocumentAttachment) ToArray(encode bool) *DocumentAttachment {
 func (this *DocumentAttachment) ToJson() *DocumentAttachment {
     return this
 }
+
+func (this *DocumentAttachment) Ping(statusCodes ...uint16) bool {
+    if this.Document == nil {
+        panic("Attachment document is not defined!")
+    }
+    var docId = this.Document.GetId()
+    var docRev = this.Document.GetRev()
+    if docId == "" {
+        panic("Attachment document _id is required!")
+    }
+    if this.FileName == "" {
+        panic("Attachment file name is required!")
+    }
+    var query = util.Param(nil)
+    if docRev != "" {
+        query["rev"] = docRev
+    }
+    var headers = util.Param(nil)
+    if this.Digest != "" {
+        headers["If-None-Match"] = util.Quote(this.Digest)
+    }
+    var database = this.Document.GetDatabase()
+    var response = database.Client.Head(util.StringFormat("%s/%s/%s",
+        database.Name, docId, util.UrlEncode(this.FileName)), query, headers)
+    for _, statusCode := range statusCodes {
+        if response.GetStatusCode() == statusCode {
+            return true
+        }
+    }
+    return false
+}
