@@ -58,7 +58,7 @@ func Number(input interface{}, inputType string) interface{} {
         case "uint32": return uint32(number)
         case "uint64": return uint64(number)
     }
-    return 0
+    return nil
 }
 
 
