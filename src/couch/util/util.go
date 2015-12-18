@@ -263,7 +263,7 @@ func FileInfo(file string) (map[string]interface{}, error) {
     info["extension"] = _str.TrimLeft(_pathf.Ext(file), ".")
     out, err := _ose.Command("file", "-i", String(info["name"])).Output()
     if err != nil {
-        panic(err)
+        return nil, _fmt.Errorf("EXEC error! %s", err)
     }
     var tmp = _str.Split(_str.TrimSpace(string(out)), " ")
     if len(tmp) == 3 {
