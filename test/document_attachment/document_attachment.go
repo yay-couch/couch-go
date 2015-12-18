@@ -60,3 +60,11 @@ func TestFind() {
 func TestReadFile() {
     _documentAttachment("./attc.txt", "").ReadFile(true)
 }
+
+/**
+ * TestToArray
+ */
+func TestToArray() {
+    var array = _documentAttachment("./attc.txt", "").ToArray(true)
+    util.Dumpf("Document Attachment To Array >> %v", array)
+}
