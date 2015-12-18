@@ -32,7 +32,8 @@ func main() {
     // test_document.TestFindAttachments()
 
     /* document attachment */
-    test_document_attachment.TestPing()
+    // test_document_attachment.TestPing()
+    test_document_attachment.TestFind()
 
     /* uuid */
     // test_uuid.TestAll()
