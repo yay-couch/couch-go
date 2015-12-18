@@ -6,7 +6,7 @@ import (
     _strc "strconv"
     _json "encoding/json"
     _rex "regexp"
-    _path "path"
+    _path "path/filepath"
     _url "net/url"
 )
 
@@ -231,7 +231,11 @@ func Trim(input, chars string) string {
     return _str.Trim(input, chars)
 }
 func Dirname(path string) string {
-    return _path.Dir(path)
+    dirname, err := _path.Abs(path)
+    if err != nil {
+        return ""
+    }
+    return _path.Dir(dirname)
 }
 func Basename(path string) string {
     return _path.Base(path)
