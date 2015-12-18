@@ -28,7 +28,10 @@ func Int(input interface{}) int {
     return 0
 }
 func UInt(input interface{}) uint {
-    return Number(input, "uint").(uint)
+    if number := Number(input, "uint"); number != nil {
+        return number.(uint)
+    }
+    return 0
 }
 func Number(input interface{}, inputType string) interface{} {
     number, err := _strc.Atoi(input.(string))
