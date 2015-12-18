@@ -227,6 +227,9 @@ func StringSearch(input, search string) bool {
 }
 
 // misc
+func Trim(input, chars string) string {
+    return _str.Trim(input, chars)
+}
 func Basename(path string) string {
     return _path.Base(path)
 }
