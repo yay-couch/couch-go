@@ -294,6 +294,21 @@ func FileInfo(file string) (map[string]interface{}, error) {
     info["size"] = FileSize(file)
     return info, nil
 }
+func FileGetContents(file string, byteSize interface{}) (string, error) {
+    fp, err := _os.Open(file)
+    if err != nil {
+        return "", _fmt.Errorf("FILE error! %s", err)
+    }
+    byteSize = Number(byteSize, "int64")
+    if byteSize == 0 {
+        byteSize = FileSize(file)
+    }
+    var data = make([]byte, byteSize.(int64))
+    if _, err := fp.Read(data); err != nil {
+        return "", _fmt.Errorf("FILE error! %s", err)
+    }
+    return string(data), nil
+}
 
 // dig stuff
 func Dig(key string, object interface{}) interface{} {
