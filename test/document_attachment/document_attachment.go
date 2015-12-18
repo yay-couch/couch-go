@@ -8,7 +8,7 @@ import (
 var (
     DEBUG   = true
     DBNAME  = "foo2"
-    DOCNAME = "attc_test"
+    DOCID   = "attc_test"
 )
 
 var (
@@ -22,7 +22,7 @@ func init() {
     Couch    = couch.New(nil, DEBUG)
     Client   = couch.NewClient(Couch)
     Database = couch.NewDatabase(Client, DBNAME);
-    Document = couch.NewDocument(Database, util.ParamList("id", DOCNAME));
+    Document = couch.NewDocument(Database, util.ParamList("_id", DOCID));
 }
 
 func _documentAttachment(file, fileName string) *couch.DocumentAttachment {
@@ -38,7 +38,6 @@ func TestAll() {}
  * TestPing
  */
 func TestPing() {
-    var docAttc = _documentAttachment("attc.txt", "")
-    util.Dumpf("Document Ping >> %#v", docAttc)
-    // util.Dumpf("Document Ping >> %v", docAttc.Ping(304))
+    var docAttc = _documentAttachment("./attc.txt", "")
+    util.Dumpf("Document Ping >> %v", docAttc.Ping(200))
 }
