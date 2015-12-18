@@ -1,6 +1,7 @@
 package util
 
 import (
+    _os "os"
     _fmt "fmt"
     _str "strings"
     _strc "strconv"
@@ -239,6 +240,13 @@ func Dirname(path string) string {
 }
 func Basename(path string) string {
     return _path.Base(path)
+}
+
+func FileExists(file string) bool {
+    if _, err := _os.Stat(file); err == nil {
+        return true
+    }
+    return false
 }
 
 // dig stuff
