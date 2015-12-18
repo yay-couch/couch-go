@@ -208,6 +208,13 @@ func UnparseBody(in interface{}) (string, error) {
 func UrlEncode(input string) string {
     return _url.QueryEscape(input)
 }
+func UrlDecode(input string) string {
+    input, err := _url.QueryUnescape(input)
+    if err != nil {
+        return ""
+    }
+    return input
+}
 
 func StringFormat(format string, args ...interface{}) string {
     return _fmt.Sprintf(format, args...)
