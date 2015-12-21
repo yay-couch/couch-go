@@ -189,3 +189,21 @@ func TestCopy() {
     util.Dumpf("Document Copy >> id: %v", data["id"])
     util.Dumpf("Document Copy >> rev: %v", data["rev"])
 }
+
+/**
+ * TestCopyFrom
+ */
+func TestCopyFrom() {
+    var doc = _document(
+        "_id", "go_test_attc_copy",
+        "_rev", "1-52f1aa9c34a350b0867ea9e086132647",
+    )
+    data, err := doc.CopyFrom("go_test_attc_copy_copy")
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Copy From >> %v", data)
+    util.Dumpf("Document Copy From >> ok: %v", data["ok"])
+    util.Dumpf("Document Copy From >> id: %v", data["id"])
+    util.Dumpf("Document Copy From >> rev: %v", data["rev"])
+}
