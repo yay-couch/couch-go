@@ -9,7 +9,7 @@ type Document struct {
     Id          *uuid.Uuid
     Rev         string
     Deleted     bool
-    Attachments map[string]DocumentAttachment
+    Attachments map[string]*DocumentAttachment
     Data        map[string]interface{}
     Database    *Database
 }
@@ -52,10 +52,27 @@ func (this *Document) SetData(data map[string]interface{}) {
         if key == "_rev"     { this.SetRev(value.(string)) }
         if key == "_deleted" { this.SetDeleted(value.(bool)) }
         if key == "_attachments" {
-            // @todo
+            for _, attachment := range value.([]interface{}) {
+                this.SetAttachment(attachment)
+            }
+            continue
         }
         this.Data[key] = value
     }
+}
+func (this *Document) SetAttachment(attachment interface{}) {
+    if _, ok := attachment.(*DocumentAttachment); !ok {
+        var file = util.DigString("file", attachment)
+        var fileName = util.DigString("fileName", attachment)
+        attachment = NewDocumentAttachment(this, file, fileName)
+    }
+    if _, ok := this.Attachments[attachment.(*DocumentAttachment).FileName]; ok {
+        panic("Attachment is alredy exists on this document!")
+    }
+    if this.Attachments == nil {
+        this.Attachments = make(map[string]*DocumentAttachment)
+    }
+    this.Attachments[attachment.(*DocumentAttachment).FileName] = attachment.(*DocumentAttachment);
 }
 
 func (this *Document) GetId() string {
@@ -159,8 +176,7 @@ func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
     return _return, nil
 }
 
-func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) (
-        []map[string]interface{}, error) {
+func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]map[string]interface{}, error) {
     var query = util.Param(nil)
     query["attachments"] = true
     query["att_encoding_info"] = attEncInfo
@@ -182,5 +198,3 @@ func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) (
     }
     return _return, nil
 }
-
-
