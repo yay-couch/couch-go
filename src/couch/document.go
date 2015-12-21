@@ -198,13 +198,13 @@ func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]ma
     return _return, nil
 }
 
-func (this *Document) Save(batch, fullCommit bool) (map[string]interface{}, error) {
+func (this *Document) Save(args ...bool) (map[string]interface{}, error) {
     var query = util.Map()
-    if batch {
+    if args[0] {
         query["batch"] = "ok"
     }
     var headers = util.Map()
-    if fullCommit {
+    if args[1] {
         headers["X-Couch-Full-Commit"] = "true"
     }
     var body = this.GetData()
