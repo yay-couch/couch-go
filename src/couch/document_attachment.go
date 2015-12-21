@@ -58,11 +58,11 @@ func (this *DocumentAttachment) Ping(statusCodes ...uint16) bool {
     if this.FileName == "" {
         panic("Attachment file name is required!")
     }
-    var query = util.Param(nil)
+    var query = util.Map()
     if docRev != "" {
         query["rev"] = docRev
     }
-    var headers = util.Param(nil)
+    var headers = util.Map()
     if this.Digest != "" {
         headers["If-None-Match"] = util.Quote(this.Digest)
     }
