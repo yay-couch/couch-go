@@ -104,10 +104,7 @@ func TestFindRevisions() {
  * TestFindRevisionsExtended
  */
 func TestFindRevisionsExtended() {
-    var doc = _document(map[string]interface{}{
-        "_id": "83b5e0a0b3bd41d9a21cee7ae8000615",
-    })
-    data, err := doc.FindRevisionsExtended()
+    data, err := _document("_id", "83b5e0a0b3bd41d9a21cee7ae8000615").FindRevisionsExtended()
     if err != nil {
         panic(err)
     }
