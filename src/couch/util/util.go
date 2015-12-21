@@ -293,19 +293,14 @@ func FileInfo(file string) (map[string]interface{}, error) {
         info["mime"] = mime
         info["charset"] = _str.Split(_str.TrimSpace(tmp[2]), "=")[1]
     }
-    info["size"] = FileSize(file)
     return info, nil
 }
-func FileGetContents(file string, byteSize interface{}) (string, error) {
+func FileGetContents(file string) (string, error) {
     fp, err := _os.Open(file)
     if err != nil {
         return "", _fmt.Errorf("FILE error! %s", err)
     }
-    byteSize = Number(byteSize, "int64")
-    if byteSize == 0 {
-        byteSize = FileSize(file)
-    }
-    var data = make([]byte, byteSize.(int64))
+    var data = make([]byte, FileSize(file))
     if _, err := fp.Read(data); err != nil {
         return "", _fmt.Errorf("FILE error! %s", err)
     }

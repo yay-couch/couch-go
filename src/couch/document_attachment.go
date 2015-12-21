@@ -128,7 +128,7 @@ func (this *DocumentAttachment) ReadFile(encode bool) {
         panic(err)
     }
     this.ContentType = util.String(info["mime"])
-    data, err := util.FileGetContents(this.File, info["size"])
+    data, err := util.FileGetContents(this.File)
     if err != nil {
         panic(err)
     }
@@ -136,5 +136,5 @@ func (this *DocumentAttachment) ReadFile(encode bool) {
     if encode {
         this.Data = util.Base64Encode(data)
     }
-    this.DataLength = info["size"].(int64)
+    this.DataLength = int64(len(data))
 }
