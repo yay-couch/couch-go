@@ -31,7 +31,8 @@ func main() {
     // test_document.TestFindRevisionsExtended()
     // test_document.TestFindAttachments()
     // test_document.TestSave()
-    test_document.TestRemove()
+    // test_document.TestRemove()
+    test_document.TestCopy()
 
     /* document attachment */
     // test_document_attachment.TestPing()
