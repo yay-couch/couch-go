@@ -231,14 +231,15 @@ func (this *Document) Remove(args ...bool) (map[string]interface{}, error) {
     if id == "" || rev == "" {
         panic("Both _id & _rev fields could not be empty!")
     }
-    var query = util.Map()
-    if args != nil && args[0] == true {
-        query["batch"] = "ok"
-    }
-    var headers = util.Map()
+    var query, headers = util.Map(), util.Map()
     headers["If-Match"] = rev
-    if args != nil && args[1] == true {
-        headers["X-Couch-Full-Commit"] = "true"
+    if args != nil {
+        if args[0] == true {
+            query["batch"] = "ok"
+        }
+        if args[1] == true {
+            headers["X-Couch-Full-Commit"] = "true"
+        }
     }
     data, err := this.Database.Client.Delete(this.Database.Name +"/"+ id, query, headers).GetBodyData(nil)
     if err != nil {
