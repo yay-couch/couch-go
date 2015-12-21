@@ -173,7 +173,9 @@ func (this *DocumentAttachment) Remove(batch, fullCommit bool) (map[string]inter
     }
     var headers = util.Map()
     headers["If-Match"] = docRev
-    headers["X-Couch-Full-Commit"] = fullCommit
+    if fullCommit {
+        headers["X-Couch-Full-Commit"] = "true"
+    }
     data, err := this.Document.Database.Client.Delete(util.StringFormat(
             "%s/%s/%s", this.Document.Database.Name, docId, util.UrlEncode(this.FileName),
         ), nil, headers,
