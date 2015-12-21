@@ -90,10 +90,10 @@ func TestSave() {
     if err != nil {
         panic(err)
     }
-    util.Dumpf("Document Save >> %v", data)
-    util.Dumpf("Document Save >> ok: %v", data["ok"])
-    util.Dumpf("Document Save >> id: %s", data["id"])
-    util.Dumpf("Document Save >> rev: %s", data["rev"])
+    util.Dumpf("Document Attachment Save >> %v", data)
+    util.Dumpf("Document Attachment Save >> ok: %v", data["ok"])
+    util.Dumpf("Document Attachment Save >> id: %s", data["id"])
+    util.Dumpf("Document Attachment Save >> rev: %s", data["rev"])
 }
 
 /**
