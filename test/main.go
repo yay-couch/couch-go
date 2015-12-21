@@ -37,7 +37,8 @@ func main() {
     // test_document_attachment.TestReadFile()
     // test_document_attachment.TestToArray()
     // test_document_attachment.TestToJson()
-    test_document_attachment.TestSave()
+    // test_document_attachment.TestSave()
+    test_document_attachment.TestRemove()
 
     /* uuid */
     // test_uuid.TestAll()
