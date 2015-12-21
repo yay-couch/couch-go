@@ -146,8 +146,8 @@ func (this *DocumentAttachment) Save() (map[string]interface{}, error) {
         return nil, err
     }
     return map[string]interface{}{
-        "ok": util.DigBool("ok", data),
-        "id": util.DigString("id", data),
+         "ok": util.DigBool("ok", data),
+         "id": util.DigString("id", data),
         "rev": util.DigString("rev", data),
     }, nil
 }
@@ -184,8 +184,8 @@ func (this *DocumentAttachment) Remove(batch, fullCommit bool) (map[string]inter
         return nil, err
     }
     return map[string]interface{}{
-        "ok": util.DigBool("ok", data),
-        "id": util.DigString("id", data),
+         "ok": util.DigBool("ok", data),
+         "id": util.DigString("id", data),
         "rev": util.DigString("rev", data),
     }, nil
 }
