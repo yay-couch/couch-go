@@ -199,13 +199,14 @@ func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]ma
 }
 
 func (this *Document) Save(args ...bool) (map[string]interface{}, error) {
-    var query = util.Map()
-    if args != nil && args[0] == true {
-        query["batch"] = "ok"
-    }
-    var headers = util.Map()
-    if args != nil && args[1] == true {
-        headers["X-Couch-Full-Commit"] = "true"
+    var query, headers = util.Map(), util.Map()
+    if args != nil {
+        if args[0] == true {
+            query["batch"] = "ok"
+        }
+        if args[1] == true {
+            headers["X-Couch-Full-Commit"] = "true"
+        }
     }
     var body = this.GetData()
     if this.Attachments != nil {
