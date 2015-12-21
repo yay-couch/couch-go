@@ -165,23 +165,23 @@ func ParseQuery(query string) map[string]string {
 }
 
 func ParseHeaders(headers string) map[string]string {
-    var result = MapString()
+    var ret = MapString()
     if tmps := _str.Split(headers, "\r\n"); tmps != nil {
         for _, tmp := range tmps {
             var tmp = _str.SplitN(tmp, ":", 2)
             // request | response check?
             if len(tmp) == 1 {
                 // status line >> HTTP/1.0 200 OK
-                result["0"] = tmp[0]
+                ret["0"] = tmp[0]
                 continue
             }
             var key, value =
                 _str.TrimSpace(tmp[0]),
                 _str.TrimSpace(tmp[1])
-            result[key] = value
+            ret[key] = value
         }
     }
-    return result
+    return ret
 }
 
 func ParseBody(in string, out interface{}) (interface{}, error) {
