@@ -76,3 +76,22 @@ func TestToJson() {
     var json = _documentAttachment("./attc.txt", "").ToJson(true)
     util.Dumpf("Document Attachment To JSON >> %v", json)
 }
+
+/**
+ * TestSave
+ */
+func TestSave() {
+    var doc = couch.NewDocument(Database, util.ParamList(
+        "_id", "attc_test",
+        "_rev", "14-c851a8b99fc3e165092bb74d487ca78c",
+    ))
+    var docAttc = couch.NewDocumentAttachment(doc, "./attc.txt", "attc2.txt")
+    data, err := docAttc.Save()
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Save >> %v", data)
+    util.Dumpf("Document Save >> ok: %v", data["ok"])
+    util.Dumpf("Document Save >> id: %s", data["id"])
+    util.Dumpf("Document Save >> rev: %s", data["rev"])
+}
