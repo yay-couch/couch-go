@@ -70,11 +70,11 @@ func (this *Document) GetRev() string {
 func (this *Document) GetDeleted() bool {
     return this.Deleted
 }
-func (this *Document) GetData(key interface{}) interface{} {
-    if key != nil {
-        return util.Dig(key.(string), this.Data)
-    }
+func (this *Document) GetData() map[string]interface{} {
     return this.Data
+}
+func (this *Document) GetDataValue(key string) interface{} {
+    return util.Dig(key, this.Data)
 }
 
 func (this *Document) Ping(statusCode uint16) bool {
