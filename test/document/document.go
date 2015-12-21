@@ -61,10 +61,10 @@ func TestIsExists() {
  * TestIsNotModified
  */
 func TestIsNotModified() {
-    var doc = _document(map[string]interface{}{
-        "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
-        "_rev": "1-3c92d3e67136c8b206d90ea37a3ee76d",
-    })
+    var doc = _document(
+        "_id", "0f1eb3ba90772b64aee2f44b3c00055b",
+        "_rev", "1-3c92d3e67136c8b206d90ea37a3ee76d",
+    )
     util.Dumpf("Document Is Not Modified >> %v", doc.IsNotModified())
 }
 
