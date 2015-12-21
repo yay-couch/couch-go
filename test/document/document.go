@@ -153,3 +153,21 @@ func TestSave() {
     util.Dumpf("Document Save >> id: %v", data["id"])
     util.Dumpf("Document Save >> rev: %v", data["rev"])
 }
+
+/**
+ * TestRemove
+ */
+func TestRemove() {
+    var doc = _document(
+        "_id", "e90636c398458a9d5969d2e71b04bc2a",
+        "_rev", "1-5637fdf6ae62130da1dda54be05d7da7",
+    )
+    data, err := doc.Remove()
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Remove >> %v", data)
+    util.Dumpf("Document Remove >> ok: %v", data["ok"])
+    util.Dumpf("Document Remove >> id: %v", data["id"])
+    util.Dumpf("Document Remove >> rev: %v", data["rev"])
+}
