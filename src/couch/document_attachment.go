@@ -152,7 +152,7 @@ func (this *DocumentAttachment) Save() (map[string]interface{}, error) {
     }, nil
 }
 
-func (this *DocumentAttachment) Remove(batch, fullCommit bool) (map[string]interface{}, error) {
+func (this *DocumentAttachment) Remove(args ...bool) (map[string]interface{}, error) {
     if this.Document == nil {
         panic("Attachment document is not defined!")
     }
@@ -168,12 +168,12 @@ func (this *DocumentAttachment) Remove(batch, fullCommit bool) (map[string]inter
         panic("Attachment file name is required!")
     }
     var query = util.Map()
-    if batch {
+    if args[0] {
         query["batch"] = "ok"
     }
     var headers = util.Map()
     headers["If-Match"] = docRev
-    if fullCommit {
+    if args[1] {
         headers["X-Couch-Full-Commit"] = "true"
     }
     data, err := this.Document.Database.Client.Delete(util.StringFormat(
