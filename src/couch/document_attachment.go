@@ -119,6 +119,8 @@ func (this *DocumentAttachment) Find() map[string]interface{} {
     return _return
 }
 
+func (this *DocumentAttachment) Save() {}
+
 func (this *DocumentAttachment) ReadFile(encode bool) {
     if this.File == "" {
         panic("Attachment file is empty!")
