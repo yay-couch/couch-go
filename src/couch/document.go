@@ -168,7 +168,7 @@ func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
         _return = util.MapListString(data["_revs_info"])
         for i, info := range data["_revs_info"].([]interface{}) {
             _return[i] = map[string]string{
-                "rev": util.DigString("rev", info),
+                   "rev": util.DigString("rev", info),
                 "status": util.DigString("status", info),
             }
         }
@@ -198,3 +198,29 @@ func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]ma
     return _return, nil
 }
 
+func (this *Document) Save(batch, fullCommit bool) (map[string]interface{}, error) {
+    var query = util.Map()
+    if batch {
+        query["batch"] = "ok"
+    }
+    var headers = util.Map()
+    if fullCommit {
+        headers["X-Couch-Full-Commit"] = "true"
+    }
+    var body = this.GetData()
+    if this.Attachments != nil {
+        body["_attachments"] = util.Map()
+        for name, attachment := range this.Attachments {
+            body["_attachments"].(map[string]interface{})[name] = attachment.ToArray(true)
+        }
+    }
+    data, err := this.Database.Client.Post(this.Database.Name, query, body, headers).GetBodyData(nil)
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+         "ok": util.DigBool("ok", data),
+         "id": util.DigString("id", data),
+        "rev": util.DigString("rev", data),
+    }, nil
+}
