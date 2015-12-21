@@ -51,9 +51,9 @@ func TestPing() {
  * TestIsExists
  */
 func TestIsExists() {
-    var doc = _document(map[string]interface{}{
-        "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
-    })
+    var doc = _document(
+        "_id", "0f1eb3ba90772b64aee2f44b3c00055b",
+    )
     util.Dumpf("Document Is Exists >> %v", doc.IsExists())
 }
 
