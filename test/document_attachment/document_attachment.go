@@ -22,7 +22,7 @@ func init() {
     Couch    = couch.New(nil, DEBUG)
     Client   = couch.NewClient(Couch)
     Database = couch.NewDatabase(Client, DBNAME);
-    Document = couch.NewDocument(Database, util.ParamList("_id", DOCID));
+    Document = couch.NewDocument(Database, "_id", DOCID);
 }
 
 func _documentAttachment(file, fileName string) *couch.DocumentAttachment {
@@ -81,10 +81,10 @@ func TestToJson() {
  * TestSave
  */
 func TestSave() {
-    var doc = couch.NewDocument(Database, util.ParamList(
+    var doc = couch.NewDocument(Database,
         "_id", "attc_test",
-        "_rev", "14-c851a8b99fc3e165092bb74d487ca78c",
-    ))
+        "_rev", "15-521ec44a6b39f3c5b40b20f94408dd57",
+    )
     var docAttc = couch.NewDocumentAttachment(doc, "./attc.txt", "attc2.txt")
     data, err := docAttc.Save()
     if err != nil {

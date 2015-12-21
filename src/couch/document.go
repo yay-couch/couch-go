@@ -14,12 +14,12 @@ type Document struct {
     Database    *Database
 }
 
-func NewDocument(database *Database, data map[string]interface{}) *Document {
+func NewDocument(database *Database, data ...interface{}) *Document {
     var this = &Document{
         Database: database,
     }
     if data != nil {
-        this.SetData(data)
+        this.SetData(util.ParamList(data...))
     }
     return this
 }
