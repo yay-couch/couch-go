@@ -5,8 +5,8 @@ import (
     // test_client "./client"
     // test_server "./server"
     // test_database "./database"
-    // test_document "./document"
-    test_document_attachment "./document_attachment"
+    test_document "./document"
+    // test_document_attachment "./document_attachment"
 )
 
 func main() {
@@ -30,6 +30,7 @@ func main() {
     // test_document.TestFindRevisions()
     // test_document.TestFindRevisionsExtended()
     // test_document.TestFindAttachments()
+    test_document.TestSave()
 
     /* document attachment */
     // test_document_attachment.TestPing()
@@ -38,7 +39,7 @@ func main() {
     // test_document_attachment.TestToArray()
     // test_document_attachment.TestToJson()
     // test_document_attachment.TestSave()
-    test_document_attachment.TestRemove()
+    // test_document_attachment.TestRemove()
 
     /* uuid */
     // test_uuid.TestAll()
