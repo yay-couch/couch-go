@@ -109,8 +109,8 @@ func TestRemove() {
     if err != nil {
         panic(err)
     }
-    util.Dumpf("Document Remove >> %v", data)
-    util.Dumpf("Document Remove >> ok: %v", data["ok"])
-    util.Dumpf("Document Remove >> id: %s", data["id"])
-    util.Dumpf("Document Remove >> rev: %s", data["rev"])
+    util.Dumpf("Document Attachment Remove >> %v", data)
+    util.Dumpf("Document Attachment Remove >> ok: %v", data["ok"])
+    util.Dumpf("Document Attachment Remove >> id: %s", data["id"])
+    util.Dumpf("Document Attachment Remove >> rev: %s", data["rev"])
 }
