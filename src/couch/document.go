@@ -9,7 +9,7 @@ type Document struct {
     Id          *uuid.Uuid
     Rev         string
     Deleted     bool
-    Attachments map[string][]DocumentAttachment
+    Attachments map[string]DocumentAttachment
     Data        map[string]interface{}
     Database    *Database
 }
@@ -182,3 +182,5 @@ func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) (
     }
     return _return, nil
 }
+
+
