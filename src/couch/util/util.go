@@ -267,16 +267,15 @@ func FileSize(file string) int64 {
     }
     return -1
 }
-func FileInfo(file string) (map[string]interface{}, error) {
+func FileInfo(file string) (map[string]string, error) {
     if !FileExists(file) {
         return nil, _fmt.Errorf("Given file does not exist! file: '%s'", file)
     }
-    var info = map[string]interface{}{
-        "mime": nil,
-        "charset": nil,
-        "name": nil,
-        "extension": nil,
-        "size": nil,
+    var info = map[string]string{
+        "mime": "",
+        "charset": "",
+        "name": "",
+        "extension": "",
     }
     info["name"] = Basename(file)
     info["extension"] = _str.TrimLeft(_pathf.Ext(file), ".")
