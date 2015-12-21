@@ -136,7 +136,7 @@ func ParseUrl(url string) map[string]string {
     if url == "" {
         panic("No URL given!")
     }
-    var result = make(map[string]string)
+    var result = MapString()
     var pattern = "(?:(?P<Scheme>https?)://(?P<Host>[^:/]+))?" +
                   "(?:\\:(?P<Port>\\d+))?(?P<Path>/[^?#]*)?"   +
                   "(?:\\?(?P<Query>[^#]+))?"                   +
