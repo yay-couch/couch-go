@@ -165,7 +165,7 @@ func ParseQuery(query string) map[string]string {
 }
 
 func ParseHeaders(headers string) map[string]string {
-    var result = make(map[string]string)
+    var result = MapString()
     if tmps := _str.Split(headers, "\r\n"); tmps != nil {
         for _, tmp := range tmps {
             var tmp = _str.SplitN(tmp, ":", 2)
