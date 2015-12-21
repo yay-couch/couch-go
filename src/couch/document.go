@@ -251,3 +251,32 @@ func (this *Document) Remove(args ...bool) (map[string]interface{}, error) {
         "rev": util.DigString("rev", data),
     }, nil
 }
+
+func (this *Document) Copy(dest string, args ...bool) (map[string]interface{}, error) {
+    var id = this.GetId()
+    if id == "" {
+        panic("_id field could not be empty!");
+    }
+    if dest == "" {
+        panic("Destination could not be empty!");
+    }
+    var query, headers = util.Map(), util.Map()
+    headers["Destination"] = dest
+    if args != nil {
+        if args[0] == true {
+            query["batch"] = "ok"
+        }
+        if args[1] == true {
+            headers["X-Couch-Full-Commit"] = "true"
+        }
+    }
+    data, err := this.Database.Client.Copy(this.Database.Name +"/"+ id, query, headers).GetBodyData(nil)
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+         "ok": util.DigBool("ok", data),
+         "id": util.DigString("id", data),
+        "rev": util.DigString("rev", data),
+    }, nil
+}
