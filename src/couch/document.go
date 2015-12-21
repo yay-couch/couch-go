@@ -231,7 +231,6 @@ func (this *Document) Remove(args ...bool) (map[string]interface{}, error) {
         panic("Both _id & _rev fields could not be empty!")
     }
     var query = util.Map()
-    // if util.DigBool("0", args...) {
     if args != nil && args[0] == true {
         query["batch"] = "ok"
     }
