@@ -110,7 +110,7 @@ func QuoteEncode(input string) string {
 
 func Param(param map[string]interface{}) map[string]interface{} {
     if param == nil {
-        param = make(map[string]interface{})
+        param = Map()
     }
     return param
 }
