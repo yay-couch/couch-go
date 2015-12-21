@@ -37,6 +37,12 @@ func (this *Document) Set(key string, value interface{}) *Document {
     })
     return this
 }
+func (this *Document) Get(key string) interface{} {
+    if value, ok := this.Data[key]; ok {
+        return value
+    }
+    return nil
+}
 func (this *Document) SetId(id interface{}) {
     if _, ok := id.(*uuid.Uuid); !ok {
         id = uuid.New(id)
