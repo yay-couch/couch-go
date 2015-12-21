@@ -87,7 +87,10 @@ func TestFind() {
  * TestFindRevisions
  */
 func TestFindRevisions() {
-    data, err := _document("_id", "83b5e0a0b3bd41d9a21cee7ae8000615").FindRevisions()
+    var doc = _document(
+        "_id", "83b5e0a0b3bd41d9a21cee7ae8000615",
+    )
+    data, err := doc.FindRevisions()
     if err != nil {
         panic(err)
     }
@@ -101,7 +104,10 @@ func TestFindRevisions() {
  * TestFindRevisionsExtended
  */
 func TestFindRevisionsExtended() {
-    data, err := _document("_id", "83b5e0a0b3bd41d9a21cee7ae8000615").FindRevisionsExtended()
+    var doc = _document(
+        "_id", "83b5e0a0b3bd41d9a21cee7ae8000615",
+    )
+    data, err := doc.FindRevisionsExtended()
     if err != nil {
         panic(err)
     }
