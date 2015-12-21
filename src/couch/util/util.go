@@ -155,7 +155,7 @@ func ParseUrl(url string) map[string]string {
 }
 
 func ParseQuery(query string) map[string]string {
-    var ret = make(map[string]string)
+    var ret = MapString()
     var tmp = _str.Split(query, "&")
     for _, tmp := range tmp {
         var tmp = _str.Split(tmp, "=")
