@@ -119,7 +119,38 @@ func (this *DocumentAttachment) Find() map[string]interface{} {
     return _return
 }
 
-func (this *DocumentAttachment) Save() {}
+// @todo return DocumentAttachment?
+func (this *DocumentAttachment) Save() (map[string]interface{}, error) {
+    if this.Document == nil {
+        panic("Attachment document is not defined!")
+    }
+    var docId = this.Document.GetId()
+    var docRev = this.Document.GetRev()
+    if docId == "" {
+        panic("Attachment document _id is required!")
+    }
+    if docRev == "" {
+        panic("Attachment document _rev is required!")
+    }
+    if this.FileName == "" {
+        panic("Attachment file name is required!")
+    }
+    this.ReadFile(false)
+    var headers = util.Map()
+    headers["If-Match"] = docRev
+    headers["Content-Type"] = this.ContentType
+    data, err := this.Document.Database.Client.Put(util.StringFormat("%s/%s/%s",
+        this.Document.Database.Name, docId, util.UrlEncode(this.FileName)), nil,
+        this.Data, headers).GetBodyData(nil)
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+        "ok": util.DigBool("ok", data),
+        "id": util.DigString("id", data),
+        "rev": util.DigString("rev", data),
+    }, nil
+}
 
 func (this *DocumentAttachment) ReadFile(encode bool) {
     if this.File == "" {
