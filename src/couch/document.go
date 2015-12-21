@@ -224,3 +224,29 @@ func (this *Document) Save(args ...bool) (map[string]interface{}, error) {
         "rev": util.DigString("rev", data),
     }, nil
 }
+
+func (this *Document) Remove(args ...bool) (map[string]interface{}, error) {
+    var id, rev = this.GetId(), this.GetRev()
+    if id == "" || rev == "" {
+        panic("Both _id & _rev fields could not be empty!")
+    }
+    var query = util.Map()
+    // if util.DigBool("0", args...) {
+    if args != nil && args[0] == true {
+        query["batch"] = "ok"
+    }
+    var headers = util.Map()
+    headers["If-Match"] = rev
+    if args != nil && args[1] == true {
+        headers["X-Couch-Full-Commit"] = "true"
+    }
+    data, err := this.Database.Client.Delete(this.Database.Name +"/"+ id, query, headers).GetBodyData(nil)
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+         "ok": util.DigBool("ok", data),
+         "id": util.DigString("id", data),
+        "rev": util.DigString("rev", data),
+    }, nil
+}
