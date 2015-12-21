@@ -103,7 +103,7 @@ func (this *Document) Ping(statusCode uint16) bool {
         headers["If-None-Match"] = util.Quote(this.Rev);
     }
     return (statusCode == this.Database.Client.
-        Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode())
+        Head(this.Database.Name +"/"+ this.GetId(), nil, headers).GetStatusCode())
 }
 func (this *Document) IsExists() bool {
     if this.Id == nil {
@@ -114,7 +114,7 @@ func (this *Document) IsExists() bool {
         headers["If-None-Match"] = util.Quote(this.Rev);
     }
     var statusCode = this.Database.Client.
-        Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode()
+        Head(this.Database.Name +"/"+ this.GetId(), nil, headers).GetStatusCode()
     return (statusCode == 200 || statusCode == 304)
 }
 func (this *Document) IsNotModified() bool {
@@ -124,7 +124,7 @@ func (this *Document) IsNotModified() bool {
     var headers = util.Map()
     headers["If-None-Match"] = util.Quote(this.Rev);
     return (304 == this.Database.Client.
-        Head(this.Database.Name +"/"+ this.Id.ToString(), nil, headers).GetStatusCode())
+        Head(this.Database.Name +"/"+ this.GetId(), nil, headers).GetStatusCode())
 }
 func (this *Document) Find(query map[string]interface{}) (map[string]interface{}, error) {
     if this.Id == nil {
@@ -135,7 +135,7 @@ func (this *Document) Find(query map[string]interface{}) (map[string]interface{}
         query["rev"] = this.Rev
     }
     data, err := this.Database.Client.Get(
-        this.Database.Name +"/"+ this.Id.ToString(), query, nil).GetBodyData(nil)
+        this.Database.Name +"/"+ this.GetId(), query, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
@@ -175,7 +175,6 @@ func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
     }
     return _return, nil
 }
-
 func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]map[string]interface{}, error) {
     var query = util.Param(nil)
     query["attachments"] = true
@@ -198,3 +197,4 @@ func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]ma
     }
     return _return, nil
 }
+
