@@ -41,8 +41,9 @@ func (this *DocumentAttachment) ToArray(encode bool) map[string]string {
     array["content_type"] = this.ContentType
     return array
 }
-func (this *DocumentAttachment) ToJson() *DocumentAttachment {
-    return this
+func (this *DocumentAttachment) ToJson(encode bool) string {
+    json, _ := util.UnparseBody(this.ToArray(encode))
+    return json
 }
 
 func (this *DocumentAttachment) Ping(statusCodes ...uint16) bool {
