@@ -31,6 +31,12 @@ func (this *Document) GetDatabase() *Database {
     return this.Database
 }
 
+func (this *Document) Set(key string, value interface{}) *Document {
+    this.SetData(map[string]interface{}{
+        key: value,
+    })
+    return this
+}
 func (this *Document) SetId(id interface{}) {
     if _, ok := id.(*uuid.Uuid); !ok {
         id = uuid.New(id)
