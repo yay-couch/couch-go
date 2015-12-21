@@ -33,7 +33,8 @@ func main() {
     // test_document.TestSave()
     // test_document.TestRemove()
     // test_document.TestCopy()
-    test_document.TestCopyFrom()
+    // test_document.TestCopyFrom()
+    // test_document.TestCopyTo()
 
     /* document attachment */
     // test_document_attachment.TestPing()
