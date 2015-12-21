@@ -167,14 +167,15 @@ func (this *DocumentAttachment) Remove(args ...bool) (map[string]interface{}, er
     if this.FileName == "" {
         panic("Attachment file name is required!")
     }
-    var query = util.Map()
-    if args[0] {
-        query["batch"] = "ok"
-    }
-    var headers = util.Map()
+    var query, headers = util.Map(), util.Map()
     headers["If-Match"] = docRev
-    if args[1] {
-        headers["X-Couch-Full-Commit"] = "true"
+    if args != nil {
+        if args[0] {
+            query["batch"] = "ok"
+        }
+        if args[1] {
+            headers["X-Couch-Full-Commit"] = "true"
+        }
     }
     data, err := this.Document.Database.Client.Delete(util.StringFormat(
             "%s/%s/%s", this.Document.Database.Name, docId, util.UrlEncode(this.FileName),
