@@ -119,7 +119,7 @@ func ParamList(argv ...interface{}) map[string]interface{} {
     if argc % 2 != 0 {
         panic("MakeParamList() accepts equal param length (key1, value2, key2, value2)!")
     }
-    var paramList = make(map[string]interface{});
+    var paramList = Map()
     // tricky?
     for i := 1; i < argc; i += 2 {
         if key, ok := argv[i-1].(string); ok {
