@@ -126,7 +126,7 @@ func ParamList(argv ...interface{}) map[string]interface{} {
             paramList[key] = argv[i]
             continue
         }
-        panic("Each param key must be string!");
+        panic("Each param key must be string!")
     }
     return paramList
 }
@@ -177,7 +177,7 @@ func ParseHeaders(headers string) map[string]string {
             }
             var key, value =
                 _str.TrimSpace(tmp[0]),
-                _str.TrimSpace(tmp[1]);
+                _str.TrimSpace(tmp[1])
             result[key] = value
         }
     }
@@ -225,7 +225,7 @@ func String(input interface{}) string {
             if StringSearch(inputType, "u?int(\\d+)?|float(32|64)") {
                 return _fmt.Sprintf("%v", input)
             }
-            panic("Unsupported input type '"+ inputType +"' given!");
+            panic("Unsupported input type '"+ inputType +"' given!")
     }
 }
 func StringFormat(format string, args ...interface{}) string {
