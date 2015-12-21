@@ -171,3 +171,21 @@ func TestRemove() {
     util.Dumpf("Document Remove >> id: %v", data["id"])
     util.Dumpf("Document Remove >> rev: %v", data["rev"])
 }
+
+/**
+ * TestCopy
+ */
+func TestCopy() {
+    var doc = _document(
+        "_id", "go_test_attc",
+        "_rev", "1-ffc2712342beba4770b9bbdb72d6eded",
+    )
+    data, err := doc.Copy("go_test_attc_copy")
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Copy >> %v", data)
+    util.Dumpf("Document Copy >> ok: %v", data["ok"])
+    util.Dumpf("Document Copy >> id: %v", data["id"])
+    util.Dumpf("Document Copy >> rev: %v", data["rev"])
+}
