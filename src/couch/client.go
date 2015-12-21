@@ -159,3 +159,7 @@ func (this *Client) Delete(uri string, uriParams interface{},
         headers interface{}) *http.Response {
     return this.DoRequest(http.METHOD_DELETE +" /"+ uri, uriParams, nil, headers)
 }
+func (this *Client) Copy(uri string, uriParams interface{},
+        headers interface{}) *http.Response {
+    return this.DoRequest(http.METHOD_COPY +" /"+ uri, uriParams, nil, headers)
+}
