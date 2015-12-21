@@ -129,3 +129,27 @@ func TestFindAttachments() {
     util.Dumpf("Document Find Attachments >> 0: %v", data[0])
     util.Dumpf("Document Find Attachments >> 0.content_type: %v", data[0]["content_type"])
 }
+
+/**
+ * TestSave
+ */
+func TestSave() {
+    var doc = _document(
+        "_id", "go_test_attc",
+        "val1", "is val 1",
+        "val2", "is val 2",
+        "_attachments", []interface{}{
+            couch.NewDocumentAttachment(nil, "./attc.txt", "attc1"),
+            couch.NewDocumentAttachment(nil, "./attc.txt", "attc2"),
+            map[string]interface{}{"file": "./attc.txt", "fileName": "attc3"},
+        },
+    )
+    data, err := doc.Save(false, false)
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Save >> %v", data)
+    util.Dumpf("Document Save >> ok: %v", data["ok"])
+    util.Dumpf("Document Save >> id: %v", data["id"])
+    util.Dumpf("Document Save >> rev: %v", data["rev"])
+}
