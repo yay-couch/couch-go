@@ -81,7 +81,7 @@ func Generate(limit int) string {
              HEX_40:
             bytes = make([]byte, limit / 2)
         default:
-            panic("Unimplemented limit given, only -1|0 or 8|32|40 available!")
+            panic("Unimplemented limit given, only -1,1,0 or 8,32,40 available!")
     }
 
     _, err := _rand.Read(bytes)
