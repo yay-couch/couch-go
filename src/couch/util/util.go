@@ -136,22 +136,22 @@ func ParseUrl(url string) map[string]string {
     if url == "" {
         panic("No URL given!")
     }
-    var result = MapString()
-    var pattern = "(?:(?P<Scheme>https?)://(?P<Host>[^:/]+))?" +
-                  "(?:\\:(?P<Port>\\d+))?(?P<Path>/[^?#]*)?"   +
-                  "(?:\\?(?P<Query>[^#]+))?"                   +
-                  "(?:\\??#(?P<Fragment>.*))?"
-    re, _ := _rex.Compile(pattern)
+    var ret = MapString()
+    var ptr = "(?:(?P<Scheme>https?)://(?P<Host>[^:/]+))?" +
+              "(?:\\:(?P<Port>\\d+))?(?P<Path>/[^?#]*)?"   +
+              "(?:\\?(?P<Query>[^#]+))?"                   +
+              "(?:\\??#(?P<Fragment>.*))?"
+    re, _ := _rex.Compile(ptr)
     if re == nil {
-        return result
+        return ret
     }
     var match = re.FindStringSubmatch(url)
     for i, name := range re.SubexpNames() {
         if i != 0 {
-            result[name] = match[i]
+            ret[name] = match[i]
         }
     }
-    return result
+    return ret
 }
 
 func ParseQuery(query string) map[string]string {
