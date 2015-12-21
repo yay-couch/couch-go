@@ -9,7 +9,7 @@ type Document struct {
     Id          *uuid.Uuid
     Rev         string
     Deleted     bool
-    Attachments []DocumentAttachment
+    Attachments map[string][]DocumentAttachment
     Data        map[string]interface{}
     Database    *Database
 }
