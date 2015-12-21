@@ -147,7 +147,7 @@ func ParseUrl(url string) map[string]string {
     }
     var match = re.FindStringSubmatch(url)
     for i, name := range re.SubexpNames() {
-        if i != 0 {
+        if i != 0 { // pass re input
             ret[name] = match[i]
         }
     }
