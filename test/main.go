@@ -5,7 +5,7 @@ import (
     // test_client "./client"
     // test_server "./server"
     // test_database "./database"
-    test_document "./document"
+    // test_document "./document"
     // test_document_attachment "./document_attachment"
 )
 
