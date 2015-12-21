@@ -310,3 +310,33 @@ func (this *Document) CopyFrom(dest string, args ...bool) (map[string]interface{
         "rev": util.DigString("rev", data),
     }, nil
 }
+
+func (this *Document) CopyTo(dest, destRev string, args ...bool) (map[string]interface{}, error) {
+    var id, rev = this.GetId(), this.GetRev()
+    if id == "" || rev == "" {
+        panic("Both _id & _rev fields could not be empty!");
+    }
+    if dest == "" || destRev == "" {
+        panic("Destination & destination revision could not be empty!");
+    }
+    var query, headers = util.Map(), util.Map()
+    headers["If-Match"] = rev
+    headers["Destination"] = util.StringFormat("%s?rev=%s", dest, destRev);
+    if args != nil {
+        if args[0] == true {
+            query["batch"] = "ok"
+        }
+        if args[1] == true {
+            headers["X-Couch-Full-Commit"] = "true"
+        }
+    }
+    data, err := this.Database.Client.Copy(this.Database.Name +"/"+ id, query, headers).GetBodyData(nil)
+    if err != nil {
+        return nil, err
+    }
+    return map[string]interface{}{
+         "ok": util.DigBool("ok", data),
+         "id": util.DigString("id", data),
+        "rev": util.DigString("rev", data),
+    }, nil
+}
