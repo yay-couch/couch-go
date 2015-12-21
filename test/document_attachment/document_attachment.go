@@ -55,29 +55,6 @@ func TestFind() {
 }
 
 /**
- * TestReadFile
- */
-func TestReadFile() {
-    _documentAttachment("./attc.txt", "").ReadFile(true)
-}
-
-/**
- * TestToArray
- */
-func TestToArray() {
-    var array = _documentAttachment("./attc.txt", "").ToArray(true)
-    util.Dumpf("Document Attachment To Array >> %v", array)
-}
-
-/**
- * TestToJson
- */
-func TestToJson() {
-    var json = _documentAttachment("./attc.txt", "").ToJson(true)
-    util.Dumpf("Document Attachment To JSON >> %v", json)
-}
-
-/**
  * TestSave
  */
 func TestSave() {
@@ -113,4 +90,27 @@ func TestRemove() {
     util.Dumpf("Document Attachment Remove >> ok: %v", data["ok"])
     util.Dumpf("Document Attachment Remove >> id: %s", data["id"])
     util.Dumpf("Document Attachment Remove >> rev: %s", data["rev"])
+}
+
+/**
+ * TestReadFile
+ */
+func TestReadFile() {
+    _documentAttachment("./attc.txt", "").ReadFile(true)
+}
+
+/**
+ * TestToArray
+ */
+func TestToArray() {
+    var array = _documentAttachment("./attc.txt", "").ToArray(true)
+    util.Dumpf("Document Attachment To Array >> %v", array)
+}
+
+/**
+ * TestToJson
+ */
+func TestToJson() {
+    var json = _documentAttachment("./attc.txt", "").ToJson(true)
+    util.Dumpf("Document Attachment To JSON >> %v", json)
 }
