@@ -68,3 +68,11 @@ func TestToArray() {
     var array = _documentAttachment("./attc.txt", "").ToArray(true)
     util.Dumpf("Document Attachment To Array >> %v", array)
 }
+
+/**
+ * TestToJson
+ */
+func TestToJson() {
+    var array = _documentAttachment("./attc.txt", "").ToJson(true)
+    util.Dumpf("Document Attachment To Array >> %v", array)
+}
