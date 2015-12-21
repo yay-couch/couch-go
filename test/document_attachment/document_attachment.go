@@ -95,3 +95,22 @@ func TestSave() {
     util.Dumpf("Document Save >> id: %s", data["id"])
     util.Dumpf("Document Save >> rev: %s", data["rev"])
 }
+
+/**
+ * TestRemove
+ */
+func TestRemove() {
+    var doc = couch.NewDocument(Database,
+        "_id", "attc_test",
+        "_rev", "16-744735fac2c0bc49ff17f6a8fb8145bf",
+    )
+    var docAttc = couch.NewDocumentAttachment(doc, "./attc.txt", "attc2.txt")
+    data, err := docAttc.Remove(false, false)
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Remove >> %v", data)
+    util.Dumpf("Document Remove >> ok: %v", data["ok"])
+    util.Dumpf("Document Remove >> id: %s", data["id"])
+    util.Dumpf("Document Remove >> rev: %s", data["rev"])
+}
