@@ -31,10 +31,11 @@ func (this *Document) GetDatabase() *Database {
     return this.Database
 }
 
-func (this *Document) Set(key string, value interface{}) *Document {
-    this.SetData(map[string]interface{}{
-        key: value,
-    })
+func (this *Document) Set(data... interface{}) *Document {
+    if data == nil {
+        panic("Provide at least a key=>value match as param!")
+    }
+    this.SetData(util.ParamList(data...))
     return this
 }
 func (this *Document) SetId(id interface{}) {
