@@ -121,10 +121,7 @@ func TestFindRevisionsExtended() {
  * TestFindAttachments
  */
 func TestFindAttachments() {
-    var doc = _document(map[string]interface{}{
-        "_id": "attc_test",
-    })
-    data, err := doc.FindAttachments(false, nil)
+    data, err := _document("_id", "attc_test").FindAttachments(false, nil)
     if err != nil {
         panic(err)
     }
