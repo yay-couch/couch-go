@@ -72,10 +72,7 @@ func TestIsNotModified() {
  * TestFind
  */
 func TestFind() {
-    var doc = _document(map[string]interface{}{
-        "_id": "0f1eb3ba90772b64aee2f44b3c00055b",
-    })
-    data, err := doc.Find(nil)
+    data, err := _document("_id", "0f1eb3ba90772b64aee2f44b3c00055b").Find(nil)
     if err != nil {
         panic(err)
     }
