@@ -15,10 +15,10 @@ import (
 
 func Shutup() {}
 
-func Type(args ...interface{}) string {
+func Type(args... interface{}) string {
     return _str.Trim(TypeReal(args[0]), " *<>{}[]")
 }
-func TypeReal(args ...interface{}) string {
+func TypeReal(args... interface{}) string {
     return _fmt.Sprintf("%T", args[0])
 }
 
@@ -80,10 +80,10 @@ func IsEmptySet(input interface{}, inputDefault interface{}/*, inputType string*
     return input
 }
 
-func Dump(args ...interface{}) {
+func Dump(args... interface{}) {
     _fmt.Println(args...)
 }
-func Dumps(args ...interface{}) {
+func Dumps(args... interface{}) {
     var format string
     for _, arg := range args {
         _ = arg // silence..
@@ -91,7 +91,7 @@ func Dumps(args ...interface{}) {
     }
     _fmt.Printf("%s\n", _fmt.Sprintf(format, args...))
 }
-func Dumpf(format string, args ...interface{}) {
+func Dumpf(format string, args... interface{}) {
     if format == "" {
         for _, arg := range args {
             _ = arg // silence..
@@ -224,7 +224,7 @@ func String(input interface{}) string {
             panic("Unsupported input type '"+ inputType +"' given!")
     }
 }
-func StringFormat(format string, args ...interface{}) string {
+func StringFormat(format string, args... interface{}) string {
     return _fmt.Sprintf(format, args...)
 }
 func StringSearch(input, search string) bool {
