@@ -49,7 +49,7 @@ Client := couch.NewClient(Couch)
 If you need any direct request for any reason, you can use the methods below.
 
 ```go
-res := Client.DoRequest("/<URI>", uriParams<map>, body<any>, headers<map>)
+res := Client.DoRequest("GET /<URI>", uriParams<map>, body<any>, headers<map>)
 
 // data type is not specified
 data, err := res.GetBodyData(nil)
