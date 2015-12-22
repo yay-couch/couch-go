@@ -39,7 +39,7 @@ func NewClient(couch *Couch) *Client {
       Password: Password,
     }
 
-    var Config = make(map[string]interface{})
+    var Config = util.Map()
     Config["Couch.NAME"]    = NAME
     Config["Couch.VERSION"] = VERSION
     Config["Couch.DEBUG"]   = DEBUG // set default
