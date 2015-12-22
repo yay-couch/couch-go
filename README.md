@@ -10,6 +10,6 @@ doc.Set("name", "The Doc!")
 doc.Save()
 
 // append an attachment to same document
-doc.SetAttachment(Couch.NewDocumentAttachment(doc, "./attc.txt"))
+doc.SetAttachment(Couch.NewDocumentAttachment(doc, "./file.txt"))
 doc.Save()
 ```
