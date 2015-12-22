@@ -1,8 +1,8 @@
 package test
 
 import (
-    "./../../src/couch/util"
-    "./../../src/couch/uuid"
+    "couch/util"
+    "couch/uuid"
 )
 
 /**
