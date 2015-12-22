@@ -53,6 +53,7 @@ res := Client.DoRequest("GET /<URI>", uriParams<map>, body<any>, headers<map>)
 
 // data type is not specified
 data, err := res.GetBodyData(nil)
+
 // data type is MyDoc
 type MyDoc struct {
     Id  string
