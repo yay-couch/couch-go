@@ -1,7 +1,7 @@
 package couch
 
 import (
-    "./util"
+    "couch/util"
 )
 
 type DocumentAttachment struct {
