@@ -212,7 +212,7 @@ func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]ma
 }
 
 func (this *Document) Save(args... bool) (map[string]interface{}, error) {
-    var query, headers = util.Map(), util.Map()
+    var query, headers, body = util.Map(), util.Map(), this.GetData()
     if args != nil {
         if args[0] == true {
             query["batch"] = "ok"
@@ -221,22 +221,42 @@ func (this *Document) Save(args... bool) (map[string]interface{}, error) {
             headers["X-Couch-Full-Commit"] = "true"
         }
     }
-    var body = this.GetData()
+    if this.Rev != "" {
+        headers["If-Match"] = this.Rev
+    }
     if this.Attachments != nil {
         body["_attachments"] = util.Map()
         for name, attachment := range this.Attachments {
             body["_attachments"].(map[string]interface{})[name] = attachment.ToArray(true)
         }
     }
-    data, err := this.Database.Client.Post(this.Database.Name, query, body, headers).GetBodyData(nil)
-    if err != nil {
-        return nil, err
+    var _return = func(data interface{}, err error) (map[string]interface{}, error) {
+        if err != nil {
+            return nil, err
+        }
+        var id, rev = util.DigString("id", data), util.DigString("rev", data)
+        // set id & rev for next save() instant calls
+        if id != "" && this.Id == nil {
+            this.SetId(id)
+        }
+        if rev != "" {
+            this.SetRev(rev)
+        }
+        return map[string]interface{}{
+             "ok": util.DigBool("ok", data),
+             "id": id,
+            "rev": rev,
+        }, nil
     }
-    return map[string]interface{}{
-         "ok": util.DigBool("ok", data),
-         "id": util.DigString("id", data),
-        "rev": util.DigString("rev", data),
-    }, nil
+    if (this.Id == nil) {
+        return _return( // insert action
+            this.Database.Client.Post(this.Database.Name, query, body, headers).
+                GetBodyData(nil))
+    } else {
+        return _return( // update action
+            this.Database.Client.Put(this.Database.Name +"/"+ this.GetId(), query, body, headers).
+                GetBodyData(nil))
+    }
 }
 
 func (this *Document) Remove(args... bool) (map[string]interface{}, error) {
