@@ -1,8 +1,8 @@
 package couch
 
 import (
-    "./util"
-    "./uuid"
+    "couch/util"
+    "couch/uuid"
 )
 
 type Document struct {
