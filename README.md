@@ -5,7 +5,7 @@ Notice: See CouchDB's official documents before using this library.
 ## In a Nutshell
 ```go
 // create a fresh document
-doc := Couch.NewDocument(database)
+doc := Couch.NewDocument(db)
 doc.Set("name", "The Doc!")
 doc.Save()
 
