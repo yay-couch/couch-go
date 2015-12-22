@@ -39,3 +39,9 @@ Couch := couch.New(config, true)
 Couch := couch.New(nil, true)
 Couch.SetConfig(config)
 ```
+
+### Client Object
+```go
+// used in Server and Database objects
+Client := couch.NewClient(Couch)
+```
