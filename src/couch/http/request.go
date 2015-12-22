@@ -8,8 +8,8 @@ import (
 )
 
 import (
-    "./../util"
-    "./../query"
+    "couch/util"
+    "couch/query"
 )
 
 type Request struct {

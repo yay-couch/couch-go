@@ -5,7 +5,7 @@ import (
 )
 
 import (
-    "./../util"
+    "couch/util"
 )
 
 type Stream struct {

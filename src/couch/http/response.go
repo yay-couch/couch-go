@@ -7,7 +7,7 @@ import (
 )
 
 import (
-    "./../util"
+    "couch/util"
 )
 
 type Response struct {
