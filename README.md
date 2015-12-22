@@ -64,8 +64,8 @@ data, err := res.GetBodyData(&MyDoc{})
 
 // args
 uri       := "/<URI>";
-uriParams := util.ParamList("param_name", "param_value")
-headers   := util.ParamList("X-Foo", "The foo!")
+uriParams := util.ParamList("param_name", "param_value", ...)
+headers   := util.ParamList("X-Foo", "The foo!", ...)
 body      := ""
 
 // shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
