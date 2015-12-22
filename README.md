@@ -30,12 +30,12 @@ map[string]interface{}{
 ### Couch Object
 ```go
 // init couch object with default config and without debug
-Couch  := couch.New(nil, false)
+Couch := couch.New(nil, false)
 
 // init couch object with given config and debug
-Couch  := couch.New(config, true)
+Couch := couch.New(config, true)
 
 // or set later but before streaming
-Couch  := couch.New(nil, true)
+Couch := couch.New(nil, true)
 Couch.SetConfig(config)
 ```
