@@ -41,7 +41,6 @@ func NewStream() *Stream {
 }
 
 func (this *Stream) SetHeader(key string, value interface{}) {
-    _checkStreamHeaders(this)
     switch value.(type) {
         case nil:
             delete(this.Headers, key)
@@ -54,14 +53,12 @@ func (this *Stream) SetHeader(key string, value interface{}) {
     }
 }
 func (this *Stream) GetHeader(key string) interface{} {
-    _checkStreamHeaders(this)
     if value, ok := this.Headers[key]; ok {
         return value
     }
     return nil
 }
 func (this *Stream) GetHeaderAll() map[string]interface{} {
-    _checkStreamHeaders(this)
     return this.Headers
 }
 
@@ -116,13 +113,7 @@ func (this *Stream) GetErrorValue(key string) string {
     return this.ErrorData[key]
 }
 
-// @todo
+// @todo?
 func (this *Stream) ToString() string {
     return ""
-}
-
-func _checkStreamHeaders(stream *Stream) {
-    if stream.Headers == nil {
-        stream.Headers = util.Map()
-    }
 }
