@@ -15,13 +15,13 @@ doc.Save()
 ```
 
 ## Configuration
-Configuration is optional but you can provide all these options;
+Configuration is optional but you can provide all these options as `map`;
 ```go
-var (
-    Scheme        = "http"
-    Host          = "localhost"
-    Port   uint16 = 5984
-    Username      = ""
-    Password      = ""
-)
+map[string]interface{}{
+    Scheme        : "http",
+    Host          : "localhost",
+    Port   uint16 : 5984,
+    Username      : "",
+    Password      : "",
+}
 ```
