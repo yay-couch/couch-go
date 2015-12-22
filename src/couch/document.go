@@ -211,7 +211,7 @@ func (this *Document) FindAttachments(attEncInfo bool, attsSince []string) ([]ma
     return _return, nil
 }
 
-func (this *Document) Save(args ...bool) (map[string]interface{}, error) {
+func (this *Document) Save(args... bool) (map[string]interface{}, error) {
     var query, headers = util.Map(), util.Map()
     if args != nil {
         if args[0] == true {
@@ -239,7 +239,7 @@ func (this *Document) Save(args ...bool) (map[string]interface{}, error) {
     }, nil
 }
 
-func (this *Document) Remove(args ...bool) (map[string]interface{}, error) {
+func (this *Document) Remove(args... bool) (map[string]interface{}, error) {
     var id, rev = this.GetId(), this.GetRev()
     if id == "" || rev == "" {
         panic("Both _id & _rev fields could not be empty!")
@@ -265,7 +265,7 @@ func (this *Document) Remove(args ...bool) (map[string]interface{}, error) {
     }, nil
 }
 
-func (this *Document) Copy(dest string, args ...bool) (map[string]interface{}, error) {
+func (this *Document) Copy(dest string, args... bool) (map[string]interface{}, error) {
     var id = this.GetId()
     if id == "" {
         panic("_id field could not be empty!");
@@ -294,7 +294,7 @@ func (this *Document) Copy(dest string, args ...bool) (map[string]interface{}, e
     }, nil
 }
 
-func (this *Document) CopyFrom(dest string, args ...bool) (map[string]interface{}, error) {
+func (this *Document) CopyFrom(dest string, args... bool) (map[string]interface{}, error) {
     var id, rev = this.GetId(), this.GetRev()
     if id == "" || rev == "" {
         panic("Both _id & _rev fields could not be empty!");
@@ -324,7 +324,7 @@ func (this *Document) CopyFrom(dest string, args ...bool) (map[string]interface{
     }, nil
 }
 
-func (this *Document) CopyTo(dest, destRev string, args ...bool) (map[string]interface{}, error) {
+func (this *Document) CopyTo(dest, destRev string, args... bool) (map[string]interface{}, error) {
     var id, rev = this.GetId(), this.GetRev()
     if id == "" || rev == "" {
         panic("Both _id & _rev fields could not be empty!");
