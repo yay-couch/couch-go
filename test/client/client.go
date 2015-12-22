@@ -1,9 +1,9 @@
 package test
 
 import (
-    "./../../src/couch"
-    "./../../src/couch/util"
-    "./../../src/couch/http"
+    "couch"
+    "couch/util"
+    "couch/http"
 )
 
 var (
