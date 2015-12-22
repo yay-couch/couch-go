@@ -14,9 +14,14 @@ type DocumentAttachment struct {
     Digest      string
 }
 
-func NewDocumentAttachment(document *Document, file, fileName string) *DocumentAttachment {
+func NewDocumentAttachment(document *Document, args... string) *DocumentAttachment {
     var this = &DocumentAttachment{
         Document: document,
+    }
+    var file, fileName string
+    if args != nil {
+        if args[0] != "" { file = args[0] }
+        if args[1] != "" { fileName = args[1] }
     }
     if file != "" {
         this.File = file
@@ -152,7 +157,7 @@ func (this *DocumentAttachment) Save() (map[string]interface{}, error) {
     }, nil
 }
 
-func (this *DocumentAttachment) Remove(args ...bool) (map[string]interface{}, error) {
+func (this *DocumentAttachment) Remove(args... bool) (map[string]interface{}, error) {
     if this.Document == nil {
         panic("Attachment document is not defined!")
     }
