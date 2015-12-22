@@ -4,11 +4,12 @@ Notice: See CouchDB's official documents before using this library.
 
 ## In a Nutshell
 ```go
-// create a fresh document and save it
+// create a fresh document
 doc := Couch.NewDocument(database)
 doc.Set("name", "The Doc!")
 doc.Save()
-// append an attachment and save it again
+
+// append an attachment to same document
 doc.SetAttachment(Couch.NewDocumentAttachment(doc, "./attc.txt"))
 doc.Save()
 ```
