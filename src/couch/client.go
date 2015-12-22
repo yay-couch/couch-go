@@ -7,8 +7,8 @@ import (
 )
 
 import (
-    "./http"
-    "./util"
+    "couch/http"
+    "couch/util"
 )
 
 type Client struct {
