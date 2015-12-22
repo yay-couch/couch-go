@@ -45,3 +45,39 @@ Couch.SetConfig(config)
 // used in Server and Database objects
 Client := couch.NewClient(Couch)
 ```
+
+If you need any direct request for any reason, you can use the methods below.
+
+```go
+res := Client.DoRequest("/<URI>", uriParams<map>, body<any>, headers<map>)
+
+// data type is not specified
+data, err := res.GetBodyData(nil)
+// data type is MyDoc
+type MyDoc struct {
+    Id  string
+    Rev string
+    // ...
+}
+data, err := res.GetBodyData(&MyDoc{})
+
+// args
+uri       := "/<DB>";
+uriParams := util.ParamList("param_name", "param_value")
+headers   := util.ParamList("X-Foo", "The foo!")
+body      := ""
+
+// shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
+Client.Head(uri, uriParams, headers)
+Client.Get(uri, uriParams, headers)
+Client.Copy(uri, uriParams, headers)
+Client.Delete(uri, uriParams, headers)
+
+// with body
+Client.Put(uri, uriParams, body, headers)
+Client.Post(uri, uriParams, body, headers)
+
+// after request operations
+Request  := Client.GetRequest()  // *couch.http.Request
+Response := Client.GetResponse() // *couch.http.Response
+```
