@@ -25,3 +25,10 @@ map[string]interface{}{
     Password      : "",
 }
 ```
+## Objects
+
+### Couch Object
+```go
+Couch  := couch.New(nil, bool<debug>)
+Client := couch.NewClient(Couch)
+```
