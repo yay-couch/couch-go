@@ -29,6 +29,13 @@ map[string]interface{}{
 
 ### Couch Object
 ```go
-Couch  := couch.New(nil, bool<debug>)
-Client := couch.NewClient(Couch)
+// init couch object with default config and without debug
+Couch  := couch.New(nil, false)
+
+// init couch object with given config and debug
+Couch  := couch.New(config, true)
+
+// or set later but before streaming
+Couch  := couch.New(nil, true)
+Couch.SetConfig(config)
 ```
