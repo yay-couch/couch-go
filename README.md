@@ -13,3 +13,15 @@ doc.Save()
 doc.SetAttachment(Couch.NewDocumentAttachment(doc, "./file.txt"))
 doc.Save()
 ```
+
+## Configuration
+Configuration is optional but you can provide all these options;
+```go
+var (
+    Scheme        = "http"
+    Host          = "localhost"
+    Port   uint16 = 5984
+    Username      = ""
+    Password      = ""
+)
+```
