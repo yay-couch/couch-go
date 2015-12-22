@@ -62,7 +62,7 @@ type MyDoc struct {
 data, err := res.GetBodyData(&MyDoc{})
 
 // args
-uri       := "/<DB>";
+uri       := "/<URI>";
 uriParams := util.ParamList("param_name", "param_value")
 headers   := util.ParamList("X-Foo", "The foo!")
 body      := ""
