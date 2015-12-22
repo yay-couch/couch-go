@@ -36,7 +36,7 @@ func Shutup() {}
 
 func NewStream() *Stream {
     return &Stream{
-        Headers: make(map[string]interface{}),
+        Headers: util.Map(),
     }
 }
 
@@ -123,6 +123,6 @@ func (this *Stream) ToString() string {
 
 func _checkStreamHeaders(stream *Stream) {
     if stream.Headers == nil {
-        stream.Headers = make(map[string]interface{})
+        stream.Headers = util.Map()
     }
 }
