@@ -84,6 +84,29 @@ func TestFind() {
 }
 
 /**
+ * TestTestFindStruct
+ */
+func TestFindStruct() {
+    var doc = _document(
+        "_id", "25ae622daf825dd1f2ec138b68007a10",
+    )
+    type Doc struct {
+        Id   string `json:"_id"`
+        Rev  string `json:"_rev"`
+        Name string
+        // ...
+    }
+    data, err := doc.FindStruct(&Doc{}, nil)
+    if err != nil {
+        panic(err)
+    }
+    util.Dumpf("Document Find Func >> doc: %+v", data)
+    util.Dumpf("Document Find Func >> doc._id: %s", data.(*Doc).Id)
+    util.Dumpf("Document Find Func >> doc._rev: %s", data.(*Doc).Rev)
+    util.Dumpf("Document Find Func >> doc.name: %s", data.(*Doc).Name)
+}
+
+/**
  * TestFindRevisions
  */
 func TestFindRevisions() {
