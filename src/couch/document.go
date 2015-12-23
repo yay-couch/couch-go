@@ -139,6 +139,7 @@ func (this *Document) IsNotModified() bool {
     return (304 == this.Database.Client.
         Head(this.Database.Name +"/"+ this.GetId(), nil, headers).GetStatusCode())
 }
+
 func (this *Document) Find(query map[string]interface{}) (map[string]interface{}, error) {
     if this.Id == nil {
         panic("_id field is could not be empty!")
