@@ -18,7 +18,7 @@ var (
 func init() {
     Couch  = couch.New(nil, DEBUG)
     Client = couch.NewClient(Couch)
-    Server = couch.NewServer(Client);
+    Server = couch.NewServer(Client)
 }
 
 /**
