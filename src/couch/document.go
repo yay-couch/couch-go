@@ -141,6 +141,7 @@ func (this *Document) IsNotModified() bool {
 }
 
 func (this *Document) Find(query map[string]interface{}) (map[string]interface{}, error) {
+    var id = this.GetId()
     if this.Id == nil {
         panic("_id field is could not be empty!")
     }
@@ -148,7 +149,7 @@ func (this *Document) Find(query map[string]interface{}) (map[string]interface{}
     if query["rev"] == "" && this.Rev != "" {
         query["rev"] = this.Rev
     }
-    data, err := this.Database.Client.Get(this.Database.Name +"/"+ this.GetId(), query, nil).
+    data, err := this.Database.Client.Get(this.Database.Name +"/"+ id, query, nil).
         GetBodyData(nil)
     if err != nil {
         return nil, err
