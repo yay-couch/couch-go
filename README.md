@@ -88,7 +88,7 @@ Response := Client.GetResponse() // *couch.http.Response
 Server := couch.NewServer(Client)
 
 // methods
-bool Server.Ping()
+ok        := Server.Ping()
 data, err := Server.Info()
 data, err := Server.Version()
 data, err := Server.GetActiveTasks()
@@ -99,10 +99,42 @@ data, err := Server.GetStats(path)
 data, err := Server.GetUuid()
 data, err := Server.GetUuids(count)
 data, err := Server.Replicate(body)
-bool Server.Restart()
+ok        := Server.Restart()
 data, err := Server.GetConfig()
 data, err := Server.GetConfigSection(section)
 data, err := Server.GetConfigSectionKey(section, key)
 data, err := Server.SetConfig(section, key, value)
 data, err := Server.RemoveConfig(section, key)
+```
+
+### Database Object
+```go
+Database := couch.NewDatabase(Client, "foo")
+
+// methods
+ok        := Database.Ping()
+data, err := Database.Info()
+ok        := Database.Create()
+ok        := Database.Remove()
+data, err := Database.Replicate(target, targetCreate)
+data, err := Database.GetDocument(key)
+data, err := Database.GetDocumentAll(query)
+data, err := Database.CreateDocument(document)
+data, err := Database.CreateDocumentAll([]document)
+data, err := Database.UpdateDocument(document)
+data, err := Database.UpdateDocumentAll([]document)
+data, err := Database.DeleteDocument(document)
+data, err := Database.DeleteDocumentAll([]document)
+data, err := Database.GetChanges(query, docIds)
+data, err := Database.Compact(ddoc)
+data, err := Database.EnsureFullCommit()
+ok,   err := Database.ViewCleanup()
+data, err := Database.ViewTemp(map, reduce)
+data, err := Database.GetSecurity()
+data, err := Database.SetSecurity(admins, members)
+data, err := Database.Purge(object)
+data, err := Database.GetMissingRevisions(object)
+data, err := Database.GetMissingRevisionsDiff(object)
+limit,err := Database.GetRevisionLimit()
+ok,   err := Database.SetRevisionLimit(limit)
 ```
