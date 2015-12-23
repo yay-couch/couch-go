@@ -160,10 +160,14 @@ func (this *Document) Find(query map[string]interface{}) (map[string]interface{}
     return _return, nil
 }
 func (this *Document) FindStruct(data interface{}, query map[string]interface{}) (interface{}, error) {
+    var id = this.GetId()
+    if id == "" {
+        panic("_id field is could not be empty!")
+    }
     if data == nil {
         panic("You should pass your data struct!")
     }
-    data, err := this.Database.Client.Get(this.Database.Name +"/"+ this.GetId(), query, nil).
+    data, err := this.Database.Client.Get(this.Database.Name +"/"+ id, query, nil).
         GetBodyData(data)
     if err != nil {
         return nil, err
