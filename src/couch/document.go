@@ -171,6 +171,10 @@ func (this *Document) FindStruct(data interface{}, query map[string]interface{})
     if data == nil {
         panic("You should pass your data struct!")
     }
+    query = util.Param(query)
+    if query["rev"] == "" && this.Rev != "" {
+        query["rev"] = this.Rev
+    }
     data, err := this.Database.Client.Get(this.Database.Name +"/"+ id, query, nil).
         GetBodyData(data)
     if err != nil {
