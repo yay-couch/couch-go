@@ -84,9 +84,38 @@ func (this *Response) GetStatusText() string {
     return this.StatusText
 }
 
-// @overwrite
+// @implement
 func (this *Response) SetBody(body interface{}) {
     if body != nil {
         this.Body = util.String(body)
     }
+}
+
+// @implement
+func (this *Response) ToString() string {
+    var ret = ""
+    ret = util.StringFormat("HTTP/%s %d %s\r\n", this.HttpVersion, this.StatusCode, this.StatusText)
+    if this.Headers != nil {
+        for key, value := range this.Headers {
+            if key == "0" {
+                continue
+            }
+            if (value != nil) {
+                ret += util.StringFormat("%s: %s\r\n", key, value)
+            }
+        }
+    }
+    ret += "\r\n"
+    if this.Body != nil {
+        switch this.Body.(type) {
+            case string:
+                ret += this.Body.(string)
+            default:
+                body, err := util.UnparseBody(this.Body)
+                if err == nil {
+                    ret += body
+                }
+        }
+    }
+    return ret
 }
