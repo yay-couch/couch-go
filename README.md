@@ -82,3 +82,27 @@ Client.Post(uri, uriParams, body, headers)
 Request  := Client.GetRequest()  // *couch.http.Request
 Response := Client.GetResponse() // *couch.http.Response
 ```
+
+### Server Object
+```go
+Server := couch.NewServer(Client)
+
+// methods
+bool Server.Ping()
+data, err := Server.Info()
+data, err := Server.Version()
+data, err := Server.GetActiveTasks()
+data, err := Server.GetAllDatabases()
+data, err := Server.GetDatabaseUpdates(query)
+data, err := Server.GetLogs(query)
+data, err := Server.GetStats(path)
+data, err := Server.GetUuid()
+data, err := Server.GetUuids(count)
+data, err := Server.Replicate(body)
+bool Server.Restart()
+data, err := Server.GetConfig()
+data, err := Server.GetConfigSection(section)
+data, err := Server.GetConfigSectionKey(section, key)
+data, err := Server.SetConfig(section, key, value)
+data, err := Server.RemoveConfig(section, key)
+```
