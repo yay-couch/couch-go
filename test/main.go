@@ -5,7 +5,7 @@ import (
     // test_client "./client"
     // test_server "./server"
     // test_database "./database"
-    // test_document "./document"
+    test_document "./document"
     // test_document_attachment "./document_attachment"
 )
 
@@ -27,6 +27,7 @@ func main() {
     // test_document.TestIsExists()
     // test_document.TestIsNotModified()
     // test_document.TestFind()
+    test_document.TestFindStruct()
     // test_document.TestFindRevisions()
     // test_document.TestFindRevisionsExtended()
     // test_document.TestFindAttachments()
