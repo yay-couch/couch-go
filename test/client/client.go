@@ -118,3 +118,14 @@ func TestClientResponseData() {
     util.Dumpf("Response Body Parsed >> vendor.name: %s", data.(*Response).Vendor["name"])
     util.Dumpf("Response Body Parsed >> vendor.version: %s", data.(*Response).Vendor["version"])
 }
+
+/**
+ * TestToString
+ */
+func TestToString() {
+    Couch  = couch.New(nil, false)
+    Client = couch.NewClient(Couch)
+    Client.DoRequest("HEAD /", nil, "", nil)
+    util.Dumpf("Request\n>>\n%s", Client.GetRequest().ToString())
+    util.Dumpf("Response\n>>\n%s", Client.GetResponse().ToString())
+}
