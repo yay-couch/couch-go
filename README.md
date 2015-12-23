@@ -137,4 +137,39 @@ data, err := Database.GetMissingRevisions(object)
 data, err := Database.GetMissingRevisionsDiff(object)
 limit,err := Database.GetRevisionLimit()
 ok,   err := Database.SetRevisionLimit(limit)
+
+// examples
+data, err := Database.CreateDocument(map[string]interface{}{
+    "name": "CouchDB", "is_nosql": true,
+})
+if err != nil {
+    panic(err)
+}
+util.Dumpf("Create Document >> %+v", data)
+util.Dumpf("Create Document >> doc.ok: %v", data["ok"])
+util.Dumpf("Create Document >> doc.id: %s", data["id"])
+util.Dumpf("Create Document >> doc.rev: %s", data["rev"])
+// or
+for key, value := range data {
+    util.Dumpf("Create Document >> doc.%s: %v", key, value)
+}
+
+data, err := Database.CreateDocumentAll([]interface{}{
+    0: map[string]interface{}{"name": "CouchDB", "is_nosql": true},
+    1: map[string]interface{}{"name": "MongoDB", "is_nosql": true},
+    2: map[string]interface{}{"name": "MySQL", "is_nosql": false},
+})
+if err != nil {
+    panic(err)
+}
+util.Dumpf("Create Document All >> %+v", data)
+util.Dumpf("Create Document All >> doc.0.ok: %v", util.Dig("0.ok", data))
+util.Dumpf("Create Document All >> doc.0.id: %s", util.Dig("0.id", data))
+util.Dumpf("Create Document All >> doc.0.rev: %s", util.Dig("0.rev", data))
+// or
+for i, doc := range data {
+    for key, value := range doc {
+        util.Dumpf("Create Document All >> doc.%d.%s: %v", i, key, value)
+    }
+}
 ```
