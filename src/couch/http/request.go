@@ -126,7 +126,7 @@ func (this *Request) Send() string {
     return response
 }
 
-// @overwrite
+// @implement
 func (this *Request) SetBody(body interface{}) {
     if body != nil &&
        this.Method != METHOD_HEAD &&
@@ -162,3 +162,28 @@ func (this *Request) SetBody(body interface{}) {
     }
 }
 
+// @implement
+func (this *Request) ToString() string {
+    var ret string
+    ret = util.StringFormat("%s %s HTTP/%s\r\n", this.Method, this.Uri, this.HttpVersion)
+    if this.Headers != nil {
+        for key, value := range this.Headers {
+            if (value != nil) {
+                ret += util.StringFormat("%s: %s\r\n", key, value)
+            }
+        }
+    }
+    ret += "\r\n"
+    if this.Body != nil {
+        switch this.Body.(type) {
+            case string:
+                ret += this.Body.(string)
+            default:
+                body, err := util.UnparseBody(this.Body)
+                if err == nil {
+                    ret += body
+                }
+        }
+    }
+    return ret
+}
