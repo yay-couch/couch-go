@@ -16,6 +16,7 @@ type Stream struct {
     Error       string
     ErrorData   map[string]string
     StreamBody
+    ToString    func() string
 }
 
 type StreamError struct {
@@ -111,9 +112,4 @@ func (this *Stream) GetError() string {
 }
 func (this *Stream) GetErrorValue(key string) string {
     return this.ErrorData[key]
-}
-
-// @todo?
-func (this *Stream) ToString() string {
-    return ""
 }
