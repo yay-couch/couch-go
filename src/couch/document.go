@@ -159,6 +159,17 @@ func (this *Document) Find(query map[string]interface{}) (map[string]interface{}
     }
     return _return, nil
 }
+func (this *Document) TestFindStruct(data interface{}, query map[string]interface{}) (interface{}, error) {
+    if data == nil {
+        panic("You should pass your data struct!")
+    }
+    data, err := this.Database.Client.Get(this.Database.Name +"/"+ this.GetId(), query, nil).
+        GetBodyData(data)
+    if err != nil {
+        return nil, err
+    }
+    return data, nil
+}
 func (this *Document) FindRevisions() (map[string]interface{}, error) {
     data, err := this.Find(util.ParamList("revs", true))
     if err != nil {
