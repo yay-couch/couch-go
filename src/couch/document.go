@@ -109,7 +109,7 @@ func (this *Document) GetDataValue(key string) interface{} {
 
 func (this *Document) Ping(statusCode uint16) bool {
     var id = this.GetId()
-    if this.Id == nil {
+    if id == "" {
         panic("_id field is could not be empty!")
     }
     var headers = util.Map()
@@ -121,7 +121,7 @@ func (this *Document) Ping(statusCode uint16) bool {
 }
 func (this *Document) IsExists() bool {
     var id = this.GetId()
-    if this.Id == nil {
+    if id == "" {
         panic("_id field is could not be empty!")
     }
     var headers = util.Map()
@@ -133,18 +133,19 @@ func (this *Document) IsExists() bool {
     return (statusCode == 200 || statusCode == 304)
 }
 func (this *Document) IsNotModified() bool {
-    if this.Id == nil || this.Rev == "" {
+    var id, rev = this.GetId(), this.GetRev()
+    if id == "" || rev == "" {
         panic("_id & _rev fields are could not be empty!")
     }
     var headers = util.Map()
-    headers["If-None-Match"] = util.Quote(this.Rev);
+    headers["If-None-Match"] = util.Quote(rev);
     return (304 == this.Database.Client.
-        Head(this.Database.Name +"/"+ this.GetId(), nil, headers).GetStatusCode())
+        Head(this.Database.Name +"/"+ id, nil, headers).GetStatusCode())
 }
 
 func (this *Document) Find(query map[string]interface{}) (map[string]interface{}, error) {
     var id = this.GetId()
-    if this.Id == nil {
+    if id == "" {
         panic("_id field is could not be empty!")
     }
     query = util.Param(query)
