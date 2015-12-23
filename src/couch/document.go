@@ -148,8 +148,8 @@ func (this *Document) Find(query map[string]interface{}) (map[string]interface{}
     if query["rev"] == "" && this.Rev != "" {
         query["rev"] = this.Rev
     }
-    data, err := this.Database.Client.Get(
-        this.Database.Name +"/"+ this.GetId(), query, nil).GetBodyData(nil)
+    data, err := this.Database.Client.Get(this.Database.Name +"/"+ this.GetId(), query, nil).
+        GetBodyData(nil)
     if err != nil {
         return nil, err
     }
