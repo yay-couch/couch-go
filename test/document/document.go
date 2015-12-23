@@ -36,10 +36,10 @@ func TestAll() {}
  */
 func TestPing() {
     var doc1 = _document(
-        "_id", "0f1eb3ba90772b64aee2f44b3c00055b",
+        "_id", "25ae622daf825dd1f2ec138b68007a10",
     )
     var doc2 = _document(
-        "_id", "0f1eb3ba90772b64aee2f44b3c00055b",
+        "_id", "25ae622daf825dd1f2ec138b68007a10",
         "_rev", "1-3c92d3e67136c8b206d90ea37a3ee76d",
     )
     util.Dumpf("Document Ping >> %v", doc1.Ping(200))
@@ -52,7 +52,7 @@ func TestPing() {
  */
 func TestIsExists() {
     var doc = _document(
-        "_id", "0f1eb3ba90772b64aee2f44b3c00055b",
+        "_id", "25ae622daf825dd1f2ec138b68007a10",
     )
     util.Dumpf("Document Is Exists >> %v", doc.IsExists())
 }
@@ -62,7 +62,7 @@ func TestIsExists() {
  */
 func TestIsNotModified() {
     var doc = _document(
-        "_id", "0f1eb3ba90772b64aee2f44b3c00055b",
+        "_id", "25ae622daf825dd1f2ec138b68007a10",
         "_rev", "1-3c92d3e67136c8b206d90ea37a3ee76d",
     )
     util.Dumpf("Document Is Not Modified >> %v", doc.IsNotModified())
@@ -73,7 +73,7 @@ func TestIsNotModified() {
  */
 func TestFind() {
     var doc = _document(
-        "_id", "0f1eb3ba90772b64aee2f44b3c00055b",
+        "_id", "25ae622daf825dd1f2ec138b68007a10",
     )
     data, err := doc.Find(nil)
     if err != nil {
