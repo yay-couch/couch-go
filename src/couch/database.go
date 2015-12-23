@@ -314,10 +314,10 @@ func (this *Database) ViewCleanup() (bool, error) {
     return util.DigBool("ok", data), nil
 }
 
-func (this *Database) ViewTemp(map_ string, reduce interface{}) (
+func (this *Database) ViewTemp(_map string, reduce interface{}) (
         map[string]interface{}, error) {
     var body = util.ParamList(
-        "map", map_,
+        "map", _map,
         // prevent "missing function" error
         "reduce", util.IsEmptySet(reduce, nil),
     )
