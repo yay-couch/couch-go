@@ -305,15 +305,13 @@ func (this *Database) EnsureFullCommit() (map[string]interface{}, error) {
     }, nil
 }
 
-func (this *Database) ViewCleanup() (map[string]interface{}, error) {
+func (this *Database) ViewCleanup() (bool, error) {
     data, err := this.Client.Post(this.Name +"/_view_cleanup", nil, nil, nil).
         GetBodyData(nil)
     if err != nil {
-        return nil, err
+        return false, err
     }
-    return map[string]interface{}{
-        "ok": util.DigBool("ok", data),
-    }, nil
+    return util.DigBool("ok", data), nil
 }
 
 func (this *Database) ViewTemp(map_ string, reduce interface{}) (
