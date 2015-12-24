@@ -318,3 +318,26 @@ dump uuid.Generate(uuid.RFC)       // rfc uuid/v4
 dump uuid.Generate(uuid.HEX_8)     // hexed 8 bytes
 dump uuid.Generate(uuid.TIMESTAMP) // unix epoch
 ```
+
+## Query
+```go
+import "couch/query"
+
+query := query.New(data) // data = map | nil
+
+// methods
+query.Set(key, value) *Query
+query.Skip(value) *Query
+query.Limit(value) *Query
+
+value := query.Get(key)
+data  := query.ToData()
+query := query.ToString()
+
+// examples
+query.Set("conflicts", true).
+    Set("stale", "ok").
+    Skip(1).
+    Limit(2)
+ dump query.ToString() // conflicts=true&stale=ok&skip=1&limit=2
+```
