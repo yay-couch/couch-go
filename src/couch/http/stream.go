@@ -101,7 +101,7 @@ func (this *Stream) SetError(body string) {
             errorKey,
             errorValue,
         )
-        this.ErrorData = make(map[string]string)
+        this.ErrorData = util.MapString()
         this.ErrorData["error"]  = errorKey
         this.ErrorData["reason"] = errorValue
     }
