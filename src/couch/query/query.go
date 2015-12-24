@@ -37,6 +37,10 @@ func (this *Query) Get(key string) interface{} {
     return nil
 }
 
+func (this *Query) Skip(value int) *Query {
+    this.Data["skip"] = value
+}
+
 func (this *Query) ToData() map[string]interface{} {
     return this.Data
 }
