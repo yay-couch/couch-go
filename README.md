@@ -341,3 +341,42 @@ query.Set("conflicts", true).
     Limit(2)
  dump query.ToString() // conflicts=true&stale=ok&skip=1&limit=2
 ```
+
+## Request / Response
+```go
+// after any http stream (server ping, database ping, document save etc)
+
+// ie.
+client.DoRequest("GET /")
+
+// get raw stuffs
+dump client.GetRequest().ToString()
+dump client.GetResponse().ToString()
+
+/*
+GET / HTTP/1.0
+Host: localhost:5984
+Connection: close
+Accept: application/json
+...
+
+HTTP/1.0 200 OK
+Server: CouchDB/1.5.0 (Erlang OTP/R16B03)
+Date: Sun, 01 Nov 2015 18:04:42 GMT
+Content-Type: application/json
+...
+
+{"couchdb":"Welcome","uuid":"5a660f4695a5fa9ab2cd22722bc01e96", ...
+*/
+
+// get response body
+body := client.GetResponse().GetBody()
+
+// get response body to
+type Body struct {
+    CouchDB string
+    ...
+}
+body := client.GetResponse().GetBodyData(&Body{})
+dump body.(*Body).CouchDB
+```
