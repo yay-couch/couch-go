@@ -207,4 +207,37 @@ data, err := Document.Remove(args...[?batch, ?fullCommit])
 data, err := Document.Copy(dest, args...[?batch, ?fullCommit])
 data, err := Document.CopyFrom(dest, args...[?batch, ?fullCommit])
 data, err := Document.CopyTo(dest, destRev, args...[?batch, ?fullCommit])
+
+// examples
+var doc = couch.NewDocument(
+    Database,
+    // key => value pairs from this line
+    "_id", "25ae622daf825dd1f2ec138b68007a10",
+)
+data, err := doc.Find(nil)
+if err != nil {
+    panic(err)
+}
+util.Dumpf("Document Find >> %v", data)
+util.Dumpf("Document Find >> _id: %s", data["_id"])
+
+var doc = couch.NewDocument(
+    Database,
+    // key => value pairs from this line
+    "_id", "25ae622daf825dd1f2ec138b68007a10",
+)
+type Doc struct {
+    Id   string `json:"_id"`
+    Rev  string `json:"_rev"`
+    Name string
+    // ...
+}
+data, err := doc.FindStruct(&Doc{}, nil)
+if err != nil {
+    panic(err)
+}
+util.Dumpf("Document Find Func >> doc: %+v", data)
+util.Dumpf("Document Find Func >> doc._id: %s", data.(*Doc).Id)
+util.Dumpf("Document Find Func >> doc._rev: %s", data.(*Doc).Rev)
+util.Dumpf("Document Find Func >> doc.name: %s", data.(*Doc).Name)
 ```
