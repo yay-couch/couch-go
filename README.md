@@ -397,8 +397,8 @@ Couch will not throw any server response error, such as 409 Conflict etc. It onl
 
 ```go
 // create issue
-doc = new Couch\Document(db)
-doc._id = "an_existing_docid"
+doc := Couch.NewDocument(db)
+doc.Set("_id", "an_existing_docid")
 
 // no error will be displayed
 doc.Save()
