@@ -18,6 +18,9 @@ type Query struct {
 func Shutup() {}
 
 func New(data map[string]interface{}) *Query {
+    if data == nil {
+        data = util.Map()
+    }
     return &Query{
         Data: data,
         DataString: "",
