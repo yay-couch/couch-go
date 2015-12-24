@@ -26,10 +26,10 @@ func init() {
 }
 
 func New(value interface{}) *Uuid {
-    if value == nil {
+    var this = &Uuid{}
+    if value == true {
         value = Generate(HEX_32)
     }
-    var this = &Uuid{}
     this.SetValue(value)
     return this
 }
