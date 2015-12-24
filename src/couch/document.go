@@ -103,9 +103,6 @@ func (this *Document) GetDeleted() bool {
 func (this *Document) GetData() map[string]interface{} {
     return this.Data
 }
-func (this *Document) GetDataValue(key string) interface{} {
-    return util.Dig(key, this.Data)
-}
 
 func (this *Document) Ping(statusCode uint16) bool {
     var id = this.GetId()
