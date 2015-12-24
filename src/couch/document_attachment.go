@@ -14,14 +14,9 @@ type DocumentAttachment struct {
     Digest      string
 }
 
-func NewDocumentAttachment(document *Document, args... string) *DocumentAttachment {
+func NewDocumentAttachment(document *Document, file, fileName string) *DocumentAttachment {
     var this = &DocumentAttachment{
         Document: document,
-    }
-    var file, fileName string
-    if args != nil {
-        if args[0] != "" { file = args[0] }
-        if args[1] != "" { fileName = args[1] }
     }
     if file != "" {
         this.File = file
