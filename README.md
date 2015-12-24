@@ -264,4 +264,21 @@ attc      := DocumentAttachment.Find()
 data, err := DocumentAttachment.Save()
 data, err := DocumentAttachment.Remove(args...[?batch, ?fullCommit])
 DocumentAttachment.ReadFile(?encode)
+
+// examples
+attc := couch.NewDocumentAttachment(do, "./attc1.txt", "")
+attc.Find()
+
+// find an attachment by digest
+attc.Digest   = "U1p5BLvdnOZVRyR6YrXBoQ=="
+attc.Find()
+
+// add an attachment to document
+attc.File     = "attc2.txt"
+attc.FileName = "attc2"
+attc.Save()
+
+// remove an attachment from document
+attc.FileName = "attc2"
+attc.Remove()
 ```
