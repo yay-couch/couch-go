@@ -179,7 +179,32 @@ for i, doc := range data {
 Document := couch.NewDocument(Database, data...)
 
 // methods
-Document.SetDatabase(*Database) void
+Document.SetDatabase(*Database)
 Document.GetDatabase() *Database
-Document.Set(data... /* key1, val1, ... */) *Document
+Document.Set(data...) *Document
+Document.SetId(id)
+Document.SetRev(rev)
+Document.SetDeleted(deleted)
+Document.SetAttachment(attachment)
+Document.SetData(data)
+Document.Get(key)
+Document.GetId()
+Document.GetRev()
+Document.GetDeleted()
+Document.GetAttachment(fileName)
+Document.GetData()
+
+ok        := Document.Ping()
+ok        := Document.IsExists()
+ok        := Document.IsNotModified()
+data, err := Document.Find(query)
+data, err := Document.FindStruct(struct, query)
+data, err := Document.FindRevisions()
+data, err := Document.FindRevisionsExtended()
+data, err := Document.FindAttachments(?attEncInfo, []attsSince)
+data, err := Document.Save(args...[?batch, ?fullCommit])
+data, err := Document.Remove(args...[?batch, ?fullCommit])
+data, err := Document.Copy(dest, args...[?batch, ?fullCommit])
+data, err := Document.CopyFrom(dest, args...[?batch, ?fullCommit])
+data, err := Document.CopyTo(dest, destRev, args...[?batch, ?fullCommit])
 ```
