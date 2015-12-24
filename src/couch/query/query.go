@@ -29,6 +29,7 @@ func New(data map[string]interface{}) *Query {
 
 func (this *Query) Set(key string, value interface{}) *Query {
     this.Data[key] = value
+    return this
 }
 func (this *Query) Get(key string) interface{} {
     if value, ok := this.Data[key]; ok {
@@ -39,9 +40,11 @@ func (this *Query) Get(key string) interface{} {
 
 func (this *Query) Skip(value int) *Query {
     this.Data["skip"] = value
+    return this
 }
 func (this *Query) Limit(value int) *Query {
     this.Data["limit"] = value
+    return this
 }
 
 func (this *Query) ToData() map[string]interface{} {
