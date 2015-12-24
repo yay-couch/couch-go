@@ -339,7 +339,8 @@ query.Set("conflicts", true).
       Set("stale", "ok").
       Skip(1).
       Limit(2)
- dump query.ToString() // conflicts=true&stale=ok&skip=1&limit=2
+
+dump query.ToString() // conflicts=true&stale=ok&skip=1&limit=2
 ```
 
 ## Request / Response
