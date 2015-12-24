@@ -63,7 +63,7 @@ type MyDoc struct {
 data, err := res.GetBodyData(&MyDoc{})
 
 // args
-uri       := "/<URI>";
+uri       := "/<URI>"
 uriParams := util.ParamList("param_name", "param_value", ...)
 headers   := util.ParamList("X-Foo", "The foo!", ...)
 body      := ""
@@ -251,7 +251,7 @@ util.Dumpf("Document Find Func >> doc.name: %s", data.(*Doc).Name)
 
 ### DocumentAttachment Object
 ```go
-DocumentAttachment := couch.NewDocumentAttachment(Document, "./attc.txt", "");
+DocumentAttachment := couch.NewDocumentAttachment(Document, "./attc.txt", "")
 
 // methods
 DocumentAttachment.SetDocument(document *Document)
@@ -281,4 +281,40 @@ attc.Save()
 // remove an attachment from document
 attc.FileName = "attc2"
 attc.Remove()
+```
+
+### DocumentDesign Object
+```go
+// @todo
+```
+
+## Uuid
+```go
+import "couch/uuid"
+
+// create uuid
+uuid := uuid.New(true)      // auto-generate randomly using "crypto/rand"
+uuid := uuid.New("<DOCID>") // set given value
+
+uuid := uuid.New(nil)       // set later
+uuid.SetValue("...")
+
+// methods
+uuid.SetValue(value)
+value := uuid.GetValue() interface{}
+value := uuid.ToString() string
+uuid  := uuid.Generate(limit /* type */) string
+
+// generation types (limits)
+RFC
+HEX_8
+HEX_32
+HEX_40
+TIMESTAMP
+TIMESTAMP_NANO
+
+// examples
+dump uuid.Generate(uuid.RFC)       // rfc uuid/v4
+dump uuid.Generate(uuid.HEX_8)     // hexed 8 bytes
+dump uuid.Generate(uuid.TIMESTAMP) // unix epoch
 ```
