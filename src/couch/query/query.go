@@ -40,6 +40,9 @@ func (this *Query) Get(key string) interface{} {
 func (this *Query) Skip(value int) *Query {
     this.Data["skip"] = value
 }
+func (this *Query) Limit(value int) *Query {
+    this.Data["limit"] = value
+}
 
 func (this *Query) ToData() map[string]interface{} {
     return this.Data
