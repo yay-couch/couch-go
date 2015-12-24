@@ -76,7 +76,7 @@ func (this *Stream) GetBodyData(to interface{}) (interface{}, error) {
         if err != nil {
             return nil, err
         }
-        return nil, _fmt.Errorf("Stream Error\n   >> error: \"%s\", reason: \"%s\"",
+        return nil, _fmt.Errorf("Stream Error >> error: \"%s\", reason: \"%s\"",
             data.(*StreamError).ErrorKey,
             data.(*StreamError).ErrorValue,
         )
