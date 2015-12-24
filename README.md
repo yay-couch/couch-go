@@ -369,6 +369,12 @@ Content-Type: application/json
 {"couchdb":"Welcome","uuid":"5a660f4695a5fa9ab2cd22722bc01e96", ...
 */
 
+// get response header
+date := client.GetResponse().GetHeader("Date")
+
+// get response all headers
+headers := client.GetResponse().GetHeaderAll()
+
 // get response body
 body := client.GetResponse().GetBody()
 
