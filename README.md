@@ -348,7 +348,7 @@ dump query.ToString() // conflicts=true&stale=ok&skip=1&limit=2
 // after any http stream (server ping, database ping, document save etc)
 
 // ie.
-client.DoRequest("GET /")
+client.DoRequest("GET /", nil, nil, nil)
 
 // get raw stuffs
 dump client.GetRequest().ToString()
@@ -407,7 +407,7 @@ doc.Save()
 if 201 != client.GetResponse().GetStatusCode() {
     dump "nö!"
     // or print response error
-    dump client.GetResponse().GetBodyData()
+    dump client.GetResponse().GetError()
 }
 ```
 
