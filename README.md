@@ -248,3 +248,20 @@ util.Dumpf("Document Find Func >> doc._id: %s", data.(*Doc).Id)
 util.Dumpf("Document Find Func >> doc._rev: %s", data.(*Doc).Rev)
 util.Dumpf("Document Find Func >> doc.name: %s", data.(*Doc).Name)
 ```
+
+### DocumentAttachment Object
+```go
+DocumentAttachment := couch.NewDocumentAttachment(Document, "./attc.txt", "");
+
+// methods
+DocumentAttachment.SetDocument(document *Document)
+DocumentAttachment.GetDocument() *Document
+
+attcArray := DocumentAttachment.ToArray(?encode)
+attcJson  := DocumentAttachment.ToJson(?encode)
+ok        := DocumentAttachment.Ping(statusCodes...[200,304])
+attc      := DocumentAttachment.Find()
+data, err := DocumentAttachment.Save()
+data, err := DocumentAttachment.Remove(args...[?batch, ?fullCommit])
+DocumentAttachment.ReadFile(?encode)
+```
