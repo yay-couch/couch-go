@@ -375,6 +375,9 @@ date := client.GetResponse().GetHeader("Date")
 
 // get response all headers
 headers := client.GetResponse().GetHeaderAll()
+for key, value := range headers {
+    dump key, value
+}
 
 // get response body
 body := client.GetResponse().GetBody()
