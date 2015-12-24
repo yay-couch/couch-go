@@ -50,6 +50,20 @@ func (this *Document) SetRev(rev string) {
 func (this *Document) SetDeleted(deleted bool) {
     this.Deleted = deleted
 }
+func (this *Document) SetAttachment(attachment interface{}) {
+    if _, ok := attachment.(*DocumentAttachment); !ok {
+        var file = util.DigString("file", attachment)
+        var fileName = util.DigString("fileName", attachment)
+        attachment = NewDocumentAttachment(this, file, fileName)
+    }
+    if _, ok := this.Attachments[attachment.(*DocumentAttachment).FileName]; ok {
+        panic("Attachment is alredy exists on this document!")
+    }
+    if this.Attachments == nil {
+        this.Attachments = make(map[string]*DocumentAttachment)
+    }
+    this.Attachments[attachment.(*DocumentAttachment).FileName] = attachment.(*DocumentAttachment);
+}
 func (this *Document) SetData(data map[string]interface{}) {
     if this.Data == nil {
         this.Data = util.Map()
@@ -66,20 +80,6 @@ func (this *Document) SetData(data map[string]interface{}) {
         }
         this.Data[key] = value
     }
-}
-func (this *Document) SetAttachment(attachment interface{}) {
-    if _, ok := attachment.(*DocumentAttachment); !ok {
-        var file = util.DigString("file", attachment)
-        var fileName = util.DigString("fileName", attachment)
-        attachment = NewDocumentAttachment(this, file, fileName)
-    }
-    if _, ok := this.Attachments[attachment.(*DocumentAttachment).FileName]; ok {
-        panic("Attachment is alredy exists on this document!")
-    }
-    if this.Attachments == nil {
-        this.Attachments = make(map[string]*DocumentAttachment)
-    }
-    this.Attachments[attachment.(*DocumentAttachment).FileName] = attachment.(*DocumentAttachment);
 }
 
 func (this *Document) Get(key string) interface{} {
