@@ -380,3 +380,23 @@ type Body struct {
 body := client.GetResponse().GetBodyData(&Body{})
 dump body.(*Body).CouchDB
 ```
+
+## Error Handling
+
+Couch will not throw any server response error, such as 409 Conflict etc. It only throws library-related errors ie. wrong usages of the library (ie. when _id is required for some action but you did not provide it).
+
+```go
+// create issue
+doc = new Couch\Document(db)
+doc._id = "an_existing_docid"
+
+// no error will be displayed
+doc.Save()
+
+// but could be so
+if 201 != client.GetResponse().GetStatusCode() {
+    dump "nö!"
+    // or print response error
+    dump client.GetResponse().GetBodyData()
+}
+```
