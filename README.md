@@ -173,3 +173,13 @@ for i, doc := range data {
     }
 }
 ```
+
+### Document Object
+```go
+Document := couch.NewDocument(Database, data...)
+
+// methods
+Document.SetDatabase(*Database) void
+Document.GetDatabase() *Database
+Document.Set(data... /* key1, val1, ... */) *Document
+```
