@@ -209,10 +209,18 @@ data, err := Document.CopyFrom(dest, args...[?batch, ?fullCommit])
 data, err := Document.CopyTo(dest, destRev, args...[?batch, ?fullCommit])
 
 // examples
+var doc = couch.NewDocument(Database)
+doc.Set("_id", "1ec1098a")
+// or like key=>value pairs
+doc.Set(
+    "_id", "1ec1098a",
+    "_rev", "1-5637fd00",
+)
+
 var doc = couch.NewDocument(
     Database,
-    // key => value pairs from this line
-    "_id", "25ae622daf825dd1f2ec138b68007a10",
+    "_id", "1ec1098a",
+    // ...
 )
 data, err := doc.Find(nil)
 if err != nil {
@@ -223,8 +231,7 @@ util.Dumpf("Document Find >> _id: %s", data["_id"])
 
 var doc = couch.NewDocument(
     Database,
-    // key => value pairs from this line
-    "_id", "25ae622daf825dd1f2ec138b68007a10",
+    "_id", "1ec1098a",
 )
 type Doc struct {
     Id   string `json:"_id"`
