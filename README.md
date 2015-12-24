@@ -9,7 +9,7 @@ doc := Couch.NewDocument(db)
 doc.Set("name", "The Doc!")
 doc.Save()
 
-// append an attachment to same document
+// append an attachment to the same document above
 doc.SetAttachment(Couch.NewDocumentAttachment(doc, "./file.txt"))
 doc.Save()
 ```
