@@ -100,6 +100,12 @@ func (this *Document) GetRev() string {
 func (this *Document) GetDeleted() bool {
     return this.Deleted
 }
+func (this *Document) GetAttachment(fileName string) interface{} {
+    if attachment, ok := this.Attachments[fileName]; ok {
+        return attachment
+    }
+    return nil
+}
 func (this *Document) GetData() map[string]interface{} {
     return this.Data
 }
