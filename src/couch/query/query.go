@@ -27,6 +27,16 @@ func New(data map[string]interface{}) *Query {
     }
 }
 
+func (this *Query) Set(key string, value interface{}) *Query {
+    this.Data[key] = value
+}
+func (this *Query) Get(key string) interface{} {
+    if value, ok := this.Data[key]; ok {
+        return value
+    }
+    return nil
+}
+
 func (this *Query) ToData() map[string]interface{} {
     return this.Data
 }
