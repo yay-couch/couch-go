@@ -16,6 +16,7 @@ type Document struct {
 
 func NewDocument(database *Database, data ...interface{}) *Document {
     var this = &Document{
+        Data : util.Map(),
         Database: database,
     }
     if data != nil {
@@ -65,9 +66,6 @@ func (this *Document) SetAttachment(attachment interface{}) {
     this.Attachments[attachment.(*DocumentAttachment).FileName] = attachment.(*DocumentAttachment);
 }
 func (this *Document) SetData(data map[string]interface{}) {
-    if this.Data == nil {
-        this.Data = util.Map()
-    }
     for key, value := range data {
         if key == "_id"      { this.SetId(value) }
         if key == "_rev"     { this.SetRev(value.(string)) }
