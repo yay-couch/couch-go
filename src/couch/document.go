@@ -41,7 +41,7 @@ type Document struct {
 // @param  database *couch.Database
 // @param  data... interface{}
 // @return (*couch.Document)
-func NewDocument(database *Database, data... interface{}) *Document {
+func NewDocument(database *Database, data... interface{}) (*Document) {
     var this = &Document{
         Data : util.Map(),
         Database: database,
@@ -65,7 +65,7 @@ func (this *Document) SetDatabase(database *Database) {
 // Get database
 //
 // @return (database *couch.Database)
-func (this *Document) GetDatabase() *Database {
+func (this *Document) GetDatabase() (*Database) {
     return this.Database
 }
 
@@ -74,7 +74,7 @@ func (this *Document) GetDatabase() *Database {
 // @param  data... interface{}
 // @return (*couch.Document)
 // @panics
-func (this *Document) Set(data... interface{}) *Document {
+func (this *Document) Set(data... interface{}) (*Document) {
     if data == nil {
         panic("Provide at least a key=>value match as param!")
     }
@@ -161,7 +161,7 @@ func (this *Document) SetData(data map[string]interface{}) {
 //
 // @param  key string
 // @return (interface{})
-func (this *Document) Get(key string) interface{} {
+func (this *Document) Get(key string) (interface{}) {
     if value, ok := this.Data[key]; ok {
         return value
     }
@@ -172,7 +172,7 @@ func (this *Document) Get(key string) interface{} {
 // Get ID.
 //
 // @return (string)
-func (this *Document) GetId() string {
+func (this *Document) GetId() (string) {
     if this.Id != nil {
         return this.Id.ToString()
     }
@@ -182,21 +182,21 @@ func (this *Document) GetId() string {
 // Get rev.
 //
 // @return (string)
-func (this *Document) GetRev() string {
+func (this *Document) GetRev() (string) {
     return this.Rev
 }
 
 // Get deleted.
 //
 // @return (bool)
-func (this *Document) GetDeleted() bool {
+func (this *Document) GetDeleted() (bool) {
     return this.Deleted
 }
 
 // Get attachment.
 //
 // @return (interface{})
-func (this *Document) GetAttachment(fileName string) interface{} {
+func (this *Document) GetAttachment(fileName string) (interface{}) {
     if attachment, ok := this.Attachments[fileName]; ok {
         return attachment
     }
@@ -206,7 +206,7 @@ func (this *Document) GetAttachment(fileName string) interface{} {
 // Get data.
 //
 // @return (map[string]interface{})
-func (this *Document) GetData() map[string]interface{} {
+func (this *Document) GetData() (map[string]interface{}) {
     return this.Data
 }
 
@@ -215,7 +215,7 @@ func (this *Document) GetData() map[string]interface{} {
 // @param  statusCode uint16
 // @return (bool)
 // @panics
-func (this *Document) Ping(statusCode uint16) bool {
+func (this *Document) Ping(statusCode uint16) (bool) {
     var id = this.GetId()
     if id == "" {
         panic("_id field is could not be empty!")
@@ -234,7 +234,7 @@ func (this *Document) Ping(statusCode uint16) bool {
 //
 // @return (bool)
 // @panics
-func (this *Document) IsExists() bool {
+func (this *Document) IsExists() (bool) {
     var id = this.GetId()
     if id == "" {
         panic("_id field is could not be empty!")
@@ -255,7 +255,7 @@ func (this *Document) IsExists() bool {
 //
 // @return (bool)
 // @panics
-func (this *Document) IsNotModified() bool {
+func (this *Document) IsNotModified() (bool) {
     var id, rev = this.GetId(), this.GetRev()
     if id == "" || rev == "" {
         panic("_id & _rev fields are could not be empty!")
