@@ -409,28 +409,25 @@ func (this *Database) GetChanges(
 // Compact.
 //
 // @param  ddoc string
-// @return []map[string]interface{}, error
-func (this *Database) Compact(ddoc string) (map[string]interface{}, error) {
+// @return bool, error
+func (this *Database) Compact(ddoc string) (bool, error) {
     data, err := this.Client.Post(this.Name +"/_compact/"+ ddoc, nil, nil, nil).GetBodyData(nil)
     if err != nil {
-        return nil, err
+        return false, err
     }
 
-    return map[string]interface{}{
-        "ok": util.DigBool("ok", data),
-    }, nil
+    return util.DigBool("ok", data), nil
 }
 
-func (this *Database) EnsureFullCommit() (map[string]interface{}, error) {
-    data, err := this.Client.Post(this.Name +"/_ensure_full_commit", nil, nil, nil).
-        GetBodyData(nil)
+func (this *Database) EnsureFullCommit() (bool, uint, error) {
+    data, err := this.Client.Post(this.Name +"/_ensure_full_commit", nil, nil, nil).GetBodyData(nil)
     if err != nil {
-        return nil, err
+        return false, 0, err
     }
-    return map[string]interface{}{
-        "ok": util.DigBool("ok", data),
-        "instance_start_time": util.DigString("instance_start_time", data),
-    }, nil
+
+    return util.DigBool("ok", data),
+           util.DigUInt("instance_start_time", data),
+           nil
 }
 
 func (this *Database) ViewCleanup() (bool, error) {
@@ -477,8 +474,7 @@ func (this *Database) GetSecurity() (map[string]interface{}, error) {
     return data.(map[string]interface{}), nil
 }
 
-func (this *Database) SetSecurity(admins, members map[string]interface{}) (
-        map[string]interface{}, error) {
+func (this *Database) SetSecurity(admins, members map[string]interface{}) (bool, error) {
     if admins["names"].([]string) == nil || admins["roles"].([]string)  == nil ||
        members["names"].([]string) == nil || members["roles"].([]string) == nil {
         panic("Specify admins and/or members with names=>roles fields!")
@@ -488,9 +484,7 @@ func (this *Database) SetSecurity(admins, members map[string]interface{}) (
     if err != nil {
         return nil, err
     }
-    return map[string]interface{}{
-        "ok": util.DigBool("ok", data),
-    }, nil
+    return util.DigBool("ok", data), nil
 }
 
 func (this *Database) Purge(object map[string]interface{}) (map[string]interface{}, error) {
@@ -539,8 +533,7 @@ func (this *Database) GetMissingRevisionsDiff(object map[string]interface{}) (
 }
 
 func (this *Database) GetRevisionLimit() (int, error) {
-    data, err := this.Client.Get(this.Name +"/_revs_limit", nil, nil).
-        GetBodyData(nil)
+    data, err := this.Client.Get(this.Name +"/_revs_limit", nil, nil).GetBodyData(nil)
     if err != nil {
         return -1, err
     }
@@ -548,8 +541,7 @@ func (this *Database) GetRevisionLimit() (int, error) {
 }
 
 func (this *Database) SetRevisionLimit(limit int) (bool, error) {
-    data, err := this.Client.Put(this.Name +"/_revs_limit", nil, limit, nil).
-        GetBodyData(limit)
+    data, err := this.Client.Put(this.Name +"/_revs_limit", nil, limit, nil).GetBodyData(limit)
     if err != nil {
         return false, err
     }
