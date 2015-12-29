@@ -1,8 +1,8 @@
 // Copyright 2015 Kerem Güneş
-//     <http://qeremy.com>
+//    <http://qeremy.com>
 //
 // Apache License, Version 2.0
-//     <http://www.apache.org/licenses/LICENSE-2.0>
+//    <http://www.apache.org/licenses/LICENSE-2.0>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ type Client struct {
     Config    map[string]interface{}
 }
 
-// Client default config options
+// Default config options
 var (
     Scheme        = "http"
     Host          = "localhost"
@@ -54,7 +54,10 @@ var (
     Password      = ""
 )
 
-// Create a new Client object
+// Object constructor.
+//
+// @param  couch *couch.http.Couch
+// @return *couch.Client
 func NewClient(couch *Couch) *Client {
     var this = &Client{
         Scheme: Scheme,
@@ -67,7 +70,8 @@ func NewClient(couch *Couch) *Client {
     var Config = util.Map()
     Config["Couch.NAME"]    = NAME
     Config["Couch.VERSION"] = VERSION
-    Config["Couch.DEBUG"]   = DEBUG // set default
+    // set default
+    Config["Couch.DEBUG"]   = DEBUG
 
     // copy Couch configs
     var config = couch.GetConfig()
@@ -76,18 +80,23 @@ func NewClient(couch *Couch) *Client {
             Config[key] = value
         }
     }
+    // add scheme if provided
     if scheme := config["Scheme"]; scheme != nil {
         this.Scheme = scheme.(string)
     }
+    // add host if provided
     if host := config["Host"]; host != nil {
         this.Host = host.(string)
     }
+    // add port if provided
     if port := config["Port"]; port != nil {
         this.Port = port.(uint16)
     }
+    // add username if provided
     if username := config["Username"]; username != nil {
         this.Username = username.(string)
     }
+    // add password if provided
     if password := config["Password"]; password != nil {
         this.Password = password.(string)
     }
@@ -98,6 +107,7 @@ func NewClient(couch *Couch) *Client {
     Config["Username"] = this.Username
     Config["Password"] = this.Password
 
+    // add debug if provided
     if debug := couch.Config["debug"]; debug != nil {
         Config["Couch.DEBUG"] = debug
     }
@@ -107,15 +117,31 @@ func NewClient(couch *Couch) *Client {
     return this
 }
 
+// Get request object
+//
+// @return *couch.http.Request
 func (this *Client) GetRequest() *http.Request {
     return this.Request
 }
+
+// Get response object
+//
+// @return *couch.http.Response
 func (this *Client) GetResponse() *http.Response {
     return this.Response
 }
 
-func (this *Client) DoRequest(uri string, uriParams interface{},
-        body interface{}, headers interface{}) *http.Response {
+// Perform a request.
+//
+// @param  uri       string
+// @param  uriParams map[string]interface{}
+// @return *couch.http.Response
+// @panics
+func (this *Client) DoRequest(
+        uri string, uriParams interface{},
+        body interface{}, headers interface{},
+    ) *http.Response {
+    // notation: GET /foo
     re, _ := _rex.Compile("^([A-Z]+)\\s+(/.*)")
     if re == nil {
         panic("Usage: <REQUEST METHOD> <REQUEST URI>!")
@@ -128,23 +154,33 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
     this.Request = http.NewRequest(this.Config)
     this.Response = http.NewResponse()
 
-    uri = _fmt.Sprintf("%s:%v/%s", this.Host, this.Port, _str.Trim(match[2], "/ "))
+    // merge host, port and uri
+    uri = _fmt.Sprintf("%s:%v/%s",
+        this.Host, this.Port, _str.Trim(match[2], "/ "))
 
+    // set request method & uri
     this.Request.SetMethod(match[1])
     this.Request.SetUri(uri, uriParams)
+
+    // add request headers
     if headers, _ := headers.(map[string]interface{}); headers != nil {
         for key, value := range headers {
             this.Request.SetHeader(key, value)
         }
     }
+
+    // add request body
     this.Request.SetBody(body)
 
+    // perform request
     if result := this.Request.Send(); result != "" {
         tmp := make([]string, 2)
         tmp = _str.SplitN(result, "\r\n\r\n", 2)
         if len(tmp) != 2 {
             panic("No valid response returned from server!")
         }
+
+        // set response status & headers
         if headers := util.ParseHeaders(_str.TrimSpace(tmp[0])); headers != nil {
             if status := headers["0"]; status != "" {
                 this.Response.SetStatus(headers["0"])
@@ -153,6 +189,8 @@ func (this *Client) DoRequest(uri string, uriParams interface{},
                 this.Response.SetHeader(key, value)
             }
         }
+
+        // set response body
         this.Response.SetBody(tmp[1])
     }
 
