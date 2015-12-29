@@ -39,7 +39,7 @@ type DatabaseDocument struct {
     Doc    map[string]interface{}
 }
 
-// DatabaseDocumentList object
+// DatabaseDocumentList object.
 type DatabaseDocumentList struct {
     Offset     uint
     TotalRows  uint `json:"total_rows"`
@@ -47,6 +47,11 @@ type DatabaseDocumentList struct {
     Rows       []DatabaseDocument
 }
 
+// Object constructor.
+//
+// @param  client *couch.Client
+// @param  client string
+// @return *couch.Database
 func NewDatabase(client *Client, name string) *Database {
     return &Database{
         Client: client,
@@ -54,74 +59,107 @@ func NewDatabase(client *Client, name string) *Database {
     }
 }
 
+// Ping database.
+//
+// @return bool
 func (this *Database) Ping() bool {
     return (200 == this.Client.Head(this.Name, nil, nil).GetStatusCode())
 }
 
+// Get database info.
+//
+// @return map[string]interface{}, error
 func (this *Database) Info() (map[string]interface{}, error) {
     data, err := this.Client.Get(this.Name, nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
-    var _return = util.Map()
+
+    var r = util.Map()
     for key, value := range data.(map[string]interface{}) {
-        _return[key] = value
+        r[key] = value
     }
-    return _return, nil
+
+    return r, nil
 }
 
+// Create database.
+//
+// @return bool
 func (this *Database) Create() bool {
     return (201 == this.Client.Put(this.Name, nil, nil, nil).GetStatusCode())
 }
 
+// Remove database.
+//
+// @return bool
 func (this *Database) Remove() bool {
     return (200 == this.Client.Delete(this.Name, nil, nil).GetStatusCode())
 }
 
-func (this *Database) Replicate(target string, targetCreate bool) (
-        map[string]interface{}, error) {
+
+// Create database.
+//
+// @param  target       string
+// @param  targetCreate bool
+// @return bool
+func (this *Database) Replicate(
+    target string, targetCreate bool) (map[string]interface{}, error) {
+    // prepare body
     var body = util.ParamList(
         "source", this.Name,
         "target", target,
         "create_target", targetCreate,
     )
+
     data, err := this.Client.Post("/_replicate", nil, body, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
-    var _return = util.Map()
+
+    var ret = util.Map()
     for key, value := range data.(map[string]interface{}) {
+        // grap, set & pass history field
         if key == "history" {
-            _return[key] = util.MapList(value)
+            ret[key] = util.MapList(value)
             for i, history := range value.([]interface{}) {
-                _return[key].([]map[string]interface{})[i] = util.Map()
+                ret[key].([]map[string]interface{})[i] = util.Map()
                 for kkey, vvalue := range history.(map[string]interface{}) {
-                    _return[key].([]map[string]interface{})[i][kkey] = vvalue
+                    ret[key].([]map[string]interface{})[i][kkey] = vvalue
                 }
             }
             continue
         }
-        _return[key] = value
+        ret[key] = value
     }
-    return _return, nil
+
+    return ret, nil
 }
 
+// Get document.
+//
+// @param  key string
+// @return map[string]interface{}, error
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
+    // prepare query
     var query = util.ParamList(
         "include_docs", true,
         "key"         , util.Quote(key),
     )
+
     data, err := this.Client.Get(this.Name +"/_all_docs", query, nil).
         GetBodyData(&DatabaseDocumentList{})
     if err != nil {
         return nil, err
     }
+
     var _return = util.Map()
     for _, doc := range data.(*DatabaseDocumentList).Rows {
         _return["id"]    = doc.Id
         _return["key"]   = doc.Key
         _return["value"] = map[string]string{"rev": doc.Value["rev"].(string)}
         _return["doc"]   = map[string]interface{}{}
+        // fill doc field
         for key, value := range doc.Doc {
             _return["doc"].(map[string]interface{})[key] = value
         }
@@ -129,39 +167,49 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     return _return, nil
 }
 
-func (this *Database) GetDocumentAll(query map[string]interface{}, keys []string) (
-        map[string]interface{}, error) {
+// Get documents.
+//
+// @param  query map[string]interface{}, error
+// @param  keys  []string
+// @return map[string]interface{}, error
+func (this *Database) GetDocumentAll(
+    query map[string]interface{}, keys []string) (map[string]interface{}, error) {
     query = util.Param(query)
     if query["include_docs"] == nil {
         query["include_docs"] = true
     }
-    // reusable lambda
-    var _return = func(data interface{}, err error) (map[string]interface{}, error) {
+
+    // make a reusable lambda
+    var fun = func(data interface{}, err error) (map[string]interface{}, error) {
         if err != nil {
             return nil, err
         }
-        var _return = util.Map()
-        var _returnRows = data.(*DatabaseDocumentList).Rows
-        _return["offset"]     = data.(*DatabaseDocumentList).Offset
-        _return["total_rows"] = data.(*DatabaseDocumentList).TotalRows
-        _return["rows"]       = util.MapList(len(_returnRows))
-        for i, row := range _returnRows {
-            _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
+
+        var ret = util.Map()
+        var rows = data.(*DatabaseDocumentList).Rows
+        ret["offset"]     = data.(*DatabaseDocumentList).Offset
+        ret["total_rows"] = data.(*DatabaseDocumentList).TotalRows
+        ret["rows"]       = util.MapList(len(rows))
+
+        // append docs
+        for i, row := range rows {
+            ret["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                    "id": row.Id,
                   "key": row.Key,
                 "value": map[string]string{"rev": row.Value["rev"].(string)},
                   "doc": row.Doc,
             }
         }
-        return _return, nil
+
+        return ret, nil
     }
     if keys == nil {
-        return _return(
+        return fun(
             this.Client.Get(this.Name +"/_all_docs", query, nil).
                 GetBodyData(&DatabaseDocumentList{}))
     } else {
         var body = util.ParamList("keys", keys)
-        return _return(
+        return fun(
             this.Client.Post(this.Name +"/_all_docs", query, body, nil).
                 GetBodyData(&DatabaseDocumentList{}))
     }
