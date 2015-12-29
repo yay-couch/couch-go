@@ -54,7 +54,7 @@ func init() {
 //
 // @param  value interface{}
 // @return (*couch.uuid.Uuid)
-func New(value interface{}) *Uuid {
+func New(value interface{}) (*Uuid) {
     var this = &Uuid{}
 
     // auto-generate?
@@ -87,7 +87,7 @@ func (this *Uuid) SetValue(value interface{}) {
 // Get value.
 //
 // @return (interface{})
-func (this *Uuid) GetValue() interface{} {
+func (this *Uuid) GetValue() (interface{}) {
     if this.Value == nil {
         return nil
     }
@@ -97,7 +97,7 @@ func (this *Uuid) GetValue() interface{} {
 // Get value as string.
 //
 // @return (string)
-func (this *Uuid) ToString() string {
+func (this *Uuid) ToString() (string) {
     if this.Value == nil {
         return ""
     }
@@ -110,7 +110,7 @@ func (this *Uuid) ToString() string {
 // @param  limit int
 // @return (string)
 // @panics
-func Generate(limit int) string {
+func Generate(limit int) (string) {
     // unix epoch
     if limit == TIMESTAMP {
         return _fmt.Sprintf("%v", _time.Now().Unix())
