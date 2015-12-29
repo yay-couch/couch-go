@@ -40,7 +40,7 @@ func Shutup() {}
 //
 // @param  config map[string]interface{}
 // @return (*couch.Couch)
-func New(config interface{}, debug bool) *Couch {
+func New(config interface{}, debug bool) (*Couch) {
     var this = &Couch{
         Config: map[string]interface{}{
             "debug": debug,
