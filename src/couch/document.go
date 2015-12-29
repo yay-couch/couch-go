@@ -1,3 +1,24 @@
+// Copyright 2015 Kerem Güneş
+//    <http://qeremy.com>
+//
+// Apache License, Version 2.0
+//    <http://www.apache.org/licenses/LICENSE-2.0>
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// @package couch
+// @uses    couch.util, couch.uuid
+// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
 package couch
 
 import (
@@ -5,6 +26,7 @@ import (
     "couch/uuid"
 )
 
+// Document object.
 type Document struct {
     Id          *uuid.Uuid
     Rev         string
@@ -14,24 +36,41 @@ type Document struct {
     Database    *Database
 }
 
-func NewDocument(database *Database, data ...interface{}) *Document {
+// Constructor.
+//
+// @param  database *couch.Database
+// @param  data ...interface{}
+// @return *couch.Document
+func NewDocument(database *Database, data... interface{}) *Document {
     var this = &Document{
         Data : util.Map(),
         Database: database,
     }
+
     if data != nil {
         this.SetData(util.ParamList(data...))
     }
+
     return this
 }
 
+// Set database.
+//
+// @param database *couch.Database
 func (this *Document) SetDatabase(database *Database) {
     this.Database = database
 }
+
+// Get database
+//
+// @return database *couch.Database
 func (this *Document) GetDatabase() *Database {
     return this.Database
 }
 
+// Setter.
+//
+// @param data
 func (this *Document) Set(data... interface{}) *Document {
     if data == nil {
         panic("Provide at least a key=>value match as param!")
