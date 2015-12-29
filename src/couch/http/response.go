@@ -67,12 +67,8 @@ var (
 //
 // @return (*couch.http.Response)
 func NewResponse() *Response {
-    stream := NewStream()
-    stream.Type = TYPE_RESPONSE
-    stream.HttpVersion = "1.1"
-
     var this = &Response{
-        Stream: *stream,
+        Stream: *NewStream(TYPE_RESPONSE, "1.0"),
     }
 
     return this

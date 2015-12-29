@@ -58,12 +58,8 @@ const (
 // @param  config map[string]interface{}
 // @return (*couch.http.Request)
 func NewRequest(config map[string]interface{}) *Request {
-    stream := NewStream()
-    stream.Type = TYPE_REQUEST
-    stream.HttpVersion = "1.0"
-
     var this = &Request{
-        Stream: *stream,
+        Stream: *NewStream(TYPE_REQUEST, "1.0"),
         Config: config,
     }
 

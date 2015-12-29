@@ -64,9 +64,13 @@ func Shutup() {}
 
 // Constructor.
 //
+// @param  _type       uint8
+// @param  httpVersion string
 // @return (couch.http.Stream)
-func NewStream() *Stream {
+func NewStream(_type uint8, httpVersion string) *Stream {
     return &Stream{
+        Type: _type,
+        HttpVersion: httpVersion,
         Headers: util.Map(),
     }
 }
