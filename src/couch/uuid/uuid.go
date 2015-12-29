@@ -50,6 +50,8 @@ func init() {
     _ = _rand.Reader
 }
 
+func Shutup() {}
+
 // Constructor.
 //
 // @param  value interface{}
