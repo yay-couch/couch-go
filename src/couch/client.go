@@ -24,15 +24,15 @@ import (
 )
 
 import (
-    "couch/http"
     "couch/util"
+    "couch/http"
 )
 
 // @package couch
 // @object  couch.Client
 // @uses    couch.http
 // @uses    fmt, strings, regexp
-//          couch.http, couch.util
+//          couch.util, couch.http
 // @author  Kerem Güneş <qeremy[at]gmail[dot]com>
 type Client struct {
     Scheme    string
