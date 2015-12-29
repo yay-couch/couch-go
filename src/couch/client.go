@@ -46,6 +46,7 @@ type Client struct {
 }
 
 // Default config options
+// @var mixed
 var (
     Scheme        = "http"
     Host          = "localhost"
