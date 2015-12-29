@@ -17,7 +17,6 @@
 // limitations under the License.
 
 // @package couch
-// @uses    couch.http
 // @uses    fmt, strings, regexp
 // @uses    couch.util, couch.http
 // @author  Kerem Güneş <qeremy[at]gmail[dot]com>
