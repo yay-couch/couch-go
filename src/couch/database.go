@@ -211,13 +211,11 @@ func (this *Database) GetDocumentAll(
     }
 
     if keys == nil {
-        // get all
-        return _func(
+        return _func( // get all
             this.Client.Get(this.Name +"/_all_docs", query, nil).GetBodyData(&ddl{}))
     } else {
         var body = util.ParamList("keys", keys)
-        // get all only matched keys
-        return _func(
+        return _func( // get all only matched keys
             this.Client.Post(this.Name +"/_all_docs", query, body, nil).GetBodyData(&ddl{}))
     }
 }
