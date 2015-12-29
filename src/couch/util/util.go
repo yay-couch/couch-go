@@ -40,8 +40,8 @@ func Shutup() {}
 // Get short type.
 //
 // @param  args.. interface{}
-// @return string
-func Type(args... interface{}) string {
+// @return (string)
+func Type(args... interface{}) (string) {
     return _str.Trim(TypeReal(args[0]), " *<>{}[]")
 }
 
@@ -49,7 +49,7 @@ func Type(args... interface{}) string {
 //
 // @param  args.. interface{}
 // @return (string)
-func TypeReal(args... interface{}) string {
+func TypeReal(args... interface{}) (string) {
     return _fmt.Sprintf("%T", args[0])
 }
 
@@ -57,7 +57,7 @@ func TypeReal(args... interface{}) string {
 //
 // @param  input interface{}
 // @return (int)
-func Int(input interface{}) int {
+func Int(input interface{}) (int) {
     if number := Number(input, "int"); number != nil {
         return number.(int)
     }
@@ -68,7 +68,7 @@ func Int(input interface{}) int {
 //
 // @param  input interface{}
 // @return (uint)
-func UInt(input interface{}) uint {
+func UInt(input interface{}) (uint) {
     if number := Number(input, "uint"); number != nil {
         return number.(uint)
     }
@@ -80,7 +80,7 @@ func UInt(input interface{}) uint {
 // @param  input     interface{}
 // @param  inputType string
 // @return (interface{})
-func Number(input interface{}, inputType string) interface{} {
+func Number(input interface{}, inputType string) (interface{}) {
     if input != nil {
         number, err := _strc.Atoi(String(input))
         if err == nil {
@@ -110,7 +110,7 @@ func Number(input interface{}, inputType string) interface{} {
 //
 // @param  input interface{}
 // @return (bool)
-func IsEmpty(input interface{}) bool {
+func IsEmpty(input interface{}) (bool) {
     return (input == nil || input == "" || input == 0)
 }
 
@@ -119,7 +119,7 @@ func IsEmpty(input interface{}) bool {
 // @param  input        interface{}
 // @param  inputDefault interface{}
 // @return (bool)
-func IsEmptySet(input interface{}, inputDefault interface{}) interface{} {
+func IsEmptySet(input interface{}, inputDefault interface{}) (interface{}) {
     if IsEmpty(input) {
         input = inputDefault
     }
@@ -166,7 +166,7 @@ func Dumpf(format string, args... interface{}) {
 //
 // @param  input string
 // @return (string)
-func Quote(input string) string {
+func Quote(input string) (string) {
     return _strc.Quote(input)
 }
 
@@ -174,7 +174,7 @@ func Quote(input string) string {
 //
 // @param  input string
 // @return (string)
-func QuoteEncode(input string) string {
+func QuoteEncode(input string) (string) {
     return _str.Replace(input, "\"", "%22", -1)
 }
 
@@ -182,7 +182,7 @@ func QuoteEncode(input string) string {
 //
 // @param  param map[string]interface{}
 // @return (map[string]interface{})
-func Param(param map[string]interface{}) map[string]interface{} {
+func Param(param map[string]interface{}) (map[string]interface{}) {
     if param == nil {
         param = Map()
     }
@@ -200,7 +200,7 @@ func Param(param map[string]interface{}) map[string]interface{} {
 // @param  argv... interface{}
 // @return (map[string]interface{})
 // @panics
-func ParamList(argv... interface{}) map[string]interface{} {
+func ParamList(argv... interface{}) (map[string]interface{}) {
     var argc = len(argv)
     if argc % 2 != 0 {
         panic("Wrong param count (key1, value1, key2, value2)!")
@@ -224,7 +224,7 @@ func ParamList(argv... interface{}) map[string]interface{} {
 // @param  url string
 // @return (map[string]string)
 // @panics
-func ParseUrl(url string) map[string]string {
+func ParseUrl(url string) (map[string]string) {
     if url == "" {
         panic("No URL given!")
     }
@@ -254,7 +254,7 @@ func ParseUrl(url string) map[string]string {
 //
 // @param  query string
 // @return (map[string]string)
-func ParseQuery(query string) map[string]string {
+func ParseQuery(query string) (map[string]string) {
     var ret, tmp = MapString(), _str.Split(query, "&")
     for _, tmp := range tmp {
         var tmp = _str.Split(tmp, "=")
@@ -268,7 +268,7 @@ func ParseQuery(query string) map[string]string {
 //
 // @param  headers string
 // @return (map[string]string)
-func ParseHeaders(headers string) map[string]string {
+func ParseHeaders(headers string) (map[string]string) {
     var ret = MapString()
     if tmps := _str.Split(headers, "\r\n"); tmps != nil {
         for _, tmp := range tmps {
@@ -321,7 +321,7 @@ func UnparseBody(in interface{}) (string, error) {
 //
 // @param  input string
 // @return (string)
-func UrlEncode(input string) string {
+func UrlEncode(input string) (string) {
     return _url.QueryEscape(input)
 }
 
@@ -329,7 +329,7 @@ func UrlEncode(input string) string {
 //
 // @param  input string
 // @return (string)
-func UrlDecode(input string) string {
+func UrlDecode(input string) (string) {
     input, err := _url.QueryUnescape(input)
     if err != nil {
         return ""
@@ -343,7 +343,7 @@ func UrlDecode(input string) string {
 // @param  input interface{}
 // @return (string)
 // @panics
-func String(input interface{}) string {
+func String(input interface{}) (string) {
     switch input.(type) {
         case int,
              bool,
@@ -364,7 +364,7 @@ func String(input interface{}) string {
 // @param  format string
 // @param  args... interface{}
 // @return (string)
-func StringFormat(format string, args... interface{}) string {
+func StringFormat(format string, args... interface{}) (string) {
     return _fmt.Sprintf(format, args...)
 }
 
@@ -373,7 +373,7 @@ func StringFormat(format string, args... interface{}) string {
 // @param  format string
 // @param  search string
 // @return (bool)
-func StringSearch(input, search string) bool {
+func StringSearch(input, search string) (bool) {
     re, _ := _rex.Compile(search)
     if re == nil {
         return false
@@ -387,7 +387,7 @@ func StringSearch(input, search string) bool {
 // @param  input string
 // @param  chars string
 // @return (bool)
-func Trim(input, chars string) string {
+func Trim(input, chars string) (string) {
     return _str.Trim(input, chars)
 }
 
@@ -395,7 +395,7 @@ func Trim(input, chars string) string {
 //
 // @param  path string
 // @return (string)
-func Dirname(path string) string {
+func Dirname(path string) (string) {
     dirname, err := _pathf.Abs(path)
     if err != nil {
         return ""
@@ -408,7 +408,7 @@ func Dirname(path string) string {
 //
 // @param  path string
 // @return (string)
-func Basename(path string) string {
+func Basename(path string) (string) {
     return _pathf.Base(path)
 }
 
@@ -416,7 +416,7 @@ func Basename(path string) string {
 //
 // @param  file string
 // @return (bool)
-func FileExists(file string) bool {
+func FileExists(file string) (bool) {
     if _, err := _os.Stat(file); err == nil {
         return true
     }
@@ -427,7 +427,7 @@ func FileExists(file string) bool {
 //
 // @param file string
 // @retur (int64)
-func FileSize(file string) int64 {
+func FileSize(file string) (int64) {
     if stat, err := _os.Stat(file); err == nil {
         return stat.Size()
     }
@@ -497,7 +497,7 @@ func FileGetContents(file string) (string, error) {
 //
 // @param  input string
 // @return (string, error)
-func Base64Encode(input string) string {
+func Base64Encode(input string) (string) {
     return _b64.StdEncoding.EncodeToString([]byte(input))
 }
 
@@ -505,7 +505,7 @@ func Base64Encode(input string) string {
 //
 // @param  input string
 // @return (string)
-func Base64Decode(input string) string {
+func Base64Decode(input string) (string) {
     data, err := _b64.StdEncoding.DecodeString(input)
     if err == nil {
         return string(data)
@@ -518,7 +518,7 @@ func Base64Decode(input string) string {
 // @param  key    string
 // @param  object interface{}
 // @return (interface{})
-func Dig(key string, object interface{}) interface{} {
+func Dig(key string, object interface{}) (interface{}) {
     if object == nil {
         return nil
     }
@@ -599,7 +599,7 @@ func Dig(key string, object interface{}) interface{} {
 // @param  key    string
 // @param  object interface{}
 // @return (int)
-func DigInt(key string, object interface{}) int {
+func DigInt(key string, object interface{}) (int) {
     if value := Dig(key, object); value != nil {
         switch value := value.(type) {
             case int:
@@ -620,7 +620,7 @@ func DigInt(key string, object interface{}) int {
 // @param  key    string
 // @param  object interface{}
 // @return (uint)
-func DigUInt(key string, object interface{}) uint {
+func DigUInt(key string, object interface{}) (uint) {
     return uint(DigInt(key, object))
 }
 
@@ -629,7 +629,7 @@ func DigUInt(key string, object interface{}) uint {
 // @param  key    string
 // @param  object interface{}
 // @return (float64)
-func DigFloat(key string, object interface{}) float64 {
+func DigFloat(key string, object interface{}) (float64) {
     if value := Dig(key, object); value != nil {
         switch value := value.(type) {
             case float64:
@@ -648,7 +648,7 @@ func DigFloat(key string, object interface{}) float64 {
 // @param  key    string
 // @param  object interface{}
 // @return (string)
-func DigString(key string, object interface{}) string {
+func DigString(key string, object interface{}) (string) {
     if value := Dig(key, object); value != nil {
         return value.(string)
     }
@@ -660,7 +660,7 @@ func DigString(key string, object interface{}) string {
 // @param  key    string
 // @param  object interface{}
 // @return (bool)
-func DigBool(key string, object interface{}) bool {
+func DigBool(key string, object interface{}) (bool) {
     if value := Dig(key, object); value != nil {
         return true
     }
@@ -672,7 +672,7 @@ func DigBool(key string, object interface{}) bool {
 // @param  key    string
 // @param  object interface{}
 // @return (map[string]interface{})
-func DigMap(key string, object interface{}) map[string]interface{} {
+func DigMap(key string, object interface{}) (map[string]interface{}) {
     return Dig(key, object).(map[string]interface{})
 }
 
@@ -681,7 +681,7 @@ func DigMap(key string, object interface{}) map[string]interface{} {
 // @param  key    string
 // @param  object interface{}
 // @return ([]map[string]interface{})
-func DigMapList(key string, object interface{}) []map[string]interface{} {
+func DigMapList(key string, object interface{}) ([]map[string]interface{}) {
     return Dig(key, object).([]map[string]interface{})
 }
 
@@ -690,7 +690,7 @@ func DigMapList(key string, object interface{}) []map[string]interface{} {
 // @param  key    string
 // @param  object interface{}
 // @return ([]int)
-func DigSliceInt(key string, object interface{}) []int {
+func DigSliceInt(key string, object interface{}) ([]int) {
     var slice = MapSliceInt(nil)
     for _, value := range Dig(key, object).([]interface{}) {
         slice = append(slice, value.(int))
@@ -703,7 +703,7 @@ func DigSliceInt(key string, object interface{}) []int {
 // @param  key    string
 // @param  object interface{}
 // @return ([]string)
-func DigSliceString(key string, object interface{}) []string {
+func DigSliceString(key string, object interface{}) ([]string) {
     var slice = MapSliceString(nil)
     for _, value := range Dig(key, object).([]interface{}) {
         slice = append(slice, value.(string))
@@ -714,35 +714,35 @@ func DigSliceString(key string, object interface{}) []string {
 // Map maker.
 //
 // @return (map[string]interface{})
-func Map() map[string]interface{} {
+func Map() (map[string]interface{}) {
     return make(map[string]interface{})
 }
 
 // Int map maker.
 //
 // @return (map[int]string)
-func MapInt() map[int]string {
+func MapInt() (map[int]string) {
     return make(map[int]string)
 }
 
 // String maker.
 //
 // @return (map[string]string)
-func MapString() map[string]string {
+func MapString() (map[string]string) {
     return make(map[string]string)
 }
 
 // Int map map maker.
 //
 // @return (map[int]map[string]interface{})
-func MapMapInt() map[int]map[string]interface{} {
+func MapMapInt() (map[int]map[string]interface{}) {
     return make(map[int]map[string]interface{})
 }
 
 // String map map maker.
 //
 // @return (map[string]map[string]interface{})
-func MapMapString() map[string]map[string]interface{} {
+func MapMapString() (map[string]map[string]interface{}) {
     return make(map[string]map[string]interface{})
 }
 
@@ -750,7 +750,7 @@ func MapMapString() map[string]map[string]interface{} {
 //
 // @param  length interface{}
 // @return ([]map[string]interface{})
-func MapList(length interface{}) []map[string]interface{} {
+func MapList(length interface{}) ([]map[string]interface{}) {
     len := _length(length)
     if len != -1 {
         return make([]map[string]interface{}, len)
@@ -762,7 +762,7 @@ func MapList(length interface{}) []map[string]interface{} {
 //
 // @param  length interface{}
 // @return ([]map[int]string)
-func MapListInt(length interface{}) []map[int]string {
+func MapListInt(length interface{}) ([]map[int]string) {
     len := _length(length)
     if len != -1 {
         return make([]map[int]string, len)
@@ -774,7 +774,7 @@ func MapListInt(length interface{}) []map[int]string {
 //
 // @param  length interface{}
 // @return ([]map[string]string)
-func MapListString(length interface{}) []map[string]string {
+func MapListString(length interface{}) ([]map[string]string) {
     len := _length(length)
     if len != -1 {
         return make([]map[string]string, len)
@@ -786,7 +786,7 @@ func MapListString(length interface{}) []map[string]string {
 //
 // @param  length interface{}
 // @return ([]int)
-func MapSliceInt(length interface{}) []int {
+func MapSliceInt(length interface{}) ([]int) {
     len := _length(length)
     if len != -1 {
         return make([]int, len)
@@ -798,7 +798,7 @@ func MapSliceInt(length interface{}) []int {
 //
 // @param  length interface{}
 // @return ([]string)
-func MapSliceString(length interface{}) []string {
+func MapSliceString(length interface{}) ([]string) {
     len := _length(length)
     if len != -1 {
         return make([]string, len)
@@ -811,7 +811,7 @@ func MapSliceString(length interface{}) []string {
 // @param  length interface{}
 // @return (int)
 // @private
-func _length(length interface{}) int {
+func _length(length interface{}) (int) {
     switch length.(type) {
         case int:
             return length.(int)
@@ -832,7 +832,7 @@ func _length(length interface{}) int {
 // @param  slice *[]int
 // @return (int)
 // @private
-func _shiftSliceInt(slice *[]int) int {
+func _shiftSliceInt(slice *[]int) (int) {
     var value = (*slice)[0]
     *slice = (*slice)[1 : len(*slice)]
     return value
@@ -843,7 +843,7 @@ func _shiftSliceInt(slice *[]int) int {
 // @param  slice *[]string
 // @return (string)
 // @private
-func _shiftSliceString(slice *[]string) string {
+func _shiftSliceString(slice *[]string) (string) {
     var value = (*slice)[0]
     *slice = (*slice)[1 : len(*slice)]
     return value
