@@ -41,7 +41,7 @@ type DocumentAttachment struct {
 // @param  document *couch.Document
 // @param  string file
 // @param  string fileName
-// @return *couch.DocumentAttachment
+// @return (*couch.DocumentAttachment)
 func NewDocumentAttachment(document *Document, file, fileName string) *DocumentAttachment {
     var this = &DocumentAttachment{
         Document: document,
@@ -64,14 +64,14 @@ func NewDocumentAttachment(document *Document, file, fileName string) *DocumentA
 // Set document.
 //
 // @param  document *couch.Document
-// @return void
+// @return (void)
 func (this *DocumentAttachment) SetDocument(document *Document) {
     this.Document = document
 }
 
 // Get document.
 //
-// @return document *couch.Document
+// @return (document *couch.Document)
 func (this *DocumentAttachment) GetDocument() *Document {
     return this.Document
 }
@@ -79,7 +79,7 @@ func (this *DocumentAttachment) GetDocument() *Document {
 // Get attachment data as string array.
 //
 // @param  encode bool
-// @return map[string]string
+// @return (map[string]string)
 func (this *DocumentAttachment) ToArray(encode bool) map[string]string {
     // read file contents
     this.ReadFile(encode)
@@ -94,7 +94,7 @@ func (this *DocumentAttachment) ToArray(encode bool) map[string]string {
 // Get attachment data as JSON string.
 //
 // @param  encode bool
-// @return string
+// @return (string)
 func (this *DocumentAttachment) ToJson(encode bool) string {
     json, _ := util.UnparseBody(this.ToArray(encode))
     return json
@@ -103,7 +103,7 @@ func (this *DocumentAttachment) ToJson(encode bool) string {
 // Ping.
 //
 // @param  statusCodes... uint16
-// @return bool
+// @return (bool)
 // @panics
 func (this *DocumentAttachment) Ping(statusCodes... uint16) bool {
     if this.Document == nil {
@@ -143,7 +143,7 @@ func (this *DocumentAttachment) Ping(statusCodes... uint16) bool {
 
 // Find.
 //
-// @return map[string]interface{}
+// @return (map[string]interface{})
 // @panics
 func (this *DocumentAttachment) Find() map[string]interface{} {
     if this.Document == nil {
@@ -193,7 +193,7 @@ func (this *DocumentAttachment) Find() map[string]interface{} {
 
 // Save.
 //
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *DocumentAttachment) Save() (map[string]interface{}, error) {
     if this.Document == nil {
@@ -236,7 +236,7 @@ func (this *DocumentAttachment) Save() (map[string]interface{}, error) {
 
 // Remove.
 //
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *DocumentAttachment) Remove(args... bool) (map[string]interface{}, error) {
     if this.Document == nil {
@@ -283,7 +283,7 @@ func (this *DocumentAttachment) Remove(args... bool) (map[string]interface{}, er
 
 // Read file.
 //
-// @return void
+// @return (void)
 // @panics
 func (this *DocumentAttachment) ReadFile(encode bool) {
     if this.File == "" {
