@@ -59,7 +59,7 @@ var (
 //
 // @param  couch *couch.http.Couch
 // @return (*couch.Client)
-func NewClient(couch *Couch) *Client {
+func NewClient(couch *Couch) (*Client) {
     var this = &Client{
         Scheme: Scheme,
           Host: Host,
@@ -121,14 +121,14 @@ func NewClient(couch *Couch) *Client {
 // Get request object.
 //
 // @return (*couch.http.Request)
-func (this *Client) GetRequest() *http.Request {
+func (this *Client) GetRequest() (*http.Request) {
     return this.Request
 }
 
 // Get response object.
 //
 // @return (*couch.http.Response)
-func (this *Client) GetResponse() *http.Response {
+func (this *Client) GetResponse() (*http.Response) {
     return this.Response
 }
 
@@ -144,7 +144,7 @@ func (this *Client) DoRequest(
     uri string, uriParams interface{},
     body interface{},
     headers interface{},
-) *http.Response {
+) (*http.Response) {
     // notation: GET /foo
     re, _ := _rex.Compile("^([A-Z]+)\\s+(/.*)")
     if re == nil {
@@ -218,7 +218,7 @@ func (this *Client) DoRequest(
 func (this *Client) Head(
     uri string, uriParams interface{},
     headers interface{},
-) *http.Response {
+) (*http.Response) {
     return this.DoRequest(http.METHOD_HEAD +" /"+ uri, uriParams, nil, headers)
 }
 
@@ -232,7 +232,7 @@ func (this *Client) Head(
 func (this *Client) Get(
     uri string, uriParams interface{},
     headers interface{},
-) *http.Response {
+) (*http.Response) {
     return this.DoRequest(http.METHOD_GET +" /"+ uri, uriParams, nil, headers)
 }
 
@@ -248,7 +248,7 @@ func (this *Client) Post(
     uri string, uriParams interface{},
     body interface{},
     headers interface{},
-) *http.Response {
+) (*http.Response) {
     return this.DoRequest(http.METHOD_POST +" /"+ uri, uriParams, body, headers)
 }
 
@@ -264,7 +264,7 @@ func (this *Client) Put(
     uri string, uriParams interface{},
     body interface{},
     headers interface{},
-) *http.Response {
+) (*http.Response) {
     return this.DoRequest(http.METHOD_PUT +" /"+ uri, uriParams, body, headers)
 }
 
@@ -278,7 +278,7 @@ func (this *Client) Put(
 func (this *Client) Delete(
     uri string, uriParams interface{},
     headers interface{},
-) *http.Response {
+) (*http.Response) {
     return this.DoRequest(http.METHOD_DELETE +" /"+ uri, uriParams, nil, headers)
 }
 
@@ -292,6 +292,6 @@ func (this *Client) Delete(
 func (this *Client) Copy(
     uri string, uriParams interface{},
     headers interface{},
-) *http.Response {
+) (*http.Response) {
     return this.DoRequest(http.METHOD_COPY +" /"+ uri, uriParams, nil, headers)
 }
