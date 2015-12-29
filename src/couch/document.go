@@ -427,7 +427,8 @@ func (this *Document) Save(args... bool) (map[string]interface{}, error) {
             return nil, err
         }
 
-        var id, rev = util.DigString("id", data), util.DigString("rev", data)
+        var id, rev = util.DigString("id", data),
+                      util.DigString("rev", data)
         // set id & rev for next save() instant calls
         if id != "" && this.Id == nil {
             this.SetId(id)
