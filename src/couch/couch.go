@@ -35,7 +35,7 @@ const (
 // Suppress "... imported and not used"
 func Shutup() {}
 
-// Object constructor.
+// Constructor.
 //
 // @param  config map[string]interface{}
 // @return *couch.Couch

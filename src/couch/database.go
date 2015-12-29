@@ -47,7 +47,7 @@ type DatabaseDocumentList struct {
     Rows       []DatabaseDocument
 }
 
-// Object constructor.
+// Constructor.
 //
 // @param  client *couch.Client
 // @param  client string

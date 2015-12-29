@@ -54,7 +54,7 @@ var (
     Password      = ""
 )
 
-// Object constructor.
+// Constructor.
 //
 // @param  couch *couch.http.Couch
 // @return *couch.Client
