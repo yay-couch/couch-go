@@ -16,10 +16,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// @package couch.query
-// @uses    fmt, strings
-// @uses    couch.util
-// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+// @package    couch
+// @subpackage couch.query
+// @uses       fmt, strings
+// @uses       couch.util
+// @author     Kerem Güneş <qeremy[at]gmail[dot]com>
 package query
 
 import (

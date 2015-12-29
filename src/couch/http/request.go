@@ -16,10 +16,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// @package couch.http
-// @uses    fmt, net, bufio, strings
-// @uses    couch.util, couch.query
-// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+// @package    couch
+// @subpackage couch.http
+// @uses       fmt, net, bufio, strings
+// @uses       couch.util, couch.query
+// @author     Kerem Güneş <qeremy[at]gmail[dot]com>
 package http
 
 import (
