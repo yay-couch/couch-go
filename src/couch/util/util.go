@@ -275,14 +275,13 @@ func ParseQuery(query string) (map[string]string) {
 func ParseHeaders(headers string) (map[string]string) {
     var ret = MapString()
     if tmps := _str.Split(headers, "\r\n"); tmps != nil {
-        for _, tmp := range tmps {
-            var t = _str.SplitN(tmp, ":", 2)
-            // status line check (ie: HTTP/1.0 200 OK)
-            if len(t) == 1 {
-                ret["0"] = t[0]; continue
-            }
+        // status line (HTTP/1.0 200 OK)
+        ret["0"] = _shiftSliceString(&tmps)
 
-            ret[_str.TrimSpace(t[0])] = _str.TrimSpace(t[1])
+        for _, tmp := range tmps {
+            if t := _str.SplitN(tmp, ":", 2); len(t) == 2 {
+                ret[_str.TrimSpace(t[0])] = _str.TrimSpace(t[1])
+            }
         }
     }
 
