@@ -25,6 +25,8 @@ type Couch struct {
     Config map[string]interface{}
 }
 
+// Couch details & debug.
+// @const mixed
 const (
     NAME    = "Couch"
     VERSION = "1.0.0"
