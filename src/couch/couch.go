@@ -38,7 +38,7 @@ func Shutup() {}
 // Constructor.
 //
 // @param  config map[string]interface{}
-// @return *couch.Couch
+// @return (*couch.Couch)
 func New(config interface{}, debug bool) *Couch {
     var this = &Couch{
         Config: map[string]interface{}{
@@ -57,14 +57,14 @@ func New(config interface{}, debug bool) *Couch {
 // Set config
 //
 // @param  config map[string]interface{}
-// @return void
+// @return (void)
 func (this *Couch) SetConfig(config map[string]interface{}) {
     this.Config = config
 }
 
 // Get config
 //
-// @return void
+// @return (void)
 func (this *Couch) GetConfig() map[string]interface{} {
     return this.Config
 }
