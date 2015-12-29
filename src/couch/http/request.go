@@ -1,3 +1,25 @@
+// Copyright 2015 Kerem Güneş
+//    <http://qeremy.com>
+//
+// Apache License, Version 2.0
+//    <http://www.apache.org/licenses/LICENSE-2.0>
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// @package couch
+// @uses    fmt, net, bufio, strings
+// @uses    couch.util, couch.query
+// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
 package http
 
 import (
@@ -12,6 +34,7 @@ import (
     "couch/query"
 )
 
+// @object couch.http.Request
 type Request struct {
     Stream // extends :)
     Method         string
@@ -19,6 +42,8 @@ type Request struct {
     Config         map[string]interface{}
 }
 
+// Request methods.
+// @const string
 const (
     METHOD_HEAD   = "HEAD"
     METHOD_GET    = "GET"
@@ -28,6 +53,10 @@ const (
     METHOD_DELETE = "DELETE"
 )
 
+// Constructor.
+//
+// @param  config map[string]interface{}
+// @return (*couch.http.Request)
 func NewRequest(config map[string]interface{}) *Request {
     stream := NewStream()
     stream.Type = TYPE_REQUEST
@@ -38,11 +67,7 @@ func NewRequest(config map[string]interface{}) *Request {
         Config: config,
     }
 
-    if config["Username"] != "" && config["Password"] != "" {
-        this.Headers["Authorization"] = "Basic "+
-            util.Base64Encode(_fmt.Sprintf("%s:%s", config["Username"], config["Username"]))
-    }
-
+    // add default headers
     this.Headers["Host"] = _fmt.Sprintf("%s:%v", config["Host"], config["Port"])
     this.Headers["Connection"] = "close"
     this.Headers["Accept"] = "application/json"
@@ -50,91 +75,119 @@ func NewRequest(config map[string]interface{}) *Request {
     this.Headers["User-Agent"] = _fmt.Sprintf("%s/v%s (+http://github.com/qeremy/couch-go)",
         config["Couch.NAME"], config["Couch.VERSION"])
 
+    // add auth header
+    if config["Username"] != "" && config["Password"] != "" {
+        this.Headers["Authorization"] = "Basic "+
+            util.Base64Encode(_fmt.Sprintf("%s:%s", config["Username"], config["Username"]))
+    }
+
     return this
 }
 
+// Set method.
+//
+// @param  method string
+// @return (void)
 func (this *Request) SetMethod(method string) {
     method = _str.ToUpper(method)
+    // add method override header
     if (method != METHOD_HEAD &&
         method != METHOD_GET &&
         method != METHOD_POST) {
         this.SetHeader("X-HTTP-Method-Override", method)
     }
+
     this.Method = method
 }
 
+// Set URI with params.
+//
+// @param  uri       string
+// @param  uriParams interface{}
+// @return (void)
 func (this *Request) SetUri(uri string, uriParams interface{}) {
     this.Uri = uri
     if uriParams == nil {
         return
     }
+
+    // append params if provided
     var query = query.New(uriParams.(map[string]interface{})).ToString()
     if query != "" {
         this.Uri += "?"+ query
     }
 }
 
+// Send!
+//
+// @return (string)
+// @panics
 func (this *Request) Send() string {
-    // link, _ := _net.Dial("tcp", "localhost:5984")
-    link, err := _net.Dial("tcp",
-        _fmt.Sprintf("%s:%v", this.Config["Host"], this.Config["Port"]))
+    link, err := _net.Dial("tcp", _fmt.Sprintf("%s:%v", this.Config["Host"], this.Config["Port"]))
     if err != nil {
         panic(err)
     }
     defer link.Close()
 
-    var request, response string
+    var send, recv string
     var url = util.ParseUrl(_fmt.Sprintf("%s://%s", this.Config["Scheme"], this.Uri))
-    request += _fmt.Sprintf("%s %s?%s HTTP/%s\r\n",
+
+    // add first line & headers
+    send += _fmt.Sprintf("%s %s?%s HTTP/%s\r\n",
         this.Method, url["Path"], url["Query"], this.HttpVersion)
     for key, value := range this.Headers {
         if !util.IsEmpty(value) {
-            request += _fmt.Sprintf("%s: %s\r\n", key, value)
+            send += _fmt.Sprintf("%s: %s\r\n", key, value)
         }
     }
-    request += "\r\n"
-    request += this.GetBody()
+    send += "\r\n"
+    send += this.GetBody()
+    _fmt.Fprint(link, send)
 
-    _fmt.Fprint(link, request)
-
-    var reader = _bio.NewReader(link);
+    var reader = _bio.NewReader(link)
 
     status, err := reader.ReadString('\n')
     if status == "" {
         print("HTTP error: no response returned from server!\n")
         print("---------------------------------------------\n")
-        print(request)
+        print(send)
         print("---------------------------------------------\n")
         panic(err)
     }
-    response += status
+    recv += status
 
     for {
         var buffer = make([]byte, 1024)
         if read, _ := reader.Read(buffer); read == 0 {
             break // eof
         }
-        response += _str.Trim(string(buffer), "\x00")
+        // yes, we've allocated to much..
+        recv += _str.Trim(string(buffer), "\x00")
     }
 
     // @debug
     if this.Config["Couch.DEBUG"] == true {
-        util.Dump(request)
-        util.Dump(response)
+        util.Dump(send)
+        util.Dump(recv)
     }
 
-    return response
+    return recv
 }
 
-// @implement
+// Set body.
+//
+// @param  body interface{}
+// @return (void)
+// @panics
+// @implements
 func (this *Request) SetBody(body interface{}) {
     if body != nil &&
+       // these methods not allowed for body
        this.Method != METHOD_HEAD &&
        this.Method != METHOD_GET {
-        switch body.(type) {
+        switch body := body.(type) {
             case string:
                 // @overwrite
-                var body = util.String(body)
                 if this.GetHeader("Content-Type") == "application/json" {
                     // embrace with quotes for valid JSON body
                     body = util.Quote(body)
@@ -144,8 +197,7 @@ func (this *Request) SetBody(body interface{}) {
                 var bodyType = _fmt.Sprintf("%T", body)
                 if util.StringSearch(bodyType, "^u?int(\\d+)?|float(32|64)$") {
                     // @overwrite
-                    var body = util.String(body)
-                    this.Body = body
+                    this.Body = util.String(body)
                 } else {
                     if this.GetHeader("Content-Type") == "application/json" {
                         // @overwrite
@@ -155,17 +207,20 @@ func (this *Request) SetBody(body interface{}) {
                         }
                         this.Body = body
                     }
-                    // panic("Unsupported body type '"+ bodyType +"' given!");
                 }
         }
+
+        // auto-set content length headers
         this.SetHeader("Content-Length", len(this.Body.(string)))
     }
 }
 
-// @implement
+// Get request as string.
+//
+// @return (string)
+// @implements
 func (this *Request) ToString() string {
-    var ret string
-    ret = util.StringFormat("%s %s HTTP/%s\r\n", this.Method, this.Uri, this.HttpVersion)
+    var ret = util.StringFormat("%s %s HTTP/%s\r\n", this.Method, this.Uri, this.HttpVersion)
     if this.Headers != nil {
         for key, value := range this.Headers {
             if (value != nil) {
@@ -174,6 +229,7 @@ func (this *Request) ToString() string {
         }
     }
     ret += "\r\n"
+
     if this.Body != nil {
         switch this.Body.(type) {
             case string:
@@ -185,5 +241,6 @@ func (this *Request) ToString() string {
                 }
         }
     }
+
     return ret
 }
