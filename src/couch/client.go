@@ -33,7 +33,7 @@ import (
     "couch/http"
 )
 
-// Client object.
+// @object couch.Client
 type Client struct {
     Scheme    string
     Host      string

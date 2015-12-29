@@ -20,7 +20,7 @@
 // @author  Kerem Güneş <qeremy[at]gmail[dot]com>
 package couch
 
-// Couch object.
+// @object couch.Couch
 type Couch struct {
     Config map[string]interface{}
 }

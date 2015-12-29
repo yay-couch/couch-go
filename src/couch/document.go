@@ -26,7 +26,7 @@ import (
     "couch/uuid"
 )
 
-// Document object.
+// @object couch.Document
 type Document struct {
     Id          *uuid.Uuid
     Rev         string

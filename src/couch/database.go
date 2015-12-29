@@ -25,13 +25,13 @@ import (
     "couch/util"
 )
 
-// Database object.
+// @object couch.Database
 type Database struct {
     Client *Client
     Name   string
 }
 
-// DatabaseDocument object.
+// @object couch.DatabaseDocument
 type DatabaseDocument struct {
     Id     string
     Key    string
@@ -39,7 +39,7 @@ type DatabaseDocument struct {
     Doc    map[string]interface{}
 }
 
-// DatabaseDocumentList object.
+// @object couch.DatabaseDocumentList
 type DatabaseDocumentList struct {
     Offset     uint
     TotalRows  uint `json:"total_rows"`
