@@ -16,7 +16,6 @@ type Stream struct {
     Error       string
     ErrorData   map[string]string
     StreamBody
-    ToString    func() string
 }
 
 type StreamError struct {
@@ -112,4 +111,46 @@ func (this *Stream) GetError() string {
 }
 func (this *Stream) GetErrorValue(key string) string {
     return this.ErrorData[key]
+}
+
+// Get stream as string.
+//
+// @return (string)
+func (this *Request) ToString() string {
+    var ret string
+
+    // add first line by type
+    if this.Type == TYPE_REQUEST {
+        ret = util.StringFormat("%s %s HTTP/%s\r\n", this.Method, this.Uri, this.HttpVersion)
+    } else if this.Type == TYPE_RESPONSE {
+        ret = util.StringFormat("HTTP/%s %d %s\r\n", this.HttpVersion, this.StatusCode, this.StatusText)
+    }
+
+    // add headers
+    if this.Headers != nil { for key, value := range this.Headers {
+        if key == "0" { // response only
+            continue
+        }
+        if (value != nil) { // remove?
+            ret += util.StringFormat("%s: %s\r\n", key, value)
+        }
+    }
+
+    // add seperator
+    ret += "\r\n"
+
+    // add body
+    if this.Body != nil {
+        switch this.Body.(type) {
+            case string:
+                ret += this.Body.(string)
+            default:
+                body, err := util.UnparseBody(this.Body)
+                if err == nil {
+                    ret += body
+                }
+        }
+    }
+
+    return ret
 }

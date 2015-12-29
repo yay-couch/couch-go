@@ -214,33 +214,3 @@ func (this *Request) SetBody(body interface{}) {
         this.SetHeader("Content-Length", len(this.Body.(string)))
     }
 }
-
-// Get request as string.
-//
-// @return (string)
-// @implements
-func (this *Request) ToString() string {
-    var ret = util.StringFormat("%s %s HTTP/%s\r\n", this.Method, this.Uri, this.HttpVersion)
-    if this.Headers != nil {
-        for key, value := range this.Headers {
-            if (value != nil) {
-                ret += util.StringFormat("%s: %s\r\n", key, value)
-            }
-        }
-    }
-    ret += "\r\n"
-
-    if this.Body != nil {
-        switch this.Body.(type) {
-            case string:
-                ret += this.Body.(string)
-            default:
-                body, err := util.UnparseBody(this.Body)
-                if err == nil {
-                    ret += body
-                }
-        }
-    }
-
-    return ret
-}
