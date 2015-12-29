@@ -42,7 +42,7 @@ type DocumentAttachment struct {
 // @param  string file
 // @param  string fileName
 // @return (*couch.DocumentAttachment)
-func NewDocumentAttachment(document *Document, file, fileName string) *DocumentAttachment {
+func NewDocumentAttachment(document *Document, file, fileName string) (*DocumentAttachment) {
     var this = &DocumentAttachment{
         Document: document,
     }
@@ -72,7 +72,7 @@ func (this *DocumentAttachment) SetDocument(document *Document) {
 // Get document.
 //
 // @return (document *couch.Document)
-func (this *DocumentAttachment) GetDocument() *Document {
+func (this *DocumentAttachment) GetDocument() (*Document) {
     return this.Document
 }
 
@@ -80,7 +80,7 @@ func (this *DocumentAttachment) GetDocument() *Document {
 //
 // @param  encode bool
 // @return (map[string]string)
-func (this *DocumentAttachment) ToArray(encode bool) map[string]string {
+func (this *DocumentAttachment) ToArray(encode bool) (map[string]string) {
     // read file contents
     this.ReadFile(encode)
 
@@ -95,7 +95,7 @@ func (this *DocumentAttachment) ToArray(encode bool) map[string]string {
 //
 // @param  encode bool
 // @return (string)
-func (this *DocumentAttachment) ToJson(encode bool) string {
+func (this *DocumentAttachment) ToJson(encode bool) (string) {
     json, _ := util.UnparseBody(this.ToArray(encode))
     return json
 }
@@ -105,7 +105,7 @@ func (this *DocumentAttachment) ToJson(encode bool) string {
 // @param  statusCodes... uint16
 // @return (bool)
 // @panics
-func (this *DocumentAttachment) Ping(statusCodes... uint16) bool {
+func (this *DocumentAttachment) Ping(statusCodes... uint16) (bool) {
     if this.Document == nil {
         panic("Attachment document is not defined!")
     }
@@ -145,7 +145,7 @@ func (this *DocumentAttachment) Ping(statusCodes... uint16) bool {
 //
 // @return (map[string]interface{})
 // @panics
-func (this *DocumentAttachment) Find() map[string]interface{} {
+func (this *DocumentAttachment) Find() (map[string]interface{}) {
     if this.Document == nil {
         panic("Attachment document is not defined!")
     }
