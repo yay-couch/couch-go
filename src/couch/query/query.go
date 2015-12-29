@@ -26,7 +26,6 @@ package query
 import (
     _fmt "fmt"
     _str "strings"
-    _url "net/url"
 )
 
 import (
