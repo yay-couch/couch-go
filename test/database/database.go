@@ -314,11 +314,11 @@ func TestEnsureFullCommit() {
  * TestViewCleanup
  */
 func TestViewCleanup() {
-    data, err := Database.ViewCleanup()
+    ok, err := Database.ViewCleanup()
     if err != nil {
         panic(err)
     }
-    util.Dumpf("Database View Cleanup >> ok: %v", data["ok"])
+    util.Dumpf("Database View Cleanup >> ok: %v", ok)
 }
 
 /**
@@ -449,9 +449,9 @@ func TestGetRevisionLimit() {
  * TestSetRevisionLimit
  */
 func TestSetRevisionLimit() {
-    data, err := Database.SetRevisionLimit(1000)
+    ok, err := Database.SetRevisionLimit(1000)
     if err != nil {
         panic(err)
     }
-    util.Dumpf("Database Set Revision Limit >> ok: %v", data["ok"])
+    util.Dumpf("Database Set Revision Limit >> ok: %v", ok)
 }
