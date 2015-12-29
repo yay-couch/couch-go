@@ -123,7 +123,7 @@ func (this *Server) GetAllDatabases() ([]string, error) {
 
 // Get database updates.
 //
-// @param  query interface{}
+// @param  query map[string]interface{}
 // @return (map[string]interface{}, error)
 func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{}, error) {
     data, err := this.Client.Get("/_db_updates", query, nil).GetBodyData(nil)
@@ -140,7 +140,7 @@ func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{
 
 // Get logs.
 //
-// @param  query interface{}
+// @param  query map[string]interface{}
 // @return (string)
 func (this *Server) GetLogs(query interface{}) string {
     return this.Client.Get("/_log", query, nil).GetBody()
