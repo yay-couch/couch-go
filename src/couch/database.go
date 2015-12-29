@@ -419,6 +419,9 @@ func (this *Database) Compact(ddoc string) (bool, error) {
     return util.DigBool("ok", data), nil
 }
 
+// Ensure full commit.
+//
+// @return bool, uint, error
 func (this *Database) EnsureFullCommit() (bool, uint, error) {
     data, err := this.Client.Post(this.Name +"/_ensure_full_commit", nil, nil, nil).GetBodyData(nil)
     if err != nil {
@@ -430,120 +433,174 @@ func (this *Database) EnsureFullCommit() (bool, uint, error) {
            nil
 }
 
+// View cleanup.
+//
+// @return bool, error
 func (this *Database) ViewCleanup() (bool, error) {
-    data, err := this.Client.Post(this.Name +"/_view_cleanup", nil, nil, nil).
-        GetBodyData(nil)
+    data, err := this.Client.Post(this.Name +"/_view_cleanup", nil, nil, nil).GetBodyData(nil)
     if err != nil {
         return false, err
     }
+
     return util.DigBool("ok", data), nil
 }
 
-func (this *Database) ViewTemp(_map string, reduce interface{}) (
-        map[string]interface{}, error) {
+// View temp.
+//
+// @param  _map string
+// @param  _red interface
+// @return map[string]interface{}, error
+func (this *Database) ViewTemp(_map string, _red interface{}) (map[string]interface{}, error) {
     var body = util.ParamList(
         "map", _map,
-        // prevent "missing function" error
-        "reduce", util.IsEmptySet(reduce, nil),
+        "reduce", util.IsEmptySet(_red, nil), // prevent "missing function" error
     )
-    data, err := this.Client.Post(this.Name +"/_temp_view", nil, body, nil).
-        GetBodyData(&DatabaseDocumentList{})
+
+    // short?
+    type ddl DatabaseDocumentList
+
+    data, err := this.Client.Post(this.Name +"/_temp_view", nil, body, nil).GetBodyData(&ddl{})
     if err != nil {
         return nil, err
     }
-    var _return = util.Map()
-    var _returnRows = data.(*DatabaseDocumentList).Rows
-    _return["offset"]     = data.(*DatabaseDocumentList).Offset
-    _return["total_rows"] = data.(*DatabaseDocumentList).TotalRows
-    _return["rows"]       = util.MapList(len(_returnRows))
-    for i, row := range _returnRows {
-        _return["rows"].([]map[string]interface{})[i] = map[string]interface{}{
+
+    var ret = util.Map()
+    ret["offset"]     = data.(*ddl).Offset
+    ret["total_rows"] = data.(*ddl).TotalRows
+
+    var rows = data.(*ddl).Rows
+    ret["rows"]       = util.MapList(len(rows))
+
+    // append docs
+    for i, row := range rows {
+        ret["rows"].([]map[string]interface{})[i] = map[string]interface{}{
                "id": row.Id,
               "key": row.Key,
             "value": row.Value,
         }
     }
-    return _return, nil
+
+    return ret, nil
 }
 
+// Get security.
+//
+// @return map[string]interface{}, error
 func (this *Database) GetSecurity() (map[string]interface{}, error) {
     data, err := this.Client.Get(this.Name +"/_security", nil, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
+
     return data.(map[string]interface{}), nil
 }
 
+// Set security.
+//
+// @param  map[string]interface{}
+// @param  map[string]interface{}
+// @return bool, error
+// @panics
 func (this *Database) SetSecurity(admins, members map[string]interface{}) (bool, error) {
+    // check required fields
     if admins["names"].([]string) == nil || admins["roles"].([]string)  == nil ||
        members["names"].([]string) == nil || members["roles"].([]string) == nil {
         panic("Specify admins and/or members with names=>roles fields!")
     }
+
     var body = util.ParamList("admins", admins, "members", members)
     data, err := this.Client.Put(this.Name +"/_security", nil, body, nil).GetBodyData(nil)
     if err != nil {
-        return nil, err
+        return false, err
     }
+
     return util.DigBool("ok", data), nil
 }
 
+// Purge
+//
+// @param  object map[string]interface{}
+// @return map[string]interface{}, error
 func (this *Database) Purge(object map[string]interface{}) (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_purge", nil, object, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
-    var _return = util.Map()
-    _return["purge_seq"] = util.DigInt("purge_seq", data)
-    _return["purged"]  = util.Map()
-    for id, revs := range data.(map[string]interface{})["purged"].
-        (map[string]interface{}) {
-        _return["purged"].(map[string]interface{})[id] = revs
+
+    var ret = util.Map()
+    ret["purge_seq"] = util.DigInt("purge_seq", data)
+    ret["purged"]    = util.Map()
+    // fill purged revs
+    for id, revs := range data.(map[string]interface{})["purged"].(map[string]interface{}) {
+        ret["purged"].(map[string]interface{})[id] = revs
     }
-    return _return, nil
+
+    return ret, nil
 }
 
-func (this *Database) GetMissingRevisions(object map[string]interface{}) (
-        map[string]interface{}, error) {
+// Get missing revisions.
+//
+// @param  object map[string]interface{}
+// @return map[string]interface{}, error
+func (this *Database) GetMissingRevisions(
+    object map[string]interface{}) (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_missing_revs", nil, object, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
-    var _return = util.Map()
-    _return["missing_revs"] = util.Map()
-    for id, revs := range data.(map[string]interface{})["missing_revs"].
-        (map[string]interface{}) {
-        _return["missing_revs"].(map[string]interface{})[id] = revs
+
+    var ret = util.Map()
+    ret["missing_revs"] = util.Map()
+    // fill missing revs
+    for id, revs := range data.(map[string]interface{})["missing_revs"].(map[string]interface{}) {
+        ret["missing_revs"].(map[string]interface{})[id] = revs
     }
-    return _return, nil
+
+    return ret, nil
 }
 
-func (this *Database) GetMissingRevisionsDiff(object map[string]interface{}) (
-        map[string]interface{}, error) {
+// Get missing revisions diff.
+//
+// @param  object map[string]interface{}
+// @return map[string]interface{}, error
+func (this *Database) GetMissingRevisionsDiff(
+    object map[string]interface{}) (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_revs_diff", nil, object, nil).GetBodyData(nil)
     if err != nil {
         return nil, err
     }
-    var _return = util.Map()
+
+    var ret = util.Map()
     for id, _ := range data.(map[string]interface{}) {
-        _return[id] = map[string]interface{}{
+        ret[id] = map[string]interface{}{
             "missing": util.Dig(id +".missing", data),
         }
     }
-    return _return, nil
+
+    return ret, nil
 }
 
+// Get revision limit.
+//
+// @return int, error
 func (this *Database) GetRevisionLimit() (int, error) {
     data, err := this.Client.Get(this.Name +"/_revs_limit", nil, nil).GetBodyData(nil)
     if err != nil {
         return -1, err
     }
+
     return int(data.(float64)), nil
 }
 
+// Set revision limit.
+//
+// @param  limit int
+// @return bool, error
 func (this *Database) SetRevisionLimit(limit int) (bool, error) {
     data, err := this.Client.Put(this.Name +"/_revs_limit", nil, limit, nil).GetBodyData(limit)
     if err != nil {
         return false, err
     }
+
     return util.DigBool("ok", data), nil
 }
