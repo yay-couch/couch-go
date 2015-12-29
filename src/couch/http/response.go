@@ -149,3 +149,13 @@ func (this *Response) SetBody(body interface{}) {
         this.Body = util.String(body)
     }
 }
+
+// Get response as string.
+//
+// @return (string)
+// @implements
+func (this *Response) ToString() string {
+    return this.toString(util.StringFormat(
+        "HTTP/%s %d %s\r\n", this.HttpVersion, this.StatusCode, this.StatusText,
+    ))
+}

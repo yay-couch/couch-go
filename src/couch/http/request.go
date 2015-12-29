@@ -213,3 +213,13 @@ func (this *Request) SetBody(body interface{}) {
         this.SetHeader("Content-Length", len(this.Body.(string)))
     }
 }
+
+// Get request as string.
+//
+// @return (string)
+// @implements
+func (this *Request) ToString() string {
+    return this.toString(util.StringFormat(
+        "%s %s HTTP/%s\r\n", this.Method, this.Uri, this.HttpVersion,
+    ))
+}
