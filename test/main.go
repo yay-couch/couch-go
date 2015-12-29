@@ -21,6 +21,7 @@ func main() {
 
     /* database */
     // test_database.TestPing()
+    // test_database.TestEnsureFullCommit()
     // ...
 
     /* document */
