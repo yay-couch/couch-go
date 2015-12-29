@@ -15,6 +15,12 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+// @package couch
+// @uses    couch.http
+// @uses    fmt, strings, regexp
+// @uses    couch.util, couch.http
+// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
 package couch
 
 import (
@@ -28,12 +34,7 @@ import (
     "couch/http"
 )
 
-// @package couch
-// @object  couch.Client
-// @uses    couch.http
-// @uses    fmt, strings, regexp
-//          couch.util, couch.http
-// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+// Client object.
 type Client struct {
     Scheme    string
     Host      string
