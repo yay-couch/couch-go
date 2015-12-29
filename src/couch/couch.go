@@ -34,7 +34,6 @@ const (
     DEBUG   = false
 )
 
-// Suppress "... imported and not used"
 func Shutup() {}
 
 // Constructor.
