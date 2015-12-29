@@ -17,7 +17,7 @@
 // limitations under the License.
 
 // @package couch.query
-// @uses    fmt, strings, net/url
+// @uses    fmt, strings
 // @uses    couch.util
 // @author  Kerem Güneş <qeremy[at]gmail[dot]com>
 package query
@@ -118,7 +118,7 @@ func (this *Query) ToString() string {
             value = _fmt.Sprintf("[\"%s\"]", _str.Join(value.([]string), "\",\""))
         }
         this.DataString += _fmt.Sprintf(
-            "%s=%s&", _url.QueryEscape(key), _url.QueryEscape(util.String(value)))
+            "%s=%s&", util.UrlEncode(key), util.UrlEncode(util.String(value)))
     }
 
     if this.DataString != "" {
