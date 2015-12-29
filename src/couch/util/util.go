@@ -256,10 +256,13 @@ func ParseUrl(url string) (map[string]string) {
 // @param  query string
 // @return (map[string]string)
 func ParseQuery(query string) (map[string]string) {
-    var ret, tmp = MapString(), _str.Split(query, "&")
-    for _, tmp := range tmp {
-        var tmp = _str.SplitN(tmp, "=", 2)
-        ret[tmp[0]] = tmp[1]
+    var ret = MapString()
+    if tmps := _str.Split(query, "&"); tmps != nil {
+        for _, tmp := range tmps {
+            if t := _str.SplitN(tmp, "=", 2); len(t) == 2 {
+                ret[t[0]] = t[1]
+            }
+        }
     }
 
     return ret
@@ -273,14 +276,13 @@ func ParseHeaders(headers string) (map[string]string) {
     var ret = MapString()
     if tmps := _str.Split(headers, "\r\n"); tmps != nil {
         for _, tmp := range tmps {
-            var tmp = _str.SplitN(tmp, ":", 2)
+            var t = _str.SplitN(tmp, ":", 2)
             // status line check (ie: HTTP/1.0 200 OK)
-            if len(tmp) == 1 {
-                ret["0"] = tmp[0]
-                continue
+            if len(t) == 1 {
+                ret["0"] = t[0]; continue
             }
 
-            ret[_str.TrimSpace(tmp[0])] = _str.TrimSpace(tmp[1])
+            ret[_str.TrimSpace(t[0])] = _str.TrimSpace(t[1])
         }
     }
 
