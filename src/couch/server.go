@@ -34,7 +34,7 @@ type Server struct {
 //
 // @param  client *couch.Client
 // @return (*couch.Server)
-func NewServer(client *Client) *Server {
+func NewServer(client *Client) (*Server) {
     return &Server{
         Client: client,
     }
@@ -43,7 +43,7 @@ func NewServer(client *Client) *Server {
 // Ping.
 //
 // @return (bool)
-func (this *Server) Ping() bool {
+func (this *Server) Ping() (bool) {
     return (200 == this.Client.Head("/", nil, nil).GetStatusCode())
 }
 
@@ -142,7 +142,7 @@ func (this *Server) GetDatabaseUpdates(query interface{}) (map[string]interface{
 //
 // @param  query map[string]interface{}
 // @return (string)
-func (this *Server) GetLogs(query interface{}) string {
+func (this *Server) GetLogs(query interface{}) (string) {
     return this.Client.Get("/_log", query, nil).GetBody()
 }
 
@@ -240,7 +240,7 @@ func (this *Server) Replicate(body map[string]interface{}) (map[string]interface
 // Restart.
 //
 // @return (bool)
-func (this *Server) Restart() bool {
+func (this *Server) Restart() (bool) {
     return (202 == this.Client.Post("/_restart", nil, nil, nil).GetStatusCode())
 }
 
