@@ -135,11 +135,14 @@ func (this *Client) GetResponse() *http.Response {
 //
 // @param  uri       string
 // @param  uriParams map[string]interface{}
+// @param  body      interface{}
+// @param  headers   map[string]interface{}
 // @return *couch.http.Response
 // @panics
 func (this *Client) DoRequest(
         uri string, uriParams interface{},
-        body interface{}, headers interface{},
+        body interface{},
+        headers interface{},
     ) *http.Response {
     // notation: GET /foo
     re, _ := _rex.Compile("^([A-Z]+)\\s+(/.*)")
@@ -162,14 +165,14 @@ func (this *Client) DoRequest(
     this.Request.SetMethod(match[1])
     this.Request.SetUri(uri, uriParams)
 
-    // add request headers
+    // set request headers
     if headers, _ := headers.(map[string]interface{}); headers != nil {
         for key, value := range headers {
             this.Request.SetHeader(key, value)
         }
     }
 
-    // add request body
+    // set request body
     this.Request.SetBody(body)
 
     // perform request
@@ -203,27 +206,91 @@ func (this *Client) DoRequest(
     return this.Response
 }
 
-func (this *Client) Head(uri string, uriParams interface{},
-        headers interface{}) *http.Response {
+// Perform a HEAD request.
+//
+//
+// @param  uri       string
+// @param  uriParams map[string]interface{}
+// @param  headers   map[string]interface{}
+// @return *couch.http.Response
+// @panics
+func (this *Client) Head(
+        uri string, uriParams interface{},
+        headers interface{},
+    ) *http.Response {
     return this.DoRequest(http.METHOD_HEAD +" /"+ uri, uriParams, nil, headers)
 }
-func (this *Client) Get(uri string, uriParams interface{},
-        headers interface{}) *http.Response {
+
+// Perform a GET request.
+//
+// @param  uri       string
+// @param  uriParams map[string]interface{}
+// @param  headers   map[string]interface{}
+// @return *couch.http.Response
+// @panics
+func (this *Client) Get(
+        uri string, uriParams interface{},
+        headers interface{},
+    ) *http.Response {
     return this.DoRequest(http.METHOD_GET +" /"+ uri, uriParams, nil, headers)
 }
-func (this *Client) Post(uri string, uriParams interface{}, body interface{},
-        headers interface{}) *http.Response {
+
+// Perform a POST request.
+//
+// @param  uri       string
+// @param  uriParams map[string]interface{}
+// @param  body      interface{}
+// @param  headers   map[string]interface{}
+// @return *couch.http.Response
+// @panics
+func (this *Client) Post(
+        uri string, uriParams interface{},
+        body interface{},
+        headers interface{},
+    ) *http.Response {
     return this.DoRequest(http.METHOD_POST +" /"+ uri, uriParams, body, headers)
 }
-func (this *Client) Put(uri string, uriParams interface{}, body interface{},
-        headers interface{}) *http.Response {
+
+// Perform a PUT request.
+//
+// @param  uri       string
+// @param  uriParams map[string]interface{}
+// @param  body      interface{}
+// @param  headers   map[string]interface{}
+// @return *couch.http.Response
+// @panics
+func (this *Client) Put(
+        uri string, uriParams interface{},
+        body interface{},
+        headers interface{},
+    ) *http.Response {
     return this.DoRequest(http.METHOD_PUT +" /"+ uri, uriParams, body, headers)
 }
-func (this *Client) Delete(uri string, uriParams interface{},
-        headers interface{}) *http.Response {
+
+// Perform a DELETE request.
+//
+// @param  uri       string
+// @param  uriParams map[string]interface{}
+// @param  headers   map[string]interface{}
+// @return *couch.http.Response
+// @panics
+func (this *Client) Delete(
+        uri string, uriParams interface{},
+        headers interface{},
+    ) *http.Response {
     return this.DoRequest(http.METHOD_DELETE +" /"+ uri, uriParams, nil, headers)
 }
-func (this *Client) Copy(uri string, uriParams interface{},
-        headers interface{}) *http.Response {
+
+// Perform a COPY request.
+//
+// @param  uri       string
+// @param  uriParams map[string]interface{}
+// @param  headers   map[string]interface{}
+// @return *couch.http.Response
+// @panics
+func (this *Client) Copy(
+        uri string, uriParams interface{},
+        headers interface{},
+    ) *http.Response {
     return this.DoRequest(http.METHOD_COPY +" /"+ uri, uriParams, nil, headers)
 }
