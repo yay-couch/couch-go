@@ -56,7 +56,8 @@ func NewDocument(database *Database, data... interface{}) *Document {
 
 // Set database.
 //
-// @param database *couch.Database
+// @param  database *couch.Database
+// @return void
 func (this *Document) SetDatabase(database *Database) {
     this.Database = database
 }
@@ -71,6 +72,7 @@ func (this *Document) GetDatabase() *Database {
 // Setter.
 //
 // @param  data... interface{}
+// @return *couch.Document
 // @panics
 func (this *Document) Set(data... interface{}) *Document {
     if data == nil {
@@ -93,14 +95,16 @@ func (this *Document) SetId(id interface{}) {
 
 // Set rev.
 //
-// @param rev string
+// @param  rev string
+// @return void
 func (this *Document) SetRev(rev string) {
     this.Rev = rev
 }
 
 // Set deleted.
 //
-// @param deleted bool
+// @param  deleted bool
+// @return void
 func (this *Document) SetDeleted(deleted bool) {
     this.Deleted = deleted
 }
@@ -108,6 +112,7 @@ func (this *Document) SetDeleted(deleted bool) {
 // Set attachment.
 //
 // @param  attachment interface{}
+// @return void
 // @panics
 func (this *Document) SetAttachment(attachment interface{}) {
     if _, ok := attachment.(*DocumentAttachment); !ok {
@@ -131,7 +136,8 @@ func (this *Document) SetAttachment(attachment interface{}) {
 
 // Set data.
 //
-// @param data map[string]interface{}
+// @param  data map[string]interface{}
+// @return void
 func (this *Document) SetData(data map[string]interface{}) {
     for key, value := range data {
         // set special properties
