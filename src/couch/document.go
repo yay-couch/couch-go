@@ -40,7 +40,7 @@ type Document struct {
 //
 // @param  database *couch.Database
 // @param  data... interface{}
-// @return *couch.Document
+// @return (*couch.Document)
 func NewDocument(database *Database, data... interface{}) *Document {
     var this = &Document{
         Data : util.Map(),
@@ -57,14 +57,14 @@ func NewDocument(database *Database, data... interface{}) *Document {
 // Set database.
 //
 // @param  database *couch.Database
-// @return void
+// @return (void)
 func (this *Document) SetDatabase(database *Database) {
     this.Database = database
 }
 
 // Get database
 //
-// @return database *couch.Database
+// @return (database *couch.Database)
 func (this *Document) GetDatabase() *Database {
     return this.Database
 }
@@ -72,7 +72,7 @@ func (this *Document) GetDatabase() *Database {
 // Setter.
 //
 // @param  data... interface{}
-// @return *couch.Document
+// @return (*couch.Document)
 // @panics
 func (this *Document) Set(data... interface{}) *Document {
     if data == nil {
@@ -96,7 +96,7 @@ func (this *Document) SetId(id interface{}) {
 // Set rev.
 //
 // @param  rev string
-// @return void
+// @return (void)
 func (this *Document) SetRev(rev string) {
     this.Rev = rev
 }
@@ -104,7 +104,7 @@ func (this *Document) SetRev(rev string) {
 // Set deleted.
 //
 // @param  deleted bool
-// @return void
+// @return (void)
 func (this *Document) SetDeleted(deleted bool) {
     this.Deleted = deleted
 }
@@ -112,7 +112,7 @@ func (this *Document) SetDeleted(deleted bool) {
 // Set attachment.
 //
 // @param  attachment interface{}
-// @return void
+// @return (void)
 // @panics
 func (this *Document) SetAttachment(attachment interface{}) {
     if _, ok := attachment.(*DocumentAttachment); !ok {
@@ -137,7 +137,7 @@ func (this *Document) SetAttachment(attachment interface{}) {
 // Set data.
 //
 // @param  data map[string]interface{}
-// @return void
+// @return (void)
 func (this *Document) SetData(data map[string]interface{}) {
     for key, value := range data {
         // set special properties
@@ -160,7 +160,7 @@ func (this *Document) SetData(data map[string]interface{}) {
 // Getter.
 //
 // @param  key string
-// @return interface{}
+// @return (interface{})
 func (this *Document) Get(key string) interface{} {
     if value, ok := this.Data[key]; ok {
         return value
@@ -171,7 +171,7 @@ func (this *Document) Get(key string) interface{} {
 
 // Get ID.
 //
-// @return string
+// @return (string)
 func (this *Document) GetId() string {
     if this.Id != nil {
         return this.Id.ToString()
@@ -181,21 +181,21 @@ func (this *Document) GetId() string {
 
 // Get rev.
 //
-// @return string
+// @return (string)
 func (this *Document) GetRev() string {
     return this.Rev
 }
 
 // Get deleted.
 //
-// @return bool
+// @return (bool)
 func (this *Document) GetDeleted() bool {
     return this.Deleted
 }
 
 // Get attachment.
 //
-// @return interface{}
+// @return (interface{})
 func (this *Document) GetAttachment(fileName string) interface{} {
     if attachment, ok := this.Attachments[fileName]; ok {
         return attachment
@@ -205,7 +205,7 @@ func (this *Document) GetAttachment(fileName string) interface{} {
 
 // Get data.
 //
-// @return map[string]interface{}
+// @return (map[string]interface{})
 func (this *Document) GetData() map[string]interface{} {
     return this.Data
 }
@@ -213,7 +213,7 @@ func (this *Document) GetData() map[string]interface{} {
 // Ping.
 //
 // @param  statusCode uint16
-// @return bool
+// @return (bool)
 // @panics
 func (this *Document) Ping(statusCode uint16) bool {
     var id = this.GetId()
@@ -232,7 +232,7 @@ func (this *Document) Ping(statusCode uint16) bool {
 
 // Check is exists.
 //
-// @return bool
+// @return (bool)
 // @panics
 func (this *Document) IsExists() bool {
     var id = this.GetId()
@@ -253,7 +253,7 @@ func (this *Document) IsExists() bool {
 
 // Check is not modified.
 //
-// @return bool
+// @return (bool)
 // @panics
 func (this *Document) IsNotModified() bool {
     var id, rev = this.GetId(), this.GetRev()
@@ -271,7 +271,7 @@ func (this *Document) IsNotModified() bool {
 // Find.
 //
 // @param  query map[string]interface{}
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *Document) Find(query map[string]interface{}) (map[string]interface{}, error) {
     var id = this.GetId()
@@ -302,7 +302,7 @@ func (this *Document) Find(query map[string]interface{}) (map[string]interface{}
 //
 // @param  data interface{}
 // @param  query map[string]interface{}
-// @return interface{}, error
+// @return (interface{}, error)
 func (this *Document) FindStruct(
     data interface{}, query map[string]interface{}) (interface{}, error) {
     var id = this.GetId()
@@ -329,7 +329,7 @@ func (this *Document) FindStruct(
 
 // Find revisions.
 //
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Document) FindRevisions() (map[string]interface{}, error) {
     data, err := this.Find(util.ParamList("revs", true))
     if err != nil {
@@ -347,7 +347,7 @@ func (this *Document) FindRevisions() (map[string]interface{}, error) {
 
 // Find revisions extended.
 //
-// @return []map[string]interface{}, error
+// @return ([]map[string]interface{}, error)
 func (this *Document) FindRevisionsExtended() ([]map[string]string, error) {
     data, err := this.Find(util.ParamList("revs_info", true))
     if err != nil {
@@ -404,7 +404,7 @@ func (this *Document) FindAttachments(
 // Save.
 //
 // @param  args... bool
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Document) Save(args... bool) (map[string]interface{}, error) {
     var query, headers, body = util.Map(), util.Map(), this.GetData()
     if args != nil {
@@ -464,7 +464,7 @@ func (this *Document) Save(args... bool) (map[string]interface{}, error) {
 // Remove.
 //
 // @param  args... bool
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *Document) Remove(args... bool) (map[string]interface{}, error) {
     var id, rev = this.GetId(), this.GetRev()
@@ -501,7 +501,7 @@ func (this *Document) Remove(args... bool) (map[string]interface{}, error) {
 //
 // @param  dest string
 // @param  args... bool
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *Document) Copy(dest string, args... bool) (map[string]interface{}, error) {
     var id = this.GetId()
@@ -540,7 +540,7 @@ func (this *Document) Copy(dest string, args... bool) (map[string]interface{}, e
 //
 // @param  dest string
 // @param  args... bool
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *Document) CopyFrom(dest string, args... bool) (map[string]interface{}, error) {
     var id, rev = this.GetId(), this.GetRev()
@@ -582,7 +582,7 @@ func (this *Document) CopyFrom(dest string, args... bool) (map[string]interface{
 // @param  dest    string
 // @param  destRev string
 // @param  args... bool
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *Document) CopyTo(dest, destRev string, args... bool) (map[string]interface{}, error) {
     var id, rev = this.GetId(), this.GetRev()
