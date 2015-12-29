@@ -1,3 +1,25 @@
+// Copyright 2015 Kerem Güneş
+//    <http://qeremy.com>
+//
+// Apache License, Version 2.0
+//    <http://www.apache.org/licenses/LICENSE-2.0>
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// @package couch.http
+// @uses    regexp, strings, strconv
+// @uses    couch.util
+// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
 package http
 
 import (
@@ -10,6 +32,7 @@ import (
     "couch/util"
 )
 
+// @object couch.http.Response
 type Response struct {
     Stream // extends :)
     Status       string
@@ -17,6 +40,8 @@ type Response struct {
     StatusText   string
 }
 
+// Response statuses.
+// @var map[int]string{}
 var (
     STATUS = map[int]string{
         200: "OK",
@@ -38,6 +63,9 @@ var (
     }
 )
 
+// Constructor.
+//
+// @return (*couch.http.Response)
 func NewResponse() *Response {
     stream := NewStream()
     stream.Type = TYPE_RESPONSE
@@ -50,6 +78,10 @@ func NewResponse() *Response {
     return this
 }
 
+// Set status.
+//
+// @param  status string
+// @return (void)
 func (this *Response) SetStatus(status string) {
     // status line >> HTTP/1.0 200 OK
     re, _ := _rex.Compile("^HTTP/(\\d+\\.\\d+)\\s+(\\d+)\\s+(.+)")
@@ -57,33 +89,60 @@ func (this *Response) SetStatus(status string) {
         return
     }
     this.Status = _str.TrimSpace(status)
+
     var match = re.FindStringSubmatch(status)
     if len(match) == 4 {
         // update http version
         this.HttpVersion = match[1]
+        // set status code/text
         responseCode, _ := _strc.Atoi(match[2])
         responseText    := _str.TrimSpace(match[3])
         this.SetStatusCode(uint16(responseCode))
         this.SetStatusText(string(responseText))
     }
 }
-func (this *Response) SetStatusCode(code uint16) {
-    this.StatusCode = code
-}
-func (this *Response) SetStatusText(text string) {
-    this.StatusText = text
+
+// Set status code.
+//
+// @param  statusCode uint16
+// @return (void)
+func (this *Response) SetStatusCode(statusCode uint16) {
+    this.StatusCode = statusCode
 }
 
+// Set status text.
+//
+// @param  statusText string
+// @return (void)
+func (this *Response) SetStatusText(statusText string) {
+    this.StatusText = statusText
+}
+
+// Get status.
+//
+// @return (string)
 func (this *Response) GetStatus() string {
     return this.Status
 }
+
+// Get status code.
+//
+// @return (uint16)
 func (this *Response) GetStatusCode() uint16 {
     return this.StatusCode
 }
+
+// Get status text.
+//
+// @return (string)
 func (this *Response) GetStatusText() string {
     return this.StatusText
 }
 
+// Set body.
+//
+// @param  body interface{}
+// @return (void)
 // @implement
 func (this *Response) SetBody(body interface{}) {
     if body != nil {
@@ -91,10 +150,12 @@ func (this *Response) SetBody(body interface{}) {
     }
 }
 
-// @implement
+// Get response as string.
+//
+// @return (string)
+// @implements
 func (this *Response) ToString() string {
-    var ret = ""
-    ret = util.StringFormat("HTTP/%s %d %s\r\n", this.HttpVersion, this.StatusCode, this.StatusText)
+    var ret = util.StringFormat("HTTP/%s %d %s\r\n", this.HttpVersion, this.StatusCode, this.StatusText)
     if this.Headers != nil {
         for key, value := range this.Headers {
             if key == "0" {
@@ -106,6 +167,7 @@ func (this *Response) ToString() string {
         }
     }
     ret += "\r\n"
+
     if this.Body != nil {
         switch this.Body.(type) {
             case string:
@@ -117,5 +179,6 @@ func (this *Response) ToString() string {
                 }
         }
     }
+
     return ret
 }
