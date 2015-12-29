@@ -67,7 +67,7 @@ var (
 // Constructor.
 //
 // @return (*couch.http.Response)
-func NewResponse() *Response {
+func NewResponse() (*Response) {
     var this = &Response{
         Stream: *NewStream(TYPE_RESPONSE, "1.0"),
     }
@@ -118,21 +118,21 @@ func (this *Response) SetStatusText(statusText string) {
 // Get status.
 //
 // @return (string)
-func (this *Response) GetStatus() string {
+func (this *Response) GetStatus() (string) {
     return this.Status
 }
 
 // Get status code.
 //
 // @return (uint16)
-func (this *Response) GetStatusCode() uint16 {
+func (this *Response) GetStatusCode() (uint16) {
     return this.StatusCode
 }
 
 // Get status text.
 //
 // @return (string)
-func (this *Response) GetStatusText() string {
+func (this *Response) GetStatusText() (string) {
     return this.StatusText
 }
 
@@ -151,7 +151,7 @@ func (this *Response) SetBody(body interface{}) {
 //
 // @return (string)
 // @implemented
-func (this *Response) ToString() string {
+func (this *Response) ToString() (string) {
     return this.toString(util.StringFormat(
         "HTTP/%s %d %s\r\n", this.HttpVersion, this.StatusCode, this.StatusText,
     ))

@@ -68,7 +68,7 @@ func Shutup() {}
 // @param  _type       uint8
 // @param  httpVersion string
 // @return (couch.http.Stream)
-func NewStream(_type uint8, httpVersion string) *Stream {
+func NewStream(_type uint8, httpVersion string) (*Stream) {
     return &Stream{
         Type: _type,
         HttpVersion: httpVersion,
@@ -99,7 +99,7 @@ func (this *Stream) SetHeader(key string, value interface{}) {
 //
 // @param  key string
 // @return interface{}
-func (this *Stream) GetHeader(key string) interface{} {
+func (this *Stream) GetHeader(key string) (interface{}) {
     if value, ok := this.Headers[key]; ok {
         return value
     }
@@ -110,14 +110,14 @@ func (this *Stream) GetHeader(key string) interface{} {
 // Get all headers.
 //
 // @return map[string]interface{}
-func (this *Stream) GetHeaderAll() map[string]interface{} {
+func (this *Stream) GetHeaderAll() (map[string]interface{}) {
     return this.Headers
 }
 
 // Get body.
 //
 // @return string
-func (this *Stream) GetBody() string {
+func (this *Stream) GetBody() (string) {
     if this.Body == nil {
         return ""
     }
@@ -179,14 +179,14 @@ func (this *Stream) SetError(body string) {
 // Get error.
 //
 // @return string
-func (this *Stream) GetError() string {
+func (this *Stream) GetError() (string) {
     return this.Error
 }
 
 // Get error value.
 //
 // @return string
-func (this *Stream) GetErrorValue(key string) string {
+func (this *Stream) GetErrorValue(key string) (string) {
     return this.ErrorData[key]
 }
 
@@ -195,7 +195,7 @@ func (this *Stream) GetErrorValue(key string) string {
 // @param  firstLine string
 // @return string
 // @protected
-func (this *Stream) toString(firstLine string) string {
+func (this *Stream) toString(firstLine string) (string) {
     var str = firstLine
 
     // add headers

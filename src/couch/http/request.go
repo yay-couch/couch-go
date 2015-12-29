@@ -58,7 +58,7 @@ const (
 //
 // @param  config map[string]interface{}
 // @return (*couch.http.Request)
-func NewRequest(config map[string]interface{}) *Request {
+func NewRequest(config map[string]interface{}) (*Request) {
     var this = &Request{
         Stream: *NewStream(TYPE_REQUEST, "1.0"),
         Config: config,
@@ -119,7 +119,7 @@ func (this *Request) SetUri(uri string, uriParams interface{}) {
 //
 // @return (string)
 // @panics
-func (this *Request) Send() string {
+func (this *Request) Send() (string) {
     link, err := _net.Dial("tcp", _fmt.Sprintf("%s:%v", this.Config["Host"], this.Config["Port"]))
     if err != nil {
         panic(err)
@@ -216,7 +216,7 @@ func (this *Request) SetBody(body interface{}) {
 //
 // @return (string)
 // @implemented
-func (this *Request) ToString() string {
+func (this *Request) ToString() (string) {
     return this.toString(util.StringFormat(
         "%s %s HTTP/%s\r\n", this.Method, this.Uri, this.HttpVersion,
     ))
