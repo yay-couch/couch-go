@@ -57,7 +57,7 @@ var (
 // Constructor.
 //
 // @param  couch *couch.http.Couch
-// @return *couch.Client
+// @return (*couch.Client)
 func NewClient(couch *Couch) *Client {
     var this = &Client{
         Scheme: Scheme,
@@ -119,14 +119,14 @@ func NewClient(couch *Couch) *Client {
 
 // Get request object.
 //
-// @return *couch.http.Request
+// @return (*couch.http.Request)
 func (this *Client) GetRequest() *http.Request {
     return this.Request
 }
 
 // Get response object.
 //
-// @return *couch.http.Response
+// @return (*couch.http.Response)
 func (this *Client) GetResponse() *http.Response {
     return this.Response
 }
@@ -137,7 +137,7 @@ func (this *Client) GetResponse() *http.Response {
 // @param  uriParams map[string]interface{}
 // @param  body      interface{}
 // @param  headers   map[string]interface{}
-// @return *couch.http.Response
+// @return (*couch.http.Response)
 // @panics
 func (this *Client) DoRequest(
     uri string, uriParams interface{},
@@ -212,7 +212,7 @@ func (this *Client) DoRequest(
 // @param  uri       string
 // @param  uriParams map[string]interface{}
 // @param  headers   map[string]interface{}
-// @return *couch.http.Response
+// @return (*couch.http.Response)
 // @panics
 func (this *Client) Head(
     uri string, uriParams interface{},
@@ -226,7 +226,7 @@ func (this *Client) Head(
 // @param  uri       string
 // @param  uriParams map[string]interface{}
 // @param  headers   map[string]interface{}
-// @return *couch.http.Response
+// @return (*couch.http.Response)
 // @panics
 func (this *Client) Get(
     uri string, uriParams interface{},
@@ -241,7 +241,7 @@ func (this *Client) Get(
 // @param  uriParams map[string]interface{}
 // @param  body      interface{}
 // @param  headers   map[string]interface{}
-// @return *couch.http.Response
+// @return (*couch.http.Response)
 // @panics
 func (this *Client) Post(
     uri string, uriParams interface{},
@@ -257,7 +257,7 @@ func (this *Client) Post(
 // @param  uriParams map[string]interface{}
 // @param  body      interface{}
 // @param  headers   map[string]interface{}
-// @return *couch.http.Response
+// @return (*couch.http.Response)
 // @panics
 func (this *Client) Put(
     uri string, uriParams interface{},
@@ -272,7 +272,7 @@ func (this *Client) Put(
 // @param  uri       string
 // @param  uriParams map[string]interface{}
 // @param  headers   map[string]interface{}
-// @return *couch.http.Response
+// @return (*couch.http.Response)
 // @panics
 func (this *Client) Delete(
     uri string, uriParams interface{},
@@ -286,7 +286,7 @@ func (this *Client) Delete(
 // @param  uri       string
 // @param  uriParams map[string]interface{}
 // @param  headers   map[string]interface{}
-// @return *couch.http.Response
+// @return (*couch.http.Response)
 // @panics
 func (this *Client) Copy(
     uri string, uriParams interface{},
