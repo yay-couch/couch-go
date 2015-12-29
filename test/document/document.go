@@ -22,7 +22,7 @@ func init() {
     Database = couch.NewDatabase(Client, DBNAME);
 }
 
-func _document(data ...interface{}) *couch.Document {
+func _document(data... interface{}) *couch.Document {
     return couch.NewDocument(Database, data...)
 }
 

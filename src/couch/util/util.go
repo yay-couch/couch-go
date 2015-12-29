@@ -114,7 +114,7 @@ func Param(param map[string]interface{}) map[string]interface{} {
     }
     return param
 }
-func ParamList(argv ...interface{}) map[string]interface{} {
+func ParamList(argv... interface{}) map[string]interface{} {
     var argc = len(argv)
     if argc % 2 != 0 {
         panic("Wrong param count (key1, value1, key2, value2)!")

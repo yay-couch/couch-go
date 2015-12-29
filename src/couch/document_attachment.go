@@ -46,7 +46,7 @@ func (this *DocumentAttachment) ToJson(encode bool) string {
     return json
 }
 
-func (this *DocumentAttachment) Ping(statusCodes ...uint16) bool {
+func (this *DocumentAttachment) Ping(statusCodes... uint16) bool {
     if this.Document == nil {
         panic("Attachment document is not defined!")
     }
