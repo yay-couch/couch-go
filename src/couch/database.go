@@ -51,7 +51,7 @@ type DatabaseDocumentList struct {
 //
 // @param  client *couch.Client
 // @param  client string
-// @return *couch.Database
+// @return (*couch.Database)
 func NewDatabase(client *Client, name string) *Database {
     return &Database{
         Client: client,
@@ -61,14 +61,14 @@ func NewDatabase(client *Client, name string) *Database {
 
 // Ping database.
 //
-// @return bool
+// @return (bool)
 func (this *Database) Ping() bool {
     return (200 == this.Client.Head(this.Name, nil, nil).GetStatusCode())
 }
 
 // Get database info.
 //
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) Info() (map[string]interface{}, error) {
     data, err := this.Client.Get(this.Name, nil, nil).GetBodyData(nil)
     if err != nil {
@@ -85,14 +85,14 @@ func (this *Database) Info() (map[string]interface{}, error) {
 
 // Create database.
 //
-// @return bool
+// @return (bool)
 func (this *Database) Create() bool {
     return (201 == this.Client.Put(this.Name, nil, nil, nil).GetStatusCode())
 }
 
 // Remove database.
 //
-// @return bool
+// @return (bool)
 func (this *Database) Remove() bool {
     return (200 == this.Client.Delete(this.Name, nil, nil).GetStatusCode())
 }
@@ -102,7 +102,7 @@ func (this *Database) Remove() bool {
 //
 // @param  target       string
 // @param  targetCreate bool
-// @return bool
+// @return (bool)
 func (this *Database) Replicate(
     target string, targetCreate bool) (map[string]interface{}, error) {
     // prepare body
@@ -139,7 +139,7 @@ func (this *Database) Replicate(
 // Get document.
 //
 // @param  key string
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
     // prepare query
     var query = util.ParamList(
@@ -173,7 +173,7 @@ func (this *Database) GetDocument(key string) (map[string]interface{}, error) {
 //
 // @param  query map[string]interface{}
 // @param  keys  []string
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) GetDocumentAll(
     query map[string]interface{}, keys []string) (map[string]interface{}, error) {
     query = util.Param(query)
@@ -223,7 +223,7 @@ func (this *Database) GetDocumentAll(
 // Create document.
 //
 // @param  document map[string]interface{}
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) CreateDocument(
     document interface{}) (map[string]interface{}, error) {
     data, err := this.CreateDocumentAll([]interface{}{document})
@@ -241,7 +241,7 @@ func (this *Database) CreateDocument(
 // Create documents.
 //
 // @param  document []map[string]interface{}
-// @return []map[string]interface{}, error
+// @return ([]map[string]interface{}, error)
 func (this *Database) CreateDocumentAll(
     documents []interface{}) ([]map[string]interface{}, error) {
     var docs = util.MapList(documents)
@@ -278,7 +278,7 @@ func (this *Database) CreateDocumentAll(
 // Update document.
 //
 // @param  document map[string]interface{}
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *Database) UpdateDocument(
     document interface{}) (map[string]interface{}, error) {
@@ -297,7 +297,7 @@ func (this *Database) UpdateDocument(
 // Update documents.
 //
 // @param  document []map[string]interface{}
-// @return []map[string]interface{}, error
+// @return ([]map[string]interface{}, error)
 // @panics
 func (this *Database) UpdateDocumentAll(
     documents []interface{}) ([]map[string]interface{}, error) {
@@ -336,7 +336,7 @@ func (this *Database) UpdateDocumentAll(
 // Delete documents.
 //
 // @param  document map[string]interface{}
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 // @panics
 func (this *Database) DeleteDocument(
     document interface{}) (map[string]interface{}, error) {
@@ -355,7 +355,7 @@ func (this *Database) DeleteDocument(
 // Delete documents.
 //
 // @param  document []map[string]interface{}
-// @return []map[string]interface{}, error
+// @return ([]map[string]interface{}, error)
 // @panics
 func (this *Database) DeleteDocumentAll(documents []interface{}) (
         []map[string]interface{}, error) {
@@ -370,7 +370,7 @@ func (this *Database) DeleteDocumentAll(documents []interface{}) (
 // Get changes.
 //
 // @param  query map[string]interface{}
-// @return []map[string]interface{}, error
+// @return ([]map[string]interface{}, error)
 func (this *Database) GetChanges(
     query map[string]interface{}, docIds []string) (map[string]interface{}, error) {
     query = util.Param(query)
@@ -407,7 +407,7 @@ func (this *Database) GetChanges(
 // Compact.
 //
 // @param  ddoc string
-// @return bool, error
+// @return (bool, error)
 func (this *Database) Compact(ddoc string) (bool, error) {
     data, err := this.Client.Post(this.Name +"/_compact/"+ ddoc, nil, nil, nil).GetBodyData(nil)
     if err != nil {
@@ -419,7 +419,7 @@ func (this *Database) Compact(ddoc string) (bool, error) {
 
 // Ensure full commit.
 //
-// @return bool, uint, error
+// @return (bool, uint, error)
 func (this *Database) EnsureFullCommit() (bool, uint, error) {
     data, err := this.Client.Post(this.Name +"/_ensure_full_commit", nil, nil, nil).GetBodyData(nil)
     if err != nil {
@@ -433,7 +433,7 @@ func (this *Database) EnsureFullCommit() (bool, uint, error) {
 
 // View cleanup.
 //
-// @return bool, error
+// @return (bool, error)
 func (this *Database) ViewCleanup() (bool, error) {
     data, err := this.Client.Post(this.Name +"/_view_cleanup", nil, nil, nil).GetBodyData(nil)
     if err != nil {
@@ -447,7 +447,7 @@ func (this *Database) ViewCleanup() (bool, error) {
 //
 // @param  _map string
 // @param  _red interface
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) ViewTemp(_map string, _red interface{}) (map[string]interface{}, error) {
     var body = util.ParamList(
         "map", _map,
@@ -483,7 +483,7 @@ func (this *Database) ViewTemp(_map string, _red interface{}) (map[string]interf
 
 // Get security.
 //
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) GetSecurity() (map[string]interface{}, error) {
     data, err := this.Client.Get(this.Name +"/_security", nil, nil).GetBodyData(nil)
     if err != nil {
@@ -497,7 +497,7 @@ func (this *Database) GetSecurity() (map[string]interface{}, error) {
 //
 // @param  map[string]interface{}
 // @param  map[string]interface{}
-// @return bool, error
+// @return (bool, error)
 // @panics
 func (this *Database) SetSecurity(admins, members map[string]interface{}) (bool, error) {
     // check required fields
@@ -518,7 +518,7 @@ func (this *Database) SetSecurity(admins, members map[string]interface{}) (bool,
 // Purge
 //
 // @param  object map[string]interface{}
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) Purge(object map[string]interface{}) (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_purge", nil, object, nil).GetBodyData(nil)
     if err != nil {
@@ -539,7 +539,7 @@ func (this *Database) Purge(object map[string]interface{}) (map[string]interface
 // Get missing revisions.
 //
 // @param  object map[string]interface{}
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) GetMissingRevisions(
     object map[string]interface{}) (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_missing_revs", nil, object, nil).GetBodyData(nil)
@@ -560,7 +560,7 @@ func (this *Database) GetMissingRevisions(
 // Get missing revisions diff.
 //
 // @param  object map[string]interface{}
-// @return map[string]interface{}, error
+// @return (map[string]interface{}, error)
 func (this *Database) GetMissingRevisionsDiff(
     object map[string]interface{}) (map[string]interface{}, error) {
     data, err := this.Client.Post(this.Name +"/_revs_diff", nil, object, nil).GetBodyData(nil)
@@ -580,7 +580,7 @@ func (this *Database) GetMissingRevisionsDiff(
 
 // Get revision limit.
 //
-// @return int, error
+// @return (int, error)
 func (this *Database) GetRevisionLimit() (int, error) {
     data, err := this.Client.Get(this.Name +"/_revs_limit", nil, nil).GetBodyData(nil)
     if err != nil {
@@ -593,7 +593,7 @@ func (this *Database) GetRevisionLimit() (int, error) {
 // Set revision limit.
 //
 // @param  limit int
-// @return bool, error
+// @return (bool, error)
 func (this *Database) SetRevisionLimit(limit int) (bool, error) {
     data, err := this.Client.Put(this.Name +"/_revs_limit", nil, limit, nil).GetBodyData(limit)
     if err != nil {
