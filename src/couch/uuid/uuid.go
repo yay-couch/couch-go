@@ -153,6 +153,6 @@ func Generate(limit int) (string) {
         bytes[6] = (bytes[6] | 0x40) & 0x4f
         bytes[8] = (bytes[8] | 0x80) & 0xbf
         return _fmt.Sprintf("%x-%x-%x-%x-%x",
-            bytes[0:4], bytes[4:6], bytes[6:8], bytes[8:10], bytes[10:])
+            bytes[0 : 4], bytes[4 : 6], bytes[6 : 8], bytes[8 : 10], bytes[10 : ])
     }
 }
