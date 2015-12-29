@@ -44,7 +44,7 @@ func Shutup() {}
 //
 // @param  data map[string]interface{}
 // @return (*couch.query.Query)
-func New(data map[string]interface{}) *Query {
+func New(data map[string]interface{}) (*Query) {
     if data == nil {
         data = util.Map()
     }
@@ -60,7 +60,7 @@ func New(data map[string]interface{}) *Query {
 // @param  key    string
 // @param  value interface{}
 // @return (couch.query.Query)
-func (this *Query) Set(key string, value interface{}) *Query {
+func (this *Query) Set(key string, value interface{}) (*Query) {
     this.Data[key] = value
 
     return this
@@ -70,7 +70,7 @@ func (this *Query) Set(key string, value interface{}) *Query {
 //
 // @param  key    string
 // @return interface{}
-func (this *Query) Get(key string) interface{} {
+func (this *Query) Get(key string) (interface{}) {
     if value, ok := this.Data[key]; ok {
         return value
     }
@@ -82,7 +82,7 @@ func (this *Query) Get(key string) interface{} {
 //
 // @param  value int
 // @return (couch.query.Query)
-func (this *Query) Skip(value int) *Query {
+func (this *Query) Skip(value int) (*Query) {
     this.Data["skip"] = value
 
     return this
@@ -92,7 +92,7 @@ func (this *Query) Skip(value int) *Query {
 //
 // @param  value int
 // @return (couch.query.Query)
-func (this *Query) Limit(value int) *Query {
+func (this *Query) Limit(value int) (*Query) {
     this.Data["limit"] = value
 
     return this
@@ -101,14 +101,14 @@ func (this *Query) Limit(value int) *Query {
 // Get query data as map.
 //
 // @return (map[string]interface{})
-func (this *Query) ToData() map[string]interface{} {
+func (this *Query) ToData() (map[string]interface{}) {
     return this.Data
 }
 
 // Get query data as string.
 //
 // @return (string)
-func (this *Query) ToString() string {
+func (this *Query) ToString() (string) {
     if this.DataString != "" {
         return this.DataString
     }
