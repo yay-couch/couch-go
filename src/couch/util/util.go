@@ -16,10 +16,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// @package couch
-// @uses    fmt, net/url, os, os/exec, regexp, strings, strconv,
-//          encoding/json, encoding/base64, path/filepath
-// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+// @package    couch
+// @subpackage couch.util
+// @uses       fmt, net/url, os, os/exec, regexp, strings, strconv,
+//             encoding/json, encoding/base64, path/filepath
+// @author     Kerem Güneş <qeremy[at]gmail[dot]com>
 package util
 
 import (
