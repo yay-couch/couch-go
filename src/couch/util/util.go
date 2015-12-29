@@ -274,11 +274,12 @@ func ParseHeaders(headers string) (map[string]string) {
     if tmps := _str.Split(headers, "\r\n"); tmps != nil {
         for _, tmp := range tmps {
             var tmp = _str.SplitN(tmp, ":", 2)
-            // status line check, ie HTTP/1.0 200 OK
+            // status line check (ie: HTTP/1.0 200 OK)
             if len(tmp) == 1 {
                 ret["0"] = tmp[0]
                 continue
             }
+
             ret[_str.TrimSpace(tmp[0])] = _str.TrimSpace(tmp[1])
         }
     }
