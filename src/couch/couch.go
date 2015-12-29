@@ -15,11 +15,12 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package couch
 
 // @package couch
-// @object  couch.Couch
 // @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+package couch
+
+// Couch object.
 type Couch struct {
     Config map[string]interface{}
 }
