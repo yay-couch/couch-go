@@ -397,9 +397,14 @@ func DigInt(key string, object interface{}) int {
                 return int(value)
             case float64:
                 return int(value)
+            case string:
+                return Int(value)
         }
     }
     return 0
+}
+func DigUInt(key string, object interface{}) uint {
+    return uint(DigInt(key, object))
 }
 func DigFloat(key string, object interface{}) float64 {
     if value := Dig(key, object); value != nil {
