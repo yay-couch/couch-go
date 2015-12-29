@@ -353,8 +353,8 @@ func String(input interface{}) (string) {
              string:
             return _fmt.Sprintf("%v", input)
         default:
-            // check numerics
             var inputType = _fmt.Sprintf("%T", input)
+            // check numerics
             if StringSearch(inputType, "u?int(\\d+)?|float(32|64)") {
                 return _fmt.Sprintf("%v", input)
             }
