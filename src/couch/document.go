@@ -39,7 +39,7 @@ type Document struct {
 // Constructor.
 //
 // @param  database *couch.Database
-// @param  data ...interface{}
+// @param  data... interface{}
 // @return *couch.Document
 func NewDocument(database *Database, data... interface{}) *Document {
     var this = &Document{
