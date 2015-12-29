@@ -291,23 +291,23 @@ func TestGetChanges() {
  * TestCompact
  */
 func TestCompact() {
-    data, err := Database.Compact("")
+    ok, err := Database.Compact("")
     if err != nil {
         panic(err)
     }
-    util.Dumpf("Database Compact >> ok: %v", data["ok"])
+    util.Dumpf("Database Compact >> ok: %v", ok)
 }
 
 /**
  * TestEnsureFullCommit
  */
 func TestEnsureFullCommit() {
-    data, err := Database.EnsureFullCommit()
+    ok, time, err := Database.EnsureFullCommit()
     if err != nil {
         panic(err)
     }
-    util.Dumpf("Database Ensure Full Commit >> ok: %v", data["ok"])
-    util.Dumpf("Database Ensure Full Commit >> instance_start_time: %s", data["instance_start_time"])
+    util.Dumpf("Database Ensure Full Commit >> ok: %v", ok)
+    util.Dumpf("Database Ensure Full Commit >> instance_start_time: %d", time)
 }
 
 /**
@@ -370,11 +370,11 @@ func TestSetSecurity() {
         "names": []string{"user1","user2"},
         "roles": []string{"developers"},
     }
-    data, err := Database.SetSecurity(admins, members)
+    ok, err := Database.SetSecurity(admins, members)
     if err != nil {
         panic(err)
     }
-    util.Dumpf("Database Set Security >> ok: %v", data["ok"])
+    util.Dumpf("Database Set Security >> ok: %v", ok)
 }
 
 /**
