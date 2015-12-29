@@ -52,7 +52,7 @@ type DatabaseDocumentList struct {
 // @param  client *couch.Client
 // @param  client string
 // @return (*couch.Database)
-func NewDatabase(client *Client, name string) *Database {
+func NewDatabase(client *Client, name string) (*Database) {
     return &Database{
         Client: client,
           Name: name,
@@ -62,7 +62,7 @@ func NewDatabase(client *Client, name string) *Database {
 // Ping database.
 //
 // @return (bool)
-func (this *Database) Ping() bool {
+func (this *Database) Ping() (bool) {
     return (200 == this.Client.Head(this.Name, nil, nil).GetStatusCode())
 }
 
@@ -86,14 +86,14 @@ func (this *Database) Info() (map[string]interface{}, error) {
 // Create database.
 //
 // @return (bool)
-func (this *Database) Create() bool {
+func (this *Database) Create() (bool) {
     return (201 == this.Client.Put(this.Name, nil, nil, nil).GetStatusCode())
 }
 
 // Remove database.
 //
 // @return (bool)
-func (this *Database) Remove() bool {
+func (this *Database) Remove() (bool) {
     return (200 == this.Client.Delete(this.Name, nil, nil).GetStatusCode())
 }
 
@@ -357,8 +357,8 @@ func (this *Database) DeleteDocument(
 // @param  document []map[string]interface{}
 // @return ([]map[string]interface{}, error)
 // @panics
-func (this *Database) DeleteDocumentAll(documents []interface{}) (
-        []map[string]interface{}, error) {
+func (this *Database) DeleteDocumentAll(
+    documents []interface{}) ([]map[string]interface{}, error) {
     for i, _ := range documents {
         // just add "_deleted" param into document
         documents[i].(map[string]interface{})["_deleted"] = true
@@ -446,7 +446,7 @@ func (this *Database) ViewCleanup() (bool, error) {
 // View temp.
 //
 // @param  _map string
-// @param  _red interface
+// @param  _red interface{}
 // @return (map[string]interface{}, error)
 func (this *Database) ViewTemp(_map string, _red interface{}) (map[string]interface{}, error) {
     var body = util.ParamList(
