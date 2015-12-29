@@ -117,14 +117,14 @@ func NewClient(couch *Couch) *Client {
     return this
 }
 
-// Get request object
+// Get request object.
 //
 // @return *couch.http.Request
 func (this *Client) GetRequest() *http.Request {
     return this.Request
 }
 
-// Get response object
+// Get response object.
 //
 // @return *couch.http.Response
 func (this *Client) GetResponse() *http.Response {
@@ -140,10 +140,10 @@ func (this *Client) GetResponse() *http.Response {
 // @return *couch.http.Response
 // @panics
 func (this *Client) DoRequest(
-        uri string, uriParams interface{},
-        body interface{},
-        headers interface{},
-    ) *http.Response {
+    uri string, uriParams interface{},
+    body interface{},
+    headers interface{},
+) *http.Response {
     // notation: GET /foo
     re, _ := _rex.Compile("^([A-Z]+)\\s+(/.*)")
     if re == nil {
@@ -217,7 +217,7 @@ func (this *Client) DoRequest(
 func (this *Client) Head(
         uri string, uriParams interface{},
         headers interface{},
-    ) *http.Response {
+     ) *http.Response {
     return this.DoRequest(http.METHOD_HEAD +" /"+ uri, uriParams, nil, headers)
 }
 
