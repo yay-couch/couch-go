@@ -174,7 +174,8 @@ func (this *Request) Send() string {
 //
 // @param  body interface{}
 // @return (void)
-// @panics @implements
+// @panics
+// @implemented
 func (this *Request) SetBody(body interface{}) {
     if body != nil &&
        // these methods not allowed for body
@@ -213,7 +214,7 @@ func (this *Request) SetBody(body interface{}) {
 // Get request as string.
 //
 // @return (string)
-// @implements
+// @implemented
 func (this *Request) ToString() string {
     return this.toString(util.StringFormat(
         "%s %s HTTP/%s\r\n", this.Method, this.Uri, this.HttpVersion,

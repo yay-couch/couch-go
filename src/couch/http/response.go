@@ -139,7 +139,7 @@ func (this *Response) GetStatusText() string {
 //
 // @param  body interface{}
 // @return (void)
-// @implements
+// @implemented
 func (this *Response) SetBody(body interface{}) {
     if body != nil {
         this.Body = util.String(body)
@@ -149,7 +149,7 @@ func (this *Response) SetBody(body interface{}) {
 // Get response as string.
 //
 // @return (string)
-// @implements
+// @implemented
 func (this *Response) ToString() string {
     return this.toString(util.StringFormat(
         "HTTP/%s %d %s\r\n", this.HttpVersion, this.StatusCode, this.StatusText,
