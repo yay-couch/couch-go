@@ -178,8 +178,7 @@ func (this *Request) Send() string {
 //
 // @param  body interface{}
 // @return (void)
-// @panics
-// @implements
+// @panics @implements
 func (this *Request) SetBody(body interface{}) {
     if body != nil &&
        // these methods not allowed for body

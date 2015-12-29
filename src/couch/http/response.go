@@ -143,7 +143,7 @@ func (this *Response) GetStatusText() string {
 //
 // @param  body interface{}
 // @return (void)
-// @implement
+// @implements
 func (this *Response) SetBody(body interface{}) {
     if body != nil {
         this.Body = util.String(body)
