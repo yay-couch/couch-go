@@ -1,3 +1,20 @@
+// Copyright 2015 Kerem Güneş
+//     <http://qeremy.com>
+//
+// Apache License, Version 2.0
+//     <http://www.apache.org/licenses/LICENSE-2.0>
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 package couch
 
 import (
@@ -11,6 +28,12 @@ import (
     "couch/util"
 )
 
+// @package couch
+// @object  couch.Client
+// @uses    couch.http
+// @uses    fmt, strings, regexp
+//          couch.http, couch.util
+// @author  Kerem Güneş <qeremy[at]gmail[dot]com>
 type Client struct {
     Scheme    string
     Host      string
@@ -22,6 +45,7 @@ type Client struct {
     Config    map[string]interface{}
 }
 
+// Client default config options
 var (
     Scheme        = "http"
     Host          = "localhost"
@@ -30,6 +54,7 @@ var (
     Password      = ""
 )
 
+// Create a new Client object
 func NewClient(couch *Couch) *Client {
     var this = &Client{
         Scheme: Scheme,
@@ -44,6 +69,7 @@ func NewClient(couch *Couch) *Client {
     Config["Couch.VERSION"] = VERSION
     Config["Couch.DEBUG"]   = DEBUG // set default
 
+    // copy Couch configs
     var config = couch.GetConfig()
     if config != nil {
         for key, value := range config {
