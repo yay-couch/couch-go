@@ -75,9 +75,15 @@ func NewStream(_type uint8, httpVersion string) *Stream {
     }
 }
 
+// Set header.
+//
+// @param  key   string
+// @param  value interface{}
+// @return (void)
+// @panic
 func (this *Stream) SetHeader(key string, value interface{}) {
     switch value.(type) {
-        case nil:
+        case nil: // so nil means remove
             delete(this.Headers, key)
         case int,
              bool,
@@ -87,29 +93,49 @@ func (this *Stream) SetHeader(key string, value interface{}) {
             panic("Unsupported value type '"+ _fmt.Sprintf("%T", value) +"' given!")
     }
 }
+
+// Get header.
+//
+// @param  key string
+// @return interface{}
 func (this *Stream) GetHeader(key string) interface{} {
     if value, ok := this.Headers[key]; ok {
         return value
     }
+
     return nil
 }
+
+// Get all headers.
+//
+// @return map[string]interface{}
 func (this *Stream) GetHeaderAll() map[string]interface{} {
     return this.Headers
 }
 
+// Get body.
+//
+// @return string
 func (this *Stream) GetBody() string {
     if this.Body == nil {
         return ""
     }
+
     return this.Body.(string)
 }
 
+// Get body data (parsed).
+//
+// @param  to interface{}
+// @return (interface{}, error)
 func (this *Stream) GetBodyData(to interface{}) (interface{}, error) {
+    // error?
     if this.Error != "" {
         data, err := util.ParseBody(this.Body.(string), &StreamError{})
         if err != nil {
             return nil, err
         }
+
         return nil, _fmt.Errorf("Stream Error >> error: \"%s\", reason: \"%s\"",
             data.(*StreamError).ErrorKey,
             data.(*StreamError).ErrorValue,
@@ -120,36 +146,58 @@ func (this *Stream) GetBodyData(to interface{}) (interface{}, error) {
     if err != nil {
         return nil, err
     }
+
     return data, nil
 }
 
+// Set error.
+//
+// @param  body string
+// @return void
 func (this *Stream) SetError(body string) {
     if body == "" {
         body = this.Body.(string)
     }
+
     data, err := util.ParseBody(body, &StreamError{})
     if data != nil && err == nil {
         var errorKey   = data.(*StreamError).ErrorKey
         var errorValue = data.(*StreamError).ErrorValue
+
         this.Error = _fmt.Sprintf("Stream Error >> error: \"%s\", reason: \"%s\"",
             errorKey,
             errorValue,
         )
+
         this.ErrorData = util.MapString()
         this.ErrorData["error"]  = errorKey
         this.ErrorData["reason"] = errorValue
     }
 }
 
+// Get error.
+//
+// @return string
 func (this *Stream) GetError() string {
     return this.Error
 }
+
+// Get error value.
+//
+// @return string
 func (this *Stream) GetErrorValue(key string) string {
     return this.ErrorData[key]
 }
 
+// Get stream as string
+//
+// @param  firstLine string
+// @return string
+// @protected
 func (this *Stream) toString(firstLine string) string {
     var str = firstLine
+
+    // add headers
     if this.Headers != nil {
         for key, value := range this.Headers {
             if key == "0" { // response only
@@ -160,8 +208,11 @@ func (this *Stream) toString(firstLine string) string {
             }
         }
     }
+
+    // add headers/body seperator
     str += "\r\n"
 
+    // add body
     if this.Body != nil {
         switch this.Body.(type) {
             case string:
