@@ -728,7 +728,7 @@ func MapInt() (map[int]string) {
     return make(map[int]string)
 }
 
-// String maker.
+// String map maker.
 //
 // @return (map[string]string)
 func MapString() (map[string]string) {
