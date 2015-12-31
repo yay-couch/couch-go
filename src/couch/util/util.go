@@ -389,7 +389,7 @@ func StringSearch(input, search string) (bool) {
 //
 // @param  input string
 // @param  chars string
-// @return (bool)
+// @return (string)
 func Trim(input, chars string) (string) {
     return _str.Trim(input, chars)
 }
