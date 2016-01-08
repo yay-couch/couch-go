@@ -29,7 +29,7 @@ type Couch struct {
 // @const mixed
 const (
     NAME    = "Couch"
-    VERSION = "1.0.0"
+    VERSION = "1.0.1"
     // used to dump whole stream
     DEBUG   = false
 )
