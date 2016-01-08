@@ -250,7 +250,7 @@ func (this *Database) CreateDocumentAll(
         // filter documents
         for key, value := range doc.(map[string]interface{}) {
             // this is create method, no update allowed
-            if key == "_id" || key == "_id" || key == "_deleted" {
+            if key == "_rev" || key == "_deleted" {
                 continue
             }
             docs[i][key] = value
