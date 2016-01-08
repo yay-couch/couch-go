@@ -227,7 +227,7 @@ func (this *Document) Ping(statusCode uint16) (bool) {
     }
 
     return (statusCode == this.Database.Client.
-        Head(this.Database.Name +"/"+ id, nil, headers).GetStatusCode())
+        Head(this.Database.Name +"/"+ util.UrlEncode(id), nil, headers).GetStatusCode())
 }
 
 // Check is exists.
@@ -246,7 +246,7 @@ func (this *Document) IsExists() (bool) {
     }
 
     var statusCode = this.Database.Client.
-        Head(this.Database.Name +"/"+ id, nil, headers).GetStatusCode()
+        Head(this.Database.Name +"/"+ util.UrlEncode(id), nil, headers).GetStatusCode()
 
     return (statusCode == 200 || statusCode == 304)
 }
@@ -265,7 +265,7 @@ func (this *Document) IsNotModified() (bool) {
     headers["If-None-Match"] = util.Quote(rev);
 
     return (304 == this.Database.Client.
-        Head(this.Database.Name +"/"+ id, nil, headers).GetStatusCode())
+        Head(this.Database.Name +"/"+ util.UrlEncode(id), nil, headers).GetStatusCode())
 }
 
 // Find.
@@ -284,7 +284,7 @@ func (this *Document) Find(query map[string]interface{}) (map[string]interface{}
         query["rev"] = this.Rev
     }
 
-    data, err := this.Database.Client.Get(this.Database.Name +"/"+ id, query, nil).
+    data, err := this.Database.Client.Get(this.Database.Name +"/"+ util.UrlEncode(id), query, nil).
         GetBodyData(nil)
     if err != nil {
         return nil, err
@@ -318,7 +318,7 @@ func (this *Document) FindStruct(
         query["rev"] = this.Rev
     }
 
-    data, err := this.Database.Client.Get(this.Database.Name +"/"+ id, query, nil).
+    data, err := this.Database.Client.Get(this.Database.Name +"/"+ util.UrlEncode(id), query, nil).
         GetBodyData(data)
     if err != nil {
         return nil, err
@@ -484,7 +484,7 @@ func (this *Document) Remove(args... bool) (map[string]interface{}, error) {
         }
     }
 
-    data, err := this.Database.Client.Delete(this.Database.Name +"/"+ id, query, headers).
+    data, err := this.Database.Client.Delete(this.Database.Name +"/"+ util.UrlEncode(id), query, headers).
         GetBodyData(nil)
     if err != nil {
         return nil, err
@@ -523,7 +523,7 @@ func (this *Document) Copy(dest string, args... bool) (map[string]interface{}, e
             headers["X-Couch-Full-Commit"] = "true"
         }
     }
-    data, err := this.Database.Client.Copy(this.Database.Name +"/"+ id, query, headers).
+    data, err := this.Database.Client.Copy(this.Database.Name +"/"+ util.UrlEncode(id), query, headers).
         GetBodyData(nil)
     if err != nil {
         return nil, err
@@ -564,7 +564,7 @@ func (this *Document) CopyFrom(dest string, args... bool) (map[string]interface{
         }
     }
 
-    data, err := this.Database.Client.Copy(this.Database.Name +"/"+ id, query, headers).
+    data, err := this.Database.Client.Copy(this.Database.Name +"/"+ util.UrlEncode(id), query, headers).
         GetBodyData(nil)
     if err != nil {
         return nil, err
@@ -606,7 +606,7 @@ func (this *Document) CopyTo(dest, destRev string, args... bool) (map[string]int
         }
     }
 
-    data, err := this.Database.Client.Copy(this.Database.Name +"/"+ id, query, headers).
+    data, err := this.Database.Client.Copy(this.Database.Name +"/"+ util.UrlEncode(id), query, headers).
         GetBodyData(nil)
     if err != nil {
         return nil, err
