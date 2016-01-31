@@ -216,8 +216,7 @@ func (this *Client) DoRequest(
 // @return (*couch.http.Response)
 // @panics
 func (this *Client) Head(
-    uri string, uriParams interface{},
-    headers interface{},
+    uri string, uriParams interface{}, headers interface{},
 ) (*http.Response) {
     return this.DoRequest(http.METHOD_HEAD +" /"+ uri, uriParams, nil, headers)
 }
@@ -230,8 +229,7 @@ func (this *Client) Head(
 // @return (*couch.http.Response)
 // @panics
 func (this *Client) Get(
-    uri string, uriParams interface{},
-    headers interface{},
+    uri string, uriParams interface{}, headers interface{},
 ) (*http.Response) {
     return this.DoRequest(http.METHOD_GET +" /"+ uri, uriParams, nil, headers)
 }
@@ -245,9 +243,7 @@ func (this *Client) Get(
 // @return (*couch.http.Response)
 // @panics
 func (this *Client) Post(
-    uri string, uriParams interface{},
-    body interface{},
-    headers interface{},
+    uri string, uriParams interface{}, body interface{}, headers interface{},
 ) (*http.Response) {
     return this.DoRequest(http.METHOD_POST +" /"+ uri, uriParams, body, headers)
 }
@@ -261,9 +257,7 @@ func (this *Client) Post(
 // @return (*couch.http.Response)
 // @panics
 func (this *Client) Put(
-    uri string, uriParams interface{},
-    body interface{},
-    headers interface{},
+    uri string, uriParams interface{}, body interface{}, headers interface{},
 ) (*http.Response) {
     return this.DoRequest(http.METHOD_PUT +" /"+ uri, uriParams, body, headers)
 }
@@ -276,8 +270,7 @@ func (this *Client) Put(
 // @return (*couch.http.Response)
 // @panics
 func (this *Client) Delete(
-    uri string, uriParams interface{},
-    headers interface{},
+    uri string, uriParams interface{}, headers interface{},
 ) (*http.Response) {
     return this.DoRequest(http.METHOD_DELETE +" /"+ uri, uriParams, nil, headers)
 }
@@ -290,8 +283,7 @@ func (this *Client) Delete(
 // @return (*couch.http.Response)
 // @panics
 func (this *Client) Copy(
-    uri string, uriParams interface{},
-    headers interface{},
+    uri string, uriParams interface{}, headers interface{},
 ) (*http.Response) {
     return this.DoRequest(http.METHOD_COPY +" /"+ uri, uriParams, nil, headers)
 }
