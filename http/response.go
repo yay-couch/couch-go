@@ -92,10 +92,10 @@ func (this *Response) SetStatus(status string) {
         // update http version
         this.HttpVersion = match[1]
         // set status code/text
-        responseCode, _ := _strc.Atoi(match[2])
-        responseText    := _str.TrimSpace(match[3])
-        this.SetStatusCode(uint16(responseCode))
-        this.SetStatusText(string(responseText))
+        statusCode, _ := _strc.Atoi(match[2])
+        statusText    := _str.TrimSpace(match[3])
+        this.SetStatusCode(uint16(statusCode))
+        this.SetStatusText(string(statusText))
     }
 }
 
