@@ -20,11 +20,11 @@ doc.Save()
 Configuration is optional but you can provide all these options as `map`;
 ```go
 map[string]interface{}{
-    Scheme        : "http",
-    Host          : "localhost",
-    Port   uint16 : 5984,
-    Username      : "",
-    Password      : "",
+   Scheme        : "http",
+   Host          : "localhost",
+   Port   uint16 : 5984,
+   Username      : "",
+   Password      : "",
 }
 ```
 
@@ -61,9 +61,9 @@ data, err := res.GetBodyData(nil)
 
 // data type is MyDoc
 type MyDoc struct {
-    Id  string
-    Rev string
-    // ...
+   Id  string
+   Rev string
+   // ...
 }
 data, err := res.GetBodyData(&MyDoc{})
 
@@ -147,10 +147,10 @@ ok,   err     := Database.SetRevisionLimit(limit)
 
 // examples
 data, err := Database.CreateDocument(map[string]interface{}{
-    "name": "CouchDB", "is_nosql": true,
+   "name": "CouchDB", "is_nosql": true,
 })
 if err != nil {
-    panic(err)
+   panic(err)
 }
 util.Dumpf("Create Document >> %+v", data)
 util.Dumpf("Create Document >> doc.ok: %v", data["ok"])
@@ -158,16 +158,16 @@ util.Dumpf("Create Document >> doc.id: %s", data["id"])
 util.Dumpf("Create Document >> doc.rev: %s", data["rev"])
 // or
 for key, value := range data {
-    util.Dumpf("Create Document >> doc.%s: %v", key, value)
+   util.Dumpf("Create Document >> doc.%s: %v", key, value)
 }
 
 data, err := Database.CreateDocumentAll([]interface{}{
-    0: map[string]interface{}{"name": "CouchDB", "is_nosql": true},
-    1: map[string]interface{}{"name": "MongoDB", "is_nosql": true},
-    2: map[string]interface{}{"name": "MySQL", "is_nosql": false},
+   0: map[string]interface{}{"name": "CouchDB", "is_nosql": true},
+   1: map[string]interface{}{"name": "MongoDB", "is_nosql": true},
+   2: map[string]interface{}{"name": "MySQL", "is_nosql": false},
 })
 if err != nil {
-    panic(err)
+   panic(err)
 }
 util.Dumpf("Create Document All >> %+v", data)
 util.Dumpf("Create Document All >> doc.0.ok: %v", util.Dig("0.ok", data))
@@ -175,9 +175,9 @@ util.Dumpf("Create Document All >> doc.0.id: %s", util.Dig("0.id", data))
 util.Dumpf("Create Document All >> doc.0.rev: %s", util.Dig("0.rev", data))
 // or
 for i, doc := range data {
-    for key, value := range doc {
-        util.Dumpf("Create Document All >> doc.%d.%s: %v", i, key, value)
-    }
+   for key, value := range doc {
+      util.Dumpf("Create Document All >> doc.%d.%s: %v", i, key, value)
+   }
 }
 ```
 
@@ -218,38 +218,38 @@ data, err := Document.CopyTo(dest, destRev, args...[?batch, ?fullCommit])
 
 // examples
 var doc = couch.NewDocument(Database)
-doc.Set("_id", "1ec1098a")
+doc.Set("_id", "abc")
 // or like key=>value pairs
 doc.Set(
-    "_id", "1ec1098a",
-    "_rev", "1-5637fd00",
+   "_id", "abc",
+   "_rev", "1-abc",
 )
 
 var doc = couch.NewDocument(
-    Database,
-    "_id", "1ec1098a",
-    // ...
+   Database,
+   "_id", "abc",
+   // ...
 )
 data, err := doc.Find(nil)
 if err != nil {
-    panic(err)
+   panic(err)
 }
 util.Dumpf("Document Find >> %v", data)
 util.Dumpf("Document Find >> _id: %s", data["_id"])
 
 var doc = couch.NewDocument(
-    Database,
-    "_id", "1ec1098a",
+   Database,
+   "_id", "abc",
 )
 type Doc struct {
-    Id   string `json:"_id"`
-    Rev  string `json:"_rev"`
-    Name string
-    // ...
+   Id   string `json:"_id"`
+   Rev  string `json:"_rev"`
+   Name string
+   // ...
 }
 data, err := doc.FindStruct(&Doc{}, nil)
 if err != nil {
-    panic(err)
+   panic(err)
 }
 util.Dumpf("Document Find Func >> doc: %+v", data)
 util.Dumpf("Document Find Func >> doc._id: %s", data.(*Doc).Id)
@@ -348,9 +348,9 @@ query := query.ToString()
 
 // examples
 query.Set("conflicts", true).
-      Set("stale", "ok").
-      Skip(1).
-      Limit(2)
+     Set("stale", "ok").
+     Skip(1).
+     Limit(2)
 
 dump query.ToString() // conflicts=true&stale=ok&skip=1&limit=2
 ```
@@ -389,7 +389,7 @@ date := client.GetResponse().GetHeader("Date")
 // get response all headers
 headers := client.GetResponse().GetHeaderAll()
 for key, value := range headers {
-    dump key, value
+   dump key, value
 }
 
 // get response body
@@ -397,8 +397,8 @@ body := client.GetResponse().GetBody()
 
 // get response body to
 type Body struct {
-    CouchDB string
-    ...
+   CouchDB string
+   ...
 }
 body := client.GetResponse().GetBodyData(&Body{})
 dump body.(*Body).CouchDB
@@ -418,9 +418,9 @@ doc.Save()
 
 // but could be so
 if 201 != client.GetResponse().GetStatusCode() {
-    dump "nö!"
-    // or print response error
-    dump client.GetResponse().GetError()
+   dump "nö!"
+   // or print response error
+   dump client.GetResponse().GetError()
 }
 ```
 
