@@ -2,7 +2,7 @@
 
 ### sublime shortcut run command tool ###
 # ~$ cd ~/
-# ~$ wget https://raw.githubusercontent.com/qeremy/couch-go/master/bin/go-run
+# ~$ wget https://raw.githubusercontent.com/yay-couch/couch-go/master/.bin/go-run
 # ~$ chmod +x ~/go-run
 # ~$ cp ~/go-run /usr/local/bin
 # ~$ echo '{"cmd": ["go-run", "main.go", "--sublime"]}' \
@@ -18,22 +18,22 @@ cy="\033[0;33m" # yellow
 file=$1
 
 if [[ $file == "" ]]; then
-    # no color for sublime console
-    if [[ $2 == "--sublime" ]]; then
-        echo "Usage: ~/go-run <path>/main.go"
-        echo "Exiting..."
-    else
-        echo -e "${cr}Usage: ~/go-run <path>/main.go${cn}"
-        echo -e "${cy}Exiting...${cn}"
-    fi
-    exit
+   # no color for sublime console
+   if [[ $2 == "--sublime" ]]; then
+      echo "Usage: ~/go-run <path>/main.go"
+      echo "Exiting..."
+   else
+      echo -e "${cr}Usage: ~/go-run <path>/main.go${cn}"
+      echo -e "${cy}Exiting...${cn}"
+   fi
+   exit
 fi
 
 # no color for sublime console
 if [[ $2 == "--sublime" ]]; then
-    echo "Executing '$(pwd)/$file'..."
+   echo "Executing '$(pwd)/$file'..."
 else
-    echo -e "${cg}Executing '$(pwd)/$file'...${cn}"
+   echo -e "${cg}Executing '$(pwd)/$file'...${cn}"
 fi
 
 # run
