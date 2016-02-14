@@ -1,4 +1,4 @@
-Just a wrapper for CouchDB like [Couch PHP](//github.com/qeremy/couch) or [Couch JS](//github.com/qeremy/couch-js) libraries.
+Simply port of [Couch](https://github.com/yay-couch/couch) library for Go.
 
 Notice: See CouchDB's official documents before using this library.
 
