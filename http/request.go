@@ -69,7 +69,7 @@ func NewRequest(config map[string]interface{}) (*Request) {
    this.Headers["Connection"] = "close"
    this.Headers["Accept"] = "application/json"
    this.Headers["Content-Type"] = "application/json"
-   this.Headers["User-Agent"] = _fmt.Sprintf("%s/v%s (+http://github.com/qeremy/couch-go)",
+   this.Headers["User-Agent"] = _fmt.Sprintf("%s/v%s (+http://github.com/yay-couch/couch-go)",
       config["Couch.NAME"], config["Couch.VERSION"])
 
    // add auth header
