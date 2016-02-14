@@ -3,6 +3,7 @@ Simply port of [Couch](https://github.com/yay-couch/couch) library for Go.
 Notice: See CouchDB's official documents before using this library.
 
 ## In a Nutshell
+
 ```go
 // create a fresh document
 doc := Couch.NewDocument(db)
@@ -15,6 +16,7 @@ doc.Save()
 ```
 
 ## Configuration
+
 Configuration is optional but you can provide all these options as `map`;
 ```go
 map[string]interface{}{
@@ -25,9 +27,11 @@ map[string]interface{}{
     Password      : "",
 }
 ```
+
 ## Objects
 
 ### Couch Object
+
 ```go
 // init couch object with default config and without debug
 Couch := couch.New(nil, false)
@@ -41,6 +45,7 @@ Couch.SetConfig(config)
 ```
 
 ### Client Object
+
 ```go
 // used in Server and Database objects
 Client := couch.NewClient(Couch)
@@ -84,6 +89,7 @@ Response := Client.GetResponse() // *couch.http.Response
 ```
 
 ### Server Object
+
 ```go
 Server := couch.NewServer(Client)
 
@@ -108,6 +114,7 @@ data, err := Server.RemoveConfig(section, key)
 ```
 
 ### Database Object
+
 ```go
 Database := couch.NewDatabase(Client, "foo")
 
@@ -175,6 +182,7 @@ for i, doc := range data {
 ```
 
 ### Document Object
+
 ```go
 Document := couch.NewDocument(Database, data...)
 
@@ -250,6 +258,7 @@ util.Dumpf("Document Find Func >> doc.name: %s", data.(*Doc).Name)
 ```
 
 ### DocumentAttachment Object
+
 ```go
 DocumentAttachment := couch.NewDocumentAttachment(Document, "./attc.txt", "")
 
@@ -284,11 +293,13 @@ attc.Remove()
 ```
 
 ### DocumentDesign Object
+
 ```go
 // @todo
 ```
 
 ## Uuid
+
 ```go
 import "couch/uuid"
 
@@ -320,6 +331,7 @@ dump uuid.Generate(uuid.TIMESTAMP) // unix epoch
 ```
 
 ## Query
+
 ```go
 import "couch/query"
 
@@ -344,6 +356,7 @@ dump query.ToString() // conflicts=true&stale=ok&skip=1&limit=2
 ```
 
 ## Request / Response
+
 ```go
 // after any http stream (server ping, database ping, document save etc)
 
