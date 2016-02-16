@@ -102,8 +102,8 @@ func NewClient(couch *Couch) (*Client) {
    }
 
    Config["Scheme"]   = this.Scheme
-   Config["Host"]    = this.Host
-   Config["Port"]    = this.Port
+   Config["Host"]     = this.Host
+   Config["Port"]     = this.Port
    Config["Username"] = this.Username
    Config["Password"] = this.Password
 
