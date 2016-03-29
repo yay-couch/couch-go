@@ -665,7 +665,7 @@ func DigString(key string, object interface{}) (string) {
 // @return bool
 func DigBool(key string, object interface{}) (bool) {
    if value := Dig(key, object); value != nil {
-      return true
+      return (value.(bool) == true)
    }
    return false
 }
