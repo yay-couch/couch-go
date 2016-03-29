@@ -428,8 +428,8 @@ func FileExists(file string) (bool) {
 
 // Get file size.
 //
-// @param file string
-// @retur (int64)
+// @param  file string
+// @return (int64)
 func FileSize(file string) (int64) {
    if stat, err := _os.Stat(file); err == nil {
       return stat.Size()
@@ -439,8 +439,8 @@ func FileSize(file string) (int64) {
 
 // Get file info.
 //
-// @param file string
-// @retur (map[string]string, error)
+// @param  file string
+// @return (map[string]string, error)
 func FileInfo(file string) (map[string]string, error) {
    if !FileExists(file) {
       return nil, _fmt.Errorf("Given file does not exist! file: '%s'", file)
