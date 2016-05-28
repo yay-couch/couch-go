@@ -141,8 +141,8 @@ func (this *Document) SetAttachment(attachment interface{}) {
 func (this *Document) SetData(data map[string]interface{}) {
    for key, value := range data {
       // set special properties
-      if key == "_id"     { this.SetId(value) }
-      if key == "_rev"    { this.SetRev(value.(string)) }
+      if key == "_id"      { this.SetId(value) }
+      if key == "_rev"     { this.SetRev(value.(string)) }
       if key == "_deleted" { this.SetDeleted(value.(bool)) }
 
       // set "_attachments" and pass
