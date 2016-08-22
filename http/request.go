@@ -187,7 +187,7 @@ func (this *Request) SetBody(body interface{}) {
             // @overwrite
             if this.GetHeader("Content-Type") == "application/json" {
                // embrace with quotes for valid JSON body
-               body = util.Quote(body)
+               body = "\""+ util.Quote(body) +"\""
             }
             this.Body = body
          default:
