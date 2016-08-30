@@ -107,8 +107,8 @@ func (this *Database) Replicate(
    target string, targetCreate bool) (map[string]interface{}, error) {
    // prepare body
    body := util.ParamList(
-      "source", this.Name,
-      "target", target,
+      "source",        this.Name,
+      "target",        target,
       "create_target", targetCreate,
    )
 
