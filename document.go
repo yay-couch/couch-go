@@ -123,7 +123,7 @@ func (this *Document) SetAttachment(attachment interface{}) {
 
    // file name must be uniq
    if _, ok := this.Attachments[attachment.(*DocumentAttachment).FileName]; ok {
-      panic("Attachment is alredy exists on this document!")
+      panic("Attachment is already exists on this document!")
    }
 
    if this.Attachments == nil {
